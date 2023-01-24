@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Stride.Core.Assets.CompilerApp</name>
+    </assembly>
+    <members>
+        <member name="T:Stride.Core.Assets.CompilerApp.BundlePacker">
+            <summary>
+            Class that will help generate package bundles.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Assets.CompilerApp.BundlePacker.Build(Stride.Core.Diagnostics.Logger,Stride.Core.Assets.PackageSession,Stride.Core.Assets.Package,System.String,System.String,System.Collections.Generic.ISet{Stride.Core.Storage.ObjectId},System.Boolean,System.Collections.Generic.List{System.String})">
+            <summary>
+            Builds bundles. It will automatically analyze assets and chunks to determine dependencies and what should be embedded in which bundle.
+            Bundle descriptions will be loaded from <see cref="P:Stride.Core.Assets.Package.Bundles" /> provided by the <see cref="!:packageSession" />, and copied to <see cref="!:outputDirectory" />.
+            </summary>
+            <param name="logger">The builder logger.</param>
+            <param name="packageSession">The project session.</param>
+            <param name="rootPackage">The root package.</param>
+            <param name="indexName">Name of the index file.</param>
+            <param name="outputDirectory">The output directory.</param>
+            <param name="disableCompressionIds">The object id that should be kept uncompressed in the bundle (everything else will be compressed using LZ4).</param>
+            <param name="useIncrementalBundles">Specifies if incremental bundles should be used, or writing a complete new one.</param>
+            <exception cref="T:System.InvalidOperationException">
+            </exception>
+        </member>
+        <member name="M:Stride.Core.Assets.CompilerApp.BundlePacker.GetChunkReferences(Stride.Core.IO.DatabaseFileProvider,Stride.Core.Storage.ObjectId@)">
+            <summary>
+            Gets and cache the asset url referenced by the chunk with the given identifier.
+            </summary>
+            <param name="objectId">The object identifier.</param>
+            <returns>The list of asset url referenced.</returns>
+        </member>
+        <member name="M:Stride.Core.Assets.CompilerApp.BundlePacker.TopologicalSort``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Collections.Generic.IEnumerable{``0}})">
+            <summary>
+            Performs a topological sort.
+            </summary>
+            <typeparam name="T">The type of item.</typeparam>
+            <param name="source">The source items.</param>
+            <param name="dependencies">The function that will give dependencies for a given item.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Stride.Core.Assets.CompilerApp.LogListenerRedirectToAction">
+            <summary>
+            A log listener redirecting logs to an action
+            </summary>
+        </member>
+        <member name="P:Stride.Core.Assets.CompilerApp.LogListenerRedirectToAction.LogLevel">
+            <summary>
+            Gets or sets the minimum log level handled by this listener.
+            </summary>
+            <value>The minimum log level.</value>
+        </member>
+        <member name="M:Stride.Core.Assets.CompilerApp.PackageBuilder.Cancel">
+            <summary>
+            Cancels this build.
+            </summary>
+            <returns><c>true</c> if the build was cancelled, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="P:Stride.Core.Assets.CompilerApp.PackageBuilderOptions.LoggerType">
+            <summary>
+            Gets the logger messages type depending on the current options
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Assets.CompilerApp.PackageBuilderOptions.IsValidForSlave">
+            <summary>
+            This function indicate if the current builder options mean to execute a slave session
+            </summary>
+            <returns>true if the options mean to execute a slave session</returns>
+        </member>
+        <member name="M:Stride.Core.Assets.CompilerApp.PackageBuilderOptions.ValidateOptions">
+            <summary>
+            Ensure every parameter is correct for a master execution. Throw an OptionException if a parameter is wrong
+            </summary>
+            <exception cref="T:Mono.Options.OptionException">This tool requires one input file.;filename
+            or
+            The given working directory \ + workingDir + \ does not exist.;workingdir</exception>
+        </member>
+        <member name="T:Stride.Core.Assets.CompilerApp.ResolvedBundle">
+            <summary>
+            Helper class that represents additional data added to a <see cref="T:Stride.Core.Assets.Bundle"/> when resolving asset.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.Name">
+            <summary>
+            Name of the bundle.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.Source">
+            <summary>
+            Represented <see cref="T:Stride.Core.Assets.Bundle"/>.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.AssetUrls">
+            <summary>
+            The asset urls this bundle should include (a.k.a. "root assets").
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.Dependencies">
+            <summary>
+            The bundle dependencies.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.ObjectIds">
+            <summary>
+            The object ids referenced directly by this bundle.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.DependencyObjectIds">
+            <summary>
+            The object ids referenced indirectly by this bundle.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.IndexMap">
+            <summary>
+            The index map that this bundle.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.DependencyIndexMap">
+            <summary>
+            The index map merged from all this bundle dependencies.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Assets.CompilerApp.ResolvedBundle.BundleBackend">
+            <summary>
+            The bundle backend.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.Assets.CompilerApp.DoNothingCommand.Title">
+            <inheritdoc/>
+        </member>
+        <member name="T:Stride.Core.LoaderToolLocator">
+            <summary>
+            Helper class to find executable (usually in folder tools/TFM) from a .NET Core library (usually in folder lib/TFM).
+            This follow the layout generated by Stride.NuGetLoader that is shipped with every .exe project such as GameStudio, Asset Compiler, Connection router, etc.
+            </summary>
+        </member>
+        <member name="T:Stride.Core.VisualStudio.STAContext">
+            <summary>
+            Post actions on a <see cref="T:System.Threading.Thread"/> having <see cref="F:System.Threading.ApartmentState.STA"/>.
+            </summary>
+        </member>
+        <member name="T:Stride.Core.VisualStudio.VisualStudioDebugger">
+            <summary>
+            Helper class to attach Visual Studio instances to a process for debugging.
+            </summary>
+        </member>
+        <member name="T:Stride.Core.VisualStudio.VisualStudioDTE">
+            <summary>
+            Helper class to locate Visual Studio instances.
+            </summary>
+        </member>
+        <member name="T:Stride.StrideVersion">
+            <summary>
+            Internal version used to identify Stride version.
+            </summary>
+            <remarks>
+            During package build, PackageUpdateVersionTask is updating that file and expect some specific text regex so be careful if you change any of this.
+            </remarks>
+        </member>
+        <member name="F:Stride.StrideVersion.PublicVersion">
+            <summary>
+            The version used by editor for display purpose. The 4th digit will automatically be replaced by the git height when building packages with Stride.Build.
+            </summary>
+        </member>
+        <member name="F:Stride.StrideVersion.AssemblyVersion">
+            <summary>
+            The current assembly version as text, currently same as <see cref="F:Stride.StrideVersion.PublicVersion"/>.
+            </summary>
+        </member>
+        <member name="F:Stride.StrideVersion.NuGetVersionSimple">
+            <summary>
+            The NuGet package version without special tags.
+            </summary>
+        </member>
+        <member name="F:Stride.StrideVersion.NuGetVersion">
+            <summary>
+            The NuGet package version.
+            </summary>
+        </member>
+        <member name="F:Stride.StrideVersion.NuGetVersionSuffix">
+            <summary>
+            The NuGet package suffix (i.e. -beta).
+            </summary>
+        </member>
+        <member name="F:Stride.StrideVersion.BuildMetadata">
+            <summary>
+            The build metadata, usually +g[git_hash] during package. Automatically set by Stride.GitVersioning.GenerateVersionFile.
+            </summary>
+        </member>
+        <member name="F:Stride.StrideVersion.AssemblyInformationalVersion">
+            <summary>
+            The informational assembly version, containing -beta01 or +g[git_hash] during package.
+            </summary>
+        </member>
+        <member name="T:Stride.PublicKeys">
+            <summary>
+            Assembly signing information.
+            </summary>
+        </member>
+        <member name="F:Stride.PublicKeys.Default">
+            <summary>
+            Assembly name suffix that contains signing information.
+            </summary>
+        </member>
+    </members>
+</doc>

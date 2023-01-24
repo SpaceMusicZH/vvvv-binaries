@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" Id="M6zDtP7qKQBNIqOpZf9jKo" LanguageVersion="2021.4.5.764" Version="0.128">
+  <NugetDependency Id="TLm27rLgDRMOfshTd8FG5S" Location="VL.CoreLib" Version="2021.4.5" />
+  <Patch Id="ET5A39rC3G1LQ2XPOFRcj7">
+    <Canvas Id="UeizUXMvVlOQaGOJsgEosP" DefaultCategory="Main" BordersChecked="false" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="HpoIYeyguRQOSar6n6R4gc">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <FullNameCategoryReference ID="Primitive" />
+      </p:NodeReference>
+      <Patch Id="I8M8PlFBVzqPy77U62eL4B">
+        <Canvas Id="D3DqRTITLBcMUpEPJREElP" CanvasType="Group">
+          <Node Bounds="273,492,65,19" Id="ClDpEjWIJQEOqqWehGTAfc">
+            <p:NodeReference LastCategoryFullName="Audio.Sink" LastSymbolSource="VL.Audio.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="WavWriter" />
+            </p:NodeReference>
+            <p:HelpFocus p:Assembly="VL.Lang" p:Type="VL.Model.HelpPriority">High</p:HelpFocus>
+            <Pin Id="NdC5LRUdVnLOD9oM9KZ2Nn" Name="Input" Kind="InputPin" />
+            <Pin Id="LpKddOLJvZRLuAlH5pevJ3" Name="Filename" Kind="InputPin" />
+            <Pin Id="AqY9zHEgGa9POkuPIwvSMm" Name="Pause" Kind="InputPin" />
+            <Pin Id="QWnWdaJxHRDOC4IZBH5dty" Name="Write" Kind="InputPin" />
+            <Pin Id="EVeCLkcQjZnP3TrZZ0nL83" Name="Time Written" Kind="OutputPin" />
+            <Pin Id="G2cMcfeD0COOi61YhOta5P" Name="Samples Written" Kind="OutputPin" />
+          </Node>
+          <Pad Id="EEHOardNdJcN7leVo84Dey" Comment="Write" Bounds="338,452,35,35" ShowValueBox="true" isIOBox="true" Value="False">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="Boolean" />
+              <FullNameCategoryReference ID="Primitive" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Toggle</p:buttonmode>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="MRyBH3wwMdtP5vDyDyohOZ" Comment="Filename" Bounds="279,371,140,15" ShowValueBox="true" isIOBox="true" Value="c:\temp\fooq.wav">
+            <p:TypeAnnotation LastCategoryFullName="IO" LastSymbolSource="CoreLibBasics.vl">
+              <Choice Kind="TypeFlag" Name="Path" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="153,368,52,19" Id="QazKVJgi0aVNlHlccXdUJt">
+            <p:NodeReference LastCategoryFullName="Audio.Source" LastSymbolSource="VL.Audio.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="AudioIn" />
+            </p:NodeReference>
+            <Pin Id="H6ClgF5vg06LU4b1sjt4Mp" Name="Output" Kind="OutputPin" />
+          </Node>
+          <Pad Id="QX0Z888xlnFPl181SuNsUS" Comment="Pause" Bounds="311,402,35,35" ShowValueBox="true" isIOBox="true" Value="False">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="Boolean" />
+              <FullNameCategoryReference ID="Primitive" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Press</p:buttonmode>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="KcPfGGh3o1zLYYNsacltm8" Comment="Time Written" Bounds="275,552,35,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="PBeYOM7j80jLQuTWQu0p8P" Bounds="422,448,235,62" ShowValueBox="true" isIOBox="true" Value="&lt; As long as write is active, the file is locked and cannot be opened elsewhere. ">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="T7b7tzgqI6ILfu1aeM11LG" Bounds="422,400,239,38" ShowValueBox="true" isIOBox="true" Value="&lt; Use pause to pause/resume recording to the same file">
+            <p:TypeAnnotation>
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Node Bounds="153,405" Id="ICKQNY1VMRNLvqj8avfm36">
+            <p:NodeReference LastCategoryFullName="Collections.Sequence" LastSymbolSource="VL.Collections.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="OperationCallFlag" Name="FirstOrDefault" />
+            </p:NodeReference>
+            <Pin Id="CynWdVJbFHmN2rmHNGoFAA" Name="Input" Kind="StateInputPin" />
+            <Pin Id="HpmmaOeVA7CQHz8snXXv4p" Name="Default Value" Kind="InputPin" />
+            <Pin Id="H7tLJEw7brOOjaIBc9PXbA" Name="Output" Kind="StateOutputPin" />
+            <Pin Id="V33kumtjFC8OOyiQakXSrp" Name="Result" Kind="OutputPin" />
+          </Node>
+        </Canvas>
+        <Patch Id="Iql6YoywPFuM2FmfXQ3aiG" Name="Create" />
+        <Patch Id="GfZ2HETUHimLlqHKatlsLL" Name="Update" />
+        <ProcessDefinition Id="BKrmYS807OUPOYIy8984rc">
+          <Fragment Id="VaaBbmU4IZSQDBQEh65irc" Patch="Iql6YoywPFuM2FmfXQ3aiG" Enabled="true" />
+          <Fragment Id="UTu6W201LsiPmViwtZBkoZ" Patch="GfZ2HETUHimLlqHKatlsLL" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="CutbGUFzK9gPoS2PeOFFnX" Ids="EEHOardNdJcN7leVo84Dey,QWnWdaJxHRDOC4IZBH5dty" />
+        <Link Id="KHm0zwWa76GMnaxzG5f1I3" Ids="QX0Z888xlnFPl181SuNsUS,AqY9zHEgGa9POkuPIwvSMm" />
+        <Link Id="ApHNPmBy47fLdOVIm7kpgQ" Ids="EVeCLkcQjZnP3TrZZ0nL83,KcPfGGh3o1zLYYNsacltm8" />
+        <Link Id="MbfNTfNzSvANxrLc5qMptE" Ids="MRyBH3wwMdtP5vDyDyohOZ,LpKddOLJvZRLuAlH5pevJ3" />
+        <Link Id="Id4TYgIokEEM0s5F1tRtan" Ids="H6ClgF5vg06LU4b1sjt4Mp,CynWdVJbFHmN2rmHNGoFAA" />
+        <Link Id="VaByh127bXhLyysn0uGOSN" Ids="V33kumtjFC8OOyiQakXSrp,NdC5LRUdVnLOD9oM9KZ2Nn" />
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="HvzMQdtRhliMLXQhNAF7T1" Location="VL.CoreLib" Version="2021.4.5" />
+  <NugetDependency Id="Lyjw8dV97GgOuX1bgTxjOd" Location="VL.Audio" Version="0.0.0.0" />
+</Document>

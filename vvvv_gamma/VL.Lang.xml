@@ -1,0 +1,3557 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Lang</name>
+    </assembly>
+    <members>
+        <member name="F:VL.Lang.Export.AssetBehavior.PointToOriginal">
+            <summary>
+            Point to original asset files
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Export.AssetBehavior.PointToOutput">
+            <summary>
+            Point to copied files
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Export.AssetBehavior.PointToOutputAndCopy">
+            <summary>
+            Point to copied files and instruct copy
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Export.ExportOptions">
+            <summary>
+            Various options for the exporter.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.OutputDirectory">
+            <summary>
+            The output directory where the app will be placed (OutputDirectory/AppName/AppName.exe)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.ApplicationIcon">
+            <summary>
+            The application icon.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.CleanBuildDirectory">
+            <summary>
+            Whether or not the build directory (OutputDirectory/src) should be cleaned before doing the export.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.TargetOS">
+            <summary>
+            The target OS.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.PlatformTarget">
+            <summary>
+            The platform target to use for the entry point.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.OutputType">
+            <summary>
+            The output type to use for the entry point.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Export.ExportOptions.AssetBehavior">
+            <summary>
+            How paths to assets are generated.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Helper.GraphHelper.Release``1(System.Collections.Generic.List{System.Collections.Generic.HashSet{VL.Lang.Helper.Vertex{``0}}})">
+            <summary>
+            Release the allocated objects back into the pool.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Helper.ValueList`1">
+            <summary>
+            Allows to return multiple items efficiently without losing the option of using LINQ.
+            </summary>
+            <remarks>
+            <code>using var values = foo.GetValue()</code>
+            </remarks>
+            <typeparam name="T">The element type.</typeparam>
+        </member>
+        <member name="M:VL.Lang.PathUtils.SafeEnumerateFiles(System.IO.DirectoryInfo,System.String,System.Int32)">
+            <summary>
+            Safe EnumerateFiles extension for DirectoryInfo without UnauthorizedAccessException.
+            https://gist.github.com/jaywick/a7a730009d57ca67b506
+            </summary>
+        </member>
+        <member name="T:VL.Lang.UserInputPurpose">
+            <summary>
+            Decides whats the user input purpose to do string validation
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.GeneralString">
+            <summary>
+            Everything is allowed, e.g. for comments or string data
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.GeneralStringSingleline">
+            <summary>
+            Everything is allowed, e.g. for singleline comments
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Char">
+            <summary>
+            A single character
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Color">
+            <summary>
+            Must be in either HSVA "H:0.00 S:0.00 V:1.00 A:1.00", RGBA "H:0.00 S:0.00 V:1.00 A:1.00" or hex "xRRGGBBAA" format
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Boolean">
+            <summary>
+            Must be parseable into a boolean value
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Integer">
+            <summary>
+            Must be parseable into an integer number
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Float">
+            <summary>
+            Must be parseable into a floating point number
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Identifier">
+            <summary>
+            The string will be checked for the VL name string rules <see cref="T:VL.Lang.UserInputParsing"/>
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.IdentifierWithVersion">
+            <summary>
+            The input string can contain round brackets which contains a version name.
+            After the parsing for name and version each will be checked for the VL name string rules <see cref="T:VL.Lang.UserInputParsing"/>
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.IdentifierWithSpaces">
+            <summary>
+            The string will be checked for the VL name string rules <see cref="T:VL.Lang.UserInputParsing"/> but spaces are allowed
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Category">
+            <summary>
+            A Category may start with a numeral
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.Categories">
+            <summary>
+            Several categories seperated by dots
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.TypeAnnotation">
+            <summary>
+            For closed type descriptions, allows strings like TypeName&lt;OtherType&gt;, TypeName [CategoryName]...
+            </summary>
+        </member>
+        <member name="F:VL.Lang.UserInputPurpose.IdentifierWithVersionAndTypeParameters">
+            <summary>
+            The input string can contain round brackets which contains a version name followed by angle brackets constaining the comma speperated type parameter names.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidString(System.String,VL.Lang.UserInputPurpose,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct format for the specified <see cref="T:VL.Lang.UserInputPurpose"/>
+            </summary>
+            <param name="userInput"></param>
+            <param name="purpose"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidPartialString(System.String,VL.Lang.UserInputPurpose)">
+            <summary>
+            Checks whether an incomplete string has the potential correct format for the specified <see cref="T:VL.Lang.UserInputPurpose"/>
+            </summary>
+            <param name="userInput"></param>
+            <param name="purpose"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.CanParseBool(System.String)">
+            <summary>
+            Checks whether VL accepts the string as bool representation
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.CanParseInt(System.String)">
+            <summary>
+            Checks whether VL accepts the string as integer number representation
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseByte(System.String,System.Byte@)">
+            <summary>
+            Tries to parse the string as byte with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseSByte(System.String,System.SByte@)">
+            <summary>
+            Tries to parse the string as sbyte with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseShort(System.String,System.Int16@)">
+            <summary>
+            Tries to parse the string as short with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseUShort(System.String,System.UInt16@)">
+            <summary>
+            Tries to parse the string as ushort with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseInt(System.String,System.Int32@)">
+            <summary>
+            Tries to parse the string as integer with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseUInt(System.String,System.UInt32@)">
+            <summary>
+            Tries to parse the string as unsigned integer with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseLong(System.String,System.Int64@)">
+            <summary>
+            Tries to parse the string as long with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseULong(System.String,System.UInt64@)">
+            <summary>
+            Tries to parse the string as unsigned long with the VL allowed number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.CanParseFloat(System.String)">
+            <summary>
+            Checks whether VL accepts the string as floating number representation
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseFloat(System.String,System.Single@)">
+            <summary>
+            Tries to parse the string as float with the VL allowed Number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.TryParseDouble(System.String,System.Double@)">
+            <summary>
+            Tries to parse the string as double with the VL allowed Number style
+            </summary>
+            <param name="value"></param>
+            <param name="result"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.SplitStringIntoPrefixAndEnclosedString(System.String,System.String@,System.String@,System.Char,System.Char)">
+            <summary>
+            Splits a text into prefix and something that is enclosed by two given chars. The closing char is searched starting from the end of the string. 
+            </summary>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.GetNameAndVersion(System.String,System.String@,System.String@)">
+            <summary>
+            Finds name and version in a string like "MyName (MyVersion)"
+            </summary>
+            <param name="userInput">The string to parse</param>
+            <param name="name">Name, might be the input string</param>
+            <param name="version">null if no version found</param>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.GetNameAndVersion(System.String)">
+            <summary>
+            Finds name and version in a string like "MyName (MyVersion)"
+            </summary>
+            <param name="userInput">The string to parse</param>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.GetCategoryReference(System.String)">
+            <summary>
+            Returns a CategoryReference for a vague category description. the description may not start with a global category.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.GetCategoryReferenceAndWhatEverIsInFront(System.String,System.String@,VL.Model.CategoryReference@)">
+            <summary>
+            Split a string like "prefix [vageCatDescription]" into "prefix" and a CategoryReference. 
+            Use other methods to further parse the prefix depnding on if you're searching for node or type
+            </summary>
+            <param name="userInput">The user input.</param>
+            <param name="prefix">The prefix of the user input.</param>
+            <param name="categoryRef">The reference given back. This is a nested category reference and might not be full depending on the user input.</param>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.GetCategoryAndTypeFromDottedDescription(System.String,System.String@,VL.Model.CategoryReference@)">
+            <summary>
+            Separates a vague "CatA.CatB.TypeDescription" into a nested CategoryReference and a TypeDescription
+            </summary>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.GetDefinitionAndSpecializationArguments(System.String,System.String@,System.String[]@)">
+            <summary>
+            Split a node or type specialization into defintion and arguments
+            use other methods to further parse the prefix depnding on if you're searching for node or type
+            </summary>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidIdentifier(System.String,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct format of a-z A-Z 0-9 and some special chars, not starting with number
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidIdentifierWithSpaces(System.String,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct format of a-z A-Z 0-9 and some special chars, not starting with a number or spcace
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidCategory(System.String,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct format of a-z A-Z 0-9 and some special chars, not starting with a number or dot.
+            Used for e.g. for namespaces
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidCategories(System.String,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct format of a-z A-Z 0-9 and some special chars, not starting with a number or dot.
+            Used for e.g. for namespaces
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidFileName(System.String,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct format of a-z A-Z 0-9 and some special chars, not starting with a number or dot.
+            Used for e.g. for namespaces
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidIdentifierWithVersion(System.String,System.Boolean)">
+            <summary>
+            Looks in the string for a version name in round brackets,
+            then name and version (if found) are checked for correct identifier format.
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.UserInputParsing.IsValidTypeAnnotation(System.String,System.Boolean)">
+            <summary>
+            Checks whether a string has the correct chars of a-z A-Z 0-9 &lt;&gt; [] and some special chars, not starting with a space, number, dot, &lt;, &gt;, [, or ].
+            And makes shure the form is a valid typ annotation.
+            </summary>
+            <param name="userInput"></param>
+            <param name="allowEmpty"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.HelpPatchResolver.FindEquivalentNodeInPatch(VL.Model.Node,VL.Model.Canvas)">
+            <summary>
+            Given a node and canvas, returns the node in this canvas that has the same nodereference and a help-flag set
+            </summary>
+            <param name="nodeToBeFound">The node we want to find in the target Canvas</param>
+            <param name="canvas">Target Canvas</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.HelpPatchResolver.AllowHelpFlagOnNode(VL.Model.Node,VL.Model.Document)">
+            <summary>
+            Help flags can only be set on nodes that are defined in the same package as the document the node is placed in. Returns true when the given node can receive a help flag in the given document
+            </summary>
+            <param name="node">The node to be tested</param>
+            <param name="document">The document </param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Lang.LockFileResolver">
+            <summary>
+            Resolves files based on a lock file (project.assets.json) from a package restore.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PackageInfo.References">
+            <summary>
+            The package, assembly and project references read from all the VL documents of this package.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PackageProvider.DependencyContext">
+            <summary>
+            As given by the deps.json file.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.DynamicProcessPlugin.GetOperation.IsDefaultFragment">
+            <summary>
+            Mark the first getter as the default fragment so it gets assigned to the default moment if not assigned otherwise.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Platforms.IPinDescription">
+            <summary>
+            Describes a pin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPinDescription.Name">
+            <summary>
+            The name of the pin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPinDescription.Kind">
+            <summary>
+            The kind of the pin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPinDescription.Type">
+            <summary>
+            The type of the pin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPinDescription.DefaultValue">
+            <summary>
+            The default value of the pin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPinDescription.Visibility">
+            <summary>
+            The visibility of the pin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPinDescription.FragmentId">
+            <summary>
+            The fragment this pin belongs to.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Platforms.IPluginHost">
+            <summary>
+            The host which mediates between the plugin and the internal representation of a node definition.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IPluginHost.CurrentDefinition">
+            <summary>
+            The plugin as seen by VL.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Platforms.INodePlugin">
+            <summary>
+            A node plugin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.Name">
+            <summary>
+            The name of the node.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.Category">
+            <summary>
+            The category of the node.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.Kind">
+            <summary>
+            What kind of node definition. Usual choices are AdaptiveRegion, OperationStatefulRegion, ProcessStatefulRegion etc.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.ShowCategory">
+            <summary>
+            Whether or not to show the category inside the UI.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.IsDefaultFragment">
+            <summary>
+            Whether or not this fragment shall be put on the default moment if not assigned otherwise.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.Inputs">
+            <summary>
+            The inputs of the node.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.INodePlugin.Outputs">
+            <summary>
+            The outputs of the node.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Platforms.IPluginWithMessages">
+            <summary>
+            Gives the plugin the ability to generate messages which will get shown in the patch editor.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.IPluginWithMessages.GetMessages(VL.Lang.Symbols.INodeSymbol)">
+            <summary>
+            The plugin related messages which will be collected and shown to the user.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Platforms.IRegionPlugin">
+            <summary>
+            A region plugin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IRegionPlugin.ApplicationKinds">
+            <summary>
+            The possible options of how this plugin can be applied.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IRegionPlugin.IsSynchronous">
+            <summary>
+            Whether or not the patches inside this region are known to execute synchronously.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IRegionPlugin.ExecutesOnlyOnce">
+            <summary>
+            Whether or not the patches inside this region are known to execute at most once (like if, switch, etc.).
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IRegionPlugin.IsAtomic">
+            <summary>
+            Used by flood fill algorithm. If true all the pins and border control points of this node will be flooded, otherwise the flood fill stops.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.IRegionPlugin.SupportedBorderControlPoints">
+            <summary>
+            The supported border control points of the region.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.IRegionPlugin.GetPatchDescription(VL.Model.INode)">
+            <summary>
+            The patch description. Only master/sub is supported for now.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.IRegionPlugin.IsCached(VL.Lang.Symbols.IBorderControlPointSymbol)">
+            <summary>
+            Wether or not the control point is cached in a field so many moments can access it.
+            </summary>
+            <param name="cp">The control point.</param>
+            <returns>True if multiple moments can access the control point.</returns>
+        </member>
+        <member name="T:VL.Lang.Platforms.NodePluginBase">
+            <summary>
+            Simple base class for plugins.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.AssemblySymbolSource.ImportedTypes">
+            <summary>
+            Gets the imported types, nested types are flat in the list
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Platforms.Roslyn.EmitExample.ServicesAreInstalledExample">
+            <summary>
+            To ensure that a service registry is current the emitted delegates as well as explicit interface implementations must insert the proper call.
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Platforms.Roslyn.AssetManagement.BasePath">
+            <summary>
+            Specify how to break up the not copied original asset file path. 
+            If you feed the directory path of the root document, file paths of ioboxes will be stored relative to the root file. As the executable will land somewhere else, all the assets have to be copied as well.
+            If you feed the directory path of the executable, file paths of ioboxes will be stored relative to the final executable location. This way no assets have to be copied. The executable will combine the Application bpath with relative path to the original assts.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.PatchState.UpdateInstance(System.Collections.Generic.Dictionary{VL.Lang.Platforms.Roslyn.Slot,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax},System.Collections.Generic.ICollection{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax},System.Boolean,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            State that;
+            if (isImmutable)
+              that = foo != state.foo ? new State(state) { foo = foo } : state;
+            else
+              state.foo = foo;
+              that = state;
+        </member>
+        <member name="T:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler">
+            <summary>
+            Defines a set of methods used for generating the target code of a plugin.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.NodeContext">
+            <summary>
+            The context to use when creating new instances of VL types.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.CurrentState">
+            <summary>
+            The reference to the current instance (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.This">
+            <summary>
+            The instance type (if any, e.g. Particle&lt;T&gt;) and the expression denoting to this (__self when emitting hotswap friendly code)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Generator">
+            <summary>
+            The roslyn syntax generator. Convenient helper class to generate roslyn statements and expressions.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.BoundExpressions">
+            <summary>
+            The currently computed expressions for each data hub.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.WriteFieldsImmediately">
+            <summary>
+            Wether or not slots get written immediately. This flag is only true for mutable classes.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.CollectValuesOnStack">
+            <summary>
+            Whether or not values on the call stack should be collected in case of an exception.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.GetTypeExpression(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Gets the type expression for the given VL type symbol.
+            </summary>
+            <param name="typeSymbol">The VL type symbol.</param>
+            <returns>The type expression.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.GetTypeExpression(System.Type)">
+            <summary>
+            Gets the type expression for the given CLR type symbol.
+            </summary>
+            <param name="clrType">The CLR type symbol.</param>
+            <returns>The type expression.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Compile(System.Collections.Generic.List{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax},VL.Lang.Symbols.IPatchSymbol,VL.Lang.Platforms.Roslyn.PatchState,System.Boolean,System.Boolean)">
+            <summary>
+            Compiles the given patch and adds all generated statements to the given list. Computed expressions will be remembered in the current scope.
+            </summary>
+            <param name="statements">Where the generated statements will be added.</param>
+            <param name="patch">The patch to compile.</param>
+            <param name="state">The state used for pad reads.</param>
+            <param name="writeFieldsImmediately"></param>
+            <param name="manageStateOnStack"></param>
+            <returns>The generated statements.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.GenerateLocalName(VL.Lang.Symbols.INamedSymbol)">
+            <summary>
+            Creates a unique local variable name.
+            </summary>
+            <param name="symbol">The named symbol for which to generate a unique local name.</param>
+            <returns>The unqiue local variable name.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Default(VL.Lang.Symbols.ITypeSymbol,System.Collections.Generic.ICollection{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax})">
+            <summary>
+            Returns the default value expression of the given type.
+            </summary>
+            <param name="type">The type for which a default value is required.</param>
+            <param name="statements"></param>
+            <returns>The default value expression of the given type.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Default(System.Type)">
+            <summary>
+            Returns the default value expression of the given type.
+            </summary>
+            <param name="type">The type for which a default value is required.</param>
+            <returns>The default value expression of the given type.</returns>
+        </member>
+        <member name="T:VL.Lang.Platforms.Roslyn.IEmittingPlugin">
+            <summary>
+            Gives the plugin the ability to emit target code at the end of the compile phase.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.IEmittingPlugin.Emit(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IPatchSymbol,VL.Lang.Symbols.INodeSymbol,System.Collections.Generic.List{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax},VL.Lang.Symbols.IBorderControlPointSymbol)">
+            <summary>
+            Called by backend in order to generate the target code for this plugin.
+            </summary>
+            <param name="compiler">The patch compiler to be used to compile the internal patches.</param>
+            <param name="patch">The current patch which is getting compiled.</param>
+            <param name="node">The node application representing this plugin.</param>
+            <param name="syntaxNodes">Add your statements here.</param> 
+            <param name="cp">The border control point being accessed (if any). This parameter is set if the plugin allows access to its border control points from different moments.</param>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.GetExpression(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol)">
+            <summary>
+            Gets the latest computed expression for the given symbol.
+            </summary>
+            <param name="compiler">The compiler.</param>
+            <param name="symbol">The hub or slot for which to retrieve the latest computest expression for.</param>
+            <returns>The expression or null if the hub or slot wasn't touched yet.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.Bind(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Binds the expression to the data hub.
+            </summary>
+            /// <param name="compiler">The compiler.</param>
+            <param name="symbol">The data hub or slot for which the expression will be used for later <see cref="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.GetExpression(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol)"/> calls.</param>
+            <param name="expression">The expression to bind.</param>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.SaveBindings(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler)">
+            <summary>
+            Saves the current state of the computed expressions and slot assignments. The state can be restored by disposing the returned disposable.
+            </summary>
+            <param name="compiler">The compiler.</param>
+        </member>
+        <member name="F:VL.Lang.Platforms.Roslyn.TargetTypeKind.AbstractClass">
+            <summary>
+            Non-generic: Particle, Generic: Particle&lt;T&gt;, Adaptive-generic: Particle&lt;T&gt;
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Platforms.Roslyn.TargetTypeKind.Class">
+            <summary>
+            Non-generic: Particle, Generic: Particle&lt;T&gt;, Adaptive-generic: Particle&lt;T, AdC&gt;
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Platforms.Roslyn.TargetTypeKind.AbstractProgramClass">
+            <summary>
+            Non-generic: ParticleProgram, Generic: ParticleProgram&lt;T&gt;, Adaptive-generic: ParticleProgram&lt;T, AdC&gt;
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Platforms.Roslyn.TargetTypeKind.ProgramClass">
+            <summary>
+            Non-generic: ParticleProgram_, Generic: ParticleProgram_&lt;T&gt;, Adaptive-generic: ParticleProgram_&lt;T, AdC&gt;
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.RuntimeHost.Frame">
+            <summary>
+            Returns the current global VL frame number (not per app instance).
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.RuntimeHost.FTimer_Tick(System.Object,System.TimeSpan)">
+            <summary>
+            Called from the timer thread and will send the call to the runtime sync context, i.e. the app runtime thread.
+            Only used when UseInternalTimer == true 
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.RuntimeHost.Step">
+            <summary>
+            Evaluates the next frame. Used for manual steps by the user via shortcut or menu.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.RuntimeHost.Step(System.TimeSpan)">
+            <summary>
+            Steps the global VL runtime mainloop, should only be called on runtime thread.
+            </summary>
+            <param name="timeSinceStart">The time since start.</param>
+        </member>
+        <member name="M:VL.Lang.Platforms.RuntimeHost.SharedStep">
+            <summary>
+            keep in sync with vvvv integration runtimehost
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Platforms.RuntimeHost.HandleException">
+            <summary>
+            If an exception is set it will be unset and thrown in an aggregate exception.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Properties.M">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ClassBasedProcessUsedInRecordWhat">
+            <summary>
+              Looks up a localized string similar to The state of this node could mutate at runtime which may lead to undefined results!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ClassBasedProcessUsedInRecordWhy">
+            <summary>
+              Looks up a localized string similar to This Process node is based on a Class which is mutable but here you&apos;re using the node inside of a Record, which is immutable..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.DoesntHaveAPinCalledXHow">
+            <summary>
+              Looks up a localized string similar to To get rid of the warning: If the pin still has a connection, first delete its connection. If the warning is still there, hover the pin with the mouse and press ALT+rightclick to reset it. .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.DoesntHaveAPinCalledXWhy">
+            <summary>
+              Looks up a localized string similar to This is only a problem if you actually expect such a pin here. For this case a dummy pin with its (optional) value and connection is kept, to indicate that the pin actually was there at some point..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.IterativeCompilationAttemptsExceededHow">
+            <summary>
+              Looks up a localized string similar to Use explicit type parameters.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.IterativeCompilationAttemptsExceededWhat">
+            <summary>
+              Looks up a localized string similar to Exceeded amount of iterative compilation attempts.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.IterativeCompilationAttemptsExceededWhy">
+            <summary>
+              Looks up a localized string similar to The compiler tries to infer the signature of a patch in an iterative fashion. Should the number of attempts exceed a certain limit it will give up..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.LinksIntoRegionWhichExecutesMultipleTimesHow">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.LinksIntoRegionWhichExecutesMultipleTimesIgnore">
+            <summary>
+              Looks up a localized string similar to If none of the downstream nodes modifies the data (ie. they all only read), all is fine..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.LinksIntoRegionWhichExecutesMultipleTimesWhat">
+            <summary>
+              Looks up a localized string similar to The source of this link is mutable (as visualized by the dashed line of the link) and links into a region that may be executed multiple times!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.LinksIntoRegionWhichExecutesMultipleTimesWhy">
+            <summary>
+              Looks up a localized string similar to Beware that if one of the regions executions modifies the data, the following iterations will read that modified data, which may not be what you intuitively expect..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NeedsBackingFieldButParentIsStatelessHow">
+            <summary>
+              Looks up a localized string similar to If you only need the pad to set a type annotation, make it anonymous, by not giving it a name and you&apos;ll be fine..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NeedsBackingFieldButParentIsStatelessWhat">
+            <summary>
+              Looks up a localized string similar to This pad is used in a stateless operation, where no data can be stored!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NeedsBackingFieldButParentIsStatelessWhy">
+            <summary>
+              Looks up a localized string similar to Pads are used to save data, ie. to persist state from one execution to the next. This is not possible in stateless context, like utility operations. .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NodeIsSharedHow">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NodeIsSharedWhat">
+            <summary>
+              Looks up a localized string similar to This node is executed on multiple operations: .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NodeIsSharedWhy">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NodeNotInUseHow">
+            <summary>
+              Looks up a localized string similar to Rightclick -&gt; Assign this node to an existing operation or create a new one. Or create an operation called &quot;Update&quot; via the Explorer, to which all unassigned nodes would default to..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NodeNotInUseWhat">
+            <summary>
+              Looks up a localized string similar to This node is currently ignored because it is not assigned to any operation..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NodeNotInUseWhy">
+            <summary>
+              Looks up a localized string similar to .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NotInDataflowContextHow">
+            <summary>
+              Looks up a localized string similar to Move this node to into a dataflow context, like the Application, a Process, a Record, Class or Operation..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NotInDataflowContextWhat">
+            <summary>
+              Looks up a localized string similar to Nodes can only be used in a dataflow context!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.NotInDataflowContextWhy">
+            <summary>
+              Looks up a localized string similar to This patch is a definition patch which means that it can only hold other definitions..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.PinOfSameNameExistsHow">
+            <summary>
+              Looks up a localized string similar to Rename either of the red pins to a unique name..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.PinOfSameNameExistsWhat">
+            <summary>
+              Looks up a localized string similar to An output pin with the same name already exists!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.PinOfSameNameExistsWhy">
+            <summary>
+              Looks up a localized string similar to All output pins in a patch must have distinct names..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.RightClickOpen">
+            <summary>
+              Looks up a localized string similar to RightClick -&gt; Open to see more..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceAndSinkAreOnSameMomentsHow">
+            <summary>
+              Looks up a localized string similar to To hand the result of one operation over to use in another operation use a pad. The upstream operation can write data into a pad that downstream operations can then read from at a later moment. Note that the simplest way to insert a pad into a link is by pressing SHIFT while double-clicking the link. And also note that in many scenarios such pads can even be anonymous (ie. you don&apos;t need to give them a name)..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceAndSinkAreOnSameMomentsWhat">
+            <summary>
+              Looks up a localized string similar to This link is between two elements that are executed on different operations!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceAndSinkAreOnSameMomentsWhy">
+            <summary>
+              Looks up a localized string similar to Data can&apos;t flow between elements that are executed on different operations..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceHasManyConsumersHow">
+            <summary>
+              Looks up a localized string similar to To prevent this warning and its possible consequences you have to explicitly define the order of execution: Instead of passing the same link to multiple downstream nodes in parallel, pass the link from one node through to the next node that will read/write on the data..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceHasManyConsumersIgnore">
+            <summary>
+              Looks up a localized string similar to If none of the downstream nodes modifies the data (ie. they all only read), all is fine..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceHasManyConsumersWhat">
+            <summary>
+              Looks up a localized string similar to The source of this link is mutable (as visualized by the dashed line of the link) and is connected to multiple downstream nodes!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SourceHasManyConsumersWhy">
+            <summary>
+              Looks up a localized string similar to Beware that the order in which the downstream nodes are executed is not defined. Therefore, if any of those modifies the data, any other downstream node may read that already modified data and you may see unwanted results..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeIsNoSubtypeOfHow">
+            <summary>
+              Looks up a localized string similar to Usually in such cases you need to insert a node that converts from one type to the other. These nodes are often called To... (some type), like in case you want to connect a number to a string input, use a ToString node..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeIsNoSubtypeOfWhat">
+            <summary>
+              Looks up a localized string similar to {0} is no {1}!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeIsNoSubtypeOfWhy">
+            <summary>
+              Looks up a localized string similar to That&apos;s like mixing apples and oranges: Links can only be between elements that have the same type or where the upstream type is a subtype of the downstream type. Being a subtype basically means being of the same family but not as rich as the parent, like e.g. Integer32 is a subtype of Float32 but not the other way round..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedCPHow">
+            <summary>
+              Looks up a localized string similar to Either make sure this controlpoint is assigned a type, by connecting it to an element that has a dedicated type, or annotating it manually. Or, if you actually want this whole patch to be generic, go to the Explorer and enable the &quot;Generic&quot; toggle..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedCPWhat">
+            <summary>
+              Looks up a localized string similar to The type of this controlpoint is generic..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedCPWhy">
+            <summary>
+              Looks up a localized string similar to Generic types are not allowed in an ungeneric patch..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedNodeHow">
+            <summary>
+              Looks up a localized string similar to Either make sure all pins of this node are assigned a type, by choosing a type-specific version of the node (double-click it and choose in the nodebrowser) or simply connect all of its pins so they can infer a type. Or, if you actually want this whole patch to be generic, go to the Explorer (or the signature in case of an operation) and enable the &quot;Generic&quot; toggle..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedNodeWhat">
+            <summary>
+              Looks up a localized string similar to This node is currently ignored because it has generic pins..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedNodeWhy">
+            <summary>
+              Looks up a localized string similar to Generic types are not allowed in an ungeneric patch..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedPadHow">
+            <summary>
+              Looks up a localized string similar to Either make sure this pad is assigned a type, by connecting it to an element that has a dedicated type, or annotating it manually with a type. Or, if you actually want this whole patch to be generic, go to the Explorer and enable the &quot;Generic&quot; toggle..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedPadWhat">
+            <summary>
+              Looks up a localized string similar to The type of this pad is generic..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedPadWhy">
+            <summary>
+              Looks up a localized string similar to Generic types are not allowed in an ungeneric patch..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedPinHow">
+            <summary>
+              Looks up a localized string similar to Either make sure the pin has a type assigned, by connecting it to an element that has a dedicated type, or annotating it manually with a type. Or, if you actually want this whole patch to be generic, go to the Explorer (or the signature in case of an operation) and enable the &quot;Generic&quot; toggle. .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedPinWhat">
+            <summary>
+              Looks up a localized string similar to The type of this pin is generic..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.TypeParametersNotAllowedPinWhy">
+            <summary>
+              Looks up a localized string similar to Generic types are not allowed in an ungeneric patch..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.UnknownPinHow">
+            <summary>
+              Looks up a localized string similar to Rename this pin to one of the valid names listed above..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.UnknownPinWhat">
+            <summary>
+              Looks up a localized string similar to A pin with this name is not allowed in this patch!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.UnknownPinWhy">
+            <summary>
+              Looks up a localized string similar to This happens in patches that implement an interface, where the interface determines the valid pins..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.UnusedPinHow">
+            <summary>
+              Looks up a localized string similar to This must be fixed in the definition of the node. Rightclick -&gt; Open the node and find more info on this pins definition..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.UnusedPinWhat">
+            <summary>
+              Looks up a localized string similar to This pin is currently unused..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ViolatesSingleAssignmentHow">
+            <summary>
+              Looks up a localized string similar to You have to either remove any of the red links or assign one link to a different operation..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ViolatesSingleAssignmentWhat">
+            <summary>
+              Looks up a localized string similar to This link writes to a pad that also another link writes to in the same operation!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ViolatesSingleAssignmentWhy">
+            <summary>
+              Looks up a localized string similar to It is not allowed to write to a pad multiple times in one operation, bear with me: When operation A is called, first all upstream pads are read from and as a final action, all downstream pads are written to. During this time no other operation can read from a pad that is in use by operation A. Therefore if operation A would write to the pad multiple time during its execution, some of the information it tried to store in the pad would be lost..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.WrongTypeAnnotationForPingroupHow">
+            <summary>
+              Looks up a localized string similar to Set any of the following type annotations: Spread, Array, MutableArray, Dictionary&lt;string, T&gt;, MutableDictionary&lt;string, T&gt; on this pin..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.WrongTypeAnnotationForPingroupWhat">
+            <summary>
+              Looks up a localized string similar to This pin is marked as &quot;Pin Group&quot; (see its Configuration) which also means that it has to be annotated with a collection type!.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.WrongTypeAnnotationForPingroupWhy">
+            <summary>
+              Looks up a localized string similar to Being a PinGroup, it means this pin can automatically expand to multiple pins, whose data is being joined together into a collection. Therefore the type annotation needs to be a collection type..
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(System.UInt32,System.String,System.Boolean)">
+            <summary>
+            Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
+            The builder expects all current pins to get added and once finished will synchronize the internal pin group.
+            </summary>
+            <param name="nodeId">The unique id of the node application.</param>
+            <param name="pinGroup">The name of the pin group the returned builder should modify.</param>
+            <param name="isInput">Whether or not the group is an input our output group.</param>
+            <returns>A <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> to modify the given pin group.</returns>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.SetPinValue(System.UInt32,System.String,System.Object)">
+            <summary>
+            Sets the value of the given pin.
+            </summary>
+            <param name="node">The unique id of the node application.</param>
+            <param name="pin">The name of the input pin on which the value should get set.</param>
+            <param name="value">The value to set.</param>
+            <returns>A new solution with the value stored in the pin of the given node.</returns>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.Confirm(VL.Model.SolutionUpdateKind)">
+            <summary>
+            Make this solution the current one.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(VL.Core.UniqueId,System.String,System.Boolean)">
+            <summary>
+            Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
+            The builder expects all current pins to get added and once finished will synchronize the internal pin group.
+            </summary>
+            <param name="nodeId">The unique id of the node application.</param>
+            <param name="pinGroup">The name of the pin group the returned builder should modify.</param>
+            <param name="isInput">Whether or not the group is an input our output group.</param>
+            <returns>A <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> to modify the given pin group.</returns>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.SetPinValue(VL.Core.UniqueId,System.String,System.Object)">
+            <summary>
+            Sets the value of the given pin.
+            </summary>
+            <param name="node">The unique id of the node application.</param>
+            <param name="pin">The name of the input pin on which the value should get set.</param>
+            <param name="value">The value to set.</param>
+            <returns>A new solution with the value stored in the pin of the given node.</returns>
+        </member>
+        <member name="T:VL.Lang.PublicAPI.ILiveElement">
+            <summary>
+            A live view onto an element
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.Element">
+            <summary>
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.Info">
+            <summary>
+            Static information on the element. (Symbol level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.DataStream">
+            <summary>
+            Pins, pads, links and process nodes push data at the very moment they get updated. 
+            This can happen on another thread and happens right in the middle of executing a patch. 
+            Tooltips build upon this mechanism and by that let the user inspect how an instance of a reference data type gradually mutates throughout the patch.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.Messages">
+            <summary>
+            Latest runtime messages. 
+            </summary>
+        </member>
+        <member name="T:VL.Lang.PublicAPI.ILiveDataHub">
+            <summary>
+            A live view onto a pin, pad or controlpoint
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Element">
+            <summary>
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Info">
+            <summary>
+            Static information on the data hub. (Symbol level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Part">
+            <summary>
+            This typically is only of interest for border control points. 
+            Splicers e.g. look different from the inside/outside
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Element">
+            <summary>
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Info">
+            <summary>
+            Static information on the node. (Symbol level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Pins">
+            <summary>
+            live pins, that all push their data when it becomes available. Inputs push before outputs.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.TimingStream">
+            <summary>
+            Timings per fragment. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Messages">
+            <summary>
+            Latest runtime messages. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.IsApplication">
+            <summary>
+            A node is either a node application or a node defintion
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveLink.Element">
+            <summary>
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveLink.Source">
+            <summary>
+            Where the data comes from. Starting point of a link.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveLink.Sink">
+            <summary>
+            Where the data flows to. Ending point of a link.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IElementInfo.ElementID">
+            <summary>
+            reports ID if enabled in settings
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IElementInfo.SymbolInfoString">
+            <summary>
+            node: Name (Version) [Category] - Smells 
+            pin: Name: Type
+            ... 
+            we should only ask for string renderings when no IValueViewer is available for an Symbol or Element 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IElementInfo.CompilerMessages">
+            <summary>
+            Compile time messages. Errors, Warnings..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IElementInfo.IsUnused">
+            <summary>
+            Currently only used for pins of unsed fragments
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IElementInfo.Moments">
+            <summary>
+            When this hub gets called. None for pads. If enabled in settings.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IElementInfo.Tags">
+            <summary>
+            Definitions can have tags to find them not only under their name.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Name">
+            <summary>
+            The name of the data hub.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.CompiletimeType">
+            <summary>
+            The type of the data hub.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Value">
+            <summary>
+            The constant value stored in a datahub (default on pin definitions or static on pin unconnected input pin applications)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.ConstantType">
+            <summary>
+            The type of the constant value. This can differ from the compile time type. For example an input of type GPU&lt;float&gt; stores its value as a float.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.HasDefaultValue">
+            <summary>
+            If DefaultValue is available
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.HasConstantValue">
+            <summary>
+            If 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.INodeInfo.Name">
+            <summary>
+            Name and Version of the name. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.INodeInfo.Category">
+            <summary>
+            Dot separated string. Aka namespace
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.INodeInfo.Smells">
+            <summary>
+            Advanced, Internal, External, Experimental, Obsolete, Adaptive. If enabled in settings.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.INodeInfo.SymbolSource">
+            <summary>
+            The file path of the file that contains the node definition. Can be a vl document or a managed assembly
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.INodeInfo.PackageOfNodeDefinition">
+            <summary>
+            retrieves the package that contians the node definition of this node (application)
+            </summary>
+        </member>
+        <member name="T:VL.Lang.PublicAPI.PinGroupBuilder">
+            <summary>
+            Modifies a pin group by simply adding pins to it and once finished calling commit on it. The pins will then get synchronized.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.Session.VersionString">
+            <summary>
+            The full version string. e.g. "2019.1.0" or "2019.1.0-0063-g2b0be431ff" for preview
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.Session.IsPreview">
+            <summary>
+            If set the user document root folder will be suffixed with "-preview".
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.Session.IsStandalone">
+            <summary>
+            Gets a value indicating whether this instance is vvvv gamma standalone.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.Session.NewVersionUrl">
+            <summary>
+            Empty if there is no newer version available, otherwise link to release page
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.Session.AddMessage(VL.Core.UniqueId,System.String,VL.Lang.MessageSeverity)">
+            <summary>
+            Add a message for one frame. 
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.Session.AddMessage(VL.Lang.Message)">
+            <summary>
+            Add a message for one frame. 
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.Session.ToggleMessage(VL.Lang.Message,System.Boolean)">
+            <summary>
+            Toggle message on and off. Note: you are responsible of turning the message off again! 
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.Session.AddPersistentMessage(VL.Lang.Message)">
+            <summary>
+            Add a persistent message. Use the returned disposable to remove the message.
+            </summary>
+        </member>
+        <member name="F:VL.Lang.Symbols.BuildItem.UserReferencedItems">
+            <summary>
+            The items as referenced by user provided type annotations and node references.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.PreCompilation.GetUserReferencedDefinitions(VL.Lang.Symbols.IDefinitionSymbol)">
+            <summary>
+            The referenced definitions as given by user provided type annotations and node references. 
+            References to process definitions will be replaced with references to the surrounding type of the process as there's no real
+            distinction between process and type for the user.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.PreCompilation.GetDocumentsInBuildOrder">
+            <summary>
+            Retrieves the documents in build order. For example CoreLib comes before Skia.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.PreCompilation.GetActiveSymbolSources">
+            <summary>
+            All the documents plus its dependencies.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Liftings.IsPinOfCreateFragment(VL.Lang.Symbols.IPinSymbol)">
+            <summary>
+            Determines whether this pin belongs to the create fragment of a process node.
+            </summary>
+            <param name="pinSymbol">The pin symbol.</param>
+        </member>
+        <member name="T:VL.Lang.Symbols.ConnectableNodeQuery">
+            <summary>
+            Allows to look for nodes connectable to a pin of given type.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.AdaptiveNodeLookup">
+            <summary>
+            All the adaptive implementations found in this document. This assumes that the adaptive definitions are already in scope.
+            These lookup tables are later emitted and used by the runtime to build the required witness structs.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DefaultScope">
+            <summary>
+            Documents -> Assemblies -> Transitive assemblies. Symbols in documents have a higher priority than those in assemblies.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DocumentsPlusAssembliesScope">
+            <summary>
+            Documents + Assemblies. Symbols in documents and assemblies are treated the same. Used by symbol browser to make different choices visible.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DocumentsOnlyScope">
+            <summary>
+            Documents. Symbols in documents only.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.AssembliesScope">
+            <summary>
+            Assemblies. Symbols in assemblies only.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.ExtendedAssemblyScope">
+            <summary>
+            Transitive assemblies. Symbols from all indirectly referenced assemblies.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.Resolver">
+            <summary>
+            Resolver using the default scope
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.ResolverToFindDuplicates">
+            <summary>
+            Resolver using the documents only scope
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.AdaptiveResolver">
+            <summary>
+            Adaptive node resolver using the documents only scope
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.TypeForwardResolver">
+            <summary>
+            Resolver to be used for type forwards. Scope is limited to assemblies -> can be used very early while compiling.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DependencySymbol.Location">
+            <summary>
+            The location of the dependent file or package. For a file this will be the absolute path, for package just its name.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DependencySymbol.IsForward">
+            <summary>
+            Whether or not the dependency should be forwarded to the document referencing this document.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DependencySymbol.IsFriend">
+            <summary>
+            Whether or not we see the internals and externals of this reference.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DependencySymbol.Name">
+            <summary>
+            The file or package name.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DependencySymbol.FilePath">
+            <summary>
+            The absolute path of the dependent file.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.DocSymbols.DependencySymbol.ReferencedDocument">
+            <summary>
+            The document referenced through this dependency. Can be null.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.DocSymbols.DependencySymbol.GetFilePath(System.String)">
+            <summary>
+            Computes the file path of this dependency.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.DocSymbols.DocumentDependencySymbol">
+            <summary>
+            Dependencies to other VL documents (*.vl).
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.DocSymbols.AssemblyDependencySymbol">
+            <summary>
+            Dependency to assembly.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.DocSymbols.ItemLookup">
+            <summary>
+            A lookup using the BuildItem.Definition indirection to avoid having to re-index the lookup table while compiling.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.PatchAndDataflowHelpers.GetSubPatchesUsingTheSymbol(VL.Lang.Symbols.ICompoundSymbol,VL.Lang.Symbols.ISymbol)">
+            <summary>
+            Returns all the sub patches which make direct and indirect (inside a region) use of the given symbol.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.ITargetCompilation.GetClrType(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Returns the CLR type used when marshaling a value of that VL type.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.ITargetCompilation.GetVlType(System.Type)">
+            <summary>
+            Returns the VL type used when marshaling a value of that CLR type.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.ITargetCompilation.EmitSource(VL.Model.Node)">
+            <summary>
+            Returns the decompiled source code (if any) of the given type.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.ITargetCompilation.WithCompilationAsync(VL.Lang.Symbols.PreCompilation,System.Threading.CancellationToken,System.IProgress{VL.Model.LoadMessage})">
+            <summary>
+            Returns a new target compilation based on the given pre compilation.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ITargetCompilation.Assemblies">
+            <summary>
+            All the assemblies involved in the compilation. There could be many assemblies per project (incremental).
+            Used to resolve runtime assemblies.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ITargetCompilation.MostRecentAssemblies">
+            <summary>
+            Only the most recently emitted assemblies. There's only one assembly per project (latest).
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeHost.ImplicitEntryPointInstances">
+            <summary>
+            Returns runtime instances that stem from documents with entry points like seen in tutorials.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeHost.HostingAppInstances">
+            <summary>
+            Returns runtime instances that were explicitly created via hosting environment like vvvv
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeHost.RuntimeMessages">
+            <summary>
+            Returns all the messages of the last frame including exceptions and user code induced messages.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeHost.Mode">
+            <summary>
+            Gets or sets the run mode.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.IRuntimeHost.Step">
+            <summary>
+            Evaluates the next frame.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeHost.Frame">
+            <summary>
+            Returns the current frame number.
+            </summary>
+        </member>
+        <member name="E:VL.Lang.Symbols.IRuntimeHost.ModeChanged">
+            <summary>
+            Raised when the run mode of the runtime changed.
+            </summary>
+        </member>
+        <member name="E:VL.Lang.Symbols.IRuntimeHost.OnException">
+            <summary>
+            Raised when an exception occurs.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.IRuntimeHost.TogglePersistentUserRuntimeMessage(VL.Lang.Message,System.Boolean)">
+            <summary>
+            Toggle message on and off. Note: you are responsible of turning the message off again! 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeInstance.NodeId">
+            <summary>
+            The node definition this instance is running.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeInstance.Object">
+            <summary>
+            the actual object
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRuntimeInstance.Services">
+            <summary>
+            Gives access to the services as configured by this particular entry point.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.RuntimeUtils.ListenTo(VL.Lang.Symbols.IRuntimeHost,VL.Model.Element,System.IObservable{VL.Core.PatchHandle},System.String,VL.Lang.Symbols.SymbolRendering.ElementPart,VL.Core.InstanceFilter)">
+            <summary>
+            Gets the patch notifications of the given element. Puts the containing patch in DEBUG mode.
+            In case the element is a process node all its fragments will be observed.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ICompoundSymbol.Symbols">
+            <summary>
+            The symbols of this compound.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDataHubSymbol.Value">
+            <summary>
+            The value of the hub if not connected. Returns a dummy if there's none.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDataHubSymbol.SourceType">
+            <summary>
+            The type of the bottom part. The type of data flowing downstream 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDataHubSymbol.SinkType">
+            <summary>
+            The type of the upper part. The type of data coming from upstream
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISlotSymbol.IsAutoGenerated">
+            <summary>
+            Whether or not the slot was generated by the compiler.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.INodeSymbol.TopPatch">
+            <summary>
+            The patch which contains all the links.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IPatchSymbol.IsDefault">
+            <summary>
+            Whether or not to put yet unassigned symbols onto this patch.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IPatchSymbol.PatchDescription">
+            <summary>
+            A patch description provided by the containing node - contains additional information on what is allowed or not in the patch.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IPatchSymbol.DelegateType">
+            <summary>
+            The delegate type infered by the compiler. Used by higher order regions.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ICategorizableSymbol.LookupKey">
+            <summary>
+            The lookup key used in <see cref="P:VL.Lang.Symbols.ISymbolSource.DefinedSymbols"/>.
+            Defaults to the name part of the name, for exampe "+" in "+ (Float32)".
+            Categories overwrite this property and return the full name, for example "Delegate (0 -> 0)".
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IConcreteTypeSymbol.IsBoundToType">
+            <summary>
+            Whether or not type parameters are used from the parent type definition.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IConcreteTypeSymbol.IsGeneric">
+            <summary>
+            Whether or not the type parameter list is not empty.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IConcreteTypeSymbol.IsRefLikeType">
+            <summary>
+            True if the type is ref-like, meaning it follows rules similar to CLR by-ref
+            variables. False if the type is not ref-like or if the language has no concept 
+            of ref-like types.
+            </summary>
+            <remarks>
+            System.Span`1 is a commonly used ref-like type.
+            </remarks>
+        </member>
+        <member name="P:VL.Lang.Symbols.IConcreteTypeSymbol.Rank">
+            <summary>
+            The rank of the array (if any)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IConcreteTypeSymbol.NodeParameters">
+            <summary>
+            The node parameters introduced by virtual operations.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ITypeWithPreDefinedDefaultOperation.DefaultOperation">
+            <summary>
+            The operation which produces the default value of this type or null if there isn't any.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDefinitionSymbol.Node">
+            <summary>
+            The node (if any) which lead to this definition. This is usually null for imported types and nodes as well as patched members.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDefinitionSymbol.IsPatched">
+            <summary>
+            Whether or not this definition has a body and can therefore be emitted.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDefinitionSymbol.Messages">
+            <summary>
+            Any errors or warnings on the definition itself. For example a type couldn't be loaded or a method is obsolete.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDependencySymbol.Location">
+            <summary>
+            The location of the dependent file or package. For a file this will be the absolute path, for package just its name.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDependencySymbol.IsForward">
+            <summary>
+            Whether or not the dependency should be forwarded to the document referencing this document.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDependencySymbol.IsFriend">
+            <summary>
+            Whether or not we see the internals and externals of this reference.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDependencySymbol.References">
+            <summary>
+            The referenced symbol sources. 
+            A dependency can pull in more than one source. For example when the dependency is a package with multiple assemblies.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDependencySymbol.ReferencedDocument">
+            <summary>
+            The document referenced through this dependency. Can be null.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDependencySymbol.FilePath">
+            <summary>
+            The absolute path of the dependent file.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IFieldDefinitionSymbol.ContainingType">
+            <summary>
+            The containing type of the field. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.INodeDefinitionSymbol.ApplicationKinds">
+            <summary>
+            The possible options of how this node definition can be applied.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.INodeDefinitionSymbol.IsAtomic">
+            <summary>
+            Use by flood fill algorithm. If true all the pins and border control points of this node will be flooded, otherwise the flood fill stops.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.INodeDefinitionSymbol.IsGeneric">
+            <summary>
+            Whether or not the type parameter list is not empty.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.INodeDefinitionSymbol.OpenExternalEditor">
+            <summary>
+            Opens an external editor for this node.
+            </summary>
+            <returns>True if an editor was opened.</returns>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRegionDefinitionSymbol.RegionIsSynchronous">
+            <summary>
+            Whether or not the patches inside this region are known to execute synchronously.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IRegionDefinitionSymbol.RegionExecutesOnlyOnce">
+            <summary>
+            Whether or not the patches inside this region are known to execute at most once (like if, switch, etc.).
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IOperationDefinitionSymbol.ImplementationOf">
+            <summary>
+            The operation implemented or overridden operation. Returns a dummy if no operation is implemented or overridden.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IPinDefinitionSymbol.DefaultValue">
+            <summary>
+            The default value of the pin or null.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IPinDefinitionSymbol.IsValid">
+            <summary>
+            Whether the pin is valid. Only valid pins will be used when synchronizing an application with its definition.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IProcessDefinitionSymbol.StateType">
+            <summary>
+            The type of the state managed by the process. Returns a dummy if configured in a wrong way.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IProcessDefinitionSymbol.Operations">
+            <summary>
+            The operations this process is made out of.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISymbol.TracingId">
+            <summary>
+            The id of a source code element this symbol is associated with. Used by target code to insert debug and tracing location information
+            which can later be mapped back to source code elements.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.ISymbolSource">
+            <summary>
+            Abstraction over all our symbol sources like VL documents, assemblies, node factories, pre-compiled packages etc.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISymbolSource.DefinedSymbols">
+            <summary>
+            All the symbols defined in this symbol source quickly accessible by name. Nested types and operations are expected to be included.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISymbolSource.References">
+            <summary>
+            All the directly referended symbol sources.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISymbolSource.AllReferences">
+            <summary>
+            Includes path based symbol sources which gets computed from the transitive closure of the direct references.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISymbolSource.Messages">
+            <summary>
+            Errors and warnings.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.ISymbolSource.Export(VL.Core.ExportContext)">
+            <summary>
+            Allows the symbol source to take part in the export process. Gets invoked for each symbol source directly referenced by the project.
+            </summary>
+            <param name="exportContext">The export context of the current project.</param>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.NodeDefinitionSymbol.ShowCategory">
+            <summary>
+            Display the node category (e.g. the containig type).
+            True for operations of product types, extention methods or some special static operations
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.NodeDefinitionSymbol.NodeParameters">
+            <summary>
+            those are always specializations of adaptive nodes. no implementations. no operations just using adaptive nodes.
+            typically distinct. not so for specialized operation definitions (those in a type instance)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.OperationDefinitionSymbol.ImplementationOf">
+            <summary>
+            The interface operation or delegate this operation implements.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.Mutable.Symbol">
+            <summary>
+            base class for the symbolic model
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.Symbol.Parent">
+            <summary>
+            The parent symbol.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.Symbol.IsUnused">
+            <summary>
+            Whether or not the symbol is in use. If unused the symbol won't make it into the post compilation.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.Symbol.IsFrozen">
+            <summary>
+            Whether or not the symbol is frozen. Frozen symbols can't be modified anymore.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.Mutable.NamedSymbol">
+            <summary>
+            identifieable symbol
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Mutable.NamedSymbol.Name">
+            <summary>
+            The name of this symbol.
+            </summary>        
+        </member>
+        <member name="M:VL.Lang.Symbols.Mutable.NamedSymbol.ToString">
+            <summary>
+            a default string rendering. also used by debugger
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.TypeParameterSymbol">
+            <summary>
+            a type parameter is an undefined type placeholder. it has some constraints for its application later on.
+            atm a GenericNodeReference (= a generic method) or a GenericProductTypeDefinition (= a generic struct or type)
+            can have type parameters.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.CanvasSymbol">
+            <summary>
+            A canvas is either used as a flat container, to pack stuff into, or it's used to open up a new category.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedDataHubSymbol.IsConnected">
+            <summary>
+            Whether or not the hub has any incoming or outgoing connection. Patch pins will forward the query to their proxies.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedDataHubSymbol.IsUserConnected">
+            <summary>
+            Whether or not there's any user connection. Auto-generated connections like those of default values are not included.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedDataHubSymbol.SourceType">
+            <summary>
+            Gets the type of outgoing data, e.g. output links
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedDataHubSymbol.SinkType">
+            <summary>
+            Gets the type of incoming data, e.g. input links
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedPatchPinSymbol.IsConnected">
+            <summary>
+            Whether or not any of the proxies are connected. If there're no proxies, whether or not there's any connection.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedPatchPinSymbol.Visibility">
+            <summary>
+            Whether or not the pin is visible inside of a patch.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchedConcreteTypeSymbol.InstanceType">
+            <summary>
+            A trivial instantiation of this type.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.TypeAnnotation">
+            <summary>
+            Represents a type annotation. Consists of the type reference as defined by the user, including the resolve result.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.IPatchedTopLevelDefinitionSymbol">
+            <summary>
+            A definition which introduces its own type parameters. Doesn't share any with the outer context.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IPatchedNodeSymbol.RawNodeDefinition">
+            <summary>
+            The initial node definition before any type unification has been done. A dummy if it can't be resolved.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.PatchSymbol.PatchDescription">
+            <summary>
+            The patch description is used to determine what subpatches and pins are allowed in a patch. 
+            In region applications it is provided by the region definition, in operation sub patches it is set if the containing definition implements an interface.
+            If there's no patch description a dummy will be returned.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.Layer">
+            <summary>
+            A layer holds all the symbol sources plus additional information how that source was found.
+            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Layer.#ctor(System.Collections.Immutable.ImmutableArray{VL.Lang.Symbols.LayerEntry},System.String,System.Boolean)">
+            <summary>
+            A layer holds all the symbol sources plus additional information how that source was found.
+            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean)">
+            <summary>
+            Retrieves symbols of given type and name.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean,System.Collections.Generic.HashSet{``0})">
+            <summary>
+            Retrieves symbols of given type and name.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.Resolver">
+            <summary>
+            A resolver resolves symbol references and tracks the results.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.Scope">
+            <summary>
+            Scopes are used to provide a unified view over what symbols are visible in a certain context.
+            A scope is organized in layers.
+            A layer holds all the symbol sources plus additional information how that source was found.
+            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
+            The layers usually are: patch -> documents -> assemblies -> transitive documents -> transitive assemblies
+            Those layers get queried by a resolver in the given order.
+            </summary>
+            <param name="Compilation">The compilation this scope was made in.</param>
+            <param name="Layers">All the layers this scope is composed of.</param>
+        </member>
+        <member name="M:VL.Lang.Symbols.Scope.#ctor(VL.Lang.Symbols.PreCompilation,System.Collections.Immutable.ImmutableArray{VL.Lang.Symbols.Layer})">
+            <summary>
+            Scopes are used to provide a unified view over what symbols are visible in a certain context.
+            A scope is organized in layers.
+            A layer holds all the symbol sources plus additional information how that source was found.
+            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
+            The layers usually are: patch -> documents -> assemblies -> transitive documents -> transitive assemblies
+            Those layers get queried by a resolver in the given order.
+            </summary>
+            <param name="Compilation">The compilation this scope was made in.</param>
+            <param name="Layers">All the layers this scope is composed of.</param>
+        </member>
+        <member name="P:VL.Lang.Symbols.Scope.Compilation">
+            <summary>The compilation this scope was made in.</summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.Scope.Layers">
+            <summary>All the layers this scope is composed of.</summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Scope.GetSymbols``1(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Retrieves symbols of given type and name.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.SymbolExtensions.GetDefaultValue(VL.Lang.Symbols.IDataHubSymbol,System.Boolean)">
+            <summary>
+            Gets the default value of the pin, the constant value of the pad or the default value of the hub's type.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.SymbolRendering">
+            <summary>
+            configure how symbols are rendered.
+            you might want to show type arguments, categorization, 
+            even normal arguments to distinguish overloaded node definitions
+            you might want to see internal ids, in a local scope or global,
+            you might want to see some of those features (like category) only in case of ambiguity 
+            
+            so SymbolRendering is there to help configure your rendering
+            the ID of a symbol is the result of a symbol rendering configuration
+            SymbolRendering doesnt do much by itself
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsPrimitive(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Whether or not the type is one of the primitive types. Primitive types are:
+            bool, int32, int64, float32, float64 and string
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>True if the type is one of the primitive types.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsParameterized(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Whether or not the type or any of its containing types are generic type definitions - their generic type parameter list is not empty.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>True if the type or any of its containing types is a generic type definition.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsOpen(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Whether or not the type is a type parameter or contains a type parameter in its arguments.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>True if the type is or contains a type parameter.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsOpen(VL.Lang.Symbols.IConcreteTypeSymbol)">
+            <summary>
+            Whether or not the type or one of its parents is a generic type definition or it contains type parameters in its arguments.
+            </summary>
+            <param name="concreteType">The type to check.</param>
+            <returns>True if the type contains any type parameters.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsClosed(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Whether or not the type is not a type parameter and doesn't contain a type parameter in its arguments.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>True if the type is not a type parameter and does not contain any in its arguments.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsImmutable(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Whether or not the type is immutable.
+            </summary>
+            <param name="type">The type to check.</param>
+            <returns>True if the type is immutable.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsDeepImmutable(VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            Whether or not the type is deep immutable. Note that this check is rather expensive and should get cached in the type symbol itself.
+            TODO: Do this once the new imports branch is on develop.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsPatched(VL.Lang.Symbols.IDefinitionSymbol)">
+            <summary>
+            Whether or not the symbol is patched.
+            </summary>
+            <param name="definition">The symbol to check.</param>
+            <returns>True if the symbol is patched.</returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsForwardOperation(VL.Lang.Symbols.IDefinitionSymbol,VL.Lang.Symbols.PreCompilation)">
+            <summary>
+            Determines whether this definition symbol is a forward operation definition.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.HasPatchedDefinition(VL.Model.Node)">
+            <summary>
+            Determines whether the node has a patched definition.
+            </summary>
+            <param name="node">The node to check.</param>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.IsAssignableTo(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.IConcreteTypeSymbol)">
+            <summary>
+            doesn't care about implicit conversion. 
+            beware: type parameter constraints don't get checked. both types must be valid types. 
+            to be tested. 
+            </summary>
+            <param name="sourceType"></param>
+            <param name="sinkType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.Explode(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.ISymbol)">
+            <summary>
+            to be tested
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeExtensions.GetInstanceType(VL.Lang.Symbols.IConcreteTypeSymbol)">
+            <summary>
+            Instantiates the type with its own type parameters.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Symbols.TypeConstraintRelation">
+            <summary>
+            you can use an or operation. most constraining relation will win
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.TypeConstraint,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint})">
+            <summary>
+            Whether or not the constraint is of the form T to <see cref="T:VL.Core.Optional`1"/> and on a user link or user type annotation
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.ITypeSymbol,VL.Lang.Symbols.ITypeSymbol,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},System.Collections.Generic.IEnumerable{VL.Lang.Symbols.TypeConstraint})">
+            <summary>
+            Returns true and injects a new constraint of the form TSource = TSink if the sink is <see cref="T:VL.Core.Optional`1"/>
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeUnification.NormalizeTypeParameters">
+            <summary>
+            Left type parameters get a new name and proper type constraints attached to them
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeUnification.CheckImmutabilityAndTypeClasses_Then_Substitute(VL.Lang.Symbols.ITypeParameterSymbol,VL.Lang.Symbols.ITypeSymbol,System.Collections.Generic.IEnumerable{VL.Lang.Symbols.TypeConstraint})">
+            <summary>
+            you made your decision. now replace typeParameter with otherType.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeUnification.Substitute(System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},VL.Lang.Symbols.TypeMapping)">
+            <summary>
+            Substitutes each type x in stack with type y.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.TypeUnification.Substitute(System.Collections.Generic.Stack{VL.Lang.Symbols.TypeMapping},VL.Lang.Symbols.TypeMapping)">
+            <summary>
+            Substitutes each type x in stack with type y.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Values.Convert``1(System.Object)">
+            <summary>
+            Converts the value to the destination type. If conversion is not possible the default value as seen by VL will be returned.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Values.Convert(System.Object,System.Type)">
+            <summary>
+            Converts the value to the destination type. If conversion is not possible the default value as seen by VL will be returned.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.Symbols.Values.GetNiceName(System.Reflection.FieldInfo)">
+            <summary>
+            Converts "&lt;PropertyName&gt;k__BackingField" to "PropertyName"
+            </summary>
+            <param name="fieldInfo">The field information.</param>
+            <returns></returns>
+        </member>
+        <member name="P:VL.Core.CommandLineArguments.NewInstanceAllowed">
+            <summary>
+            Gets a value indicating whether a new instance is allowed to open.
+            It checks for the '-m' or '--allowmultiple' commandline arg and whether another instance is already running.
+            </summary>
+        </member>
+        <member name="T:VL.Core.RefCountedDictionary`2">
+            <summary>
+            A dictinary that keeps track of how many instances per key are added or removed.
+            </summary>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <seealso cref="T:System.Collections.Generic.Dictionary`2" />
+        </member>
+        <member name="M:VL.Core.RefCountedDictionary`2.GetRefCount(`0)">
+            <summary>
+            Gets the reference count of a specified key, 0 if no entry exists.
+            </summary>
+            <param name="key">The key.</param>
+        </member>
+        <member name="M:VL.Core.RefCountedDictionary`2.Add(`0,`1)">
+            <summary>
+            Adds the specified key and value to the dictionary.
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add. The value can be null for reference types.</param>
+        </member>
+        <member name="M:VL.Core.RefCountedDictionary`2.Remove(`0)">
+            <summary>
+            Removes the value with the specified key from the <see cref="T:System.Collections.Generic.Dictionary`2" />.
+            </summary>
+            <param name="key">The key of the element to remove.</param>
+            <returns>
+            true if the element is successfully found and removed; otherwise, false.  This method returns false if <paramref name="key" /> is not found in the <see cref="T:System.Collections.Generic.Dictionary`2" />.
+            </returns>
+        </member>
+        <member name="P:VL.Model.Element.Parent">
+            <summary>
+            The parent container element.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.Previous">
+            <summary>
+            Pointer to the same element in the previous snapshot. Only used by document in order to safe disk accesses for its dependencies.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.SaveParent">
+            <summary>
+            The parent container element. (or self as Container if parent is null)
+            </summary>        
+        </member>
+        <member name="P:VL.Model.Element.Identity">
+            <summary>
+            The identity of this element inside this session.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.SerializedId">
+            <summary>
+            The serialized identity of this element. Persistent as soon as an element gets written to disk.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.Root">
+            <summary>
+            The root container element. Usually the solution.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.Document">
+            <summary>
+            The document this element is contained in (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.Solution">
+            <summary>
+            The solution this element is a part of.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.Ancestors">
+            <summary>
+            All the parent container elements.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Element.GetAncestorsUpToDefinition">
+            <summary>
+            All the ancestors up to and including the definition.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.PatchDepth">
+            <summary>
+            Gets the patch depth of this Element. Jumping over subpatches.
+            If this Element is a Patch it will not be counted.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.PatchDepthWithSelf">
+            <summary>
+            Gets the patch depth of this Element. Jumping over subpatches.
+            If this Element is a Patch it will count.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.DefinitionDepth">
+            <summary>
+            Gets the definition depth of this Element.
+            If this Element is a definition it will not be counted.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.DefinitionDepthWithSelf">
+            <summary>
+            Gets the definition depth of this Element.
+            If this Element is a definition it will count.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Element.GetNewElement``1(``0)">
+            <summary>
+            Retrieves the element with the same identity as the given element from the current snapshot. Returns null if the element is not present anymore.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ContainingSuperPatches">
+            <summary>
+            Returns all sub or indy patches that this element is part of until hitting a definition.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ContainingPatches">
+            <summary>
+            Returns all sub or indy patches that this element is directly part of.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ContainingTopPatch">
+            <summary>
+            Gets the patch of the next definition up the hierarchy that contains this element.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.MergeId">
+            <summary>
+            Used during copy and paste to find other elements to merge with.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.IsShallowCompound">
+            <summary>
+            Whether or not this element shall be considered shallow during a merge operation.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ParentCanvas">
+            <summary>
+            The first canvas when traversing up the ancestors.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ParentNode">
+            <summary>
+            The first node when traversing up the ancestors.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ParentPatch">
+            <summary>
+            The first patch when traversing up the ancestors.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.ParentDefinition">
+            <summary>
+            The first type or node definition when traversing up the ancestors. Can be null!
+            </summary>
+        </member>
+        <member name="P:VL.Model.Compound.ActualChildren">
+            <summary>
+            Due to the nature of our canvas (seperating elements in a visual way only) a compound can have more children than
+            actually seen on screen. Therefore this property returns all the actual children of a compound.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Solution.GetDescendent(VL.Model.ElementId)">
+            <summary>
+            Returns the element with the given identity. Even though results get cached performance is rather poor.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Solution.GetElementFromSymbol(VL.Lang.Symbols.ISymbol)">
+            <summary>
+            Fetches the corresponding model element for the given symbol. Returns null if it can't be found.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Solution.GetDocument(System.UInt32)">
+            <summary>
+            Retrieves the document with the given identity from this solution. Returns null if the id can't be found.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Solution.GetNewElement``1(``0)">
+            <summary>
+            Retrieves the element with the same identity as the given element from this solution. Returns null if the element is not present anymore.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Document.SerializeTo(System.IO.Stream,System.String)">
+            <summary>
+            Serializes the document into the given stream. The file path is used to make paths to dependent documents relative.
+            </summary>
+            <param name="stream">The stream to serialize to.</param>
+            <param name="filePath">The path to make dependent documents relative to.</param>
+        </member>
+        <member name="M:VL.Model.Document.SaveTo(System.String)">
+            <summary>
+            Internal method to save document to a specific location. Throws an exception when something goes wrong, e.g. file access.
+            Used for SaveAs and auto backup.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns></returns>
+        </member>
+        <member name="P:VL.Model.Dependency.Location">
+            <summary>
+            The location of the dependent file or package. For a file this will be the absolute path, for package just its name.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Dependency.IsForward">
+            <summary>
+            Whether or not the dependency should be forwarded to the document referencing this document.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Dependency.Name">
+            <summary>
+            The file or package name.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Dependency.FilePath">
+            <summary>
+            The absolute path of the dependent file.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Dependency.ReferencedDocument">
+            <summary>
+            The document referenced through this dependency. Can be null.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Dependency.GetFilePath(System.String)">
+            <summary>
+            Computes the file path of this dependency.
+            </summary>
+        </member>
+        <member name="T:VL.Model.DocumentDependency">
+            <summary>
+            Dependencies to other VL documents (*.vl).
+            </summary>
+        </member>
+        <member name="T:VL.Model.ProjectDependency">
+            <summary>
+            Dependencies to projects (*.*proj)
+            </summary>
+        </member>
+        <member name="T:VL.Model.PlatformDependency">
+            <summary>
+            Dependencies to target platform specific files (like *.dll).
+            </summary>
+        </member>
+        <member name="T:VL.Model.NodeFactoryDependency">
+            <summary>
+            Dependency to a node factory
+            </summary>
+        </member>
+        <member name="T:VL.Model.Canvas">
+            <summary>
+            A canvas is a compound used to visually seperate elements, but not logically. It does not introduce a new scope.
+            All its children have to be treated as if they'd be in the parent children list of the canvas.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Canvas.IsDefinitionCanvas">
+            <summary>
+            Whether or not this canvas belongs to the parent type definition or document. Such canvases do not have a position.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Canvas.WithPosition(VL.Model.Point2)">
+            <summary>
+            Returns a new canvas with the given position. If it is the type definition canvas the same instance will be returned.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Link">
+            <summary>
+            A link between control points. The parent compound should be chosen in
+            such a way that it is the most nested one out of all the ancestor 
+            compounds of the control points this link connects. This way we get a
+            very fine grained difference between element trees later on.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Link.ContainingPatch">
+            <summary>
+            Gets the containing patch of sink or source if available, otherwise next patch up the hiearchy.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Commands">
+            <summary>
+            Collection of higher level model modifications, 
+            mostly used by the interaction handlers or the context menu entries
+            </summary>
+        </member>
+        <member name="M:VL.Model.Commands.RemoveAndReplaceHubOfLink(VL.Model.Link,VL.Model.DataHubId,VL.Model.DataHub)">
+            <summary>
+            Replaces a data hub in a link and deletes the replaced one.
+            Used in connection handler to replace the temp control point under the mouse with the final datahub.
+            </summary>
+            <param name="tempLink">The link to edit</param>
+            <param name="hubToRemove">The hub to replace</param>
+            <param name="newHub">The new hub</param>
+            <returns>
+            The new link
+            </returns>
+        </member>
+        <member name="M:VL.Model.Commands.ReplaceHubOfLink(VL.Model.Link,VL.Model.DataHubId,VL.Model.DataHub)">
+            <summary>
+            Replaces a data hub in a link
+            </summary>
+            <param name="tempLink">The link to edit</param>
+            <param name="hubToReplace">The hub to replace</param>
+            <param name="newHub">The new hub</param>
+            <returns>
+            The new link
+            </returns>
+        </member>
+        <member name="M:VL.Model.Commands.ReplaceWithDelegate(VL.Model.DataHub,VL.Lang.Symbols.IConcreteTypeSymbol)">
+            <summary>
+            Replaces the with delegate.
+            </summary>
+            <param name="dataHub">The data hub.</param>
+            <param name="delType">Type of the delete.</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Model.Commands.InsertPadIntoLink(VL.Model.Link,VL.Model.Pad)">
+            <summary>
+            Inserts the pad into a link.
+            </summary>
+            <param name="link">The link</param>
+            <param name="pad">The pad</param>
+            <returns>The new link between the pad and sink of the original link</returns>
+        </member>
+        <member name="M:VL.Model.Commands.AddHubToLink(VL.Model.Link,VL.Model.DataHub,System.Boolean,System.Boolean)">
+            <summary>
+            Adds a pad into a link as source or sink
+            </summary>
+            <param name="link">The link.</param>
+            <param name="hub">The pad.</param>
+            <param name="sinkToSource">Whether the link is going from sink to source.</param>
+            <param name="deleteReplacedHub">Whether to deleted the replaced hub.</param>
+            <returns>The new link between the pad and sink of the original link</returns>
+        </member>
+        <member name="M:VL.Model.Commands.InsertNodeIntoLink(VL.Model.Link,VL.Model.Node,VL.Model.Link@,VL.Model.Link@)">
+            <summary>
+            Inserts the node into a link.
+            </summary>
+            <param name="link">The link</param>
+            <param name="node">The node</param>
+            <param name="inLink">The link into the node, null if no matching input pin was found</param>
+            <param name="outLink">The link out of the node, null if no matching output pin was found</param>
+        </member>
+        <member name="M:VL.Model.Commands.AddNodeToLink(VL.Model.Link,VL.Model.Node,VL.Model.Link@,System.Boolean,System.Boolean)">
+            <summary>
+            Add node to end of link.
+            </summary>
+            <param name="link">The link.</param>
+            <param name="node">The node.</param>
+            <param name="newLink">The link out of the node, null if no matching output pin was found.</param>
+            <param name="sinkToSource">Whether the link goes form sink to source.</param>
+            <param name="deleteReplacedHub">Whether to delete the replaced hub.</param>
+        </member>
+        <member name="M:VL.Model.Commands.AddCrossLinkPad(VL.Model.Link,VL.Model.Point2,VL.Model.Canvas,VL.Model.Patch)">
+            <summary>
+            Adds an anonymous Pad into a link
+            </summary>
+            <param name="tempLink">The cross link</param>
+            <param name="position">The center position for the new pad</param>
+            <param name="canvas">The canvas</param>
+            <param name="targetPatch">The target patch</param>
+            <returns>
+            The newly created pad
+            </returns>
+        </member>
+        <member name="P:VL.Model.ControlPoint.IsLinkPoint">
+            <summary>
+            Whether or not this control point is just a point in the middle of a link.
+            </summary>
+        </member>
+        <member name="P:VL.Model.ControlPoint.IsProxy">
+            <summary>
+            Whether or not this control point is a proxy for a signature hub.
+            So it has an incoming or outgoing reference link.
+            </summary>
+        </member>
+        <member name="P:VL.Model.DataHub.Links">
+            <summary>
+            Returns all the links which connect to this data hub.
+            </summary>
+        </member>
+        <member name="P:VL.Model.DataHub.Proxies">
+            <summary>
+            Returns all the proxies connected to this hub via reference links.
+            </summary>
+        </member>
+        <member name="P:VL.Model.DataHub.Proxy">
+            <summary>
+            Returns the first proxy connected to this hub or null.
+            </summary>
+        </member>
+        <member name="P:VL.Model.DataHub.IsSynchronous">
+            <summary>
+            Whether or not data is only available in one specific moment. Pads and state outputs of process nodes will return false here.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Node.IsOperationForward">
+            <summary>
+            Whether or not this is a pure operation forward meaning there're only pins with no type annotations and a single node which auto connects.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Node.Patches">
+            <summary>
+            All the node's patches. Should a master patch exist it's the first one. Can also be checked per patch with PatchTopology property.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Node.SinglePatch">
+            <summary>
+            Nearly all nodes have one patch. Exceptions are Switch and HigherOrder regions which have many independent patches and will return null here.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Node.InnerCanvas">
+            <summary>
+            The inner canvas of this type definition or null if the node is not a type defintion.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Node.DefaultPatch">
+            <summary>
+            Gets the default sub or indy patch of the node or null
+            </summary>
+        </member>
+        <member name="P:VL.Model.Node.ExplicitBounds">
+            <summary>
+            User set bounds.
+            This is used by the view as the minimal region bounds. 
+            If elements inside the region need more space the view will draw the region bigger.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Node.WithBounds(VL.Model.Rectangle2,System.Boolean)">
+            <summary>
+            Typically you want to set explicit values. 
+            Only the StoreSettings in the view should really set bounds implicitly (these will not be saved and therefore reduce git problems)
+            </summary>
+        </member>
+        <member name="M:VL.Model.Node.ImplementationIsInReferencedDocument">
+            <summary>
+            Returns true if the nodes implementation is either in the same document as the node or a DocumentDependency
+            Returns false if implementation is in document referenced via non DocumentDependency
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Model.Node.PointsToUserDocument">
+            <summary>
+            Returns true if the nodes implementation is inside a user document (includes source packages)
+            </summary>
+        </member>
+        <member name="F:VL.Model.Patch.Dummy">
+            <summary>
+            Returns a dummy patch. Use only in temporary solutions!
+            </summary>
+        </member>
+        <member name="P:VL.Model.Patch.EligibleFragmentOperations">
+            <summary>
+            Returns all the operations which are eligible to be selected in the process definition.
+            These are all the layer and region operations except for Destroy.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Patch.Canvases">
+            <summary>
+            Gets the canvases. Subpatches return the ones of their master patch.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Patch.IsForward">
+            <summary>
+            Whether or not this patch contains only one node which forwards its pins.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Patch.ProxyMap">
+            <summary>
+            A map of data hub ids from proxy to pin and vice versa. Used for quick proxy lookups.
+            In case there're multiple proxies for a pin only the first one will be in the map. Use the DataHub.Proxies property if that information is important.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Patch.AddOverlay(VL.Model.Rectangle2,VL.Model.Canvas,System.Boolean,System.String,VL.Model.Point2,VL.Model.CursorStyle,System.Nullable{System.Drawing.Color})">
+            <summary>
+            Creates an overlay which can be used for screenshots
+            </summary>
+            <param name="bounds"></param>
+            <param name="canvas"></param>
+            <param name="inViewSpace"></param>
+            <param name="name">If not specified overlay is anonymous. It can be named later by the user.</param>
+            <param name="cursorPosition">If not specified no cursor will show up in a screenshot of that region.</param>
+            <param name="cursorStyle">If not specified no cursor will show up in a screenshot of that region.</param>
+            <param name="fillColor">If not specified the user gets an Overlay with a themable Color. The UI should check for null and if null fallback to catalog lookup.</param>
+            <returns></returns>
+        </member>
+        <member name="P:VL.Model.Pin.IsInput">
+            <summary>
+            Gets a value indicating whether this instance is an input pin.
+            Check whether you want know IsSink instead.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Pin.IsOutput">
+            <summary>
+            Gets a value indicating whether this instance is an output pin.
+            Check whether you want know IsSource instead.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Pin.WithBounds(VL.Model.Rectangle2,System.Boolean)">
+            <summary>
+            Returns a new pin with the given bounds if the pin has no proxy. Otherwise the same instance will be returned.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Pin.IsSink">
+            <summary>
+            Gets a value indicating whether this instance is a data sink in a patch.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Pin.IsSource">
+            <summary>
+            Gets a value indicating whether this instance is a data source in a patch.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Slot">
+            <summary>
+            Slots are accessed by pads.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FixLastSymbolSourceConverter">
+            <summary>
+            Fixes the last symbol source from "VL.CoreLib.dll" to "Builtin"
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FromDoc51">
+            <summary>
+            Removes the bounds from all pins except those inside of a loop.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FromDoc57">
+            <summary>
+            Sets the ForwardAllNodesOfTypeDefinition explicitly to false.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FromDoc58">
+            <summary>
+            Sets Node.Name to null for applications
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FromDoc60_ForwardPinToAutoConnect">
+            <summary>
+            Changing from pin forwarding to auto connect (issue #3152)
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FromDoc62">
+            <summary>
+            Looks up unresolvable VL dependencies in packages (issue #2932 and #3515)
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.FromDoc79">
+            <summary>
+            Looks up unresolvable VL dependencies in packages (issue #2932 and #3515)
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.RemoveEmptyAndHiddenCreateDefault">
+            <summary>
+            Removes empty CreateDefault (Hidden) layer operations introduced by a buggy compiler.
+            Removing the ones without the Hidden flag as well causes the help browser to crash as it makes use of it in a weired way.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal._2019_1_0_978_DuplicateAppFix">
+            <summary>
+            Removes duplicate application patches from documents.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Diff.Path">
+            <summary>
+            Top id points to the modified leave.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.DiffExtensions.Apply``1(``0,System.Collections.Immutable.ImmutableArray{VL.Model.Internal.Diff},System.Boolean)">
+            <summary>
+            Applies the diffs (if possible) on the compound. Note that not all properties are implemented yet.
+            See <see cref="M:VL.Model.Internal.Element.ApplyInternal(VL.Model.Internal.Diff,System.Boolean)"/> method.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.Element">
+            <summary>
+            A leaf in our green tree.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Element.serializedId">
+            <summary>
+            Used to identify elements inside a serialized stream. Will stay the same across
+            several serializations.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Element.mergeId">
+            <summary>
+            Used during copy and paste to find other elements to merge with.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.Element.CreateRed(VL.Model.Element)">
+            <summary>
+            Creates a red node out of this green node.
+            </summary>
+            <param name="previous">The previous red node (if any). Could be used to re-use certain cached properties.</param>
+            <returns>The newly created red node.</returns>
+        </member>
+        <member name="M:VL.Model.Internal.Element.SaveTo(System.String)">
+            <summary>
+            Internal method to save document to a specific location. Throws an exception when something goes wrong, e.g. file access.
+            Used for SaveAs and auto backup.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Model.Internal.Element.SerializeTo(System.IO.Stream,System.String)">
+            <summary>
+            Serializes the document into the given stream. The file path is used to make paths to dependent documents relative.
+            </summary>
+            <param name="stream">The stream to serialize to.</param>
+            <param name="documentPath">The path to make dependent documents relative to.</param>
+        </member>
+        <member name="P:VL.Model.Internal.Element.MergeId">
+            <summary>
+            Used during copy and paste to find other elements to merge with.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Element.SerializedId">
+            <summary>
+            Used to identify elements inside a serialized stream. Will stay the same across
+            several serializations.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.Compound">
+            <summary>
+            A node in our green tree.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Document.authors">
+            <summary>
+            A comma separated list of authors who wrote this document.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Document.credits">
+            <summary>
+            Credits to third party code used in this document.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Document.licenseUrl">
+            <summary>
+            The URL to the license.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Document.projectUrl">
+            <summary>
+            The URL to the project (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Document.Authors">
+            <summary>
+            A comma separated list of authors who wrote this document.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Document.Credits">
+            <summary>
+            Credits to third party code used in this document.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Document.LicenseUrl">
+            <summary>
+            The URL to the license.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Document.ProjectUrl">
+            <summary>
+            The URL to the project (if any).
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Dependency.location">
+            <summary>
+            The absolute path to the referenced file (if it is a file reference), the package id (if package reference) or assembly name.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Dependency.Location">
+            <summary>
+            The absolute path to the referenced file (if it is a file reference), the package id (if package reference) or assembly name.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.DocumentDependency">
+            <summary>
+            Dependencies to other VL documents (*.vl).
+            They use VLProject.ProbeFile to determine the full path of a dependency.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.ProjectDependency">
+            <summary>
+            Dependencies to projects (*.*proj).
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.PlatformDependency">
+            <summary>
+            Dependencies to target platform specific files (like *.dll).
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.PlatformDependency.resolvedAssemblyFile">
+            <summary>
+            The resolved path of the referenced assembly. Returns null if not yet resolved and the empty string if it couldn't be resolved.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.PlatformDependency.ResolvedAssemblyFile">
+            <summary>
+            The resolved path of the referenced assembly. Returns null if not yet resolved and the empty string if it couldn't be resolved.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.NodeFactoryDependency">
+            <summary>
+            Dependency to a node factory (IVLNodeFactory)
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.NugetDependency">
+            <summary>
+            Dependency to a NuGet package.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.NugetDependency.package">
+            <summary>
+            The resolved package. Returns null if it couldn't get resolved.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.NugetDependency.Package">
+            <summary>
+            The resolved package. Returns null if it couldn't get resolved.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.Canvas">
+            <summary>
+            A canvas is a compound used to visually seperate elements, but not logically. It does not introduce a new scope.
+            All its children have to be treated as if they'd be in the parent children list of the canvas.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.Link">
+            <summary>
+            A link connects control points.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.NodeOrPatch.summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.NodeOrPatch.remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.NodeOrPatch.tags">
+            <summary>
+            For being bale to find the entity.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.NodeOrPatch.Remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.NodeOrPatch.Summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.NodeOrPatch.Tags">
+            <summary>
+            For being bale to find the entity.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Pin.defaultValue">
+            <summary>
+            The default value of the pin as string or XElement.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Pin.summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Pin.remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Pin.DefaultValue">
+            <summary>
+            The default value of the pin as string or XElement.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Pin.Remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Pin.Summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Pad.value">
+            <summary>
+            The value of the pad as string or XElement.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Pad.Value">
+            <summary>
+            The value of the pad as string or XElement.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Slot.value">
+            <summary>
+            The value of the slot as string or XElement.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Slot.summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Slot.remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="F:VL.Model.Internal.Slot.tags">
+            <summary>
+            For being bale to find the entity.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Slot.Remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Slot.Summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Slot.Tags">
+            <summary>
+            For being bale to find the entity.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Slot.Value">
+            <summary>
+            The value of the slot as string or XElement.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.AttributeArgument.ValueWithAnnotation.SerializedValue">
+            <summary>
+            The string or XElement.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ModelExtensions.UpdateDescendents``2(``0,System.Func{``1,VL.Model.Internal.Compound,System.Object},System.Func{VL.Model.Internal.Compound,VL.Model.Internal.Compound})">
+            <summary>
+            Updates all the descendants of the container with the given element type from top to bottom.
+            </summary>
+            <typeparam name="TContainer">The container type.</typeparam>
+            <typeparam name="TElement">The type of descendants for which to apply the update function.</typeparam>
+            <param name="container">The container to update.</param>
+            <param name="update">The update function. Either return null to delete the descendant or one or many elements to replace it.</param>
+            <param name="updateAfterChildUpdate">Called after a child has been updated.</param>
+            <returns>A new container if any descendent was indeed updated.</returns>
+        </member>
+        <member name="M:VL.Model.Internal.ModelExtensions.Touch``1(``0)">
+            <summary>
+            Touches the specified element so that it is changed for the compiler and triggers a recompile.
+            </summary>
+        </member>
+        <member name="M:VL.Model.DataHubExtensions.Touch``1(``0)">
+            <summary>
+            Touches the specified element so that it is changed for the compiler and triggers a recompile.
+            </summary>
+        </member>
+        <member name="T:VL.Model.CompileTimeValue">
+            <summary>
+            Values are stored as serialized JSON strings in our model and get deserialized using an external type annotation.
+            This class helps to deal with the various cases which can go wrong during the deserialization of such a value.
+            </summary>
+        </member>
+        <member name="M:VL.Model.CompileTimeValue.From(System.Object,VL.Core.UniqueId,System.Type)">
+            <summary>
+            Serializes the value and (if successful) wraps it in a compile time value. The document id is important to deal with file paths.
+            </summary>
+        </member>
+        <member name="P:VL.Model.CompileTimeValue.SerializedValue">
+            <summary>
+            The string or XElement.
+            </summary>
+        </member>
+        <member name="T:VL.Model.ModelExtensions">
+            <summary>
+            General helpers for data hubs, extracted from ModelExtensions.
+            for higher level stuff see the extension methods in Commands.cs
+            </summary>
+            <summary>
+            General helpers for the model,
+            for higher level stuff see the extension methods in Commands.cs
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.HasCustomValue(VL.Model.Pin)">
+            <summary>
+            Whether or not the pins value differs from the default value of its pin definition.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsPinOnNodeOrRegion(VL.Model.Element)">
+            <summary>
+            Determines whether this is a small in/out pin on a node or region.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsPinOnProcessNode(VL.Model.Element)">
+            <summary>
+            Determines whether this is a small in/out pin on a process node or region fragment.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsControlPointInLink(VL.Model.DataHub)">
+            <summary>
+            Determines whether this control point is a middle control point in a link.
+            So it has the same link as incoming and outgoing link.
+            </summary>
+            <param name="hub">The hub</param>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsSignatureHub(VL.Model.Element)">
+            <summary>
+            Determines whether this element is a border control point or a pin of a patch.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsPinOfPatch(VL.Model.Element)">
+            <summary>
+            Determines whether this element is a pin of a patch
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetConnectedOperationInputPin(VL.Model.Element)">
+            <summary>
+            If directly connected to an input pin of a surrounding operation defintion or member operation definition. Outputs this Pin (typically downstream connected to a proxy)
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.CanReplaceWithDelegate(VL.Model.DataHub,VL.Lang.Symbols.IConcreteTypeSymbol@)">
+            <summary>
+            Determines whether this data hub can be replaced with a delegate
+            </summary>
+            <param name="dataHub">The data hub.</param>
+            <param name="delType">Type of the delete or null</param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.NameVersionAndModelCategory(VL.Model.Node)">
+            <summary>
+            The model category contains "Experimental" (..). If this is not wanted use GetSymbol().GetInfoString()
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetFrom``1(``0,VL.Model.Compound)">
+            <summary>
+            Gets the element from the state of the given parent element. Calls GetNewElement internally.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetFrom``1(VL.Model.ElementId,VL.Model.Compound)">
+            <summary>
+            Gets the element with this ID from the state of the given parent element. Calls GetDescenent internally.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetCurrent``1(``0)">
+            <summary>
+            Gets the element from the CurrentSolution of the session.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsAssigned(VL.Model.Element)">
+            <summary>
+            Determines whether this element is assigned to a subpatch (not indy/master).
+            </summary>
+            <param name="element">The element.</param>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.IsAssigned(VL.Model.Element,System.Collections.Generic.IEnumerable{VL.Model.Patch}@)">
+            <summary>
+            Determines whether this element is assigned to a subpatch (not indy/master).
+            </summary>
+            <param name="element">The element.</param>
+            <param name="containingPatches">The containing patches.</param>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.BatchUpdate``1(``0,System.Func{``0,``0})">
+            <summary>
+            Applies the given update function in an environment where no ancestor updates will be done.
+            It's therefore only possible to use this function if the update function does not dependend
+            on up-to-date parent information.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.UpdateDescendents``2(``0,System.Func{``1,System.Object},System.Boolean)">
+            <summary>
+            Updates all the descendants of the container with the given element type from top to bottom.
+            </summary>
+            <typeparam name="TContainer">The container type.</typeparam>
+            <typeparam name="TElement">The type of descendants for which to apply the update function.</typeparam>
+            <param name="container">The container to update.</param>
+            <param name="update">The update function. Either return null to delete the descendant or one or many elements to replace it.</param>
+            <param name="traverseIntoCanvases">Whether to traverse into canvases.</param>
+            <returns>A new container if any descendent was indeed updated.</returns>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.UpdateDescendentsBottomUp``2(``0,System.Func{``1,System.Object},System.Boolean)">
+            <summary>
+            Updates all the descendants of the container with the given element type from bottom to top.
+            </summary>
+            <typeparam name="TContainer">The container type.</typeparam>
+            <typeparam name="TElement">The type of descendants for which to apply the update function.</typeparam>
+            <param name="container">The container to update.</param>
+            <param name="update">The update function. Either return null to delete the descendant or one or many elements to replace it.</param>
+            <param name="traverseIntoCanvases">Whether to traverse into canvases.</param>
+            <returns>A new container if any descendent was indeed updated.</returns>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetCommonAncestor(System.Collections.Generic.IEnumerable{VL.Model.Element})">
+            <summary>
+            The returned container contains all the given elements. It is the ancestor of all elements. 
+            If you input a set of elements where one element is an ancestor of all others it sill won't return this element, but its parent.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetUndoContext(VL.Model.Canvas)">
+            <summary>
+            Gets the undo context. Either the canvas itself if it is a Group, or the parent definition if it is the canvas of type definition.
+            </summary>
+            <param name="canvas">The canvas.</param>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetTopElement(System.Collections.Generic.IEnumerable{VL.Model.Element})">
+            <summary>
+            Fair operation. Gives the top of the selected elements within the graph. The top element can be one of the input elements or an ancestor theirof.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetTopElement(System.Collections.Generic.List{VL.Model.Element})">
+            <summary>
+            Fair operation. Gives the top of the selected elements within the graph. The top element can be one of the input elements or an ancestor theirof.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.Reduce(System.Collections.Generic.IEnumerable{VL.Model.Element})">
+            <summary>
+            Returns a subset of the original sequence that only contains those elements that are no descendants of any other element of the original sequence.
+            Returns a set of elements where none of the elements are in a parent-child relationship. The returned indendependant roots don't have two siblings.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetSelectionForDuplication(System.Collections.Generic.IEnumerable{VL.Model.Element},System.Collections.Generic.HashSet{VL.Model.Element}@)">
+            <summary>
+            Expands the selection to include referenced pins, slots and subpatches. The additional selected elements will
+            also be returned in a seperate set so subsequent operations can act on that information.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.PackIntoContainer(System.Collections.Generic.IEnumerable{VL.Model.Element},System.Collections.Generic.HashSet{VL.Model.Element}@)">
+            <summary>
+            Returns a modified common anscestors of the given elements and all the links between them. 
+            Will also add shallow compounds to the set of marked elements.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.AddDelegate(VL.Model.Patch,VL.Model.Point2,VL.Lang.Symbols.IConcreteTypeSymbol,VL.Model.Canvas)">
+            <summary>
+            Adds a delegate of the given type to the patch
+            </summary>
+            <param name="parentPatch">The patch.</param>
+            <param name="location">The location.</param>
+            <param name="funcType">Type of the new delegate</param>
+            <param name="parentCanvas">The parent canvas.</param>
+            <returns>The created delegate</returns>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.HasMasterPatchWithCanvas(VL.Model.Node)">
+            <summary>
+            Determines whether the node has a master patch with exactly one canvas
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.MasterPatchCanvas(VL.Model.Node)">
+            <summary>
+            Gets the canvas of the master patch if the master patch has exactly one canvas
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetDefiningCanvas(VL.Model.Node)">
+            <summary>
+            Tries to find the canvas that contains the implementation of this node, returns null if not found.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetOrAddCanvasForCategory(VL.Model.Canvas,VL.Lang.Symbols.Category,System.Collections.Generic.Dictionary{VL.Lang.Symbols.Category,VL.Model.Canvas})">
+            <summary>
+            Gets the first canvas for the given category in this root canvas or creates it if it doesn't exist yet.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelExtensions.GetDefiningNode(VL.Lang.Symbols.INodeDefinitionSymbol)">
+            <summary>
+            Tries to find the node element defining this definition. Will return the node defining the containing type for member operations.
+            Note that the returned element might be from an older snapshot due to incremental compilation.
+            </summary>
+        </member>
+        <member name="T:VL.Model.ElementIdentifier">
+            <summary>
+            Helper class to quickly locate elments in the solution.
+            </summary>
+        </member>
+        <member name="M:VL.Model.NodeKindHelper.IsImmutableTypeDefinition(VL.Model.ElementKind)">
+            <summary>
+            True for records and enums.
+            </summary>
+        </member>
+        <member name="M:VL.Model.IntegerExtensions.ToRoman(System.Int32)">
+            <summary>
+            Converts an integer into a roman numeral.
+            </summary>
+            <param name="number">
+            The number being transformed.
+            </param>
+            <returns>
+            A string representation of the number's corresponding roman numeral.
+            </returns>
+        </member>
+        <member name="M:VL.Model.PackageExtensions.IsVlPackage(VL.Lang.PackageInfo)">
+            <summary>
+            Whether or not the package contains a main VL document and can therefore be considered a VL package.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Point2">
+            <summary>
+            To get rid of System.Drawing dependency (not cross-platform).
+            </summary>
+        </member>
+        <member name="T:VL.Model.Rectangle2">
+            <summary>
+            To get rid of System.Drawing dependency (not cross-platform).
+            </summary>
+        </member>
+        <member name="T:VL.Model.Size2">
+            <summary>
+            To get rid of System.Drawing dependency (not cross-platform).
+            </summary>
+        </member>
+        <member name="F:VL.Model.TaggedInfo55.remarks">
+            <summary>
+            Useful remarks to the entity.
+            </summary>
+        </member>
+        <member name="F:VL.Model.TaggedInfo55.tags">
+            <summary>
+            Additional tags to describe the entity.
+            </summary>
+        </member>
+        <member name="F:VL.Model.TaggedInfo55.authors">
+            <summary>
+            A comma separated list of authors who wrote this document.
+            </summary>
+        </member>
+        <member name="F:VL.Model.TaggedInfo55.credits">
+            <summary>
+            Credits to third party code used in this document.
+            </summary>
+        </member>
+        <member name="F:VL.Model.TaggedInfo55.licenseUrl">
+            <summary>
+            The URL to the license.
+            </summary>
+        </member>
+        <member name="F:VL.Model.TaggedInfo55.projectUrl">
+            <summary>
+            The URL to the project (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Model.TaggedInfo55.Authors">
+            <summary>
+            A comma separated list of authors who wrote this document.
+            </summary>
+        </member>
+        <member name="P:VL.Model.TaggedInfo55.Credits">
+            <summary>
+            Credits to third party code used in this document.
+            </summary>
+        </member>
+        <member name="P:VL.Model.TaggedInfo55.LicenseUrl">
+            <summary>
+            The URL to the license.
+            </summary>
+        </member>
+        <member name="P:VL.Model.TaggedInfo55.ProjectUrl">
+            <summary>
+            The URL to the project (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Model.TaggedInfo55.Remarks">
+            <summary>
+            Useful remarks to the entity.
+            </summary>
+        </member>
+        <member name="P:VL.Model.TaggedInfo55.Tags">
+            <summary>
+            Additional tags to describe the entity.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IElement.Identity">
+            <summary>
+            The unique id of the element. Note that the id is only unique in memory.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IElement.SerializedId">
+            <summary>
+            The unique persistent id of the element generated when the element was created the first time and persisted across serializations.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IElement.TracingId">
+            <summary>
+            The id used by runtime to fetch values and measrue method calls. Usually the same as the element id.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IElement.HotSwapId">
+            <summary>
+            The id used by hot swap to align the fields. Usually the same as the tracing id.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPin.IsPinGroup">
+            <summary>
+            Wether or not this pin definition should be exposed on application side as a pin group.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPin.PinGroupName">
+            <summary>
+            The pin group on application side this pin belongs to.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPin.PinGroupDefaultCount">
+            <summary>
+            The number of pins to create for a pin group when first creating a node.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPatch.SupportsPins">
+            <summary>
+            Whether or not the user is free to create pins in this patch.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPatch.IsDebug">
+            <summary>
+            Wether or not the patch is being debugged. If true the backend will generate tracing code.
+            </summary>
+        </member>
+        <member name="M:VL.Model.ModelInterfaceExtensions.GetClrValue(VL.Model.CompileTimeValue,VL.Lang.Symbols.ITypeSymbol)">
+            <summary>
+            The CLR value or null if the type can't be resolved.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Overlay.WithFillColor(System.Nullable{System.Drawing.Color})">
+            <summary>
+            You can reset that to default by setting null. The UI might still draw a color depending on the value of ColorIndex.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Overlay.WithColorIndex(System.Nullable{System.Int32})">
+            <summary>
+            You can reset that to default by setting null. The UI might still draw a color depending on the value of FillColor.
+            </summary>
+        </member>
+        <member name="T:VL.Model.FullNameCategoryReference">
+            <summary>
+            refers to a category and its owners in namespace style.  e.g. "Math.Trigonometry"
+            </summary>
+            
+        </member>
+        <member name="P:VL.Model.IChoice.Weight">
+            <summary>
+            Returned values should be between 2^20 and 2^10
+            </summary>
+        </member>
+        <member name="T:VL.Model.TypeReference">
+            <summary>
+            may resolve to a concrete type
+            context may be a concrete type defintion or an operation definition
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.RootProcessDefinitions">
+            <summary>
+            Returns all the ungeneric process definitions named "Application".
+            </summary>
+        </member>
+        <member name="E:VL.Model.VLSession.OnException">
+            <summary>
+            Occurs when an exception gets reported to the session. Raised on the main thread.
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.TaskFactory">
+            <summary>
+            The task context of the patch editor (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.EditorExtensionsEnabled">
+            <summary>
+            Whether or not *.HDE.vl files should be loaded.
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.Name">
+            <summary>
+            The name of session. Will be used to compute the user document root folder. Examples are "beta", "gamma" or "xenko".
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.NewVersionUrl">
+            <summary>
+            Empty if there is no newer version available, otherwise link to release page
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.HostIsPreview">
+            <summary>
+            If set the user document root folder will be suffixed with "-preview".
+            </summary>
+        </member>
+        <member name="P:VL.Model.VLSession.IsStandalone">
+            <summary>
+            Gets a value indicating whether this instance is vvvv gamma standalone.
+            </summary>
+        </member>
+        <member name="M:VL.Model.VLSession.GetAppExporter(VL.Model.Document)">
+            <summary>
+            Tries to load the app exporter. The load can fail if the Microsoft Build Tools are not installed.
+            </summary>
+            <param name="document">The document to export.</param>
+            <returns>The exporter or null of the build tools are not installed.</returns>
+        </member>
+        <member name="M:VL.Model.VLSession.IsReadonlyOrPackageFile(VL.Model.Document)">
+            <summary>
+            Checks whether this document is read-only or part of an installed package. Used to avoid saving files from installed packages.
+            </summary>
+        </member>
+        <member name="M:VL.Model.VLSession.IsPackageFile(VL.Model.Document)">
+            <summary>
+            Checks whether this document is part of an installed package. Used to avoid saving files from installed packages.
+            </summary>
+        </member>
+        <member name="M:VL.Model.VLSession.EnsureTracked(VL.Model.Canvas)">
+            <summary>
+            Tracks the specified canvas for undo/redo.
+            </summary>
+            <param name="canvas">The canvas to track.</param>
+        </member>
+        <member name="F:VL.Model.SolutionUpdateKind.UpdateUIAndHistory">
+            <summary>
+            To update UI and add change to history for undo, but does not trigger a recompile
+            </summary>
+        </member>
+        <member name="T:VL.Lib.Primitive.AbstractLoopRegion">
+            <summary>
+            Abstract base class for our loop regions.
+            </summary>
+        </member>
+        <member name="T:VL.Lib.Primitive.ForeachLoopRegion">
+            <summary>
+            Our foreach region.
+            </summary>
+        </member>
+        <member name="T:VL.Lib.Primitive.RepeatLoopRegion">
+            <summary>
+            Our repeat region.
+            </summary>
+        </member>
+        <member name="T:Ascii85">
+            <summary>
+            C# implementation of ASCII85 encoding. 
+            Based on C code from http://www.stillhq.com/cgi-bin/cvsweb/ascii85/
+            </summary>
+            <remarks>
+            Jeff Atwood
+            http://www.codinghorror.com/blog/archives/000410.html
+            </remarks>
+        </member>
+        <member name="F:Ascii85.PrefixMark">
+            <summary>
+            Prefix mark that identifies an encoded ASCII85 string, traditionally '&lt;~'
+            </summary>
+        </member>
+        <member name="F:Ascii85.SuffixMark">
+            <summary>
+            Suffix mark that identifies an encoded ASCII85 string, traditionally '~&gt;'
+            </summary>
+        </member>
+        <member name="F:Ascii85.LineLength">
+            <summary>
+            Maximum line length for encoded ASCII85 string; 
+            set to zero for one unbroken line.
+            </summary>
+        </member>
+        <member name="F:Ascii85.EnforceMarks">
+            <summary>
+            Add the Prefix and Suffix marks when encoding, and enforce their presence for decoding
+            </summary>
+        </member>
+        <member name="M:Ascii85.Decode(System.String)">
+            <summary>
+            Decodes an ASCII85 encoded string into the original binary data
+            </summary>
+            <param name="s">ASCII85 encoded string</param>
+            <returns>byte array of decoded binary data</returns>
+        </member>
+        <member name="M:Ascii85.Encode(System.Byte[])">
+            <summary>
+            Encodes binary data into a plaintext ASCII85 format string
+            </summary>
+            <param name="ba">binary data to encode</param>
+            <returns>ASCII85 encoded string</returns>
+        </member>
+    </members>
+</doc>
