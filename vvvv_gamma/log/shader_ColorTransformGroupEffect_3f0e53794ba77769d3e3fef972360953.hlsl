@@ -101,7 +101,7 @@ dcl_output o1.xy
 //   o1.x <- <VSMain return value>.TexCoord_id62.x; o1.y <- <VSMain return value>.TexCoord_id62.y; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 201 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ColorTransformGroupEffect_3f0e53794ba77769d3e3fef972360953.hlsl"
+#line 201 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ColorTransformGroupEffect_3f0e53794ba77769d3e3fef972360953.hlsl"
 dp4 o0.x, v0.xyzw, cb0[0].xyzw
 dp4 o0.y, v0.xyzw, cb0[1].xyzw
 dp4 o0.z, v0.xyzw, cb0[2].xyzw
@@ -186,7 +186,7 @@ dcl_temps 3
 //   v1.x <- __input__.TexCoord_id62.x; v1.y <- __input__.TexCoord_id62.y; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 170 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ColorTransformGroupEffect_3f0e53794ba77769d3e3fef972360953.hlsl"
+#line 170 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ColorTransformGroupEffect_3f0e53794ba77769d3e3fef972360953.hlsl"
 add r0.x, cb0[6].x, l(1.000000)
 
 #line 176

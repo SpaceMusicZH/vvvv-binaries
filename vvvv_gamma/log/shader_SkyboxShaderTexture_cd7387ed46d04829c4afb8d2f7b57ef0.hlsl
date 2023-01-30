@@ -116,7 +116,7 @@ dcl_temps 2
 //   o1.x <- <VSMain return value>.skyboxViewDirection_id74.x; o1.y <- <VSMain return value>.skyboxViewDirection_id74.y; o1.z <- <VSMain return value>.skyboxViewDirection_id74.z; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 142 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_SkyboxShaderTexture_cd7387ed46d04829c4afb8d2f7b57ef0.hlsl"
+#line 142 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_SkyboxShaderTexture_cd7387ed46d04829c4afb8d2f7b57ef0.hlsl"
 dp4 o0.z, v0.xyzw, cb0[2].xyzw
 dp4 r0.x, v0.xyzw, cb0[0].xyzw  // r0.x <- streams.ShadingPosition_id0.x
 dp4 r0.y, v0.xyzw, cb0[1].xyzw  // r0.y <- streams.ShadingPosition_id0.y
@@ -213,7 +213,7 @@ dcl_temps 2
 //   v1.x <- __input__.skyboxViewDirection_id74.x; v1.y <- __input__.skyboxViewDirection_id74.y; v1.z <- __input__.skyboxViewDirection_id74.z; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 133 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_SkyboxShaderTexture_cd7387ed46d04829c4afb8d2f7b57ef0.hlsl"
+#line 133 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_SkyboxShaderTexture_cd7387ed46d04829c4afb8d2f7b57ef0.hlsl"
 dp3 r0.x, v1.xyzx, v1.xyzx
 rsq r0.x, r0.x
 mul r0.xyz, r0.xxxx, v1.zxyz  // r0.x <- samplingDir.z; r0.y <- samplingDir.x; r0.z <- samplingDir.y

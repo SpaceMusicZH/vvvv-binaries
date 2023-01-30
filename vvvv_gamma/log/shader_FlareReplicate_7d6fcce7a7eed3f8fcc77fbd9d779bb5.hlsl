@@ -92,7 +92,7 @@ dcl_output o1.xy
 //   o1.x <- <VSMain return value>.TexCoord_id62.x; o1.y <- <VSMain return value>.TexCoord_id62.y; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 174 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_FlareReplicate_7d6fcce7a7eed3f8fcc77fbd9d779bb5.hlsl"
+#line 174 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_FlareReplicate_7d6fcce7a7eed3f8fcc77fbd9d779bb5.hlsl"
 dp4 o0.x, v0.xyzw, cb0[0].xyzw
 dp4 o0.y, v0.xyzw, cb0[1].xyzw
 dp4 o0.z, v0.xyzw, cb0[2].xyzw
@@ -168,7 +168,7 @@ dcl_temps 6
 //   v1.x <- __input__.TexCoord_id62.x; v1.y <- __input__.TexCoord_id62.y; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 134 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_FlareReplicate_7d6fcce7a7eed3f8fcc77fbd9d779bb5.hlsl"
+#line 134 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_FlareReplicate_7d6fcce7a7eed3f8fcc77fbd9d779bb5.hlsl"
 lt r0.xy, v1.xyxx, l(0.000000, 0.000000, 0.000000, 0.000000)
 lt r0.zw, l(0.000000, 0.000000, 1.000000, 1.000000), v1.xxxy
 or r0.x, r0.z, r0.x
