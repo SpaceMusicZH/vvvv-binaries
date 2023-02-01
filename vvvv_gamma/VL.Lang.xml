@@ -1363,6 +1363,14 @@
             The items as referenced by user provided type annotations and node references.
             </summary>
         </member>
+        <member name="M:VL.Lang.Symbols.BuildItem.GetSelfAsType">
+            <summary>
+            Returns either:
+            - the original type in case of a type forward
+            - the type from the pre-compiled package in case the document can't be referenced
+            - the type definition of this build item
+            </summary>
+        </member>
         <member name="M:VL.Lang.Symbols.PreCompilation.GetUserReferencedDefinitions(VL.Lang.Symbols.IDefinitionSymbol)">
             <summary>
             The referenced definitions as given by user provided type annotations and node references. 
@@ -1370,9 +1378,9 @@
             distinction between process and type for the user.
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.PreCompilation.GetDocumentsInBuildOrder">
+        <member name="P:VL.Lang.Symbols.PreCompilation.SourceDocuments">
             <summary>
-            Retrieves the documents in build order. For example CoreLib comes before Skia.
+            Does not include pre-compiled documents.
             </summary>
         </member>
         <member name="M:VL.Lang.Symbols.PreCompilation.GetActiveSymbolSources">
@@ -1646,6 +1654,11 @@
             Categories overwrite this property and return the full name, for example "Delegate (0 -> 0)".
             </summary>
         </member>
+        <member name="P:VL.Lang.Symbols.ICategorizableSymbol.FilePath">
+            <summary>
+            The file path to the origin of this symbol. Defaults to the path of the symbol source.
+            </summary>
+        </member>
         <member name="P:VL.Lang.Symbols.IConcreteTypeSymbol.IsBoundToType">
             <summary>
             Whether or not type parameters are used from the parent type definition.
@@ -1806,12 +1819,12 @@
         </member>
         <member name="P:VL.Lang.Symbols.ISymbolSource.References">
             <summary>
-            All the directly referended symbol sources.
+            All the directly referended symbol sources. Friends come first.
             </summary>
         </member>
         <member name="P:VL.Lang.Symbols.ISymbolSource.AllReferences">
             <summary>
-            Includes path based symbol sources which gets computed from the transitive closure of the direct references.
+            Includes path based symbol sources which gets computed from the transitive closure of the direct references. Friends come first.
             </summary>
         </member>
         <member name="P:VL.Lang.Symbols.ISymbolSource.Messages">
@@ -2795,6 +2808,11 @@
             A node in our green tree.
             </summary>
         </member>
+        <member name="F:VL.Model.Internal.Document.summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
         <member name="F:VL.Model.Internal.Document.authors">
             <summary>
             A comma separated list of authors who wrote this document.
@@ -2833,6 +2851,11 @@
         <member name="P:VL.Model.Internal.Document.ProjectUrl">
             <summary>
             The URL to the project (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Document.Summary">
+            <summary>
+            A short description.
             </summary>
         </member>
         <member name="F:VL.Model.Internal.Dependency.location">
