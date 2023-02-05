@@ -92,7 +92,7 @@ dcl_output_siv o1.xyzw, position
 //   o1.x <- <VSMain return value>.ShadingPosition_id0.x; o1.y <- <VSMain return value>.ShadingPosition_id0.y; o1.z <- <VSMain return value>.ShadingPosition_id0.z; o1.w <- <VSMain return value>.ShadingPosition_id0.w; 
 //   o0.x <- <VSMain return value>.VID_id108
 //
-#line 321 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_607437821748ac52e1a957ee07d229d2.hlsl"
+#line 321 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_607437821748ac52e1a957ee07d229d2.hlsl"
 mov o0.x, v0.x
 mov o1.xyzw, v1.xyzw
 ret 
@@ -214,7 +214,7 @@ dcl_maxout 4
 //   v[0][0].x <- input[0].VID_id108; 
 //   v[0][1].x <- input[0].ShadingPosition_id0.x; v[0][1].y <- input[0].ShadingPosition_id0.y; v[0][1].z <- input[0].ShadingPosition_id0.z; v[0][1].w <- input[0].ShadingPosition_id0.w
 //
-#line 286 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_607437821748ac52e1a957ee07d229d2.hlsl"
+#line 286 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_607437821748ac52e1a957ee07d229d2.hlsl"
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r0.x, v[0][0].x, l(36), t0.xxxx  // r0.x <- p.Size.x
 
 #line 288
@@ -349,7 +349,7 @@ dcl_temps 2
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w; 
 //   oDepth <- <PSMain return value>.Depth_id10
 //
-#line 210 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_607437821748ac52e1a957ee07d229d2.hlsl"
+#line 210 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_607437821748ac52e1a957ee07d229d2.hlsl"
 dp2 r0.x, v1.yzyy, v1.yzyy  // r0.x <- lenSqr
 
 #line 211

@@ -2,7 +2,7 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: TextureFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin Color_TextureFX
+@P   - EffectNodeBase.EffectNodeBaseShader: mixin SourceTemplate_TextureFX
 ***************************
 ****  ConstantBuffers  ****
 ***************************
@@ -19,7 +19,7 @@ cbuffer Globals [Size: 96]
 @C    Texture7TexelSize_id29 => Texturing.Texture7TexelSize
 @C    Texture8TexelSize_id31 => Texturing.Texture8TexelSize
 @C    Texture9TexelSize_id33 => Texturing.Texture9TexelSize
-@C    Color_id87 => Color_TextureFX.Color
+@C    Color_id87 => SourceTemplate_TextureFX.Color
 ***************************
 ******  Resources    ******
 ***************************
@@ -28,7 +28,7 @@ cbuffer Globals [Size: 96]
 ***************************
 *****     Sources     *****
 ***************************
-@S    Color_TextureFX => 9eec9eea7139a6da6aae2af72796dc6e
+@S    SourceTemplate_TextureFX => 293477180fbe788100bd46db7e5b846a
 @S    TextureFX => 27bb4f1f808a5eedf6dfeaa75c669c29
 @S    ImageEffectShader => 8064e30cc02e5eb4052f420259dbf05e
 @S    SpriteBase => 5a7aa9dfd5b5c7613053f4f66c79ca0d
@@ -86,7 +86,7 @@ dcl_output_siv o0.xyzw, position
 //   v0.x <- __input__.Position_id72.x; v0.y <- __input__.Position_id72.y; v0.z <- __input__.Position_id72.z; v0.w <- __input__.Position_id72.w; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 146 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_TextureFXEffect_b93a76ab224a878551ed582866f02214.hlsl"
+#line 146 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_TextureFXEffect_b93a76ab224a878551ed582866f02214.hlsl"
 dp4 o0.x, v0.xyzw, cb0[0].xyzw
 dp4 o0.y, v0.xyzw, cb0[1].xyzw
 dp4 o0.z, v0.xyzw, cb0[2].xyzw
@@ -151,7 +151,7 @@ dcl_output o0.xyzw
 //   v0.x <- __input__.ShadingPosition_id0.x; v0.y <- __input__.ShadingPosition_id0.y; v0.z <- __input__.ShadingPosition_id0.z; v0.w <- __input__.ShadingPosition_id0.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 140 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_TextureFXEffect_b93a76ab224a878551ed582866f02214.hlsl"
+#line 140 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_TextureFXEffect_b93a76ab224a878551ed582866f02214.hlsl"
 mov o0.xyzw, cb0[5].xyzw
 ret 
 // Approximately 2 instruction slots used

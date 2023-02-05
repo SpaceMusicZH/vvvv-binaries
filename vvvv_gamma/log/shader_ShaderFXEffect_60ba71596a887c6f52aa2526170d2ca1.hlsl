@@ -2,14 +2,14 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ShaderFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SRgbToLinear_ShaderFX [{SRgb = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}]
-@P SRgb: InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>
+@P   - EffectNodeBase.EffectNodeBaseShader: mixin LinearToSRgb_ShaderFX [{Rgb = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}]
+@P Rgb: InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>
 ***************************
 *****     Sources     *****
 ***************************
 @S    ShaderBase => 4ecbcd2528b64a79eebe81a863892d8c
 @S    ShaderBaseStream => b705b699a7385d39c7de52a8d13f3978
-@S    SRgbToLinear_ShaderFX => 7759b71b405e7f58f63576d0c8fd2c64
+@S    LinearToSRgb_ShaderFX => fd9f5c696e7b99616789b6d90bca7ecd
 @S    ComputeFloat4 => bc345c7d961ff4b1766c5b1d5e15bd5a
 @S    ColorUtilityTemp => d9aeaf420d094dcd420939cb18fd949f
 @S    InputFloat4 => f6891eacc9ea2d912dcfded49ea96a71
@@ -37,7 +37,7 @@
 vs_5_0
 dcl_globalFlags refactoringAllowed
 
-#line 14 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_60ba71596a887c6f52aa2526170d2ca1.hlsl"
+#line 14 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_60ba71596a887c6f52aa2526170d2ca1.hlsl"
 ret 
 // Approximately 1 instruction slots used
 ***************************

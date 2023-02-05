@@ -154,7 +154,7 @@ dcl_output_siv o1.xyzw, position
 //   o1.x <- <VSMain return value>.ShadingPosition_id0.x; o1.y <- <VSMain return value>.ShadingPosition_id0.y; o1.z <- <VSMain return value>.ShadingPosition_id0.z; o1.w <- <VSMain return value>.ShadingPosition_id0.w; 
 //   o0.x <- <VSMain return value>.VID_id152
 //
-#line 242 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_VLEffectMain_ShadowMapCaster_0422d454201ae2d47dd07dd23a516a7e.hlsl"
+#line 242 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_VLEffectMain_ShadowMapCaster_0422d454201ae2d47dd07dd23a516a7e.hlsl"
 mov o0.x, v0.x
 mov o1.xyzw, v1.xyzw
 ret 
@@ -278,7 +278,7 @@ dcl_maxout 4
 //   v[0][0].x <- input[0].VID_id152; 
 //   v[0][1].x <- input[0].ShadingPosition_id0.x; v[0][1].y <- input[0].ShadingPosition_id0.y; v[0][1].z <- input[0].ShadingPosition_id0.z; v[0][1].w <- input[0].ShadingPosition_id0.w
 //
-#line 207 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_VLEffectMain_ShadowMapCaster_0422d454201ae2d47dd07dd23a516a7e.hlsl"
+#line 207 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_VLEffectMain_ShadowMapCaster_0422d454201ae2d47dd07dd23a516a7e.hlsl"
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r0.x, v[0][0].x, l(36), t0.xxxx  // r0.x <- p.Size.x
 
 #line 209

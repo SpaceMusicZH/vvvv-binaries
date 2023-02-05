@@ -41,7 +41,7 @@ cbuffer PerView [Size: 352]
 ***************************
 @S    ShaderBase => 4ecbcd2528b64a79eebe81a863892d8c
 @S    ShaderBaseStream => b705b699a7385d39c7de52a8d13f3978
-@S    SMBoxImpostor_ShaderFX => 63c5822b9804d0a1a1802c940e1bd54d
+@S    SMBoxImpostor_ShaderFX => d365bc7ac94ba427d93d4620a8b78117
 @S    MaterialExtension => bd314d2afed93384fa52af5d242de440
 @S    ShadingBase => b0f11f286acc22f5586417a8311cb632
 @S    ComputeColor => c875a0e093379dd74cd9a5a73aca830f
@@ -93,7 +93,7 @@ dcl_output_siv o1.xyzw, position
 //   o1.x <- <VSMain return value>.ShadingPosition_id0.x; o1.y <- <VSMain return value>.ShadingPosition_id0.y; o1.z <- <VSMain return value>.ShadingPosition_id0.z; o1.w <- <VSMain return value>.ShadingPosition_id0.w; 
 //   o0.x <- <VSMain return value>.VID_id108
 //
-#line 316 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_7020ebb27b61aeb2ab542dfaeec56ea3.hlsl"
+#line 316 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_7020ebb27b61aeb2ab542dfaeec56ea3.hlsl"
 mov o0.x, v0.x
 mov o1.xyzw, v1.xyzw
 ret 
@@ -203,7 +203,7 @@ dcl_maxout 12
 //   v[0][0].x <- input[0].VID_id108; 
 //   v[0][1].x <- input[0].ShadingPosition_id0.x; v[0][1].y <- input[0].ShadingPosition_id0.y; v[0][1].z <- input[0].ShadingPosition_id0.z; v[0][1].w <- input[0].ShadingPosition_id0.w
 //
-#line 283 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_7020ebb27b61aeb2ab542dfaeec56ea3.hlsl"
+#line 283 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_7020ebb27b61aeb2ab542dfaeec56ea3.hlsl"
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r0.xyzw, v[0][0].x, l(24), t0.xyzw  // r0.x <- p.Rot.x; r0.y <- p.Rot.y; r0.z <- p.Rot.z; r0.w <- p.Size.x
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r1.xy, v[0][0].x, l(40), t0.xyxx  // r1.x <- p.Size.y; r1.y <- p.Size.z
 
@@ -655,7 +655,7 @@ dcl_output o0.xyzw
 //   v0.x <- __input__.ShadingPosition_id0.x; v0.y <- __input__.ShadingPosition_id0.y; v0.z <- __input__.ShadingPosition_id0.z; v0.w <- __input__.ShadingPosition_id0.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 274 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_7020ebb27b61aeb2ab542dfaeec56ea3.hlsl"
+#line 274 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_7020ebb27b61aeb2ab542dfaeec56ea3.hlsl"
 mov o0.xyzw, l(0,0,0,0)
 ret 
 // Approximately 2 instruction slots used
