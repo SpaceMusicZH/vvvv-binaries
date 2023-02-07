@@ -3,7 +3,7 @@
 ***************************
 @P EffectName: VLEffectMain.ShadowMapCaster
 @P   - StrideEffectBase.HasInstancing: False
-@P Material.PixelStageSurfaceShaders: mixin MaterialSurfaceArray [{layers = [mixin MaterialSurfaceDiffuse [{diffuseMap = MaterialCompiling}], mixin MaterialSurfaceLightingAndShading [{surfaces = [MaterialSurfaceShadingDiffuseLambert<false>]}]]}]
+@P Material.PixelStageSurfaceShaders: mixin MaterialSurfaceArray [{layers = [mixin MaterialSurfaceDiffuse [{diffuseMap = MaterialError}], mixin MaterialSurfaceLightingAndShading [{surfaces = [MaterialSurfaceShadingDiffuseLambert<false>]}]]}]
 @P Material.PixelStageStreamInitializer: mixin MaterialStream, MaterialPixelShadingStream
 @P Lighting.EnvironmentLights: LightConstantWhite
 ***************************
@@ -67,7 +67,7 @@ cbuffer PerView [Size: 352]
 @S    MaterialSurfaceArray => 8cf3cc54fcd9949ce74f2e4caaa0d6d9
 @S    MaterialSurfaceDiffuse => 959d3b90076611b0252419cb02190f99
 @S    IMaterialSurfacePixel => b6013c701b8fca52da0c65754bb0a9ca
-@S    MaterialCompiling => a96ceba11656c320fe3c7e6a932ee09a
+@S    MaterialError => ab672f06231ca91e7e3ddb946672fffd
 @S    Global => f3a73f928089a02788395f11e18f679c
 @S    Texturing => 91ef3011c1071c2e5d41cd3ee0418b18
 @S    MaterialSurfaceLightingAndShading => 632084a1d51a33d288c188803e2d5afc

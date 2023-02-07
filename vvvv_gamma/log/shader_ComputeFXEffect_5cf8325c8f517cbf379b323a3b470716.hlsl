@@ -2,8 +2,8 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SMVideoQueue_ComputeFX
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin SMVideoQueue_ComputeFX
 ***************************
 ****  ConstantBuffers  ****
 ***************************
@@ -122,7 +122,7 @@ dcl_thread_group 1, 1, 1
 //   vThreadGroupID.x <- __input__.GroupId_id0.x; vThreadGroupID.y <- __input__.GroupId_id0.y; vThreadGroupID.z <- __input__.GroupId_id0.z; 
 //   vThreadID.x <- __input__.DispatchThreadId_id1.x; vThreadID.y <- __input__.DispatchThreadId_id1.y; vThreadID.z <- __input__.DispatchThreadId_id1.z
 //
-#line 141 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ComputeFXEffect_5cf8325c8f517cbf379b323a3b470716.hlsl"
+#line 141 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ComputeFXEffect_5cf8325c8f517cbf379b323a3b470716.hlsl"
 uge r0.xyz, vThreadID.xyzx, cb0[0].xyzx
 or r0.x, r0.y, r0.x
 or r0.x, r0.z, r0.x

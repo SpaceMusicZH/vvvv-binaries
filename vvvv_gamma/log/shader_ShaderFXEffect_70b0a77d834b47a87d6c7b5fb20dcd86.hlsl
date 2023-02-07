@@ -41,7 +41,7 @@ cbuffer PerView [Size: 352]
 ***************************
 @S    ShaderBase => 4ecbcd2528b64a79eebe81a863892d8c
 @S    ShaderBaseStream => b705b699a7385d39c7de52a8d13f3978
-@S    SMBoxImpostor_ShaderFX => 6197a75d4a42116b978f880186fe5f77
+@S    SMBoxImpostor_ShaderFX => cff82c6f13a1856c47e65f25cf05734d
 @S    MaterialExtension => bd314d2afed93384fa52af5d242de440
 @S    ShadingBase => b0f11f286acc22f5586417a8311cb632
 @S    ComputeColor => c875a0e093379dd74cd9a5a73aca830f

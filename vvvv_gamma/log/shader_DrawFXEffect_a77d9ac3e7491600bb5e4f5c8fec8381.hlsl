@@ -34,7 +34,7 @@ cbuffer PerView [Size: 352]
 ***************************
 *****     Sources     *****
 ***************************
-@S    SMMidiDrawBuffer_DrawFX => d0377e8d30c9fdcd314be923b7dc7813
+@S    SMMidiDrawBuffer_DrawFX => c349a4933cf8b514b2bd1b12c3de011e
 @S    VS_PS_Base => f089dc4ce5d5868b962b08793ef74fd9
 @S    ShaderBase => 4ecbcd2528b64a79eebe81a863892d8c
 @S    ShaderBaseStream => b705b699a7385d39c7de52a8d13f3978
@@ -81,7 +81,7 @@ dcl_temps 2
 //   o1.x <- <VSMain return value>.PositionWS_id15.x; o1.y <- <VSMain return value>.PositionWS_id15.y; o1.z <- <VSMain return value>.PositionWS_id15.z; o1.w <- <VSMain return value>.PositionWS_id15.w; 
 //   o0.x <- <VSMain return value>.Color_id37.x; o0.y <- <VSMain return value>.Color_id37.y; o0.z <- <VSMain return value>.Color_id37.z; o0.w <- <VSMain return value>.Color_id37.w
 //
-#line 91 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_a77d9ac3e7491600bb5e4f5c8fec8381.hlsl"
+#line 91 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_a77d9ac3e7491600bb5e4f5c8fec8381.hlsl"
 and r0.x, v0.w, l(255)
 utof r0.x, r0.x
 ubfe r1.xy, l(8, 8, 0, 0), l(8, 16, 0, 0), v0.wwww
@@ -195,7 +195,7 @@ dcl_maxout 4
 //   v[0][1].x <- input[0].PositionWS_id15.x; v[0][1].y <- input[0].PositionWS_id15.y; v[0][1].z <- input[0].PositionWS_id15.z; v[0][1].w <- input[0].PositionWS_id15.w; 
 //   v[0][2].x <- input[0].ShadingPosition_id0.x; v[0][2].y <- input[0].ShadingPosition_id0.y; v[0][2].z <- input[0].ShadingPosition_id0.z; v[0][2].w <- input[0].ShadingPosition_id0.w
 //
-#line 116 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_a77d9ac3e7491600bb5e4f5c8fec8381.hlsl"
+#line 116 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_a77d9ac3e7491600bb5e4f5c8fec8381.hlsl"
 dp4 r0.x, v[0][1].xyzw, cb0[12].xyzw  // r0.x <- posView.x
 dp4 r0.y, v[0][1].xyzw, cb0[13].xyzw  // r0.y <- posView.y
 dp4 r0.z, v[0][1].xyzw, cb0[14].xyzw  // r0.z <- posView.z
@@ -273,7 +273,7 @@ dcl_temps 1
 //   v2.x <- __input__.Color_id37.x; v2.y <- __input__.Color_id37.y; v2.z <- __input__.Color_id37.z; v2.w <- __input__.Color_id37.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 82 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_a77d9ac3e7491600bb5e4f5c8fec8381.hlsl"
+#line 82 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_a77d9ac3e7491600bb5e4f5c8fec8381.hlsl"
 add r0.xy, v0.xyxx, l(-0.500000, -0.500000, 0.000000, 0.000000)
 dp2 r0.x, r0.xyxx, r0.xyxx
 sqrt r0.x, r0.x

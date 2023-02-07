@@ -76,7 +76,7 @@ dcl_output o0.x
 //   v0.x <- __input__; 
 //   o0.x <- <VSMain return value>
 //
-#line 126 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_6096e271d01727b222ba51b25be54749.hlsl"
+#line 126 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_6096e271d01727b222ba51b25be54749.hlsl"
 mov o0.x, v0.x
 ret 
 // Approximately 2 instruction slots used
@@ -190,7 +190,7 @@ dcl_maxout 4
 //   m0 <- triangleStream; 
 //   v[0][0].x <- input
 //
-#line 100 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_6096e271d01727b222ba51b25be54749.hlsl"
+#line 100 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_6096e271d01727b222ba51b25be54749.hlsl"
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r0.xyz, v[0][0].x, l(0), t0.xyzx  // r0.x <- p.Pos.x; r0.y <- p.Pos.y; r0.z <- p.Pos.z
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r1.x, v[0][0].x, l(36), t0.xxxx  // r1.x <- p.Size.x
 
@@ -270,7 +270,7 @@ dcl_temps 1
 //   v1.x <- __input__.ShadingPosition_id0.x; v1.y <- __input__.ShadingPosition_id0.y; v1.z <- __input__.ShadingPosition_id0.z; v1.w <- __input__.ShadingPosition_id0.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 85 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_6096e271d01727b222ba51b25be54749.hlsl"
+#line 85 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_6096e271d01727b222ba51b25be54749.hlsl"
 add r0.xy, v0.xyxx, l(-0.500000, -0.500000, 0.000000, 0.000000)  // r0.x <- l.x; r0.y <- l.y
 
 #line 86

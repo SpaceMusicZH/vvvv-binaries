@@ -2,14 +2,14 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SMGridSimulation_ComputeFX [{Color = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}, {Dim = InputFloat3<ShaderFX.InputValueFloat3.i2,PerUpdate>}, {Mesh = InputFloat<ShaderFX.InputValueFloat,PerUpdate>}, {Piv = InputFloat3<ShaderFX.InputValueFloat3.i3,PerUpdate>}, {Rot = InputFloat3<ShaderFX.InputValueFloat3.i1,PerUpdate>}, {Trans = InputFloat3<ShaderFX.InputValueFloat3,PerUpdate>}]
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin SMGridSimulation_ComputeFX [{Color = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}, {Dim = InputFloat3<ShaderFX.InputValueFloat3.i2,PerUpdate>}, {Mesh = InputFloat<ShaderFX.InputValueFloat,PerUpdate>}, {Piv = InputFloat3<ShaderFX.InputValueFloat3.i3,PerUpdate>}, {Rot = InputFloat3<ShaderFX.InputValueFloat3.i1,PerUpdate>}, {Trans = InputFloat3<ShaderFX.InputValueFloat3,PerUpdate>}]
 @P Color: InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>
 @P Mesh: InputFloat<ShaderFX.InputValueFloat,PerUpdate>
 @P Trans: InputFloat3<ShaderFX.InputValueFloat3,PerUpdate>
 @P Rot: InputFloat3<ShaderFX.InputValueFloat3.i1,PerUpdate>
 @P Dim: InputFloat3<ShaderFX.InputValueFloat3.i2,PerUpdate>
 @P Piv: InputFloat3<ShaderFX.InputValueFloat3.i3,PerUpdate>
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
 ***************************
 ****  ConstantBuffers  ****
 ***************************
@@ -216,7 +216,7 @@ dcl_thread_group 1, 1, 1
 //   vThreadGroupID.x <- __input__.GroupId_id0.x; vThreadGroupID.y <- __input__.GroupId_id0.y; vThreadGroupID.z <- __input__.GroupId_id0.z; 
 //   vThreadID.x <- __input__.DispatchThreadId_id1.x; vThreadID.y <- __input__.DispatchThreadId_id1.y; vThreadID.z <- __input__.DispatchThreadId_id1.z
 //
-#line 254 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ComputeFXEffect_6cf40d9ac183fc211f8320f6b151557f.hlsl"
+#line 254 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ComputeFXEffect_6cf40d9ac183fc211f8320f6b151557f.hlsl"
 ult r0.x, vThreadID.x, cb0[0].x
 if_nz r0.x
   ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r0.xyzw, vThreadID.x, l(0), u1.xyzw  // r0.x <- POut.Pos.x; r0.y <- POut.Pos.y; r0.z <- POut.Pos.z; r0.w <- POut.Vel.x

@@ -76,7 +76,7 @@ cbuffer PerView [Size: 352]
 @S    EnvironmentLight => 67198c913f8c86fad248a6726699dd4d
 @S    IMaterialSurface => 4439d1801d274f7bab04ddbc33b85f40
 @S    ShadowMapCasterNoPixelShader => aa6a2819c879eaf0eb664f08fb1f41b4
-@S    SMBoxImpostor_ShaderFX => 6197a75d4a42116b978f880186fe5f77
+@S    SMBoxImpostor_ShaderFX => cff82c6f13a1856c47e65f25cf05734d
 @S    MaterialExtension => bd314d2afed93384fa52af5d242de440
 @S    Texturing => 91ef3011c1071c2e5d41cd3ee0418b18
 @S    ShaderUtils => 27e27e08e991883f970444d1aebe3b58
