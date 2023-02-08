@@ -81,7 +81,7 @@ dcl_thread_group 1, 1, 1
 //   vThreadGroupID.x <- __input__.GroupId_id0.x; vThreadGroupID.y <- __input__.GroupId_id0.y; vThreadGroupID.z <- __input__.GroupId_id0.z; 
 //   vThreadID.x <- __input__.DispatchThreadId_id1.x; vThreadID.y <- __input__.DispatchThreadId_id1.y; vThreadID.z <- __input__.DispatchThreadId_id1.z
 //
-#line 41 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ComputeFXEffect_eafa9c381f4ad3aac06a9274e8a3fa20.hlsl"
+#line 41 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ComputeFXEffect_eafa9c381f4ad3aac06a9274e8a3fa20.hlsl"
 ftou r0.xyz, cb0[0].xyzx  // r0.x <- dim.x; r0.y <- dim.y; r0.z <- dim.z
 
 #line 45

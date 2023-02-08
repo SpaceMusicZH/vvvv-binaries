@@ -2,9 +2,9 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SMAsyncComputeShader_ComputeFX [{ComputeShader = ComputeShaderBase}]
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin SMAsyncComputeShader_ComputeFX [{ComputeShader = ComputeShaderBase}]
 @P ComputeShader: ComputeShaderBase
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
 ***************************
 *****     Sources     *****
 ***************************
@@ -37,7 +37,7 @@ dcl_thread_group 1, 1, 1
 // Initial variable locations:
 //   vThreadGroupID.x <- __input__.GroupId_id0.x; vThreadGroupID.y <- __input__.GroupId_id0.y; vThreadGroupID.z <- __input__.GroupId_id0.z
 //
-#line 38 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ComputeFXEffect_72ce62445480e68aefc596c11ab6f37c.hlsl"
+#line 38 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ComputeFXEffect_72ce62445480e68aefc596c11ab6f37c.hlsl"
 ret 
 // Approximately 1 instruction slots used
 ***************************

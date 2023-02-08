@@ -90,7 +90,7 @@ dcl_output_siv o0.xyzw, position
 //   v0.x <- __input__.Position_id14.x; v0.y <- __input__.Position_id14.y; v0.z <- __input__.Position_id14.z; v0.w <- __input__.Position_id14.w; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 63 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_048a753d9cd51e4e26a186f1244f0eb2.hlsl"
+#line 63 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_048a753d9cd51e4e26a186f1244f0eb2.hlsl"
 dp4 o0.x, v0.xyzw, cb0[20].xyzw
 dp4 o0.y, v0.xyzw, cb0[21].xyzw
 dp4 o0.z, v0.xyzw, cb0[22].xyzw
@@ -145,7 +145,7 @@ dcl_output o0.xyzw
 //   v0.x <- __input__.ShadingPosition_id0.x; v0.y <- __input__.ShadingPosition_id0.y; v0.z <- __input__.ShadingPosition_id0.z; v0.w <- __input__.ShadingPosition_id0.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 57 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_048a753d9cd51e4e26a186f1244f0eb2.hlsl"
+#line 57 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_048a753d9cd51e4e26a186f1244f0eb2.hlsl"
 mov o0.xyzw, cb0[0].xyzw
 ret 
 // Approximately 2 instruction slots used

@@ -65,7 +65,7 @@ dcl_output_siv o0.xyzw, position
 //   v0.x <- __input__.Position_id14.x; v0.y <- __input__.Position_id14.y; v0.z <- __input__.Position_id14.z; v0.w <- __input__.Position_id14.w; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 147 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_09a620abab71769b1294afdc79d54b8f.hlsl"
+#line 147 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_09a620abab71769b1294afdc79d54b8f.hlsl"
 mov o0.xyzw, v0.xyzw
 ret 
 // Approximately 2 instruction slots used
@@ -129,7 +129,7 @@ dcl_maxout 6
 //   v[1][0].x <- input[1].ShadingPosition_id0.x; v[1][0].y <- input[1].ShadingPosition_id0.y; v[1][0].z <- input[1].ShadingPosition_id0.z; v[1][0].w <- input[1].ShadingPosition_id0.w; 
 //   v[2][0].x <- input[2].ShadingPosition_id0.x; v[2][0].y <- input[2].ShadingPosition_id0.y; v[2][0].z <- input[2].ShadingPosition_id0.z; v[2][0].w <- input[2].ShadingPosition_id0.w
 //
-#line 78 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_09a620abab71769b1294afdc79d54b8f.hlsl"
+#line 78 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_09a620abab71769b1294afdc79d54b8f.hlsl"
 add r0.xyz, -v[0][0].xyzx, v[1][0].xyzx  // r0.x <- l1.x; r0.y <- l1.y; r0.z <- l1.z
 
 #line 79
@@ -320,7 +320,7 @@ dcl_output o0.xyzw
 //   v0.x <- __input__.ShadingPosition_id0.x; v0.y <- __input__.ShadingPosition_id0.y; v0.z <- __input__.ShadingPosition_id0.z; v0.w <- __input__.ShadingPosition_id0.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 66 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_09a620abab71769b1294afdc79d54b8f.hlsl"
+#line 66 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_09a620abab71769b1294afdc79d54b8f.hlsl"
 mul o0.xyzw, cb0[0].wwww, cb0[0].xyzw
 
 #line 69

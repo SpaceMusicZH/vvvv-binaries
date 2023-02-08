@@ -93,7 +93,7 @@ dcl_output o1.xy
 //   o1.x <- <VSMain return value>.TexCoord_id70.x; o1.y <- <VSMain return value>.TexCoord_id70.y; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id8.x; o0.y <- <VSMain return value>.ShadingPosition_id8.y; o0.z <- <VSMain return value>.ShadingPosition_id8.z; o0.w <- <VSMain return value>.ShadingPosition_id8.w
 //
-#line 213 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_LambertianPrefilteringSHNoComputeEffectPass1_1c3923f7922ed8adac4b74952b5215b4.hlsl"
+#line 213 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_LambertianPrefilteringSHNoComputeEffectPass1_1c3923f7922ed8adac4b74952b5215b4.hlsl"
 dp4 o0.x, v0.xyzw, cb0[0].xyzw
 dp4 o0.y, v0.xyzw, cb0[1].xyzw
 dp4 o0.z, v0.xyzw, cb0[2].xyzw
@@ -191,7 +191,7 @@ dcl_temps 7
 //   v1.x <- __input__.TexCoord_id70.x; v1.y <- __input__.TexCoord_id70.y; 
 //   o0.x <- <PSMain return value>.ColorTarget_id10.x; o0.y <- <PSMain return value>.ColorTarget_id10.y; o0.z <- <PSMain return value>.ColorTarget_id10.z; o0.w <- <PSMain return value>.ColorTarget_id10.w
 //
-#line 185 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_LambertianPrefilteringSHNoComputeEffectPass1_1c3923f7922ed8adac4b74952b5215b4.hlsl"
+#line 185 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_LambertianPrefilteringSHNoComputeEffectPass1_1c3923f7922ed8adac4b74952b5215b4.hlsl"
 mad r0.xy, v1.xyxx, l(2.000000, 2.000000, 0.000000, 0.000000), l(-1.000000, -1.000000, 0.000000, 0.000000)  // r0.x <- uv.x; r0.y <- uv.y
 
 #line 186

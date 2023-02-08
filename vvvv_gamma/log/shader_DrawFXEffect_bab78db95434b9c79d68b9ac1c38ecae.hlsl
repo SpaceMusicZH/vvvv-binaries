@@ -131,7 +131,7 @@ dcl_temps 2
 //   o1.x <- <VSMain return value>.Size_id47; 
 //   o0.x <- <VSMain return value>.PositionWS_id15.x; o0.y <- <VSMain return value>.PositionWS_id15.y; o0.z <- <VSMain return value>.PositionWS_id15.z; o0.w <- <VSMain return value>.PositionWS_id15.w
 //
-#line 168 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_bab78db95434b9c79d68b9ac1c38ecae.hlsl"
+#line 168 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_bab78db95434b9c79d68b9ac1c38ecae.hlsl"
 ld_structured_indexable(structured_buffer, stride=12)(mixed,mixed,mixed,mixed) o0.xyz, v0.x, l(0), t0.xyzx
 
 #line 175
@@ -255,7 +255,7 @@ dcl_maxout 4
 //   v[0][1].x <- input[0].Size_id47; 
 //   v[0][2].x <- input[0].Color_id46.x; v[0][2].y <- input[0].Color_id46.y; v[0][2].z <- input[0].Color_id46.z; v[0][2].w <- input[0].Color_id46.w
 //
-#line 150 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_bab78db95434b9c79d68b9ac1c38ecae.hlsl"
+#line 150 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_bab78db95434b9c79d68b9ac1c38ecae.hlsl"
 dp4 r0.x, v[0][0].xyzw, cb0[12].xyzw  // r0.x <- posView.x
 dp4 r0.y, v[0][0].xyzw, cb0[13].xyzw  // r0.y <- posView.y
 dp4 r0.z, v[0][0].xyzw, cb0[14].xyzw  // r0.z <- posView.z
@@ -330,7 +330,7 @@ dcl_temps 1
 //   v2.x <- __input__.Color_id46.x; v2.y <- __input__.Color_id46.y; v2.z <- __input__.Color_id46.z; v2.w <- __input__.Color_id46.w; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 107 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_bab78db95434b9c79d68b9ac1c38ecae.hlsl"
+#line 107 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_bab78db95434b9c79d68b9ac1c38ecae.hlsl"
 add r0.xy, v0.xyxx, l(-0.500000, -0.500000, 0.000000, 0.000000)
 dp2 r0.x, r0.xyxx, r0.xyxx
 sqrt r0.x, r0.x

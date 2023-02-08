@@ -2,7 +2,7 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: TextureFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SourceTemplate_TextureFX
+@P   - EffectNodeBase.EffectNodeBaseShader: mixin Color_TextureFX
 ***************************
 ****  ConstantBuffers  ****
 ***************************
@@ -19,7 +19,7 @@ cbuffer Globals [Size: 96]
 @C    Texture7TexelSize_id29 => Texturing.Texture7TexelSize
 @C    Texture8TexelSize_id31 => Texturing.Texture8TexelSize
 @C    Texture9TexelSize_id33 => Texturing.Texture9TexelSize
-@C    Color_id87 => SourceTemplate_TextureFX.Color
+@C    Color_id87 => Color_TextureFX.Color
 ***************************
 ******  Resources    ******
 ***************************
@@ -28,7 +28,7 @@ cbuffer Globals [Size: 96]
 ***************************
 *****     Sources     *****
 ***************************
-@S    SourceTemplate_TextureFX => 293477180fbe788100bd46db7e5b846a
+@S    Color_TextureFX => 9eec9eea7139a6da6aae2af72796dc6e
 @S    TextureFX => 27bb4f1f808a5eedf6dfeaa75c669c29
 @S    ImageEffectShader => 8064e30cc02e5eb4052f420259dbf05e
 @S    SpriteBase => 5a7aa9dfd5b5c7613053f4f66c79ca0d

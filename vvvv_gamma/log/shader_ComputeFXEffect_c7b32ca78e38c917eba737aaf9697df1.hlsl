@@ -2,8 +2,8 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin Fluid3DSphericalImpulse_Internal_ComputeFX
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin Fluid3DSphericalImpulse_Internal_ComputeFX
 ***************************
 ****  ConstantBuffers  ****
 ***************************
@@ -88,7 +88,7 @@ dcl_thread_group 1, 1, 1
 //   vThreadGroupID.x <- __input__.GroupId_id0.x; vThreadGroupID.y <- __input__.GroupId_id0.y; vThreadGroupID.z <- __input__.GroupId_id0.z; 
 //   vThreadID.x <- __input__.DispatchThreadId_id1.x; vThreadID.y <- __input__.DispatchThreadId_id1.y; vThreadID.z <- __input__.DispatchThreadId_id1.z
 //
-#line 35 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ComputeFXEffect_c7b32ca78e38c917eba737aaf9697df1.hlsl"
+#line 35 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ComputeFXEffect_c7b32ca78e38c917eba737aaf9697df1.hlsl"
 mov r0.xyz, vThreadID.xyzx
 mov r0.w, l(0)
 ld_indexable(texture3d)(float,float,float,float) r1.x, r0.xyzw, t1.xyzw

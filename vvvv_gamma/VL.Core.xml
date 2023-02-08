@@ -4,124 +4,9 @@
         <name>VL.Core</name>
     </assembly>
     <members>
-        <member name="T:VL.App.AppHost`1">
-            <summary>
-            Encapsulates all the platform independent logic to run a VL app.
-            </summary>
-        </member>
         <member name="P:VL.Core.IAppHost.OnExit">
             <summary>
             Raised when the application exits.
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.TryDisguise``1(VL.Core.ITrackedVLObject)">
-            <summary>
-            COMPILER ONLY. This method should only get called for explicit interface implementations. 
-            We don't check for outdated in some cases, as this is done inside the to be called method already
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.TryDisguiseInputMaybeAnything``1(System.Object)">
-            <summary>
-            You can call this when you are not sure if you want to trigger a restore and let the user decide.
-            This also makes sure that users don't run into follow up issues of an incomplete hotswap, like null pointer exceptions. 
-            Even when the user patched everything correctly.
-            The alternative is the very cheap Self operation, which is also will prevent the user from nightmare debugging wher a restart solves the issue.
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.TryDisguiseInputMaybeAnything``1(VL.Core.ITrackedVLObject)">
-            <summary>
-            You can call this when you are not sure if you want to trigger a restore and let the user decide.
-            This also makes sure that users don't run into follow up issues of an incomplete hotswap, like null pointer exceptions. 
-            Even when the user patched everything correctly.
-            The alternative is the very cheap Self operation, which is also will prevent the user from nightmare debugging wher a restart solves the issue.
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.Self(System.Object)">
-            <summary>
-            This will give you a hand onto a restore object if there is any. 
-            This also makes sure that users don't run into follow up issues of an incomplete hotswap. 
-            Restarts before the user can when something doesn't match anymore.
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.Self(VL.Core.ITrackedVLObject)">
-            <summary>
-            This will give you a hand onto a restore object if there is any. 
-            This also makes sure that users don't run into follow up issues of an incomplete hotswap. 
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.ShieldedDisposeCatchingAllExceptions(System.Object)">
-            <summary>
-            Turns off restoring fields and any restore related exceptions.
-            Also swallows all other exceptions. We use this in order to shut down the old object as thoroughly as possible.
-            Used in different places of the hotswap system. Used by HDE to shutdown tooltips. Used in Runtime to stop ignorant.
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilationHelper.ShieldedDisposeForManagedFields(System.Object)">
-            <summary>
-            Shielding Dispose call from hotswap algorithm. 
-            Used in target code making sure that normal exceptions do get reported.
-            </summary>
-        </member>
-        <member name="M:VL.Core.CompilerServices.AdaptiveImplementationProvider.CSharpName(System.Type)">
-            <summary>
-            Get full type name with full namespace names
-            </summary>
-            <param name="type">
-            The type to get the C# name for (may be a generic type or a nullable type).
-            </param>
-            <returns>
-            Full type name, fully qualified namespaces
-            </returns>
-        </member>
-        <member name="P:VL.Core.CompilerServices.AdaptiveImplementationsAttribute.TargetType">
-            <summary>
-            The struct which carries the implementations.
-            </summary>
-        </member>
-        <member name="P:VL.Core.CompilerServices.AdaptiveNodeLookupAttribute.TargetType">
-            <summary>
-            The class which holds all adaptive instantiations and its implementations.
-            </summary>
-        </member>
-        <member name="T:VL.Core.CompilerServices.AdaptiveTypeAttribute">
-            <summary>
-            For example used on Particle&lt;T&gt; pointing to Particle&lt;T, AdC&gt;
-            </summary>
-        </member>
-        <member name="T:VL.Core.CompilerServices.CollectionBuilders">
-            <summary>
-            These builders are used by the target code for pin groups and ouput splicers.
-            </summary>
-        </member>
-        <member name="T:VL.Core.CompilerServices.Intrinsics.CacheManager`2">
-            <summary>
-            var manager = this.manager;
-            var inputs = (a, b, c);
-            if (force || manager.InputsChanged(inputs))
-            {
-              var state = manager.State;
-              if (state is null)
-                state = CREATE
-              UPDATE
-              var outputs = (x, y, z);
-              manager = manager.Update(inputs, disposeOutputs, state, outputs);
-            }
-            else
-            {
-              manager = manager.Update(inputs, disposeOutputs);
-            }
-            </summary>
-            <typeparam name="TInputs"></typeparam>
-            <typeparam name="TOutputs"></typeparam>
-        </member>
-        <member name="T:VL.Core.CompilerServices.PrivateImplAttribute">
-            <summary>
-            Gets attached to private VL object implementations.
-            </summary>
-        </member>
-        <member name="T:VL.Core.CompilerServices.SerializedDefaultValueAttribute">
-            <summary>
-            Attached to parameters to encode the default value.
             </summary>
         </member>
         <member name="T:VL.Core.PublicAPI.ICustomRegionPatch">
@@ -190,32 +75,6 @@
         <member name="P:VL.Core.PublicAPI.ICustomRegion.PatchHasChanged">
             <summary>
             Happens when users are patching or on fresh start
-            </summary>
-        </member>
-        <member name="P:VL.Core.CustomRegion.CustomRegionAttribute.NodeOrRegionChoice">
-            <summary>
-            Allows to customize whether the region can also be created as a node.
-            </summary>
-        </member>
-        <member name="P:VL.Core.CustomRegion.CustomRegionAttribute.SupportedBorderControlPoints">
-            <summary>
-            What control points the region shall support.
-            </summary>
-        </member>
-        <member name="P:VL.Core.CustomRegion.CustomRegionAttribute.TypeConstraint">
-            <summary>
-            The type constraint to apply on the control points. 
-            In case of splicers the system will try to align the inner type (e.g. float) with the inner most argument (and also right most) of the outer (e.g. Spread{float} or Dictionary{string, float}).
-            </summary>
-        </member>
-        <member name="P:VL.Core.CustomRegion.CustomRegionAttribute.NodeOrRegionChoice_CompileTime">
-            <summary>
-            Allows to customize whether the region can also be created as a node.
-            </summary>
-        </member>
-        <member name="P:VL.Core.CustomRegion.CustomRegionAttribute.SupportedBorderControlPointsSpecified_CompileTime">
-            <summary>
-            What control points the region shall support.
             </summary>
         </member>
         <member name="M:VL.Core.Documentation.GetEventInfosWithAttribute``1(System.Reflection.Assembly)">
@@ -310,183 +169,9 @@
             <param name="parameterInfo">The parameter to get the XML documentation for.</param>
             <returns>The XML documenation of the parameter.</returns>
         </member>
-        <member name="P:VL.Core.ElementAttribute.TracingId">
-            <summary>
-            The element id which lead to this CLR symbol.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.DocumentId">
-            <summary>
-            The document id.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.PersistentId">
-            <summary>
-            The persistent element id which lead to this CLR symbol.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.IsAutoGenerated">
-            <summary>
-            Whether or not the element was auto generated by the compiler.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.IsManaged">
-            <summary>
-            Whether or not the field will be disposed when it goes out of scope during a hotswap.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.Name">
-            <summary>
-            The name of the element. This is set in case the compiler generated name differs from the one set in VL.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.NodeName">
-            <summary>
-            The name of the node description which lead to this element. Used by dynamic nodes during hot swap.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ElementAttribute.NodeCategory">
-            <summary>
-            The category of the node description which lead to this element. Used by dynamic nodes during hot swap.
-            </summary>
-        </member>
-        <member name="T:VL.Core.EventBridge">
-            <summary>
-            Contains helper functions to turn .NET events into observables.
-            </summary>
-        </member>
-        <member name="M:VL.Core.EventBridge.FromEventPattern(System.Type,System.String)">
-            <summary>
-            Same as Observable.FromEventPattern but caches the resulting observable sequence for the given type and event name.
-            </summary>
-        </member>
-        <member name="M:VL.Core.EventBridge.FromEventPattern(System.Object,System.String)">
-            <summary>
-            Same as Observable.FromEventPattern but caches the resulting observable sequence for the given target object and event name.
-            </summary>
-        </member>
-        <member name="M:VL.Core.EventBridge.FromEventPattern``1(System.Type,System.String)">
-            <summary>
-            Same as Observable.FromEventPattern but caches the resulting observable sequence for the given type and event name.
-            </summary>
-        </member>
-        <member name="M:VL.Core.EventBridge.FromEventPattern``1(System.Object,System.String)">
-            <summary>
-            Same as Observable.FromEventPattern but caches the resulting observable sequence for the given target object and event name.
-            </summary>
-        </member>
-        <member name="M:VL.Core.SwappableVLObject`1.__Restore``1">
-            <summary>
-            This gets called from every taget code method with TStateClass being the State object of the program
-            </summary>
-        </member>
-        <member name="P:VL.Core.TypeTracker.LatestTypeDefinition">
-            <summary>
-            Particle'1
-            </summary>
-        </member>
-        <member name="P:VL.Core.TypeTracker.LatestProgramDefinition">
-            <summary>
-            ParticleProgram'2 (AdC is the second)
-            </summary>
-        </member>
-        <member name="F:VL.Core.VLObjectProgram.Instantiations">
-            <summary>
-            Keeps track of all instantiations which occur during runtime.
-            </summary>
-        </member>
         <member name="T:VL.Core.InitializationException">
             <summary>
             Thrown in case initialization code fails.
-            </summary>
-        </member>
-        <member name="T:VL.Core.IInfo">
-            <summary>
-            Implement this interface to provide a summary and remarks.
-            </summary>
-        </member>
-        <member name="P:VL.Core.IInfo.Summary">
-            <summary>
-            A short description.
-            </summary>
-        </member>
-        <member name="P:VL.Core.IInfo.Remarks">
-            <summary>
-            Remarks are about details.
-            </summary>
-        </member>
-        <member name="T:VL.Core.ITaggedInfo">
-            <summary>
-            Implement this interface to provide tags the node browser can use to find stuff.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ITaggedInfo.Tags">
-            <summary>
-            For being able to find the entity.
-            </summary>
-        </member>
-        <member name="T:VL.Core.IVLNodeDescriptionFactory">
-            <summary>
-            WARNING: This interface is experimental!
-            </summary>
-        </member>
-        <member name="M:VL.Core.IVLNodeDescriptionFactory.Export(VL.Core.ExportContext)">
-            <summary>
-            Allows the node factory to take part in the export process. Gets invoked for each node factory directly referenced by the project.
-            The invocations will be in build order. 
-            Use <see cref="P:VL.Core.ExportContext.SolutionWideStorage"/> to store information across the whole export process.
-            </summary>
-            <param name="exportContext">The export context of the current project.</param>
-        </member>
-        <member name="P:VL.Core.ExportContext.ProjectRootElement">
-            <summary>
-            The Microsoft.Build.Construction.ProjectRootElement which represent the MSBuild project.
-            The property is typed as object to avoid a runtime dependency on MSBuild.
-            Should the factory code do indeed need to interact with the project it needs to ensure that
-            the method doing the cast will trigger a type load exception should MSBuild not be present (for example if a patch was exported).
-            For details see https://github.com/microsoft/MSBuildLocator
-            </summary>
-        </member>
-        <member name="P:VL.Core.ExportContext.DirectoryPath">
-            <summary>
-            The directory that the project being generated is in.
-            </summary>
-        </member>
-        <member name="P:VL.Core.ExportContext.SolutionWideStorage">
-            <summary>
-            A dictionary whose lifetime is tied to the generation of the whole solution.
-            Can be used to store information whether or not certain tasks (like copying files from a directory) have already been done.
-            </summary>
-        </member>
-        <member name="T:VL.Core.IVLNodeDescription">
-            <summary>
-            WARNING: This interface is experimental!
-            </summary>
-        </member>
-        <member name="P:VL.Core.IVLNodeDescription.Fragmented">
-            <summary>
-            Whether the system shall create getter and setter fragments for each pin. 
-            The first getter will also be marked as the default fragment.
-            </summary>
-        </member>
-        <member name="T:VL.Core.IVLPinDescription">
-            <summary>
-            WARNING: This interface is experimental!
-            </summary>
-        </member>
-        <member name="T:VL.Core.IVLNode">
-            <summary>
-            WARNING: This interface is experimental!
-            </summary>
-        </member>
-        <member name="T:VL.Core.IVLPin">
-            <summary>
-            WARNING: This interface is experimental!
-            </summary>
-        </member>
-        <member name="T:VL.Core.IVLPin`1">
-            <summary>
-            WARNING: This interface is experimental!
             </summary>
         </member>
         <member name="P:VL.Core.IPathProvider.AppBasePath">
@@ -580,9 +265,19 @@
             Add a persistent message. Use the returned disposable to remove the message.
             </summary>
         </member>
+        <member name="M:VL.Core.IVLRuntime.TogglePersistentUserRuntimeMessage(VL.Lang.Message,System.Boolean)">
+            <summary>
+            Toggle message on and off. Note: you are responsible of turning the message off again! 
+            </summary>
+        </member>
         <member name="T:VL.Core.IVLFactory">
             <summary>
             Interface to create VL objects.
+            </summary>
+        </member>
+        <member name="P:VL.Core.IVLFactory.Current">
+            <summary>
+            Returns the VL factory installed on the current thread.
             </summary>
         </member>
         <member name="M:VL.Core.IVLFactory.GetTypeByName(System.String)">
@@ -1016,56 +711,6 @@
             Occurs when the Timer has completed one interval.
             </summary>
         </member>
-        <member name="T:VL.Core.PreciseMainLoopTimer">
-            <summary>
-            Timer using the busy wait method on a new thread, extremely accurate but uses a bit of CPU.
-            </summary>
-        </member>
-        <member name="M:VL.Core.PreciseMainLoopTimer.#ctor">
-            <summary>
-            Initializes a new instance of the Timer class.
-            </summary>
-        </member>
-        <member name="P:VL.Core.PreciseMainLoopTimer.Interval">
-            <summary>
-            Gets or sets the time between Tick events.
-            </summary>
-        </member>
-        <member name="P:VL.Core.PreciseMainLoopTimer.Mode">
-            <summary>
-            Gets or sets the timer mode.
-            </summary>
-        </member>
-        <member name="P:VL.Core.PreciseMainLoopTimer.Increment">
-            <summary>
-            Gets or sets the time increment. Used when <see cref="P:VL.Core.PreciseMainLoopTimer.IsIncremental"/> is set to true.
-            </summary>
-        </member>
-        <member name="P:VL.Core.PreciseMainLoopTimer.IsRunning">
-            <summary>
-            Gets a value indicating whether the Timer is running.
-            </summary>
-        </member>
-        <member name="E:VL.Core.PreciseMainLoopTimer.Tick">
-            <summary>
-            Occurs when the Timer has completed one interval.
-            </summary>
-        </member>
-        <member name="M:VL.Core.PreciseMainLoopTimer.Start">
-            <summary>
-            Starts the timer.
-            </summary>
-        </member>
-        <member name="M:VL.Core.PreciseMainLoopTimer.Stop">
-            <summary>
-            Stops timer.
-            </summary>
-        </member>
-        <member name="M:VL.Core.PreciseMainLoopTimer.Dispose">
-            <summary>
-            Frees timer resources.
-            </summary>
-        </member>
         <member name="T:VL.Core.TimerMode">
             <summary>
             Defines constants for the Timer's event types
@@ -1079,37 +724,6 @@
         <member name="F:VL.Core.TimerMode.Periodic">
             <summary>
             Timer event occurs periodically.
-            </summary>
-        </member>
-        <member name="T:VL.Core.TimeSpanUtils">
-            <summary>
-            Creates TimeSpans in a precise way, normal "From" methods do weird rounding.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TimeSpanUtils.FromMillisecondsPrecise(System.Double)">
-            <summary>
-            Creates a TimeSpan with precise tick count, normal "From" methods do weird rounding.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TimeSpanUtils.FromSecondsPrecise(System.Double)">
-            <summary>
-            Creates a TimeSpan with precise tick count, normal "From" methods do weird rounding.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TimeSpanUtils.FromMinutesPrecise(System.Double)">
-            <summary>
-            Creates a TimeSpan with precise tick count, normal "From" methods do weird rounding.
-            </summary>
-        </member>
-        <member name="M:VL.Core.WindowsMessageUtils.DoEvents">
-            <summary>
-            Process all messages in the queue.
-            </summary>
-            <returns>True if the WM_QUIT or WM_DESTROY message occured</returns>
-        </member>
-        <member name="T:VL.Core.WindowsTimerUtils">
-            <summary>
-            Description of WinApiCalls.
             </summary>
         </member>
         <member name="T:VL.Core.MonadicAttribute">
@@ -1199,6 +813,100 @@
             The real time clock.
             </summary>
         </member>
+        <member name="P:VL.Core.ExportContext.ProjectRootElement">
+            <summary>
+            The Microsoft.Build.Construction.ProjectRootElement which represent the MSBuild project.
+            The property is typed as object to avoid a runtime dependency on MSBuild.
+            Should the factory code do indeed need to interact with the project it needs to ensure that
+            the method doing the cast will trigger a type load exception should MSBuild not be present (for example if a patch was exported).
+            For details see https://github.com/microsoft/MSBuildLocator
+            </summary>
+        </member>
+        <member name="P:VL.Core.ExportContext.DirectoryPath">
+            <summary>
+            The directory that the project being generated is in.
+            </summary>
+        </member>
+        <member name="P:VL.Core.ExportContext.SolutionWideStorage">
+            <summary>
+            A dictionary whose lifetime is tied to the generation of the whole solution.
+            Can be used to store information whether or not certain tasks (like copying files from a directory) have already been done.
+            </summary>
+        </member>
+        <member name="T:VL.Core.FactoryBasedVLNode">
+            <summary>
+            Easy to use base class to implement <see cref="T:VL.Core.IVLNode"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Core.IInfo">
+            <summary>
+            Implement this interface to provide a summary and remarks.
+            </summary>
+        </member>
+        <member name="P:VL.Core.IInfo.Summary">
+            <summary>
+            A short description.
+            </summary>
+        </member>
+        <member name="P:VL.Core.IInfo.Remarks">
+            <summary>
+            Remarks are about details.
+            </summary>
+        </member>
+        <member name="T:VL.Core.ITaggedInfo">
+            <summary>
+            Implement this interface to provide tags the node browser can use to find stuff.
+            </summary>
+        </member>
+        <member name="P:VL.Core.ITaggedInfo.Tags">
+            <summary>
+            For being able to find the entity.
+            </summary>
+        </member>
+        <member name="T:VL.Core.IVLNode">
+            <summary>
+            WARNING: This interface is experimental!
+            </summary>
+        </member>
+        <member name="T:VL.Core.IVLNodeDescription">
+            <summary>
+            WARNING: This interface is experimental!
+            </summary>
+        </member>
+        <member name="P:VL.Core.IVLNodeDescription.Fragmented">
+            <summary>
+            Whether the system shall create getter and setter fragments for each pin. 
+            The first getter will also be marked as the default fragment.
+            </summary>
+        </member>
+        <member name="T:VL.Core.IVLNodeDescriptionFactory">
+            <summary>
+            WARNING: This interface is experimental!
+            </summary>
+        </member>
+        <member name="M:VL.Core.IVLNodeDescriptionFactory.Export(VL.Core.ExportContext)">
+            <summary>
+            Allows the node factory to take part in the export process. Gets invoked for each node factory directly referenced by the project.
+            The invocations will be in build order. 
+            Use <see cref="P:VL.Core.ExportContext.SolutionWideStorage"/> to store information across the whole export process.
+            </summary>
+            <param name="exportContext">The export context of the current project.</param>
+        </member>
+        <member name="T:VL.Core.IVLPin">
+            <summary>
+            WARNING: This interface is experimental!
+            </summary>
+        </member>
+        <member name="T:VL.Core.IVLPinDescription">
+            <summary>
+            WARNING: This interface is experimental!
+            </summary>
+        </member>
+        <member name="T:VL.Core.IVLPin`1">
+            <summary>
+            WARNING: This interface is experimental!
+            </summary>
+        </member>
         <member name="P:VL.Core.NodeFactoryRegistry.Paths">
             <summary>
             The registered paths. Each registered node factory can produce additional factories per path.
@@ -1232,16 +940,6 @@
             <param name="value"></param>
             <param name="result"></param>
             <returns></returns>
-        </member>
-        <member name="M:VL.Core.PatchHandle.#ctor(System.UInt32)">
-            <summary>
-            We only know of the patch. No node path, no object identity available
-            </summary>
-        </member>
-        <member name="M:VL.Core.PatchHandle.#ctor(VL.Core.NodePath)">
-            <summary>
-            That's already quite nice! We know the node path, but no object identity available
-            </summary>
         </member>
         <member name="T:VL.Core.RuntimeGraph">
             <summary>
@@ -1289,65 +987,49 @@
             The serialization context.
             </summary>
         </member>
-        <member name="M:VL.Core.SerializationContext.#ctor(VL.Core.NodeContext,System.Boolean,System.Boolean,System.Int32)">
+        <member name="M:VL.Core.SerializationContext.Serialize``1(System.String,``0,System.Boolean)">
             <summary>
-            Creates a new serialization context.
+            Serializes the given value and if a name is provided wraps the serialized content into an <see cref="T:System.Xml.Linq.XElement"/> or <see cref="T:System.Xml.Linq.XAttribute"/>. 
             </summary>
-            <param name="nodeContext">The node context.</param>
-            <param name="throwOnError">Whether or not serialization errors should lead to an exception.</param>
-            <param name="includeDefaults">If true default values will also be serialized.</param>
-            <param name="version">The version of the serialization format.</param>
+            <typeparam name="T">
+            The statically known type of the value. In case it differes from the runtime type of the value 
+            the serialized content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/> with additional type information.
+            </typeparam>
+            <param name="name">The name to use (if any) for the element or attribute wrapping the serialized content.</param>
+            <param name="value">The value to serialize.</param>
+            <param name="forceElement">If true the content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/>.</param>
+            <returns>The serialized content or if any wrapping happended the <see cref="T:System.Xml.Linq.XAttribute"/> or <see cref="T:System.Xml.Linq.XElement"/>.</returns>
         </member>
-        <member name="P:VL.Core.SerializationContext.Version">
+        <member name="M:VL.Core.SerializationContext.Serialize(System.String,System.Object,System.Type,System.Boolean)">
             <summary>
-            The version of the serialization format.
+            Serializes the given value and if a name is provided wraps the serialized content into an <see cref="T:System.Xml.Linq.XElement"/> or <see cref="T:System.Xml.Linq.XAttribute"/>. 
             </summary>
+            <param name="name">The name to use (if any) for the element or attribute wrapping the serialized content.</param>
+            <param name="value">The value to serialize.</param>
+            <param name="staticType">
+            The statically known type of the value. In case it differes from the runtime type of the value 
+            the serialized content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/> with additional type information.
+            </param>
+            <param name="forceElement">If true the content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/>.</param>
+            <returns>The serialized content or if any wrapping happended the <see cref="T:System.Xml.Linq.XAttribute"/> or <see cref="T:System.Xml.Linq.XElement"/>.</returns>
         </member>
-        <member name="P:VL.Core.SerializationContext.Factory">
+        <member name="M:VL.Core.SerializationContext.Deserialize``1(System.Object,System.String)">
             <summary>
-            The VL factory.
+            Deserializes the given content or if a name is provided extracts and deserializes the attribute or child element with the given name.
             </summary>
+            <typeparam name="T">The statically known type of the value to deserialize.</typeparam>
+            <param name="content">The content to deserialize.</param>
+            <param name="name">The name of the attribute or child element to extract from the content and deserialize.</param>
+            <returns>The deserialized value or the given default value in case deserialization failed.</returns>
         </member>
-        <member name="P:VL.Core.SerializationContext.ThrowOnError">
+        <member name="M:VL.Core.SerializationContext.Deserialize(System.Object,System.String,System.Type)">
             <summary>
-            Whether or not serialization error should lead to an exception
+            Deserializes the given content or if a name is provided extracts and deserializes the attribute or child element with the given name.
             </summary>
-        </member>
-        <member name="P:VL.Core.SerializationContext.IncludeDefaults">
-            <summary>
-            Whether or not default values will also be serialized.
-            </summary>
-        </member>
-        <member name="P:VL.Core.SerializationContext.Errors">
-            <summary>
-            The accumulated error messages.
-            </summary>
-        </member>
-        <member name="P:VL.Core.SerializationContext.Services">
-            <summary>
-            The service provider.
-            </summary>
-        </member>
-        <member name="F:VL.Core.SerializationContext.NodeContext">
-            <summary>
-            The node context of the object currently being serialized. Used to resolve paths.
-            </summary>
-        </member>
-        <member name="F:VL.Core.SerializationContext.TypeRegistry">
-            <summary>
-            The type registry used to map .NET types to VL types.
-            </summary>
-        </member>
-        <member name="M:VL.Core.SerializationContext.ReportError(System.String)">
-            <summary>
-            Reports an error. Will throw a <see cref="T:VL.Core.SerializationException"/> in case <see cref="P:VL.Core.SerializationContext.ThrowOnError"/> is enabled.
-            </summary>
-            <param name="message">The error message to report.</param>
-        </member>
-        <member name="M:VL.Core.SerializationContext.GetTagName(System.Type)">
-            <summary>
-            Returns the name of the type without any generic type parameter suffixes and replaces [] with Array.
-            </summary>
+            <param name="content">The content to deserialize.</param>
+            <param name="name">The name of the attribute or child element to extract from the content and deserialize.</param>
+            <param name="staticType">The statically known type of the value to deserialize.</param>
+            <returns>The deserialized value or the default value in case deserialization failed.</returns>
         </member>
         <member name="T:VL.Core.SerializationException">
             <summary>
@@ -1363,21 +1045,6 @@
         <member name="T:VL.Core.Serialization">
             <summary>
             Serialization related extension methods and constants.
-            </summary>
-        </member>
-        <member name="F:VL.Core.Serialization.ReflectionNamespace">
-            <summary>
-            The reflection namespace.
-            </summary>
-        </member>
-        <member name="F:VL.Core.Serialization.TypeAttributeName">
-            <summary>
-            The name of the type attribute.
-            </summary>
-        </member>
-        <member name="F:VL.Core.Serialization.VersionAttributeName">
-            <summary>
-            The name of the version attribute.
             </summary>
         </member>
         <member name="M:VL.Core.Serialization.RegisterSerializer``2(VL.Core.IVLFactory,``1)">
@@ -1400,61 +1067,6 @@
             <param name="factory">The factory containing the serializer registrations.</param>
             <param name="forType">The type of the instance to serialize.</param>
             <returns>True if an instance of the given type can be serialized.</returns>
-        </member>
-        <member name="M:VL.Core.Serialization.Serialize``1(VL.Core.SerializationContext,System.String,``0,System.Boolean)">
-            <summary>
-            Serializes the given value and if a name is provided wraps the serialized content into an <see cref="T:System.Xml.Linq.XElement"/> or <see cref="T:System.Xml.Linq.XAttribute"/>. 
-            </summary>
-            <typeparam name="T">
-            The statically known type of the value. In case it differes from the runtime type of the value 
-            the serialized content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/> with additional type information.
-            </typeparam>
-            <param name="context">The context to use for serialization.</param>
-            <param name="name">The name to use (if any) for the element or attribute wrapping the serialized content.</param>
-            <param name="value">The value to serialize.</param>
-            <param name="forceElement">If true the content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/>.</param>
-            <returns>The serialized content or if any wrapping happended the <see cref="T:System.Xml.Linq.XAttribute"/> or <see cref="T:System.Xml.Linq.XElement"/>.</returns>
-        </member>
-        <member name="M:VL.Core.Serialization.Serialize(VL.Core.SerializationContext,System.String,System.Object,System.Type,System.Boolean)">
-            <summary>
-            Serializes the given value and if a name is provided wraps the serialized content into an <see cref="T:System.Xml.Linq.XElement"/> or <see cref="T:System.Xml.Linq.XAttribute"/>. 
-            </summary>
-            <param name="context">The context to use for serialization.</param>
-            <param name="name">The name to use (if any) for the element or attribute wrapping the serialized content.</param>
-            <param name="value">The value to serialize.</param>
-            <param name="staticType">
-            The statically known type of the value. In case it differes from the runtime type of the value 
-            the serialized content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/> with additional type information.
-            </param>
-            <param name="forceElement">If true the content will always be wrapped in an <see cref="T:System.Xml.Linq.XElement"/>.</param>
-            <returns>The serialized content or if any wrapping happended the <see cref="T:System.Xml.Linq.XAttribute"/> or <see cref="T:System.Xml.Linq.XElement"/>.</returns>
-        </member>
-        <member name="M:VL.Core.Serialization.Deserialize``1(VL.Core.SerializationContext,System.Object,System.String)">
-            <summary>
-            Deserializes the given content or if a name is provided extracts and deserializes the attribute or child element with the given name.
-            </summary>
-            <typeparam name="T">The statically known type of the value to deserialize.</typeparam>
-            <param name="context">The context to use for deserialization.</param>
-            <param name="content">The content to deserialize.</param>
-            <param name="name">The name of the attribute or child element to extract from the content and deserialize.</param>
-            <returns>The deserialized value or the given default value in case deserialization failed.</returns>
-        </member>
-        <member name="M:VL.Core.Serialization.Deserialize(VL.Core.SerializationContext,System.Object,System.String,System.Type)">
-            <summary>
-            Deserializes the given content or if a name is provided extracts and deserializes the attribute or child element with the given name.
-            </summary>
-            <param name="context">The context to use for deserialization.</param>
-            <param name="content">The content to deserialize.</param>
-            <param name="name">The name of the attribute or child element to extract from the content and deserialize.</param>
-            <param name="staticType">The statically known type of the value to deserialize.</param>
-            <returns>The deserialized value or the default value in case deserialization failed.</returns>
-        </member>
-        <member name="T:VL.Core.Serialization.CollectionSerializer`2">
-            <summary>
-            The abstract base class to use when writing a VL serializer for a collection type.
-            </summary>
-            <typeparam name="TElement">The element type of the collection.</typeparam>
-            <typeparam name="TCollection">The type of the collection.</typeparam>
         </member>
         <member name="M:VL.Core.Serialization.Serialize``1(VL.Core.NodeContext,``0,System.Boolean)">
             <summary>
@@ -1506,47 +1118,26 @@
             <param name="errorMessages">The accumulated error messages in case <paramref name="throwOnError"/> is disabled.</param>
             <returns>The deserialized value.</returns>
         </member>
-        <member name="M:VL.Core.Serialization.RegisterSerializers(VL.Core.IVLFactory)">
+        <member name="M:VL.Core.SerializationService.RegisterSerializer``2(VL.Core.IVLFactory,``1)">
             <summary>
-            Registers all the default serializers in the factory.
+            Registers a VL serializer to the factory. 
+            In case the type for which the serializer gets registered is generic a dummy type instantiation paired with a dummy
+            serializer instantiation containing a public default constructor has to be registered. For example a serializer implementation
+            of type FooSerializer&lt;T&gt; for the generic type Foo&lt;T&gt; has to be registered for the dummy instantiaton Foo&lt;object&gt;.
             </summary>
-            <param name="factory">The factory to register in.</param>
+            <typeparam name="TForType">The type for which to register a serializer.</typeparam>
+            <typeparam name="TSerializer">The type of the serializer implementation.</typeparam>
+            <param name="factory">The factory in which the serializer gets registered.</param>
+            <param name="serializer">The serializer to register.</param>
+            <returns>The factory with the registered serializer.</returns>
         </member>
-        <member name="M:VL.Core.Serialization.GetSerializer(VL.Core.IVLFactory,System.Type)">
+        <member name="M:VL.Core.SerializationService.CanSerialize(VL.Core.IVLFactory,System.Type)">
             <summary>
-            Gets a serializer for the given type.
+            Whether or not an instance of the given type can be serialized.
             </summary>
-            <param name="factory">The factory to fetch the serializer from.</param>
-            <param name="forType">The type for which a serializer has to be fetched.</param>
-            <returns>The serializer or null in case no serializer is registered for that type.</returns>
-        </member>
-        <member name="T:VL.Core.Serialization.Serializer">
-            <summary>
-            The non-generic serializer class.
-            </summary>
-        </member>
-        <member name="M:VL.Core.Serialization.Serializer.Serialize(VL.Core.SerializationContext,System.Object)">
-            <summary>
-            Serializes the given value to a string, object[] or XElement.
-            </summary>
-            <param name="context">The factory to use for serialization.</param>
-            <param name="value">The value to serialize.</param>
-            <returns>The serialized value as <see cref="T:System.String"/>, <see cref="T:Object[]"/> or <see cref="T:System.Xml.Linq.XElement"/>.</returns>
-        </member>
-        <member name="M:VL.Core.Serialization.Serializer.Deserialize(VL.Core.SerializationContext,System.Object,System.Type)">
-            <summary>
-            Deserializes the given content.
-            </summary>
-            <param name="context">The context to use for deserialization.</param>
-            <param name="content">The content (string, object[] or XElement) to deserialize.</param>
-            <param name="type">The type of the deserialized value.</param>
-            <returns>The deserialized value or the default value in case deserialization failed.</returns>
-        </member>
-        <member name="T:VL.Core.Serialization.UngenericDelegatingSerializer`1">
-            <summary>
-            Bridge to user implemented generic serializer interface.
-            </summary>
-            <typeparam name="T">The type of the value to serialize.</typeparam>
+            <param name="factory">The factory containing the serializer registrations.</param>
+            <param name="forType">The type of the instance to serialize.</param>
+            <returns>True if an instance of the given type can be serialized.</returns>
         </member>
         <member name="T:VL.Core.ServiceRegistry">
             <summary>
@@ -1586,17 +1177,6 @@
             Make the registry current on the current thread if no registry is current yet.
             </summary>
             <returns>A subscription which will restore the previous registry on dispose.</returns>
-        </member>
-        <member name="M:VL.Core.SingleAppInstanceUtils.GetOrAddAppMutex(System.String,System.Boolean@,System.Boolean)">
-            <summary>
-            Tries to create a mutex with given name. Also sets the static OtherInstanceIsRunning property.
-            </summary>
-            <param name="mutexName">Name of the mutex.</param>
-            <param name="isNew">True if the mutex was created, false if another instance exists already</param>
-            <param name="addGlobalPrefix">If set to <c>true</c> the "Global\" prefis is added.</param>
-            <returns>
-            The new or existing mutex.
-            </returns>
         </member>
         <member name="T:VL.Core.IHasMemory`1">
             <summary>
@@ -1701,19 +1281,6 @@
             Returns the default value as defined by VL.
             </summary>
         </member>
-        <member name="M:VL.Core.TypeUtils.MakeGenericAdaptiveType(System.Type,System.Type[])">
-            <summary>
-            Same as MakeGenericType but taking adaptive node parameters into account.
-            </summary>
-            <param name="type">The generic type defintion. Can be the public type (Particle&lt;T&gt;) or the private type (Particle&lt;T, AdC&gt;)</param>
-            <param name="arguments">The generic arguments.</param>
-            <returns>The fully instantiated private type for e.g. Particle&lt;float, __SOME_STRUCT__&gt;</returns>
-            <exception cref="T:System.InvalidOperationException">If no adaptive implementation struct was found.</exception>
-            <remarks>
-            This method currently fails if the provided arguments lead to adaptive instantiations which haven't been seen by the compiler.
-            We therefor keep the method internal for now.
-            </remarks>
-        </member>
         <member name="T:VL.Core.UniqueId">
             <summary>
             A unique and persistent identifier for a patch element. 
@@ -1725,10 +1292,29 @@
             Only valid while the session is running. Used by some obsolete APIs.
             </summary>
         </member>
-        <member name="M:VL.Core.VersionUtils.ParseLanguageVersion(System.String)">
+        <member name="T:VL.Core.Utils.CollectionBuilders">
             <summary>
-            Parses the LanguageVersion attribute of documents to a version. 
-            Handles strings like "2019.1.0" or "2019.1.0-0063-g2b0be431ff" or "2019.1.0-roslyn.763-g631ba19afb" or "2019.1.0-763.roslyn-g631ba19afb"
+            These builders are used by the target code for pin groups and ouput splicers.
+            </summary>
+        </member>
+        <member name="T:VL.Core.TimeSpanUtils">
+            <summary>
+            Creates TimeSpans in a precise way, normal "From" methods do weird rounding.
+            </summary>
+        </member>
+        <member name="M:VL.Core.TimeSpanUtils.FromMillisecondsPrecise(System.Double)">
+            <summary>
+            Creates a TimeSpan with precise tick count, normal "From" methods do weird rounding.
+            </summary>
+        </member>
+        <member name="M:VL.Core.TimeSpanUtils.FromSecondsPrecise(System.Double)">
+            <summary>
+            Creates a TimeSpan with precise tick count, normal "From" methods do weird rounding.
+            </summary>
+        </member>
+        <member name="M:VL.Core.TimeSpanUtils.FromMinutesPrecise(System.Double)">
+            <summary>
+            Creates a TimeSpan with precise tick count, normal "From" methods do weird rounding.
             </summary>
         </member>
         <member name="T:VL.Core.MapMode">
@@ -2109,14 +1695,147 @@
             <param name="x"></param>
             <returns>Linear interpolation between a and b if x in the range ]0..1[ or a if x = 0 or b if x = 1</returns>
         </member>
-        <member name="F:VL.Core.VLObject.WithMethodName">
+        <member name="P:VL.Lib.IO.Mouse.PressedButtons">
             <summary>
-            The name of the auto generated With method used to update the fields.
+            The currently pressed mouse buttons.
             </summary>
         </member>
-        <member name="P:VL.Core.VLFactory.Current">
+        <member name="T:VL.Lib.IO.IProjectionSpace">
             <summary>
-            Returns the VL factory installed on the current thread.
+            Implement this interface on your gui plugin if this has a notion of a projection space.
+            You can use the aspect ratio of your window or viewport to do the math or have an explicit aspect ratio transform input.
+            </summary>
+        </member>
+        <member name="M:VL.Lib.IO.IProjectionSpace.MapFromPixels(VL.Lib.IO.Notifications.INotificationWithPosition,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@)">
+            <summary>
+            Transforms a position in pixels into 
+            * a position in normalized projection space ((bottom, left = -1, -1) .. (top, right = 1, 1)) 
+            * a position in projection space (typically one that respects the aspect ratio of the window)
+            so you might need to "undo" the last 2 or 3 transformations in that chain:
+                        World T.          View T.          Proj T.          AspectR. T.           Crop T.        Viewport Placement
+            Object Space  -->  World Space  -->  View Space  -->  PROJ SPACE  -->  NORM PROJ SPACE  -->  Viewport Space  -->  Pixel Space
+            </summary>
+        </member>
+        <member name="T:VL.Lib.IO.IWorldSpace2d">
+            <summary>
+            Implement this to support the "Position in World" of several input device nodes.
+            It is supposed to give you a position in the same space that gets used by placing primitives.
+            World space can be defined in different ways for a node set:
+            * undoing the camera transformation gets a position from projection space to world space
+            * undoing all downstream transformations (that a module can't be aware of) - like a camera transfomation - is taking you to world space
+            </summary>
+        </member>
+        <member name="P:VL.Lib.IO.Path.IsFile">
+            <summary>
+            Returns whether the path is a file
+            </summary>
+        </member>
+        <member name="P:VL.Lib.IO.Path.IsDirectory">
+            <summary>
+            Returns whether the path is a folder
+            </summary>
+        </member>
+        <member name="P:VL.Lib.IO.Path.IsRooted">
+            <summary>
+            Whether the path string contains a root.
+            </summary>
+        </member>
+        <member name="P:VL.Lib.IO.Path.Root">
+            <summary>
+            Returns the root path (if any).
+            </summary>
+        </member>
+        <member name="P:VL.Lib.IO.Path.Size">
+            <summary>
+            Returns the size of a file or all the files in a folder
+            </summary>
+        </member>
+        <member name="P:VL.Lib.IO.Path.Exists">
+            <summary>
+            Returns whether file or folder exists
+            </summary>
+        </member>
+        <member name="M:VL.Lib.IO.Path.Refresh">
+            <summary>
+            Updates all properties of the path
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VL.Lib.IO.Path.Parent">
+            <summary>
+            For a directory returns its parent directory. For a file returns the directory the file is in
+            </summary>
+        </member>
+        <member name="M:VL.Lib.IO.Path.GetDescendants(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Returns all files and folders contained withinin a directory
+            </summary>
+            <param name="searchPattern"></param>
+            <param name="includeSubdirectories"></param>
+            <param name="includeHidden"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lib.IO.Path.GetDirectories(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Returns all folders contained within a directory
+            </summary>
+            <param name="searchPattern"></param>
+            <param name="includeSubdirectories"></param>
+            <param name="includeHidden"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lib.IO.Path.GetFiles(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Returns all files contained within a directory
+            </summary>
+            <param name="searchPattern"></param>
+            <param name="includeSubdirectories"></param>
+            <param name="includeHidden"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Lib.IO.Path.Filename(System.String@,System.String@,System.String@)">
+            <summary>
+            Returns the directory path and the name and extension of a file
+            </summary>
+            <param name="directory"></param>
+            <param name="filename"></param>
+            <param name="extension"></param>
+        </member>
+        <member name="M:VL.Lib.IO.Path.GetAttributes(System.Boolean@,System.Boolean@,System.Boolean@)">
+            <summary>
+            Returns readonly, hidden and system attributes of a file or folder
+            </summary>
+            <param name="isReadOnly"></param>
+            <param name="isHidden"></param>
+            <param name="isSystem"></param>
+        </member>
+        <member name="M:VL.Lib.IO.Path.SetAttributes(System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Sets the readonly, hidden and system attributes of a file or folder
+            </summary>
+            <param name="isReadOnly"></param>
+            <param name="isHidden"></param>
+            <param name="isSystem"></param>
+        </member>
+        <member name="M:VL.Lib.IO.Path.Modified(System.DateTime@,System.DateTime@,System.DateTime@)">
+            <summary>
+            Returns creation date, last write and last access dates of a file or folder
+            </summary>
+            <param name="creationTime"></param>
+            <param name="lastWriteTime"></param>
+            <param name="lastAccessTime"></param>
+        </member>
+        <member name="M:VL.Lib.IO.Path.MakeRelative(VL.Lib.IO.Path)">
+            <summary>
+            Returns this absolute path as a relative path to the given base path.
+            In case the base path has a different root than this path or this path is relative already 
+            the same path will be returned.
+            </summary>
+        </member>
+        <member name="M:VL.Lib.IO.Path.MakeAbsolute(VL.Lib.IO.Path)">
+            <summary>
+            Returns this relative path as an absolute path to the given base path.
+            In case this path is absolute already the same path will be returned.
             </summary>
         </member>
         <member name="F:VL.Lib.Animation.FrameTimeMessage.Time">
@@ -3611,157 +3330,218 @@
         <member name="M:VL.Lib.Basics.Video.VideoFrame`1.TryGetMemory(System.ReadOnlyMemory{System.Byte}@)">
             <inheritdoc />
         </member>
-        <member name="P:VL.Lib.IO.Path.IsFile">
+        <member name="M:VL.Lib.ColorMath.ColorConversions.SRGBToRGB(Stride.Core.Mathematics.Color4)">
             <summary>
-            Returns whether the path is a file
+            Converts sRGB color values to RGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="srgb">
+            Color value to convert in sRGB.
+            </param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.RGBToSRGB(Stride.Core.Mathematics.Color4)">
+            <summary>
+            Converts RGB color values to sRGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="rgb">Color value to convert.</param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.FromHSL(Stride.Core.Mathematics.Vector4)">
+            <summary>
+            Converts HSL color values to RGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="hsl">
+            Color value to convert in hue, saturation, lightness (HSL).
+            The X element is Hue (H), the Y element is Saturation (S), the Z element is Lightness (L), and the W element is Alpha (which is copied to the output's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.ToHSL(Stride.Core.Mathematics.Color4)">
+            <summary>
+            Converts RGB color values to HSL color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            The X element is Hue (H), the Y element is Saturation (S), the Z element is Lightness (L), and the W element is Alpha (a copy of the input's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </returns>
+            <param name="rgb">Color value to convert.</param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.FromHSV(Stride.Core.Mathematics.Vector4)">
+            <summary>
+            Converts HSV color values to RGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="hsv">
+            Color value to convert in hue, saturation, value (HSV).
+            The X element is Hue (H), the Y element is Saturation (S), the Z element is Value (V), and the W element is Alpha (which is copied to the output's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.ToHSV(Stride.Core.Mathematics.Color4)">
+            <summary>
+            Converts RGB color values to HSV color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            The X element is Hue (H), the Y element is Saturation (S), the Z element is Value (V), and the W element is Alpha (a copy of the input's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </returns>
+            <param name="rgb">Color value to convert.</param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.FromXYZ(Stride.Core.Mathematics.Vector4)">
+            <summary>
+            Converts XYZ color values to RGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="xyz">
+            Color value to convert with the trisimulus values of X, Y, and Z in the corresponding element, and the W element with Alpha (which is copied to the output's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </param>
+            <remarks>Uses the CIE XYZ colorspace.</remarks>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.ToXYZ(Stride.Core.Mathematics.Color4)">
+            <summary>
+            Converts RGB color values to XYZ color values.
+            </summary>
+            <returns>
+            Returns the converted color value with the trisimulus values of X, Y, and Z in the corresponding element, and the W element with Alpha (a copy of the input's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </returns>
+            <param name="rgb">Color value to convert.</param>
+            <remarks>Uses the CIE XYZ colorspace.</remarks>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.FromYUV(Stride.Core.Mathematics.Vector4)">
+            <summary>
+            Converts YCbCr color values to RGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="yuv">
+            Color value to convert in Luma-Chrominance (YCbCr) aka YUV.
+            The X element contains Luma (Y, 0.0 to 1.0), the Y element contains Blue-difference chroma (U, -0.5 to 0.5), the Z element contains the R-difference chroma (V, -0.5 to 0.5), and the W element contains the Alpha (which is copied to the output's Alpha value).
+            </param>
+            <remarks>Converts using ITU-R BT.601/CCIR 601 W(r) = 0.299 W(b) = 0.114 U(max) = 0.436 V(max) = 0.615.</remarks>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.ToYUV(Stride.Core.Mathematics.Color4)">
+            <summary>
+            Converts RGB color values to YUV color values.
+            </summary>
+            <returns>
+            Returns the converted color value in Luma-Chrominance (YCbCr) aka YUV.
+            The X element contains Luma (Y, 0.0 to 1.0), the Y element contains Blue-difference chroma (U, -0.5 to 0.5), the Z element contains the R-difference chroma (V, -0.5 to 0.5), and the W element contains the Alpha (a copy of the input's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </returns>
+            <param name="rgb">Color value to convert.</param>
+            <remarks>Converts using ITU-R BT.601/CCIR 601 W(r) = 0.299 W(b) = 0.114 U(max) = 0.436 V(max) = 0.615.</remarks>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.FromHCY(Stride.Core.Mathematics.Vector4)">
+            <summary>
+            Converts HCY color values to RGB color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            </returns>
+            <param name="hcy">
+            Color value to convert in hue, chroma, luminance (HCY).
+            The X element is Hue (H), the Y element is Chroma (C), the Z element is luminance (Y), and the W element is Alpha (which is copied to the output's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </param>
+        </member>
+        <member name="M:VL.Lib.ColorMath.ColorConversions.ToHCY(Stride.Core.Mathematics.Color4)">
+            <summary>
+            Converts RGB color values to HCY color values.
+            </summary>
+            <returns>
+            Returns the converted color value.
+            The X element is Hue (H), the Y element is Chroma (C), the Z element is luminance (Y), and the W element is Alpha (a copy of the input's Alpha value).
+            Each has a range of 0.0 to 1.0.
+            </returns>
+            <param name="rgb">Color value to convert.</param>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(System.UInt32,System.String,System.Boolean)">
+            <summary>
+            Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
+            The builder expects all current pins to get added and once finished will synchronize the internal pin group.
+            </summary>
+            <param name="nodeId">The unique id of the node application.</param>
+            <param name="pinGroup">The name of the pin group the returned builder should modify.</param>
+            <param name="isInput">Whether or not the group is an input our output group.</param>
+            <returns>A <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> to modify the given pin group.</returns>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.SetPinValue(System.UInt32,System.String,System.Object)">
+            <summary>
+            Sets the value of the given pin.
+            </summary>
+            <param name="node">The unique id of the node application.</param>
+            <param name="pin">The name of the input pin on which the value should get set.</param>
+            <param name="value">The value to set.</param>
+            <returns>A new solution with the value stored in the pin of the given node.</returns>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.Confirm(VL.Model.SolutionUpdateKind)">
+            <summary>
+            Make this solution the current one.
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Path.IsDirectory">
+        <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(VL.Core.UniqueId,System.String,System.Boolean)">
             <summary>
-            Returns whether the path is a folder
+            Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
+            The builder expects all current pins to get added and once finished will synchronize the internal pin group.
+            </summary>
+            <param name="nodeId">The unique id of the node application.</param>
+            <param name="pinGroup">The name of the pin group the returned builder should modify.</param>
+            <param name="isInput">Whether or not the group is an input our output group.</param>
+            <returns>A <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> to modify the given pin group.</returns>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ISolution.SetPinValue(VL.Core.UniqueId,System.String,System.Object)">
+            <summary>
+            Sets the value of the given pin.
+            </summary>
+            <param name="node">The unique id of the node application.</param>
+            <param name="pin">The name of the input pin on which the value should get set.</param>
+            <param name="value">The value to set.</param>
+            <returns>A new solution with the value stored in the pin of the given node.</returns>
+        </member>
+        <member name="T:VL.Lang.PublicAPI.PinGroupBuilder">
+            <summary>
+            Modifies a pin group by simply adding pins to it and once finished calling commit on it. The pins will then get synchronized.
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Path.IsRooted">
+        <member name="M:VL.Lang.PublicAPI.SessionNodes.AddMessage(VL.Core.UniqueId,System.String,VL.Lang.MessageSeverity)">
             <summary>
-            Whether the path string contains a root.
+            Add a message for one frame. 
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Path.Root">
+        <member name="M:VL.Lang.PublicAPI.SessionNodes.AddMessage(VL.Lang.Message)">
             <summary>
-            Returns the root path (if any).
+            Add a message for one frame. 
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Path.Size">
+        <member name="M:VL.Lang.PublicAPI.SessionNodes.ToggleMessage(VL.Lang.Message,System.Boolean)">
             <summary>
-            Returns the size of a file or all the files in a folder
+            Toggle message on and off. Note: you are responsible of turning the message off again! 
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Path.Exists">
+        <member name="M:VL.Lang.PublicAPI.SessionNodes.AddPersistentMessage(VL.Lang.Message)">
             <summary>
-            Returns whether file or folder exists
+            Add a persistent message. Use the returned disposable to remove the message.
             </summary>
         </member>
-        <member name="M:VL.Lib.IO.Path.Refresh">
+        <member name="F:VL.Model.SolutionUpdateKind.UpdateUIAndHistory">
             <summary>
-            Updates all properties of the path
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="P:VL.Lib.IO.Path.Parent">
-            <summary>
-            For a directory returns its parent directory. For a file returns the directory the file is in
-            </summary>
-        </member>
-        <member name="M:VL.Lib.IO.Path.GetDescendants(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Returns all files and folders contained withinin a directory
-            </summary>
-            <param name="searchPattern"></param>
-            <param name="includeSubdirectories"></param>
-            <param name="includeHidden"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Lib.IO.Path.GetDirectories(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Returns all folders contained within a directory
-            </summary>
-            <param name="searchPattern"></param>
-            <param name="includeSubdirectories"></param>
-            <param name="includeHidden"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Lib.IO.Path.GetFiles(System.String,System.Boolean,System.Boolean)">
-            <summary>
-            Returns all files contained within a directory
-            </summary>
-            <param name="searchPattern"></param>
-            <param name="includeSubdirectories"></param>
-            <param name="includeHidden"></param>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Lib.IO.Path.Filename(System.String@,System.String@,System.String@)">
-            <summary>
-            Returns the directory path and the name and extension of a file
-            </summary>
-            <param name="directory"></param>
-            <param name="filename"></param>
-            <param name="extension"></param>
-        </member>
-        <member name="M:VL.Lib.IO.Path.GetAttributes(System.Boolean@,System.Boolean@,System.Boolean@)">
-            <summary>
-            Returns readonly, hidden and system attributes of a file or folder
-            </summary>
-            <param name="isReadOnly"></param>
-            <param name="isHidden"></param>
-            <param name="isSystem"></param>
-        </member>
-        <member name="M:VL.Lib.IO.Path.SetAttributes(System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-            Sets the readonly, hidden and system attributes of a file or folder
-            </summary>
-            <param name="isReadOnly"></param>
-            <param name="isHidden"></param>
-            <param name="isSystem"></param>
-        </member>
-        <member name="M:VL.Lib.IO.Path.Modified(System.DateTime@,System.DateTime@,System.DateTime@)">
-            <summary>
-            Returns creation date, last write and last access dates of a file or folder
-            </summary>
-            <param name="creationTime"></param>
-            <param name="lastWriteTime"></param>
-            <param name="lastAccessTime"></param>
-        </member>
-        <member name="M:VL.Lib.IO.Path.MakeRelative(VL.Lib.IO.Path)">
-            <summary>
-            Returns this absolute path as a relative path to the given base path.
-            In case the base path has a different root than this path or this path is relative already 
-            the same path will be returned.
-            </summary>
-        </member>
-        <member name="M:VL.Lib.IO.Path.MakeAbsolute(VL.Lib.IO.Path)">
-            <summary>
-            Returns this relative path as an absolute path to the given base path.
-            In case this path is absolute already the same path will be returned.
-            </summary>
-        </member>
-        <member name="T:VL.Model.PinExpositionMode">
-            <summary>
-            Aka AutoConnect. Makes the pin show up in the parent(s).
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinExpositionMode.Local">
-            <summary>
-            Off
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinExpositionMode.InfectPatch">
-            <summary>
-            Makes the pin show up in the surrounding patch
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinExpositionMode.Expose">
-            <summary>
-            Infect all surrounding patches (the call stack)
-            </summary>
-        </member>
-        <member name="T:VL.Model.PinVisibility">
-            <summary>
-            Controls the visibility of pins. 
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinVisibility.Visible">
-            <summary>
-            The pin is always visible.
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinVisibility.Optional">
-            <summary>
-            The user can configure the node to show this pin on application side.
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinVisibility.Hidden">
-            <summary>
-            The user won't see the pin.
+            To update UI and add change to history for undo, but does not trigger a recompile
             </summary>
         </member>
         <member name="M:System.Collections.Generic.EnumerableExtensions.Permutations``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
@@ -3831,104 +3611,6 @@
             <param name="second"></param>
             <param name="comparer"></param>
             <returns></returns>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetBounds(System.Collections.Generic.IEnumerable{System.Drawing.PointF})">
-            <summary>
-            Returns the bounds of the given point cloud.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetBounds(System.Collections.Generic.IEnumerable{System.Drawing.RectangleF})">
-            <summary>
-            Returns the bounds of the given rectangle cloud.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.Area(System.Drawing.SizeF)">
-            <summary>
-            Returns the area.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetCenter(System.Drawing.RectangleF)">
-            <summary>
-            Returns the center of this RectangleF.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetOnePixelRectangleForCenter(System.Drawing.PointF)">
-            <summary>
-            Returns a rectangle for given center position and 1 pixel size
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetRectangleForCenterAndSize(System.Drawing.PointF,System.Drawing.SizeF)">
-            <summary>
-            Returns a rectangle for given center position and size.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.ToRectangle(System.Drawing.RectangleF)">
-            <summary>
-            Returns a <see cref="T:System.Drawing.Rectangle">Rectangle</see> by casting the float components to integer.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.ToPoint(System.Drawing.PointF)">
-            <summary>
-            Returns a <see cref="T:System.Drawing.Point">Point</see> by casting the float components to integer.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.Plus(System.Drawing.PointF,System.Drawing.PointF)">
-            <summary>
-            Translates a given <see cref="T:System.Drawing.PointF">p1</see> by a specified <see cref="T:System.Drawing.PointF">p2</see>.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.Minus(System.Drawing.PointF,System.Drawing.PointF)">
-            <summary>
-            Translates a given <see cref="T:System.Drawing.PointF">p1</see> by a specified <see cref="T:System.Drawing.PointF">p2</see>.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetDistanceTo(System.Drawing.PointF,System.Drawing.PointF)">
-            <summary>
-            Returns the distance to another point.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetSquaredDistanceTo(System.Drawing.PointF,System.Drawing.PointF)">
-            <summary>
-            Returns the squared distance to another point. Good for comparisons.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.Normalize(System.Drawing.PointF)">
-            <summary>
-            Normalizes the length
-            </summary>
-            <param name="point"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.GetDistanceTo(System.Drawing.Point,System.Drawing.Point)">
-            <summary>
-            Returns the distance to another point.
-            </summary>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.TransformPoint(System.Drawing.Drawing2D.Matrix,System.Drawing.PointF)">
-            <summary>
-            Applies the transformation to a PointF
-            </summary>
-            <param name="t">A Matrix</param>
-            <param name="p">The point to transform by the matrix t</param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.TransformRectangle(System.Drawing.Drawing2D.Matrix,System.Drawing.Rectangle)">
-            <summary>
-            Applies the geometric transform represented by this Matrix to the
-            given rectangle.
-            </summary>
-            <param name="t">A Matrix</param>
-            <param name="rect">The rectangle to transform.</param>
-            <returns>The transformed rectangle.</returns>
-        </member>
-        <member name="M:System.Drawing.DrawingExtensions.TransformRectangle(System.Drawing.Drawing2D.Matrix,System.Drawing.RectangleF)">
-            <summary>
-            Applies the geometric transform represented by this Matrix to the
-            given rectangle.
-            </summary>
-            <param name="t">A Matrix</param>
-            <param name="rect">The rectangle to transform.</param>
-            <returns>The transformed rectangle.</returns>
         </member>
     </members>
 </doc>

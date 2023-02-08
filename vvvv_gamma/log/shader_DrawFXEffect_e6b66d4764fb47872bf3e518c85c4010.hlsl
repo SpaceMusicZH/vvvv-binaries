@@ -110,7 +110,7 @@ dcl_output o1.xy
 //   o1.x <- <VSMain return value>.TexCoord_id95.x; o1.y <- <VSMain return value>.TexCoord_id95.y; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 158 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_e6b66d4764fb47872bf3e518c85c4010.hlsl"
+#line 158 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_e6b66d4764fb47872bf3e518c85c4010.hlsl"
 dp4 o0.x, v0.xyzw, cb0[20].xyzw
 dp4 o0.y, v0.xyzw, cb0[21].xyzw
 dp4 o0.z, v0.xyzw, cb0[22].xyzw
@@ -184,7 +184,7 @@ dcl_temps 1
 //   v1.x <- __input__.TexCoord_id95.x; v1.y <- __input__.TexCoord_id95.y; 
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w
 //
-#line 148 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_e6b66d4764fb47872bf3e518c85c4010.hlsl"
+#line 148 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_e6b66d4764fb47872bf3e518c85c4010.hlsl"
 sample_indexable(texture2d)(float,float,float,float) r0.xyzw, v1.xyxx, t0.xyzw, s0
 mul o0.xyzw, r0.xyzw, cb0[0].xyzw
 

@@ -1089,140 +1089,34 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
-        <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(System.UInt32,System.String,System.Boolean)">
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Name">
             <summary>
-            Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
-            The builder expects all current pins to get added and once finished will synchronize the internal pin group.
-            </summary>
-            <param name="nodeId">The unique id of the node application.</param>
-            <param name="pinGroup">The name of the pin group the returned builder should modify.</param>
-            <param name="isInput">Whether or not the group is an input our output group.</param>
-            <returns>A <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> to modify the given pin group.</returns>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.ISolution.SetPinValue(System.UInt32,System.String,System.Object)">
-            <summary>
-            Sets the value of the given pin.
-            </summary>
-            <param name="node">The unique id of the node application.</param>
-            <param name="pin">The name of the input pin on which the value should get set.</param>
-            <param name="value">The value to set.</param>
-            <returns>A new solution with the value stored in the pin of the given node.</returns>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.ISolution.Confirm(VL.Model.SolutionUpdateKind)">
-            <summary>
-            Make this solution the current one.
+            The name of the data hub.
             </summary>
         </member>
-        <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(VL.Core.UniqueId,System.String,System.Boolean)">
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.CompiletimeType">
             <summary>
-            Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
-            The builder expects all current pins to get added and once finished will synchronize the internal pin group.
-            </summary>
-            <param name="nodeId">The unique id of the node application.</param>
-            <param name="pinGroup">The name of the pin group the returned builder should modify.</param>
-            <param name="isInput">Whether or not the group is an input our output group.</param>
-            <returns>A <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> to modify the given pin group.</returns>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.ISolution.SetPinValue(VL.Core.UniqueId,System.String,System.Object)">
-            <summary>
-            Sets the value of the given pin.
-            </summary>
-            <param name="node">The unique id of the node application.</param>
-            <param name="pin">The name of the input pin on which the value should get set.</param>
-            <param name="value">The value to set.</param>
-            <returns>A new solution with the value stored in the pin of the given node.</returns>
-        </member>
-        <member name="T:VL.Lang.PublicAPI.ILiveElement">
-            <summary>
-            A live view onto an element
+            The type of the data hub.
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveElement.Element">
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Value">
             <summary>
-            The element in the patch. (Source code level)
+            The constant value stored in a datahub (default on pin definitions or static on pin unconnected input pin applications)
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveElement.Info">
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.ConstantType">
             <summary>
-            Static information on the element. (Symbol level)
+            The type of the constant value. This can differ from the compile time type. For example an input of type GPU&lt;float&gt; stores its value as a float.
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveElement.DataStream">
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.HasDefaultValue">
             <summary>
-            Pins, pads, links and process nodes push data at the very moment they get updated. 
-            This can happen on another thread and happens right in the middle of executing a patch. 
-            Tooltips build upon this mechanism and by that let the user inspect how an instance of a reference data type gradually mutates throughout the patch.
+            If DefaultValue is available
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveElement.Messages">
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.HasConstantValue">
             <summary>
-            Latest runtime messages. 
-            </summary>
-        </member>
-        <member name="T:VL.Lang.PublicAPI.ILiveDataHub">
-            <summary>
-            A live view onto a pin, pad or controlpoint
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Element">
-            <summary>
-            The element in the patch. (Source code level)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Info">
-            <summary>
-            Static information on the data hub. (Symbol level)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Part">
-            <summary>
-            This typically is only of interest for border control points. 
-            Splicers e.g. look different from the inside/outside
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Element">
-            <summary>
-            The element in the patch. (Source code level)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Info">
-            <summary>
-            Static information on the node. (Symbol level)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Pins">
-            <summary>
-            live pins, that all push their data when it becomes available. Inputs push before outputs.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.TimingStream">
-            <summary>
-            Timings per fragment. 
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Messages">
-            <summary>
-            Latest runtime messages. 
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.IsApplication">
-            <summary>
-            A node is either a node application or a node defintion
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveLink.Element">
-            <summary>
-            The element in the patch. (Source code level)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveLink.Source">
-            <summary>
-            Where the data comes from. Starting point of a link.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveLink.Sink">
-            <summary>
-            Where the data flows to. Ending point of a link.
+            If 
             </summary>
         </member>
         <member name="P:VL.Lang.PublicAPI.IElementInfo.ElementID">
@@ -1258,34 +1152,97 @@
             Definitions can have tags to find them not only under their name.
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Name">
+        <member name="T:VL.Lang.PublicAPI.ILiveDataHub">
             <summary>
-            The name of the data hub.
+            A live view onto a pin, pad or controlpoint
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.CompiletimeType">
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Element">
             <summary>
-            The type of the data hub.
+            The element in the patch. (Source code level)
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Value">
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Info">
             <summary>
-            The constant value stored in a datahub (default on pin definitions or static on pin unconnected input pin applications)
+            Static information on the data hub. (Symbol level)
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.ConstantType">
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.Part">
             <summary>
-            The type of the constant value. This can differ from the compile time type. For example an input of type GPU&lt;float&gt; stores its value as a float.
+            This typically is only of interest for border control points. 
+            Splicers e.g. look different from the inside/outside
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.HasDefaultValue">
+        <member name="T:VL.Lang.PublicAPI.ILiveElement">
             <summary>
-            If DefaultValue is available
+            A live view onto an element
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.HasConstantValue">
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.Element">
             <summary>
-            If 
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.Info">
+            <summary>
+            Static information on the element. (Symbol level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.DataStream">
+            <summary>
+            Pins, pads, links and process nodes push data at the very moment they get updated. 
+            This can happen on another thread and happens right in the middle of executing a patch. 
+            Tooltips build upon this mechanism and by that let the user inspect how an instance of a reference data type gradually mutates throughout the patch.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveElement.Messages">
+            <summary>
+            Latest runtime messages. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveLink.Element">
+            <summary>
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveLink.Source">
+            <summary>
+            Where the data comes from. Starting point of a link.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveLink.Sink">
+            <summary>
+            Where the data flows to. Ending point of a link.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Element">
+            <summary>
+            The element in the patch. (Source code level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Info">
+            <summary>
+            Static information on the node. (Symbol level)
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Pins">
+            <summary>
+            live pins, that all push their data when it becomes available. Inputs push before outputs.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.TimingStream">
+            <summary>
+            Timings per fragment. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Messages">
+            <summary>
+            Latest runtime messages. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.IsApplication">
+            <summary>
+            A node is either a node application or a node defintion
             </summary>
         </member>
         <member name="P:VL.Lang.PublicAPI.INodeInfo.Name">
@@ -1313,11 +1270,6 @@
             retrieves the package that contians the node definition of this node (application)
             </summary>
         </member>
-        <member name="T:VL.Lang.PublicAPI.PinGroupBuilder">
-            <summary>
-            Modifies a pin group by simply adding pins to it and once finished calling commit on it. The pins will then get synchronized.
-            </summary>
-        </member>
         <member name="P:VL.Lang.PublicAPI.Session.VersionString">
             <summary>
             The full version string. e.g. "2019.1.0" or "2019.1.0-0063-g2b0be431ff" for preview
@@ -1336,26 +1288,6 @@
         <member name="P:VL.Lang.PublicAPI.Session.NewVersionUrl">
             <summary>
             Empty if there is no newer version available, otherwise link to release page
-            </summary>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.Session.AddMessage(VL.Core.UniqueId,System.String,VL.Lang.MessageSeverity)">
-            <summary>
-            Add a message for one frame. 
-            </summary>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.Session.AddMessage(VL.Lang.Message)">
-            <summary>
-            Add a message for one frame. 
-            </summary>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.Session.ToggleMessage(VL.Lang.Message,System.Boolean)">
-            <summary>
-            Toggle message on and off. Note: you are responsible of turning the message off again! 
-            </summary>
-        </member>
-        <member name="M:VL.Lang.PublicAPI.Session.AddPersistentMessage(VL.Lang.Message)">
-            <summary>
-            Add a persistent message. Use the returned disposable to remove the message.
             </summary>
         </member>
         <member name="F:VL.Lang.Symbols.BuildItem.UserReferencedItems">
@@ -1574,11 +1506,6 @@
         <member name="E:VL.Lang.Symbols.IRuntimeHost.OnException">
             <summary>
             Raised when an exception occurs.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Symbols.IRuntimeHost.TogglePersistentUserRuntimeMessage(VL.Lang.Message,System.Boolean)">
-            <summary>
-            Toggle message on and off. Note: you are responsible of turning the message off again! 
             </summary>
         </member>
         <member name="P:VL.Lang.Symbols.IRuntimeInstance.NodeId">
@@ -2178,12 +2105,6 @@
             <param name="fieldInfo">The field information.</param>
             <returns></returns>
         </member>
-        <member name="P:VL.Core.CommandLineArguments.NewInstanceAllowed">
-            <summary>
-            Gets a value indicating whether a new instance is allowed to open.
-            It checks for the '-m' or '--allowmultiple' commandline arg and whether another instance is already running.
-            </summary>
-        </member>
         <member name="T:VL.Core.RefCountedDictionary`2">
             <summary>
             A dictinary that keeps track of how many instances per key are added or removed.
@@ -2213,6 +2134,12 @@
             <returns>
             true if the element is successfully found and removed; otherwise, false.  This method returns false if <paramref name="key" /> is not found in the <see cref="T:System.Collections.Generic.Dictionary`2" />.
             </returns>
+        </member>
+        <member name="M:VL.Core.VersionUtils.ParseLanguageVersion(System.String)">
+            <summary>
+            Parses the LanguageVersion attribute of documents to a version. 
+            Handles strings like "2019.1.0" or "2019.1.0-0063-g2b0be431ff" or "2019.1.0-roslyn.763-g631ba19afb" or "2019.1.0-763.roslyn-g631ba19afb"
+            </summary>
         </member>
         <member name="P:VL.Model.Element.Parent">
             <summary>
@@ -3510,11 +3437,6 @@
             Tracks the specified canvas for undo/redo.
             </summary>
             <param name="canvas">The canvas to track.</param>
-        </member>
-        <member name="F:VL.Model.SolutionUpdateKind.UpdateUIAndHistory">
-            <summary>
-            To update UI and add change to history for undo, but does not trigger a recompile
-            </summary>
         </member>
         <member name="T:VL.Lib.Primitive.AbstractLoopRegion">
             <summary>

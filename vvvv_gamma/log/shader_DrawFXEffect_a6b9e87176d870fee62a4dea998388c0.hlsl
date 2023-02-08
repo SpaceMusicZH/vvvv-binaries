@@ -88,7 +88,7 @@ dcl_temps 4
 //   o1.x <- <VSMain return value>.Normal_id4.x; o1.y <- <VSMain return value>.Normal_id4.y; o1.z <- <VSMain return value>.Normal_id4.z; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id2.x; o0.y <- <VSMain return value>.ShadingPosition_id2.y; o0.z <- <VSMain return value>.ShadingPosition_id2.z; o0.w <- <VSMain return value>.ShadingPosition_id2.w
 //
-#line 85 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_a6b9e87176d870fee62a4dea998388c0.hlsl"
+#line 85 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_a6b9e87176d870fee62a4dea998388c0.hlsl"
 ld_structured_indexable(structured_buffer, stride=64)(mixed,mixed,mixed,mixed) r0.xyzw, v0.x, l(48), t0.xyzw  // r0.x <- iw._m03; r0.y <- iw._m13; r0.z <- iw._m23; r0.w <- iw._m33
 
 #line 86
@@ -193,7 +193,7 @@ dcl_maxout 3
 //   v[2][2].x <- input[2].Tangent_id5.x; v[2][2].y <- input[2].Tangent_id5.y; v[2][2].z <- input[2].Tangent_id5.z; v[2][2].w <- input[2].Tangent_id5.w; 
 //   v[2][3].x <- input[2].TexCoord_id6.x; v[2][3].y <- input[2].TexCoord_id6.y
 //
-#line 72 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_DrawFXEffect_a6b9e87176d870fee62a4dea998388c0.hlsl"
+#line 72 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_DrawFXEffect_a6b9e87176d870fee62a4dea998388c0.hlsl"
 mov r0.x, l(0)  // r0.x <- i
 loop 
   ige r0.y, r0.x, l(3)

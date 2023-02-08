@@ -651,6 +651,12 @@
             <param name="document"></param>
             <returns></returns>
         </member>
+        <member name="P:VL.UI.Forms.VLContext.NewInstanceAllowed">
+            <summary>
+            Gets a value indicating whether a new instance is allowed to open.
+            It checks for the '-m' or '--allowmultiple' commandline arg and whether another instance is already running.
+            </summary>
+        </member>
         <member name="M:VL.UI.Frames.ScreenCapture.CaptureScreen">
             <summary>
             Creates an Image object containing a screen shot of the entire desktop
@@ -813,6 +819,17 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
+        </member>
+        <member name="M:VL.Core.SingleAppInstanceUtils.GetOrAddAppMutex(System.String,System.Boolean@,System.Boolean)">
+            <summary>
+            Tries to create a mutex with given name. Also sets the static OtherInstanceIsRunning property.
+            </summary>
+            <param name="mutexName">Name of the mutex.</param>
+            <param name="isNew">True if the mutex was created, false if another instance exists already</param>
+            <param name="addGlobalPrefix">If set to <c>true</c> the "Global\" prefis is added.</param>
+            <returns>
+            The new or existing mutex.
+            </returns>
         </member>
         <member name="F:VL.FileTypeAssociationDialog.components">
             <summary>

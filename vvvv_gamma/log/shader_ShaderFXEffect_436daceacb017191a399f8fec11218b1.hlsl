@@ -79,7 +79,7 @@ dcl_output_siv o0.xyzw, position
 //   v0.x <- __input__.Position_id15.x; v0.y <- __input__.Position_id15.y; v0.z <- __input__.Position_id15.z; v0.w <- __input__.Position_id15.w; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 310 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_436daceacb017191a399f8fec11218b1.hlsl"
+#line 310 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_436daceacb017191a399f8fec11218b1.hlsl"
 mov o0.xyzw, v0.xyzw
 ret 
 // Approximately 2 instruction slots used
@@ -166,7 +166,7 @@ dcl_maxout 4
 //   m0 <- triangleStream; 
 //   v[0][0].x <- input[0].ShadingPosition_id0.x; v[0][0].y <- input[0].ShadingPosition_id0.y; v[0][0].z <- input[0].ShadingPosition_id0.z; v[0][0].w <- input[0].ShadingPosition_id0.w
 //
-#line 282 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_436daceacb017191a399f8fec11218b1.hlsl"
+#line 282 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_436daceacb017191a399f8fec11218b1.hlsl"
 dp4 r0.x, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[12].xyzw  // r0.x <- cameraSpherePos.x
 dp4 r0.y, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[13].xyzw  // r0.y <- cameraSpherePos.y
 dp4 r1.z, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[14].xyzw  // r1.z <- cameraSpherePos.z
@@ -276,7 +276,7 @@ dcl_temps 3
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w; 
 //   oDepth <- <PSMain return value>.Depth_id10
 //
-#line 189 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_436daceacb017191a399f8fec11218b1.hlsl"
+#line 189 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_436daceacb017191a399f8fec11218b1.hlsl"
 mov r0.xyz, v0.xyzx
 mov r0.w, l(1.000000)
 dp4 r1.x, r0.xyzw, cb0[0].xyzw  // r1.x <- cameraSpherePos.x

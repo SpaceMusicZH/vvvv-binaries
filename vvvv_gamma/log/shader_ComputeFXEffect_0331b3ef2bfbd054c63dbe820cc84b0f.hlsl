@@ -103,7 +103,7 @@ dcl_thread_group 1, 1, 1
 //   vThreadGroupID.x <- __input__.GroupId_id0.x; vThreadGroupID.y <- __input__.GroupId_id0.y; vThreadGroupID.z <- __input__.GroupId_id0.z; 
 //   vThreadID.x <- __input__.DispatchThreadId_id1.x; vThreadID.y <- __input__.DispatchThreadId_id1.y; vThreadID.z <- __input__.DispatchThreadId_id1.z
 //
-#line 84 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ComputeFXEffect_0331b3ef2bfbd054c63dbe820cc84b0f.hlsl"
+#line 84 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ComputeFXEffect_0331b3ef2bfbd054c63dbe820cc84b0f.hlsl"
 bufinfo_indexable(structured_buffer, stride=4)(mixed,mixed,mixed,mixed) r0.x, t1.xyzw  // r0.x <- numIndices
 
 #line 85

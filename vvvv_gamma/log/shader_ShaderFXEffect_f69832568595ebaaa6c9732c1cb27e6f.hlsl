@@ -80,7 +80,7 @@ dcl_output_siv o0.xyzw, position
 //   v0.x <- __input__.Position_id15.x; v0.y <- __input__.Position_id15.y; v0.z <- __input__.Position_id15.z; v0.w <- __input__.Position_id15.w; 
 //   o0.x <- <VSMain return value>.ShadingPosition_id0.x; o0.y <- <VSMain return value>.ShadingPosition_id0.y; o0.z <- <VSMain return value>.ShadingPosition_id0.z; o0.w <- <VSMain return value>.ShadingPosition_id0.w
 //
-#line 293 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_f69832568595ebaaa6c9732c1cb27e6f.hlsl"
+#line 293 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_f69832568595ebaaa6c9732c1cb27e6f.hlsl"
 mov o0.xyzw, v0.xyzw
 ret 
 // Approximately 2 instruction slots used
@@ -169,7 +169,7 @@ dcl_maxout 4
 //   m0 <- triangleStream; 
 //   v[0][0].x <- input[0].ShadingPosition_id0.x; v[0][0].y <- input[0].ShadingPosition_id0.y; v[0][0].z <- input[0].ShadingPosition_id0.z; v[0][0].w <- input[0].ShadingPosition_id0.w
 //
-#line 267 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_f69832568595ebaaa6c9732c1cb27e6f.hlsl"
+#line 267 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_f69832568595ebaaa6c9732c1cb27e6f.hlsl"
 dp4 r0.x, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[12].xyzw  // r0.x <- posView.x
 dp4 r0.y, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[13].xyzw  // r0.y <- posView.y
 dp4 r0.z, l(1.000000, 1.000000, 1.000000, 1.000000), cb0[14].xyzw  // r0.z <- posView.z
@@ -279,7 +279,7 @@ dcl_temps 2
 //   o0.x <- <PSMain return value>.ColorTarget_id2.x; o0.y <- <PSMain return value>.ColorTarget_id2.y; o0.z <- <PSMain return value>.ColorTarget_id2.z; o0.w <- <PSMain return value>.ColorTarget_id2.w; 
 //   oDepth <- <PSMain return value>.Depth_id10
 //
-#line 191 "C:\Program Files\vvvv\vvvv_gamma_2022.5.0-0485-g8f46e4a34a\log\shader_ShaderFXEffect_f69832568595ebaaa6c9732c1cb27e6f.hlsl"
+#line 191 "H:\JHH_SpaceMusic\SpaceMusicZH\vvvv-binaries\vvvv_gamma\log\shader_ShaderFXEffect_f69832568595ebaaa6c9732c1cb27e6f.hlsl"
 dp2 r0.x, v1.yzyy, v1.yzyy  // r0.x <- lenSqr
 
 #line 192

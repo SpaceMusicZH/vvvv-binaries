@@ -4,176 +4,136 @@
         <name>VL.UI.Core</name>
     </assembly>
     <members>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.SRGBToRGB(Stride.Core.Mathematics.Color4)">
+        <member name="M:System.Drawing.DrawingExtensions.GetBounds(System.Collections.Generic.IEnumerable{System.Drawing.PointF})">
             <summary>
-            Converts sRGB color values to RGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="srgb">
-            Color value to convert in sRGB.
-            </param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.RGBToSRGB(Stride.Core.Mathematics.Color4)">
-            <summary>
-            Converts RGB color values to sRGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="rgb">Color value to convert.</param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.FromHSL(Stride.Core.Mathematics.Vector4)">
-            <summary>
-            Converts HSL color values to RGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="hsl">
-            Color value to convert in hue, saturation, lightness (HSL).
-            The X element is Hue (H), the Y element is Saturation (S), the Z element is Lightness (L), and the W element is Alpha (which is copied to the output's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.ToHSL(Stride.Core.Mathematics.Color4)">
-            <summary>
-            Converts RGB color values to HSL color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            The X element is Hue (H), the Y element is Saturation (S), the Z element is Lightness (L), and the W element is Alpha (a copy of the input's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </returns>
-            <param name="rgb">Color value to convert.</param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.FromHSV(Stride.Core.Mathematics.Vector4)">
-            <summary>
-            Converts HSV color values to RGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="hsv">
-            Color value to convert in hue, saturation, value (HSV).
-            The X element is Hue (H), the Y element is Saturation (S), the Z element is Value (V), and the W element is Alpha (which is copied to the output's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.ToHSV(Stride.Core.Mathematics.Color4)">
-            <summary>
-            Converts RGB color values to HSV color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            The X element is Hue (H), the Y element is Saturation (S), the Z element is Value (V), and the W element is Alpha (a copy of the input's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </returns>
-            <param name="rgb">Color value to convert.</param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.FromXYZ(Stride.Core.Mathematics.Vector4)">
-            <summary>
-            Converts XYZ color values to RGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="xyz">
-            Color value to convert with the trisimulus values of X, Y, and Z in the corresponding element, and the W element with Alpha (which is copied to the output's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </param>
-            <remarks>Uses the CIE XYZ colorspace.</remarks>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.ToXYZ(Stride.Core.Mathematics.Color4)">
-            <summary>
-            Converts RGB color values to XYZ color values.
-            </summary>
-            <returns>
-            Returns the converted color value with the trisimulus values of X, Y, and Z in the corresponding element, and the W element with Alpha (a copy of the input's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </returns>
-            <param name="rgb">Color value to convert.</param>
-            <remarks>Uses the CIE XYZ colorspace.</remarks>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.FromYUV(Stride.Core.Mathematics.Vector4)">
-            <summary>
-            Converts YCbCr color values to RGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="yuv">
-            Color value to convert in Luma-Chrominance (YCbCr) aka YUV.
-            The X element contains Luma (Y, 0.0 to 1.0), the Y element contains Blue-difference chroma (U, -0.5 to 0.5), the Z element contains the R-difference chroma (V, -0.5 to 0.5), and the W element contains the Alpha (which is copied to the output's Alpha value).
-            </param>
-            <remarks>Converts using ITU-R BT.601/CCIR 601 W(r) = 0.299 W(b) = 0.114 U(max) = 0.436 V(max) = 0.615.</remarks>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.ToYUV(Stride.Core.Mathematics.Color4)">
-            <summary>
-            Converts RGB color values to YUV color values.
-            </summary>
-            <returns>
-            Returns the converted color value in Luma-Chrominance (YCbCr) aka YUV.
-            The X element contains Luma (Y, 0.0 to 1.0), the Y element contains Blue-difference chroma (U, -0.5 to 0.5), the Z element contains the R-difference chroma (V, -0.5 to 0.5), and the W element contains the Alpha (a copy of the input's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </returns>
-            <param name="rgb">Color value to convert.</param>
-            <remarks>Converts using ITU-R BT.601/CCIR 601 W(r) = 0.299 W(b) = 0.114 U(max) = 0.436 V(max) = 0.615.</remarks>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.FromHCY(Stride.Core.Mathematics.Vector4)">
-            <summary>
-            Converts HCY color values to RGB color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            </returns>
-            <param name="hcy">
-            Color value to convert in hue, chroma, luminance (HCY).
-            The X element is Hue (H), the Y element is Chroma (C), the Z element is luminance (Y), and the W element is Alpha (which is copied to the output's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </param>
-        </member>
-        <member name="M:VL.Lib.ColorMath.ColorConversions.ToHCY(Stride.Core.Mathematics.Color4)">
-            <summary>
-            Converts RGB color values to HCY color values.
-            </summary>
-            <returns>
-            Returns the converted color value.
-            The X element is Hue (H), the Y element is Chroma (C), the Z element is luminance (Y), and the W element is Alpha (a copy of the input's Alpha value).
-            Each has a range of 0.0 to 1.0.
-            </returns>
-            <param name="rgb">Color value to convert.</param>
-        </member>
-        <member name="P:VL.Lib.IO.Mouse.PressedButtons">
-            <summary>
-            The currently pressed mouse buttons.
+            Returns the bounds of the given point cloud.
             </summary>
         </member>
-        <member name="T:VL.Lib.IO.IProjectionSpace">
+        <member name="M:System.Drawing.DrawingExtensions.GetBounds(System.Collections.Generic.IEnumerable{System.Drawing.RectangleF})">
             <summary>
-            Implement this interface on your gui plugin if this has a notion of a projection space.
-            You can use the aspect ratio of your window or viewport to do the math or have an explicit aspect ratio transform input.
+            Returns the bounds of the given rectangle cloud.
             </summary>
         </member>
-        <member name="M:VL.Lib.IO.IProjectionSpace.MapFromPixels(VL.Lib.IO.Notifications.INotificationWithPosition,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@)">
+        <member name="M:System.Drawing.DrawingExtensions.Area(System.Drawing.SizeF)">
             <summary>
-            Transforms a position in pixels into 
-            * a position in normalized projection space ((bottom, left = -1, -1) .. (top, right = 1, 1)) 
-            * a position in projection space (typically one that respects the aspect ratio of the window)
-            so you might need to "undo" the last 2 or 3 transformations in that chain:
-                        World T.          View T.          Proj T.          AspectR. T.           Crop T.        Viewport Placement
-            Object Space  -->  World Space  -->  View Space  -->  PROJ SPACE  -->  NORM PROJ SPACE  -->  Viewport Space  -->  Pixel Space
+            Returns the area.
             </summary>
         </member>
-        <member name="T:VL.Lib.IO.IWorldSpace2d">
+        <member name="M:System.Drawing.DrawingExtensions.GetCenter(System.Drawing.RectangleF)">
             <summary>
-            Implement this to support the "Position in World" of several input device nodes.
-            It is supposed to give you a position in the same space that gets used by placing primitives.
-            World space can be defined in different ways for a node set:
-            * undoing the camera transformation gets a position from projection space to world space
-            * undoing all downstream transformations (that a module can't be aware of) - like a camera transfomation - is taking you to world space
+            Returns the center of this RectangleF.
             </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.GetOnePixelRectangleForCenter(System.Drawing.PointF)">
+            <summary>
+            Returns a rectangle for given center position and 1 pixel size
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.GetRectangleForCenterAndSize(System.Drawing.PointF,System.Drawing.SizeF)">
+            <summary>
+            Returns a rectangle for given center position and size.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.ToRectangle(System.Drawing.RectangleF)">
+            <summary>
+            Returns a <see cref="T:System.Drawing.Rectangle">Rectangle</see> by casting the float components to integer.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.ToPoint(System.Drawing.PointF)">
+            <summary>
+            Returns a <see cref="T:System.Drawing.Point">Point</see> by casting the float components to integer.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.Plus(System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Translates a given <see cref="T:System.Drawing.PointF">p1</see> by a specified <see cref="T:System.Drawing.PointF">p2</see>.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.Minus(System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Translates a given <see cref="T:System.Drawing.PointF">p1</see> by a specified <see cref="T:System.Drawing.PointF">p2</see>.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.GetDistanceTo(System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Returns the distance to another point.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.GetSquaredDistanceTo(System.Drawing.PointF,System.Drawing.PointF)">
+            <summary>
+            Returns the squared distance to another point. Good for comparisons.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.Normalize(System.Drawing.PointF)">
+            <summary>
+            Normalizes the length
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.GetDistanceTo(System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            Returns the distance to another point.
+            </summary>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.TransformPoint(System.Drawing.Drawing2D.Matrix,System.Drawing.PointF)">
+            <summary>
+            Applies the transformation to a PointF
+            </summary>
+            <param name="t">A Matrix</param>
+            <param name="p">The point to transform by the matrix t</param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.TransformRectangle(System.Drawing.Drawing2D.Matrix,System.Drawing.Rectangle)">
+            <summary>
+            Applies the geometric transform represented by this Matrix to the
+            given rectangle.
+            </summary>
+            <param name="t">A Matrix</param>
+            <param name="rect">The rectangle to transform.</param>
+            <returns>The transformed rectangle.</returns>
+        </member>
+        <member name="M:System.Drawing.DrawingExtensions.TransformRectangle(System.Drawing.Drawing2D.Matrix,System.Drawing.RectangleF)">
+            <summary>
+            Applies the geometric transform represented by this Matrix to the
+            given rectangle.
+            </summary>
+            <param name="t">A Matrix</param>
+            <param name="rect">The rectangle to transform.</param>
+            <returns>The transformed rectangle.</returns>
+        </member>
+        <member name="T:System.Drawing.FontExtentions">
+            <summary>
+            Calculate exact sizes of strings
+            </summary>
+        </member>
+        <member name="M:System.Drawing.FontExtentions.GetAscentPixels(System.Drawing.Font)">
+            <summary>
+            Calculates the ascent in pixels of this font
+            </summary>
+            <param name="font"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Drawing.FontExtentions.GetDescentPixels(System.Drawing.Font)">
+            <summary>
+            Calculates the descent in pixels of this font
+            </summary>
+            <param name="font"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Drawing.FontExtentions.GetLineSpacingPixels(System.Drawing.Font)">
+            <summary>
+            Calculates the distance from base line to base line of this font
+            </summary>
+            <param name="font"></param>
+            <returns></returns>
+        </member>
+        <member name="M:System.Drawing.FontExtentions.GetCellHeightPixels(System.Drawing.Font)">
+            <summary>
+            Calculates the maximum height in pixels of this font
+            </summary>
+            <param name="font"></param>
+            <returns></returns>
         </member>
         <member name="T:VL.UI.Core.Properties.Resources">
             <summary>
@@ -548,39 +508,6 @@
             <summary>
             Texts for Tooltips of visual elements.
             </summary>
-        </member>
-        <member name="T:System.Drawing.FontExtentions">
-            <summary>
-            Calculate exact sizes of strings
-            </summary>
-        </member>
-        <member name="M:System.Drawing.FontExtentions.GetAscentPixels(System.Drawing.Font)">
-            <summary>
-            Calculates the ascent in pixels of this font
-            </summary>
-            <param name="font"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Drawing.FontExtentions.GetDescentPixels(System.Drawing.Font)">
-            <summary>
-            Calculates the descent in pixels of this font
-            </summary>
-            <param name="font"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Drawing.FontExtentions.GetLineSpacingPixels(System.Drawing.Font)">
-            <summary>
-            Calculates the distance from base line to base line of this font
-            </summary>
-            <param name="font"></param>
-            <returns></returns>
-        </member>
-        <member name="M:System.Drawing.FontExtentions.GetCellHeightPixels(System.Drawing.Font)">
-            <summary>
-            Calculates the maximum height in pixels of this font
-            </summary>
-            <param name="font"></param>
-            <returns></returns>
         </member>
     </members>
 </doc>
