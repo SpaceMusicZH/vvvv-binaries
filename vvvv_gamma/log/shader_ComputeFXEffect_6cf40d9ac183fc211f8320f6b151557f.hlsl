@@ -2,14 +2,14 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SMGridSimulation_ComputeFX [{Color = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}, {Dim = InputFloat3<ShaderFX.InputValueFloat3.i2,PerUpdate>}, {Mesh = InputFloat<ShaderFX.InputValueFloat,PerUpdate>}, {Piv = InputFloat3<ShaderFX.InputValueFloat3.i3,PerUpdate>}, {Rot = InputFloat3<ShaderFX.InputValueFloat3.i1,PerUpdate>}, {Trans = InputFloat3<ShaderFX.InputValueFloat3,PerUpdate>}]
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin SMGridSimulation_ComputeFX [{Color = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}, {Dim = InputFloat3<ShaderFX.InputValueFloat3.i2,PerUpdate>}, {Mesh = InputFloat<ShaderFX.InputValueFloat,PerUpdate>}, {Piv = InputFloat3<ShaderFX.InputValueFloat3.i3,PerUpdate>}, {Rot = InputFloat3<ShaderFX.InputValueFloat3.i1,PerUpdate>}, {Trans = InputFloat3<ShaderFX.InputValueFloat3,PerUpdate>}]
 @P Color: InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>
 @P Mesh: InputFloat<ShaderFX.InputValueFloat,PerUpdate>
 @P Trans: InputFloat3<ShaderFX.InputValueFloat3,PerUpdate>
 @P Rot: InputFloat3<ShaderFX.InputValueFloat3.i1,PerUpdate>
 @P Dim: InputFloat3<ShaderFX.InputValueFloat3.i2,PerUpdate>
 @P Piv: InputFloat3<ShaderFX.InputValueFloat3.i3,PerUpdate>
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
 ***************************
 ****  ConstantBuffers  ****
 ***************************
