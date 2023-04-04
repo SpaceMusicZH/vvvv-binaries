@@ -8,7 +8,7 @@
 ***************************
 @S    ShaderBase => 4ecbcd2528b64a79eebe81a863892d8c
 @S    ShaderBaseStream => b705b699a7385d39c7de52a8d13f3978
-@S    SMVideoBufferSelector_ShaderFX => de3fce0c1f79f845dd6952c0e7643ad2
+@S    SMVideoBufferSelector_ShaderFX => f7095fd443059af2de9330aea483062d
 @S    ComputeShaderBase => 8f045851eaa4513eb38a704d53889e6d
 @S    Texturing => 91ef3011c1071c2e5d41cd3ee0418b18
 @S    ComputeFloat4 => bc345c7d961ff4b1766c5b1d5e15bd5a

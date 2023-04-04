@@ -2,8 +2,8 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
-@P EffectNodeBase.EffectNodeBaseShader: mixin GenerateSMGridTransformations_ComputeFX
+@P   - EffectNodeBase.EffectNodeBaseShader: mixin GenerateSMGridTransformations_ComputeFX
+@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
 ***************************
 ****  ConstantBuffers  ****
 ***************************
