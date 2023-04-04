@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Buildalyzer.Workspaces</name>
+    </assembly>
+    <members>
+        <member name="M:Buildalyzer.Workspaces.AnalyzerManagerExtensions.CreateWorkspace(Buildalyzer.IAnalyzerManager)">
+            <summary>
+            Instantiates an empty AdhocWorkspace with logging event handlers.
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.Workspaces.AnalyzerResultExtensions.GetWorkspace(Buildalyzer.IAnalyzerResult,System.Boolean)">
+            <summary>
+            Gets a Roslyn workspace for the analyzed results.
+            </summary>
+            <param name="analyzerResult">The results from building a Buildalyzer project analyzer.</param>
+            <param name="addProjectReferences">
+            <c>true</c> to add projects to the workspace for project references that exist in the same <see cref="T:Buildalyzer.AnalyzerManager"/>.
+            If <c>true</c> this will trigger (re)building all referenced projects. Directly add <see cref="T:Buildalyzer.AnalyzerResult"/> instances instead if you already have them available.
+            </param>
+            <returns>A Roslyn workspace.</returns>
+        </member>
+        <member name="M:Buildalyzer.Workspaces.AnalyzerResultExtensions.AddToWorkspace(Buildalyzer.IAnalyzerResult,Microsoft.CodeAnalysis.Workspace,System.Boolean)">
+            <summary>
+            Adds a result to an existing Roslyn workspace.
+            </summary>
+            <param name="analyzerResult">The results from building a Buildalyzer project analyzer.</param>
+            <param name="workspace">A Roslyn workspace.</param>
+            <param name="addProjectReferences">
+            <c>true</c> to add projects to the workspace for project references that exist in the same <see cref="T:Buildalyzer.AnalyzerManager"/>.
+            If <c>true</c> this will trigger (re)building all referenced projects. Directly add <see cref="T:Buildalyzer.AnalyzerResult"/> instances instead if you already have them available.
+            </param>
+            <returns>The newly added Roslyn project, or <c>null</c> if the project couldn't be added to the workspace.</returns>
+        </member>
+        <member name="M:Buildalyzer.Workspaces.ProjectAnalyzerExtensions.GetWorkspace(Buildalyzer.IProjectAnalyzer,System.Boolean)">
+            <summary>
+            Gets a Roslyn workspace for the analyzed project. Note that this will rebuild the project. Use an <see cref="T:Buildalyzer.AnalyzerResult"/> instead if you already have one available.
+            </summary>
+            <param name="analyzer">The Buildalyzer project analyzer.</param>
+            <param name="addProjectReferences">
+            <c>true</c> to add projects to the workspace for project references that exist in the same <see cref="T:Buildalyzer.AnalyzerManager"/>.
+            If <c>true</c> this will trigger (re)building all referenced projects. Directly add <see cref="T:Buildalyzer.AnalyzerResult"/> instances instead if you already have them available.
+            </param>
+            <returns>A Roslyn workspace.</returns>
+        </member>
+        <member name="M:Buildalyzer.Workspaces.ProjectAnalyzerExtensions.AddToWorkspace(Buildalyzer.IProjectAnalyzer,Microsoft.CodeAnalysis.Workspace,System.Boolean)">
+            <summary>
+            Adds a project to an existing Roslyn workspace. Note that this will rebuild the project. Use an <see cref="T:Buildalyzer.AnalyzerResult"/> instead if you already have one available.
+            </summary>
+            <param name="analyzer">The Buildalyzer project analyzer.</param>
+            <param name="workspace">A Roslyn workspace.</param>
+            <param name="addProjectReferences">
+            <c>true</c> to add projects to the workspace for project references that exist in the same <see cref="T:Buildalyzer.AnalyzerManager"/>.
+            If <c>true</c> this will trigger (re)building all referenced projects. Directly add <see cref="T:Buildalyzer.AnalyzerResult"/> instances instead if you already have them available.
+            </param>
+            <returns>The newly added Roslyn project.</returns>
+        </member>
+    </members>
+</doc>

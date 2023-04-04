@@ -898,9 +898,9 @@
             <param name="options">Format and alignment of ellipsis.</param>
             <returns>This function returns text trimmed to the specified witdh.</returns>
         </member>
-        <member name="P:VL.Lang.View.CompoundView.Views">
+        <member name="M:VL.Lang.View.CompoundView.CollectViews(System.Collections.Immutable.ImmutableArray{VL.Lang.View.View}.Builder)">
             <summary>
-            Gets all views that are part of the graph, can be more than the ModelViews
+            Collects all views that are part of the graph, can be more than the ModelViews
             </summary>
         </member>
         <member name="P:VL.Lang.View.CompoundView.ElementViews">
@@ -1674,6 +1674,64 @@
         <member name="P:VL.Forms.Resources.icons.name_space">
             <summary>
               Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="T:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations">
+            <summary>
+                Specifies a raster-operation code. These codes define how the color data for the
+                source rectangle is to be combined with the color data for the destination
+                rectangle to achieve the final color.
+            </summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.SRCCOPY">
+            <summary>dest = source</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.SRCPAINT">
+            <summary>dest = source OR dest</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.SRCAND">
+            <summary>dest = source AND dest</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.SRCINVERT">
+            <summary>dest = source XOR dest</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.SRCERASE">
+            <summary>dest = source AND (NOT dest)</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.NOTSRCCOPY">
+            <summary>dest = (NOT source)</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.NOTSRCERASE">
+            <summary>dest = (NOT src) AND (NOT dest)</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.MERGECOPY">
+            <summary>dest = (source AND pattern)</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.MERGEPAINT">
+            <summary>dest = (NOT source) OR dest</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.PATCOPY">
+            <summary>dest = pattern</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.PATPAINT">
+            <summary>dest = DPSnoo</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.PATINVERT">
+            <summary>dest = pattern XOR dest</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.DSTINVERT">
+            <summary>dest = (NOT dest)</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.BLACKNESS">
+            <summary>dest = BLACK</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.WHITENESS">
+            <summary>dest = WHITE</summary>
+        </member>
+        <member name="F:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations.CAPTUREBLT">
+            <summary>
+            Capture window as seen on screen.  This includes layered windows
+            such as WPF windows with AllowsTransparency="true"
             </summary>
         </member>
         <member name="T:System.SyncProgress`1">

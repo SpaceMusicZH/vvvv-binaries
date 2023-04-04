@@ -1,0 +1,532 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Buildalyzer</name>
+    </assembly>
+    <members>
+        <member name="F:Buildalyzer.AnalyzerManager.WorkspaceProjectReferences">
+            <summary>
+            This maps Roslyn project IDs to full normalized project file paths of references (since the Roslyn Project doesn't provide access to this data)
+            which allows us to match references with Roslyn projects that already exist in the Workspace/Solution (instead of rebuilding them).
+            This cache exists in <see cref="T:Buildalyzer.AnalyzerManager"/> so that it's lifetime can be controlled and it can be collected when <see cref="T:Buildalyzer.AnalyzerManager"/> goes out of scope.
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.AnalyzerManager.Analyze(System.String,System.Collections.Generic.IEnumerable{Microsoft.Build.Framework.ILogger})">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerManagerOptions.ProjectFilter">
+            <summary>
+            A filter that indicates whether a give project should be loaded.
+            Return <c>true</c> to load the project, <c>false</c> to filter it out.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.ProjectFilePath">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.Analyzer">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.ProjectGuid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.Command">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.CompilerFilePath">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.CompilerArguments">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.AnalyzerResult.GetProperty(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.AnalyzerResult.PackageReferences">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.ContainsPackageReferences">
+            <summary>
+            Whether the project file contains <c>PackageReference</c> items.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.IsMultiTargeted">
+            <summary>
+            Whether the project file is multi-targeted.
+            </summary>
+            <remarks>
+            Checks for an <c>TargetFrameworks</c> element.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.PackageReferences">
+            <summary>
+            The list of <c>PackageReference</c> items in the project file.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.Path">
+            <summary>
+            The full path to the project file.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.Name">
+            <summary>
+            Project name.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.RequiresNetFramework">
+            <summary>
+            Whether the project file requires a .NET Framework host and build tools to build.
+            </summary>
+            <remarks>
+            Checks for an <c>Import</c> element with a <c>Project</c> attribute ending with one of the targets in <see cref="F:Buildalyzer.Construction.ProjectFile.ImportsThatRequireNetFramework"/>.
+            Also looks for a <c>LanguageTargets</c> ending with one of the targets in <see cref="F:Buildalyzer.Construction.ProjectFile.ImportsThatRequireNetFramework"/>.
+            Projects that use these targets are known not to build under a .NET Core host or build tools.
+            Also checks for a <c>ToolsVersion</c> attribute and uses the .NET Framework if one is found.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.TargetFrameworks">
+            <summary>
+            The target framework(s) in the project file.
+            </summary>
+            <remarks>
+            This does not perform evaluation of the project file, only parsing.
+            If TargetFramework or TargetFrameworks contains a property that
+            needs to be evaluated, this will contain the pre-evaluated value(s).
+            Try to find a TargetFrameworkIdentifier in the same PropertyGroup
+            and if no TargetFrameworkIdentifier was found, assume ".NETFramework".
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.ToolsVersion">
+            <summary>
+            Gets the <c>ToolsVersion</c> attribute of the <c>Project</c> element (or <c>null</c> if there isn't one).
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.UsesSdk">
+            <summary>
+            Whether the project file uses an SDK.
+            </summary>
+            <remarks>
+            Checks for an <c>Sdk</c> attribute on the <c>Project</c> element. If one can't be found,
+            also checks for <c>Import</c> elements with an <c>Sdk</c> attribute (see https://github.com/Microsoft/msbuild/issues/1493).
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Construction.IProjectFile.OutputType">
+            <summary>
+            The output type of the project.
+            </summary>
+            <remarks>
+            Checks for an <c>OutputType</c> element.
+            </remarks>
+        </member>
+        <member name="T:Buildalyzer.Construction.ProjectFile">
+            <summary>
+            Encapsulates an MSBuild project file and provides some information about it's format.
+            This class only parses the existing XML and does not perform any evaluation.
+            </summary>
+        </member>
+        <member name="F:Buildalyzer.Construction.ProjectFile.ImportsThatRequireNetFramework">
+            <summary>
+            These imports are known to require a .NET Framework host and build tools.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.Path">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.Name">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.TargetFrameworks">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.UsesSdk">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.RequiresNetFramework">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.IsMultiTargeted">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.OutputType">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.ContainsPackageReferences">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.PackageReferences">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.Construction.ProjectFile.ToolsVersion">
+            <inheritdoc />
+        </member>
+        <member name="T:Buildalyzer.Environment.BuildEnvironment">
+            <summary>
+            An immutable representation of a particular build environment (paths, properties, etc).
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.BuildEnvironment.DesignTime">
+            <summary>
+            Indicates that a design-time build should be performed.
+            </summary>
+            <remarks>
+            See https://github.com/dotnet/project-system/blob/master/docs/design-time-builds.md.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Environment.BuildEnvironment.Restore">
+            <summary>
+            Runs the restore target prior to any other targets using the MSBuild <c>restore</c> switch.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.BuildEnvironment.NoAutoResponse">
+            <summary>
+            Indicates if the <c>-noAutoResponse</c> argument should be set (the default is <c>true</c>).
+            This is required if a <c>.rsp</c> file might conflict with the command-line arguments and binary
+            logger that Buildalyzer uses. Setting this to false will omit the <c>-noAutoResponse</c> argument
+            but might also result in failed builds or incomplete information being sent to Buildalyzer.
+            See https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-response-files.
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.Environment.BuildEnvironment.WithTargetsToBuild(System.String[])">
+            <summary>
+            Clones the build environment with a different set of build targets.
+            </summary>
+            <param name="targets">
+            The targets that should be used to build the project.
+            Specifying an empty array indicates that the <see cref="T:Buildalyzer.ProjectAnalyzer"/> should
+            return a <see cref="T:Microsoft.Build.Execution.ProjectInstance"/> without building the project.
+            </param>
+            <returns>A new build environment with the specified targets.</returns>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.Preference">
+            <summary>
+            Indicates a preferences towards the build environment to use.
+            The default is a preference for the .NET Core SDK.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.TargetsToBuild">
+            <summary>
+            The default targets to build.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.DesignTime">
+            <summary>
+            Indicates that a design-time build should be performed.
+            The default value is <c>true</c>. Note that when performing
+            a design-time build, the <see cref="P:Buildalyzer.Environment.EnvironmentOptions.TargetsToBuild"/> will
+            be ignored and the design-time targets will be used instead.
+            </summary>
+            <remarks>
+            See https://github.com/dotnet/project-system/blob/master/docs/design-time-builds.md.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.Restore">
+            <summary>
+            Runs the restore target prior to any other targets using the MSBuild <c>restore</c> switch.
+            </summary>
+            <remarks>
+            See https://github.com/Microsoft/msbuild/pull/2414.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.DotnetExePath">
+            <summary>
+            The full path to the <c>dotnet</c> executable you want to use for the build when building
+            projects using the .NET Core SDK. Defaults to <c>dotnet</c> which will look in folders
+            specified in the path environment variable.
+            </summary>
+            <remarks>
+            Set this to something else to customize the .NET Core runtime you want to use (I.e., preview versions).
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.GlobalProperties">
+            <summary>
+            The global MSBuild properties to set.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.EnvironmentVariables">
+            <summary>
+            Environment variables to set.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.EnvironmentOptions.Arguments">
+            <summary>
+            Additional MSBuild command-line arguments to use.
+            </summary>
+        </member>
+        <member name="F:Buildalyzer.Environment.EnvironmentPreference.Core">
+            <summary>
+            This will prefer the .NET Core SDK if it's available and will
+            use the .NET Framework build tools if the project type is known
+            not to support the .NET Core SDK or the .NET Core SDK can't be found.
+            </summary>
+        </member>
+        <member name="F:Buildalyzer.Environment.EnvironmentPreference.Framework">
+            <summary>
+            This will prefer the .NET Framework build tools if they're available and will
+            use the .NET Code SDK if the project type is known
+            not to support the .NET Framework build tools or the .NET Framework build tools can't be found.
+            </summary>
+        </member>
+        <member name="T:Buildalyzer.GuidUtility">
+            <summary>
+            Helper methods for working with <see cref="T:System.Guid"/>.
+            </summary>
+            <remarks>
+            From https://github.com/LogosBible/Logos.Utility/blob/master/src/Logos.Utility/GuidUtility.cs.
+            See also https://stackoverflow.com/a/5657517/807064.
+            </remarks>
+        </member>
+        <member name="M:Buildalyzer.GuidUtility.Create(System.Guid,System.String)">
+            <summary>
+            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
+            </summary>
+            <param name="namespaceId">The ID of the namespace.</param>
+            <param name="name">The name (within that namespace).</param>
+            <returns>A UUID derived from the namespace and name.</returns>
+            <remarks>See <a href="http://code.logos.com/blog/2011/04/generating_a_deterministic_guid.html">Generating a deterministic GUID</a>.</remarks>
+        </member>
+        <member name="M:Buildalyzer.GuidUtility.Create(System.Guid,System.String,System.Int32)">
+            <summary>
+            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
+            </summary>
+            <param name="namespaceId">The ID of the namespace.</param>
+            <param name="name">The name (within that namespace).</param>
+            <param name="version">The version number of the UUID to create; this value must be either
+            3 (for MD5 hashing) or 5 (for SHA-1 hashing).</param>
+            <returns>A UUID derived from the namespace and name.</returns>
+            <remarks>See <a href="http://code.logos.com/blog/2011/04/generating_a_deterministic_guid.html">Generating a deterministic GUID</a>.</remarks>
+        </member>
+        <member name="F:Buildalyzer.GuidUtility.DnsNamespace">
+            <summary>
+            The namespace for fully-qualified domain names (from RFC 4122, Appendix C).
+            </summary>
+        </member>
+        <member name="F:Buildalyzer.GuidUtility.UrlNamespace">
+            <summary>
+            The namespace for URLs (from RFC 4122, Appendix C).
+            </summary>
+        </member>
+        <member name="F:Buildalyzer.GuidUtility.IsoOidNamespace">
+            <summary>
+            The namespace for ISO OIDs (from RFC 4122, Appendix C).
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.IAnalyzerManager.Analyze(System.String,System.Collections.Generic.IEnumerable{Microsoft.Build.Framework.ILogger})">
+            <summary>
+            Analyzes an MSBuild binary log file.
+            </summary>
+            <param name="binLogPath">The path to the binary log file.</param>
+            <param name="buildLoggers">MSBuild loggers to replay events from the log to.</param>
+            <returns>A dictionary of target frameworks to <see cref="T:Buildalyzer.AnalyzerResult"/>.</returns>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.Analyzer">
+            <summary>
+            Gets the <see cref="T:Buildalyzer.ProjectAnalyzer"/> that generated this result
+            or <c>null</c> if the result came from a binary log file.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.PackageReferences">
+            <summary>
+            Contains the <c>PackageReference</c> items for the project.
+            The key is a package ID and the value is a <see cref="T:System.Collections.Generic.IReadOnlyDictionary`2"/>
+            that includes all the package reference metadata, typically including a "Version" key.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.ProjectFilePath">
+            <summary>
+            The full normalized path to the project file.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.ProjectGuid">
+            <summary>
+            Gets a GUID for the project. This first attempts to get the <c>ProjectGuid</c>
+            MSBuild property. If that's not available, checks for a GUID from the
+            solution (if originally provided). If neither of those are available, it
+            will generate a UUID GUID by hashing the project path relative to the solution path (so it's repeatable).
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.Command">
+            <summary>
+            Gets the compiler command produced by the CoreCompile task.
+            This is <see cref="P:Buildalyzer.IAnalyzerResult.CompilerFilePath"/> + <see cref="P:Buildalyzer.IAnalyzerResult.CompilerArguments"/>.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.CompilerFilePath">
+            <summary>
+            Gets the path of the compiler command produced by the CoreCompile task.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IAnalyzerResult.CompilerArguments">
+            <summary>
+            Gets the arguments passed to the compiler produced by the CoreCompile task.
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.IAnalyzerResult.GetProperty(System.String)">
+            <summary>
+            Gets the value of the specified property and returns <c>null</c>
+            if the property could not be found.
+            </summary>
+            <param name="name">The name of the property.</param>
+            <returns>The value of the property or <c>null</c>.</returns>
+        </member>
+        <member name="P:Buildalyzer.IProjectAnalyzer.EnvironmentVariables">
+            <summary>
+            The environment variables for MSBuild to be used for every build from this analyzer.
+            </summary>
+            <remarks>
+            Additional environment variables may be added or changed by individual build environment.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.IProjectAnalyzer.GlobalProperties">
+            <summary>
+            The global properties for MSBuild to be used for every build from this analyzer.
+            </summary>
+            <remarks>
+            Additional global properties may be added or changed by individual build environment.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.IProjectAnalyzer.IgnoreFaultyImports">
+            <summary>
+            Controls whether empty, invalid, and missing targets should be ignored during project load.
+            </summary>
+        </member>
+        <member name="P:Buildalyzer.IProjectAnalyzer.ProjectGuid">
+            <summary>
+            Gets a GUID for the project. This checks for a GUID from the
+            solution (if originally provided). If this isn't available, it
+            will generate a UUID GUID by hashing the project path relative to the solution path (so it's repeatable).
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build">
+            <summary>
+            Builds the project without specifying a target framework. In a multi-targeted project this will return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework.
+            </summary>
+            <returns>The result of the build process.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(Buildalyzer.Environment.BuildEnvironment)">
+            <summary>
+            Builds the project without specifying a target framework. In a multi-targeted project this will return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework.
+            </summary>
+            <param name="buildEnvironment">The build environment to use for the build.</param>
+            <returns>The result of the build process.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(Buildalyzer.Environment.EnvironmentOptions)">
+            <summary>
+            Builds the project without specifying a target framework. In a multi-targeted project this will return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework.
+            </summary>
+            <param name="environmentOptions">The environment options to use for the build.</param>
+            <returns>The result of the build process.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(System.String)">
+            <summary>
+            Builds a specific target framework. In a multi-targeted project this will still return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework,
+            but the target framework(s) not specified may be empty.
+            </summary>
+            <param name="targetFramework">The target framework to build.</param>
+            <returns>The result of the build process.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(System.String,Buildalyzer.Environment.BuildEnvironment)">
+            <summary>
+            Builds a specific target framework. In a multi-targeted project this will still return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework,
+            but the target framework(s) not specified may be empty.
+            </summary>
+            <param name="targetFramework">The target framework to build.</param>
+            <param name="buildEnvironment">The build environment to use for the build.</param>
+            <returns>The result of the build process.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(System.String,Buildalyzer.Environment.EnvironmentOptions)">
+            <summary>
+            Builds a specific target framework. In a multi-targeted project this will still return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework,
+            but the target framework(s) not specified may be empty.
+            </summary>
+            <param name="targetFramework">The target framework to build.</param>
+            <param name="environmentOptions">The environment options to use for the build.</param>
+            <returns>The result of the build process.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(System.String[])">
+            <summary>
+            Builds the requested target framework(s). In a multi-targeted project this will still return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework,
+            but the target framework(s) not specified may be empty.
+            </summary>
+            <param name="targetFrameworks">The set of target frameworks to build.</param>
+            <returns>A dictionary of target frameworks to <see cref="T:Buildalyzer.AnalyzerResult"/>.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(System.String[],Buildalyzer.Environment.BuildEnvironment)">
+            <summary>
+            Builds the requested target framework(s). In a multi-targeted project this will still return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework,
+            but the target framework(s) not specified may be empty.
+            </summary>
+            <param name="targetFrameworks">The set of target frameworks to build.</param>
+            <param name="buildEnvironment">The build environment to use for the build.</param>
+            <returns>A dictionary of target frameworks to <see cref="T:Buildalyzer.AnalyzerResult"/>.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.Build(System.String[],Buildalyzer.Environment.EnvironmentOptions)">
+            <summary>
+            Builds the requested target framework(s). In a multi-targeted project this will still return a <see cref="T:Buildalyzer.AnalyzerResult"/> for each target framework,
+            but the target framework(s) not specified may be empty.
+            </summary>
+            <param name="targetFrameworks">The set of target frameworks to build.</param>
+            <param name="environmentOptions">The environment options to use for the build.</param>
+            <returns>A dictionary of target frameworks to <see cref="T:Buildalyzer.AnalyzerResult"/>.</returns>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.AddBuildLogger(Microsoft.Build.Framework.ILogger)">
+            <summary>
+            Adds an MSBuild logger to the build. Note that this may have a large penalty on build performance.
+            </summary>
+            <remarks>
+            Normally, the minimum required amount of log events are forwarded from the MSBuild process to Buildalyzer.
+            By attaching arbitrary loggers, MSBuild must forward every log event so the logger has a chance to handle it.
+            </remarks>
+            <param name="logger">The logger to add.</param>
+        </member>
+        <member name="M:Buildalyzer.IProjectAnalyzer.RemoveBuildLogger(Microsoft.Build.Framework.ILogger)">
+            <summary>
+            Removes an MSBuild logger from the build.
+            </summary>
+            <param name="logger">The logger to remove.</param>
+        </member>
+        <member name="P:Buildalyzer.ProjectAnalyzer.ProjectGuid">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.ProjectAnalyzer.GlobalProperties">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.ProjectAnalyzer.EnvironmentVariables">
+            <inheritdoc/>
+        </member>
+        <member name="P:Buildalyzer.ProjectAnalyzer.IgnoreFaultyImports">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(System.String[])">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(System.String[],Buildalyzer.Environment.EnvironmentOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(System.String[],Buildalyzer.Environment.BuildEnvironment)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(System.String,Buildalyzer.Environment.EnvironmentOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(System.String,Buildalyzer.Environment.BuildEnvironment)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(Buildalyzer.Environment.EnvironmentOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.Build(Buildalyzer.Environment.BuildEnvironment)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.AddBuildLogger(Microsoft.Build.Framework.ILogger)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Buildalyzer.ProjectAnalyzer.RemoveBuildLogger(Microsoft.Build.Framework.ILogger)">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>

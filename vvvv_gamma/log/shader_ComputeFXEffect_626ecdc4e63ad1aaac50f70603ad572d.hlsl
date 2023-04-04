@@ -2,8 +2,8 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin SMMidiQueue_ComputeFX
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin SMMidiQueue_ComputeFX
 ***************************
 ****  ConstantBuffers  ****
 ***************************

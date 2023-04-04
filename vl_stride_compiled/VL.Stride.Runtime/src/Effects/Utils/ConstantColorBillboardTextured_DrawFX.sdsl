@@ -1,0 +1,7 @@
+﻿shader ConstantColorBillboardTextured_DrawFX : ConstantColorBillboard_DrawFX, Texturing
+{
+    override stage void PSMain()
+    {
+        streams.ColorTarget = Texture0.Sample(LinearSampler, streams.TexCoord) * ColorInput;
+    }
+};

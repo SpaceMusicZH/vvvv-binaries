@@ -399,14 +399,51 @@
             Resolves files based on a lock file (project.assets.json) from a package restore.
             </summary>
         </member>
-        <member name="P:VL.Lang.PackageInfo.References">
+        <member name="T:VL.Lang.Packages.CombinedPackageRepository">
+            <summary>
+            This package repository layout is used in deployed state.
+            In order to keep the zip file small, all dependencies are placed in a dependencies folder inside the main packs folder.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Packages.DependencyResolver">
+            <summary>
+            Resolves assemblies and native libraries based on the dependencies of a given assembly.
+            It will first try to find a dependency in the user packages. If no user package was found for a dependency,
+            it will try the local environment of the assembly via the <see cref="P:VL.Lang.Packages.DependencyResolver.AssemblyDependencyResolver"/>.
+            If that also fails and the assembly stems from a source package, it will look into the global nuget packages folder.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Packages.DepsJsonPackageRepository">
+            <summary>
+            Reads its packages from a *.deps.json file. Used for source packages as well as in our deployed state.
+            When used for source packages it accesses the global packages folder to read the full package information.
+            Otherwise it will use the information given by the dependency model to "make up" a stripped down version of a package.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Packages.DirectoryPackageRepository">
+            <summary>
+            Reads its packages from a directory.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Packages.PackageInfo.DependencyResolver">
+            <summary>
+            A resolver using a package specific *.deps.json file, for example FOO/lib/net6.0/FOO.deps.json
+            Only used by source packages.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Packages.PackageInfo.References">
             <summary>
             The package, assembly and project references read from all the VL documents of this package.
             </summary>
         </member>
-        <member name="P:VL.Lang.PackageProvider.DependencyContext">
+        <member name="P:VL.Lang.Packages.PackageProvider.LibrariesByAssemblyName">
             <summary>
-            As given by the deps.json file.
+            The host provided (does not include user libs!) compilation libraries by assembly name.
+            </summary>
+        </member>
+        <member name="T:VL.Lang.Packages.PackageRepository">
+            <summary>
+            Abstraction over various package repository layouts (<see cref="T:VL.Lang.Packages.DirectoryPackageRepository"/>, <see cref="T:VL.Lang.Packages.DepsJsonPackageRepository"/> and <see cref="T:VL.Lang.Packages.CombinedPackageRepository"/>).
             </summary>
         </member>
         <member name="P:VL.Lang.Platforms.DynamicProcessPlugin.GetOperation.IsDefaultFragment">
@@ -559,6 +596,11 @@
         <member name="P:VL.Lang.Platforms.Roslyn.AssemblySymbolSource.ImportedTypes">
             <summary>
             Gets the imported types, nested types are flat in the list
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Platforms.Roslyn.CompiledSymbols.Sources">
+            <summary>
+            Relative path to document inside of package for document id
             </summary>
         </member>
         <member name="T:VL.Lang.Platforms.Roslyn.EmitExample.ServicesAreInstalledExample">
@@ -771,6 +813,21 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.AdaptiveNodeNotFoundHow">
+            <summary>
+              Looks up a localized string similar to Either feed data of another data type or implement the adaptive node for the used data type..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.AdaptiveNodeNotFoundWhat">
+            <summary>
+              Looks up a localized string similar to Unable to resolve adaptive node {0}..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.AdaptiveNodeNotFoundWhy">
+            <summary>
+              Looks up a localized string similar to An adaptive implementation for this node is needed in order wire everything up and make it run..
             </summary>
         </member>
         <member name="P:VL.Lang.Properties.M.ClassBasedProcessUsedInRecordWhat">
@@ -1687,11 +1744,11 @@
             Whether or not the type parameter list is not empty.
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.INodeDefinitionSymbol.OpenExternalEditor">
+        <member name="P:VL.Lang.Symbols.INodeDefinitionSymbol.OpenEditorAction">
             <summary>
             Opens an external editor for this node.
             </summary>
-            <returns>True if an editor was opened.</returns>
+            <returns>The Func is null if there is no action to open the node. True if an editor was opened. </returns>
         </member>
         <member name="P:VL.Lang.Symbols.IRegionDefinitionSymbol.RegionIsSynchronous">
             <summary>
@@ -3218,7 +3275,7 @@
             A string representation of the number's corresponding roman numeral.
             </returns>
         </member>
-        <member name="M:VL.Model.PackageExtensions.IsVlPackage(VL.Lang.PackageInfo)">
+        <member name="M:VL.Model.PackageExtensions.IsVlPackage(VL.Lang.Packages.PackageInfo)">
             <summary>
             Whether or not the package contains a main VL document and can therefore be considered a VL package.
             </summary>
@@ -3237,6 +3294,14 @@
             <summary>
             To get rid of System.Drawing dependency (not cross-platform).
             </summary>
+        </member>
+        <member name="M:VL.Model.StringExtensions.Like(System.String,System.String)">
+            <summary>
+            Compares the string against a given pattern.
+            </summary>
+            <param name="str">The string.</param>
+            <param name="pattern">The pattern to match, where "*" means any sequence of characters, and "?" means any single character.</param>
+            <returns><c>true</c> if the string matches the given pattern; otherwise <c>false</c>.</returns>
         </member>
         <member name="F:VL.Model.TaggedInfo55.remarks">
             <summary>

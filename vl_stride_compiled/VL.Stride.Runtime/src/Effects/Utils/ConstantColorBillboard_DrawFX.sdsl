@@ -1,0 +1,38 @@
+﻿shader ConstantColorBillboard_DrawFX : ConstantColor_DrawFX
+{
+    stage bool FixedSize = false;
+    stage float2 Size = float2(1, 1);
+    stage float4x4 ViewSpaceTransformation;
+    
+    override stage void VSMain()
+    {
+
+        //WorldView position
+        float4 pos = WorldView[3];
+        
+        //position (projected)
+        if (FixedSize)
+        {   
+            // Apply Projection to the world's view position
+            pos = mul(pos, Projection);
+        
+            // Make a perspective division
+            pos.xyz /= pos.w;
+                
+            float aX = Projection[0][0];
+            float aY = Projection[1][1];
+            float3 aspectRatio = float3 (aX, aY, 1);
+
+            // Add the Object's position multiplied by the viewspace transform
+            // to the WorldViewProjected position multiplied by the Aspect Ratio
+            streams.ShadingPosition = float4(pos.xyz + mul(streams.Position * float4(Size,1,1), ViewSpaceTransformation).xyz * aspectRatio, 1);
+        
+        }
+        else
+        {
+            // Add the Object's position multiplied by the viewspace transform
+            // to the WorldView position and then apply Projection	
+            streams.ShadingPosition  = mul(pos + mul(streams.Position * float4(Size,1,1), ViewSpaceTransformation), Projection);
+        }
+    }
+};

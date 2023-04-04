@@ -2,14 +2,14 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ComputeFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin AsyncTest_ComputeFX [{Logic = ComputeShaderBase}]
-@P Logic: ComputeShaderBase
-@P ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P   - ComputeEffectShader.ThreadNumbers: X:1 Y:1 Z:1
+@P EffectNodeBase.EffectNodeBaseShader: mixin SMAsyncComputeShader_ComputeFX [{ComputeShader = ComputeShaderBase}]
+@P ComputeShader: ComputeShaderBase
 ***************************
 *****     Sources     *****
 ***************************
 @S    ComputeShaderBase => 8f045851eaa4513eb38a704d53889e6d
-@S    AsyncTest_ComputeFX => dbcc6eca71eaad52df8883d14cefccdf
+@S    SMAsyncComputeShader_ComputeFX => 8aff025e5d4d98d9b86a3de78fa557a5
 ***************************
 *****     Stages      *****
 ***************************

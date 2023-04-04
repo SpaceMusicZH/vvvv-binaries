@@ -2,14 +2,14 @@
 ***** Compiler Parameters *****
 ***************************
 @P EffectName: ShaderFXEffect
-@P   - EffectNodeBase.EffectNodeBaseShader: mixin LinearToSRgb_Precise_ShaderFX [{Rgb = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}]
-@P Rgb: InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>
+@P   - EffectNodeBase.EffectNodeBaseShader: mixin SRgbToLinear_ShaderFX [{SRgb = InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>}]
+@P SRgb: InputFloat4<ShaderFX.InputValueFloat4,PerUpdate>
 ***************************
 *****     Sources     *****
 ***************************
 @S    ShaderBase => 4ecbcd2528b64a79eebe81a863892d8c
 @S    ShaderBaseStream => b705b699a7385d39c7de52a8d13f3978
-@S    LinearToSRgb_Precise_ShaderFX => 3e7ddf29f3f64599fca0faf331b91d1b
+@S    SRgbToLinear_ShaderFX => 7759b71b405e7f58f63576d0c8fd2c64
 @S    ComputeFloat4 => bc345c7d961ff4b1766c5b1d5e15bd5a
 @S    ColorUtilityTemp => d9aeaf420d094dcd420939cb18fd949f
 @S    InputFloat4 => f6891eacc9ea2d912dcfded49ea96a71

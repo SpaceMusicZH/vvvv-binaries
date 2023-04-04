@@ -1160,12 +1160,18 @@
             A StringBuilder lookalike that reuses its internal storage.
             </summary>
             <remarks>
-            This class is being deprecated in favor of SpanBasedStringBuilder in StringTools. Avoid adding more uses.
+            You can add any properties or methods on the real StringBuilder that are needed.
             </remarks>
         </member>
         <member name="F:Microsoft.Build.Shared.ReuseableStringBuilder._borrowedBuilder">
             <summary>
             Captured string builder.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.Shared.ReuseableStringBuilder._cachedString">
+            <summary>
+            Profiling showed that the hot code path for large string builder calls first IsOrdinalEqualToStringOfSameLength followed by ExpensiveConvertToString
+            when IsOrdinalEqualToStringOfSameLength did return true. We can therefore reduce the costs for large strings by over a factor two. 
             </summary>
         </member>
         <member name="F:Microsoft.Build.Shared.ReuseableStringBuilder._capacity">
@@ -1181,6 +1187,34 @@
         <member name="P:Microsoft.Build.Shared.ReuseableStringBuilder.Length">
             <summary>
             The length of the target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.Shared.ReuseableStringBuilder.Microsoft#Build#IInternable#Item(System.Int32)">
+            <summary>
+            Indexer into the target. Presumed to be fast.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.Shared.ReuseableStringBuilder.Microsoft#Build#IInternable#ExpensiveConvertToString">
+            <summary>
+            Convert target to string. Presumed to be slow (and will be called just once).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.Shared.ReuseableStringBuilder.MaxByCharCompareLength">
+            <summary>
+            The number here is arbitrary. For a StringBuilder we have a chunk length of 8000 characters which corresponds to
+            5 StringBuilder chunks which need to be walked before the next character can be fetched (see MaxChunkSize of StringBuilder).
+            That should be a good compromise to not allocate to much but still make use of the intern cache. The actual cutoff where it is cheaper
+            to allocate a temp string might be well below that limit but that depends on many other factors such as GC Heap size and other allocating threads. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.Shared.ReuseableStringBuilder.Microsoft#Build#IInternable#StartsWithStringByOrdinalComparison(System.String)">
+            <summary>
+            Compare target to string. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.Shared.ReuseableStringBuilder.Microsoft#Build#IInternable#ReferenceEquals(System.String)">
+            <summary>
+            Never reference equals to string.
             </summary>
         </member>
         <member name="M:Microsoft.Build.Shared.ReuseableStringBuilder.ToString">
@@ -1269,13 +1303,12 @@
             Partial class in order to reduce the amount of sharing into different assemblies
             </comment>
         </member>
-        <member name="M:Microsoft.Build.Shared.FileUtilities.GetTemporaryDirectory(System.Boolean,System.String)">
+        <member name="M:Microsoft.Build.Shared.FileUtilities.GetTemporaryDirectory(System.Boolean)">
             <summary>
             Generates a unique directory name in the temporary folder.
             Caller must delete when finished.
             </summary>
             <param name="createDirectory"></param>
-            <param name="subfolder"></param>
         </member>
         <member name="M:Microsoft.Build.Shared.FileUtilities.GetTemporaryFileName(System.String)">
             <summary>
@@ -1431,12 +1464,6 @@
             
              @baseDirectory is just passed to LooksLikeUnixFilePath, to help with the check
              </summary>
-        </member>
-        <member name="M:Microsoft.Build.Shared.FileUtilities.MaybeAdjustFilePath(System.ReadOnlyMemory{System.Char},System.String)">
-            <summary>
-            If on Unix, convert backslashes to slashes for strings that resemble paths.
-            This overload takes and returns ReadOnlyMemory of characters.
-            </summary>
         </member>
         <member name="M:Microsoft.Build.Shared.FileUtilities.LooksLikeUnixFilePath(System.String,System.String)">
              <summary>
@@ -2265,21 +2292,18 @@
             <param name="pattern">The file pattern.</param>
             <param name="projectDirectory"></param>
             <param name="stripProjectDirectory"></param>
-            <returns>An enumerable of filesystem entries.</returns>
+            <returns>An immutable array of filesystem entries.</returns>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.HasWildcards(System.String)">
             <summary>
             Determines whether the given path has any wild card characters.
             </summary>
+            <param name="filespec"></param>
+            <returns></returns>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.HasWildcardsSemicolonItemOrPropertyReferences(System.String)">
             <summary>
-            Determines whether the given path has any wild card characters, any semicolons or any property references.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Shared.FileMatcher.HasPropertyOrItemReferences(System.String)">
-            <summary>
-            Determines whether the given path has any property references.
+            Determines whether the given path has any wild card characters or any semicolons.
             </summary>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.GetAccessibleFileSystemEntries(Microsoft.Build.Shared.FileSystem.IFileSystem,Microsoft.Build.Shared.FileMatcher.FileSystemEntity,System.String,System.String,System.String,System.Boolean)">
@@ -2296,13 +2320,13 @@
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.GetAccessibleFilesAndDirectories(Microsoft.Build.Shared.FileSystem.IFileSystem,System.String,System.String)">
             <summary>
-            Returns an enumerable of file system entries matching the specified search criteria. Inaccessible or non-existent file
+            Returns an immutable array of file system entries matching the specified search criteria. Inaccessible or non-existent file
             system entries are skipped.
             </summary>
             <param name="path"></param>
             <param name="pattern"></param>
             <param name="fileSystem">The file system abstraction to use that implements file system operations</param>
-            <returns>An enumerable of matching file system entries (can be empty).</returns>
+            <returns>An immutable array of matching file system entries (can be empty).</returns>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.ShouldEnforceMatching(System.String)">
             <summary>
@@ -2398,14 +2422,6 @@
             The filespec.
             </summary>
         </member>
-        <member name="P:Microsoft.Build.Shared.FileMatcher.FilesSearchData.DirectoryPattern">
-            <summary>
-            Holds the directory pattern for globs like **/{pattern}/**, i.e. when we're looking for a matching directory name
-            regardless of where on the path it is. This field is used only if the wildcard directory part has this shape. In
-            other cases such as **/{pattern1}/**/{pattern2}/**, we don't use this optimization and instead rely on
-            <see cref="P:Microsoft.Build.Shared.FileMatcher.FilesSearchData.RegexFileMatch"/> to test if a file path matches the glob or not.
-            </summary>
-        </member>
         <member name="P:Microsoft.Build.Shared.FileMatcher.FilesSearchData.RegexFileMatch">
             <summary>
             Wild-card matching.
@@ -2426,19 +2442,9 @@
             The remaining, wildcard part of the directory.
             </summary>
         </member>
-        <member name="F:Microsoft.Build.Shared.FileMatcher.RecursionState.IsInsideMatchingDirectory">
-            <summary>
-            True if SearchData.DirectoryPattern is non-null and we have descended into a directory that matches the pattern.
-            </summary>
-        </member>
         <member name="F:Microsoft.Build.Shared.FileMatcher.RecursionState.SearchData">
             <summary>
             Data about a search that does not change as the search recursively traverses directories
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Shared.FileMatcher.RecursionState.IsLookingForMatchingDirectory">
-            <summary>
-            True if a SearchData.DirectoryPattern is specified but we have not descended into a matching directory.
             </summary>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.GetFilesRecursive(System.Collections.Concurrent.ConcurrentStack{System.Collections.Generic.List{System.String}},Microsoft.Build.Shared.FileMatcher.RecursionState,System.String,System.Boolean,System.Collections.Generic.IList{Microsoft.Build.Shared.FileMatcher.RecursionState},System.Collections.Generic.Dictionary{System.String,System.Collections.Generic.List{Microsoft.Build.Shared.FileMatcher.RecursionState}},Microsoft.Build.Shared.FileMatcher.TaskOptions)">
@@ -2453,7 +2459,7 @@
             <param name="searchesToExcludeInSubdirs">exclude patterns that might activate farther down the directory tree. Keys assume paths are normalized with forward slashes and no trailing slashes</param>
             <param name="taskOptions">Options for tuning the parallelization of subdirectories</param>
         </member>
-        <member name="M:Microsoft.Build.Shared.FileMatcher.RegularExpressionFromFileSpec(System.String,System.String,System.String)">
+        <member name="M:Microsoft.Build.Shared.FileMatcher.RegularExpressionFromFileSpec(System.String,System.String,System.String,System.Boolean@)">
             <summary>
             Given a split file spec consisting of a directory without wildcard characters,
             a sub-directory containing wildcard characters,
@@ -2466,6 +2472,7 @@
             <param name="fixedDirectoryPart">The fixed directory part.</param>
             <param name="wildcardDirectoryPart">The wildcard directory part.</param>
             <param name="filenamePart">The filename part.</param>
+            <param name="isLegalFileSpec">Receives whether this pattern is legal or not.</param>
             <returns>The regular expression string.</returns>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.IsLegalFileSpec(System.String,System.String)">
@@ -2573,7 +2580,7 @@
             <param name="needsRecursion">Receives the flag that is true if recursion is required.</param>
             <param name="isLegalFileSpec">Receives the flag that is true if the filespec is legal.</param>
         </member>
-        <member name="M:Microsoft.Build.Shared.FileMatcher.GetFileSpecInfo(System.String,System.String@,System.String@,System.String@,System.Boolean@,System.Boolean@,Microsoft.Build.Shared.FileMatcher.FixupParts)">
+        <member name="M:Microsoft.Build.Shared.FileMatcher.GetFileSpecInfo(System.String,System.String@,System.String@,System.String@,System.String@,System.Boolean@,System.Boolean@,Microsoft.Build.Shared.FileMatcher.FixupParts)">
             <summary>
             Given a filespec, parse it and construct the regular expression string.
             </summary>
@@ -2581,6 +2588,7 @@
             <param name="fixedDirectoryPart">Receives the fixed directory part.</param>
             <param name="wildcardDirectoryPart">Receives the wildcard directory part.</param>
             <param name="filenamePart">Receives the filename part.</param>
+            <param name="matchFileExpression">Receives the regular expression.</param>
             <param name="needsRecursion">Receives the flag that is true if recursion is required.</param>
             <param name="isLegalFileSpec">Receives the flag that is true if the filespec is legal.</param>
             <param name="fixupParts">hook method to further change the parts</param>
@@ -2595,12 +2603,13 @@
             Default constructor.
             </summary>
         </member>
-        <member name="M:Microsoft.Build.Shared.FileMatcher.IsMatch(System.String,System.String)">
+        <member name="M:Microsoft.Build.Shared.FileMatcher.IsMatch(System.String,System.String,System.Boolean)">
             <summary>
             A wildcard (* and ?) matching algorithm that tests whether the input string matches against the pattern.
             </summary>
             <param name="input">String which is matched against the pattern.</param>
             <param name="pattern">Pattern against which string is matched.</param>
+            <param name="ignoreCase">Determines whether ignoring case when comparing two characters</param>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.FileMatch(System.String,System.String)">
             <summary>
@@ -2643,13 +2652,13 @@
             <param name="aString">A string</param>
             <returns>The normalized string</returns>
         </member>
-        <member name="M:Microsoft.Build.Shared.FileMatcher.SkipSlashes(System.String,System.Int32)">
+        <member name="M:Microsoft.Build.Shared.FileMatcher.SkipCharacters(System.String,System.Int32,System.Func{System.Char,System.Boolean})">
             <summary>
-            Skips slash characters in a string.
+            Skips characters that satisfy the condition <param name="jumpOverCharacter"></param>
             </summary>
             <param name="aString">The working string</param>
             <param name="startingIndex">Offset in string to start the search in</param>
-            <returns>First index that is not a slash. Returns the string's length if end of string is reached</returns>
+            <returns>First index that does not satisfy the condition. Returns the string's length if end of string is reached</returns>
         </member>
         <member name="M:Microsoft.Build.Shared.FileMatcher.IsValidDriveChar(System.Char)">
             <summary>
@@ -2665,15 +2674,6 @@
             <param name="filespecUnescaped">Get files that match the given file spec.</param>
             <param name="excludeSpecsUnescaped">Exclude files that match this file spec.</param>
             <returns>The array of files.</returns>
-        </member>
-        <member name="M:Microsoft.Build.Shared.FileMatcher.DirectoryEndsWithPattern(System.String,System.String)">
-            <summary>
-            Returns true if the last component of the given directory path (assumed to not have any trailing slashes)
-            matches the given pattern.
-            </summary>
-            <param name="directoryPath">The path to test.</param>
-            <param name="pattern">The pattern to test against.</param>
-            <returns>True in case of a match (e.g. directoryPath = "dir/subdir" and pattern = "s*"), false otherwise.</returns>
         </member>
         <member name="T:Microsoft.Build.Shared.VersionUtilities">
             <summary>
@@ -2857,11 +2857,6 @@
             <param name="info"></param>
             <param name="context"></param>
         </member>
-        <member name="M:Microsoft.Build.Shared.AssemblyNameExtension.#ctor(Microsoft.Build.BackEnd.ITranslator)">
-            <summary>
-            Ctor for deserializing from state file (custom binary serialization) using translator.
-            </summary>
-        </member>
         <member name="M:Microsoft.Build.Shared.AssemblyNameExtension.GetAssemblyNameEx(System.String)">
             <summary>
             To be used as a delegate. Gets the AssemblyName of the given file.
@@ -2877,11 +2872,6 @@
         <member name="M:Microsoft.Build.Shared.AssemblyNameExtension.InitializeRemappedFrom">
             <summary>
             Initialize the remapped from structure.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Shared.AssemblyNameExtension.CreateRemappedFrom">
-            <summary>
-            Create remappedFrom HashSet. Used by deserialization as well.
             </summary>
         </member>
         <member name="M:Microsoft.Build.Shared.AssemblyNameExtension.CreateAssemblyName">
@@ -3142,12 +3132,6 @@
             
              If A.Field is null then we will not compare A.Field and B.Field even when the comparison flag is set for that field unless skipNullFields is false.
              </summary>
-        </member>
-        <member name="M:Microsoft.Build.Shared.AssemblyNameExtension.Translate(Microsoft.Build.BackEnd.ITranslator)">
-            <summary>
-            Reads/writes this class
-            </summary>
-            <param name="translator"></param>
         </member>
         <member name="T:Microsoft.Build.Shared.EncodingUtilities">
             <summary>
@@ -3889,916 +3873,6 @@
             <remarks>This property is thread-safe.</remarks>
             <value>ResourceManager for shared resources.</value>
         </member>
-        <member name="T:Microsoft.Build.BackEnd.ITranslatable">
-            <summary>
-            An interface representing an object which may be serialized by the node packet serializer.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslatable.Translate(Microsoft.Build.BackEnd.ITranslator)">
-            <summary>
-            Reads or writes the packet to the serializer.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.NodePacketValueFactory`1">
-            <summary>
-            This delegate is used for objects which do not have public parameterless constructors and must be constructed using
-            another method.  When invoked, this delegate should return a new object which has been translated appropriately.
-            </summary>
-            <typeparam name="T">The type to be translated.</typeparam>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.ObjectTranslator`1">
-            <summary>
-            Delegate for users that want to translate an arbitrary structure that doesn't implement <see cref="T:Microsoft.Build.BackEnd.ITranslatable"/> (e.g. translating a complex collection)
-            </summary>
-            <param name="translator">the translator</param>
-            <param name="objectToTranslate">the object to translate</param>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.NodePacketCollectionCreator`1">
-            <summary>
-            This delegate is used to create arbitrary collection types for serialization.
-            </summary>
-            <typeparam name="T">The type of dictionary to be created.</typeparam>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.TranslationDirection">
-            <summary>
-            The serialization mode.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.BackEnd.TranslationDirection.WriteToStream">
-            <summary>
-            Indicates the serializer is operating in write mode.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.BackEnd.TranslationDirection.ReadFromStream">
-            <summary>
-            Indicates the serializer is operating in read mode.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.ITranslator">
-            <summary>
-            This interface represents an object which aids objects in serializing and 
-            deserializing INodePackets.
-            </summary>
-            <remarks>
-            The reason we bother with a custom serialization mechanism at all is two fold:
-            1. The .Net serialization mechanism is inefficient, even if you implement ISerializable
-               with your own custom mechanism.  This is because the serializer uses a bag called
-               SerializationInfo into which you are expected to drop all your data.  This adds
-               an unnecessary level of indirection to the serialization routines and prevents direct,
-               efficient access to the byte-stream.
-            2. You have to implement both a reader and writer part, which introduces the potential for
-               error should the classes be later modified.  If the reader and writer methods are not
-               kept in perfect sync, serialization errors will occur.  Our custom serializer eliminates
-               that by ensuring a single Translate method on a given object can handle both reads and
-               writes without referencing any field more than once.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.ITranslator.Mode">
-            <summary>
-            Returns the current serialization mode.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.ITranslator.Reader">
-            <summary>
-            Returns the binary reader.
-            </summary>
-            <remarks>
-            This should ONLY be used when absolutely necessary for translation.  It is generally unnecessary for the 
-            translating object to know the direction of translation.  Use one of the Translate methods instead.
-            </remarks>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.ITranslator.Writer">
-            <summary>
-            Returns the binary writer.
-            </summary>
-            <remarks>
-            This should ONLY be used when absolutely necessary for translation.  It is generally unnecessary for the 
-            translating object to know the direction of translation.  Use one of the Translate methods instead.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Boolean@)">
-            <summary>
-            Translates a boolean.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Byte@)">
-            <summary>
-            Translates a byte.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Int16@)">
-            <summary>
-            Translates a short.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.UInt16@)">
-            <summary>
-            Translates a unsigned short.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Int32@)">
-            <summary>
-            Translates an integer.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Int64@)">
-            <summary>
-            Translates a long.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.String@)">
-            <summary>
-            Translates a string.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Double@)">
-            <summary>
-            Translates a double.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.String[]@)">
-            <summary>
-            Translates a string array.
-            </summary>
-            <param name="array">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Collections.Generic.List{System.String}@)">
-            <summary>
-            Translates a list of strings
-            </summary>
-            <param name="list">The list to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Collections.Generic.HashSet{System.String}@)">
-            <summary>
-            Translates a set of strings
-            </summary>
-            <param name="set">The set to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate``1(System.Collections.Generic.List{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates a list of T using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>
-            </summary>
-            <param name="list">The list to be translated.</param>
-            <param name="objectTranslator">The translator to use for the items in the list</param>
-            <typeparam name="T">A TaskItemType</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate``2(System.Collections.Generic.IList{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``1})">
-            <summary>
-            Translates a list of T using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/> anda collection factory
-            </summary>
-            <param name="list">The list to be translated.</param>
-            <param name="objectTranslator">The translator to use for the items in the list</param>
-            <typeparam name="T">An ITranslatable subtype</typeparam>
-            <typeparam name="L">An IList subtype</typeparam>
-            <param name="collectionFactory">factory to create a collection</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate``2(System.Collections.Generic.ICollection{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``1})">
-            <summary>
-            Translates a collection of T into the specified type using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/> and <see cref="T:Microsoft.Build.BackEnd.NodePacketCollectionCreator`1"/>
-            </summary>
-            <param name="collection">The collection to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the collection.</param>
-            <param name="collectionFactory">The factory to create the ICollection.</param>
-            <typeparam name="T">The type contained in the collection.</typeparam>
-            <typeparam name="L">The type of collection to be created.</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.DateTime@)">
-            <summary>
-            Translates a DateTime.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.TimeSpan@)">
-            <summary>
-            Translates a TimeSpan.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(Microsoft.Build.Framework.BuildEventContext@)">
-            <summary>
-            Translates a BuildEventContext
-            </summary>
-            <remarks>
-            This method exists only because there is no serialization method built into the BuildEventContext
-            class, and it lives in Framework and we don't want to add a public method to it.
-            </remarks>
-            <param name="value">The context to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateEnum``1(``0@,System.Int32)">
-            <summary>
-            Translates an enumeration.
-            </summary>
-            <typeparam name="T">The enumeration type.</typeparam>
-            <param name="value">The enumeration instance to be translated.</param>
-            <param name="numericValue">The enumeration value as an integer.</param>
-            <remarks>This is a bit ugly, but it doesn't seem like a nice method signature is possible because
-            you can't pass the enum type as a reference and constrain the generic parameter to Enum.  Nor
-            can you simply pass as ref Enum, because an enum instance doesn't match that function signature.
-            Finally, converting the enum to an int assumes that we always want to transport enums as ints.  This
-            works in all of our current cases, but certainly isn't perfectly generic.</remarks>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateDotNet``1(``0@)">
-            <summary>
-            Translates a value using the .Net binary formatter.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="value">The value to be translated.</param>
-            <remarks>
-            The primary purpose of this method is to support serialization of Exceptions and
-            custom build logging events, since these do not support our custom serialization
-            methods.
-            </remarks>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate``1(``0@)">
-            <summary>
-            Translates an object implementing INodePacketTranslatable.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateCulture(System.Globalization.CultureInfo@)">
-            <summary>
-            Translates a culture
-            </summary>
-            <param name="culture">The culture</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Byte[]@)">
-            <summary>
-            Translates a byte array
-            </summary>
-            <param name="byteArray">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.Translate(System.Byte[]@,System.Int32@)">
-            <summary>
-            Translates a byte array
-            </summary>
-            <param name="byteArray">The array to be translated.</param>
-            <param name="length">The length of array which will be used in translation</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateArray``1(``0[]@)">
-            <summary>
-            Translates an array of objects implementing INodePacketTranslatable.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="array">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateArray``1(``0[]@,Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates an array of objects using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="array">The array to be translated.</param>
-            <param name="objectTranslator">The translator to use for the elements in the array.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateDictionary(System.Collections.Generic.Dictionary{System.String,System.String}@,System.Collections.Generic.IEqualityComparer{System.String})">
-            <summary>
-            Translates a dictionary of { string, string }.
-            </summary>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="comparer">The comparer used to instantiate the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateDictionary``1(System.Collections.Generic.Dictionary{System.String,``0}@,System.Collections.Generic.IEqualityComparer{System.String},Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates a dictionary of { string, T }.  
-            </summary>
-            <typeparam name="T">The reference type for the values, which implements INodePacketTranslatable.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="comparer">The comparer used to instantiate the dictionary.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateDictionary``2(``0@,Microsoft.Build.BackEnd.ObjectTranslator{``1})">
-            <summary>
-            Translates a dictionary of { string, T } for dictionaries with public parameterless constructors.
-            </summary>
-            <typeparam name="D">The reference type for the dictionary.</typeparam>
-            <typeparam name="T">The reference type for values in the dictionary.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateDictionary``2(``0@,Microsoft.Build.BackEnd.ObjectTranslator{``1},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``0})">
-            <summary>
-            Translates a dictionary of { string, T } for dictionaries with public parameterless constructors.
-            </summary>
-            <typeparam name="D">The reference type for the dictionary.</typeparam>
-            <typeparam name="T">The reference type for values in the dictionary.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-            <param name="collectionCreator">A factory used to create the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.ITranslator.TranslateNullable``1(``0)">
-            <summary>
-            Translates the boolean that says whether this value is null or not
-            </summary>
-            <param name="value">The object to test.</param>
-            <typeparam name="T">The type of object to test.</typeparam>
-            <returns>True if the object should be written, false otherwise.</returns>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.BinaryTranslator">
-            <summary>
-            This class is responsible for serializing and deserializing simple types to and
-            from the byte streams used to communicate INodePacket-implementing classes.
-            Each class implements a Translate method on INodePacket which takes this class
-            as a parameter, and uses it to store and retrieve fields to the stream.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.GetReadTranslator(System.IO.Stream,Microsoft.Build.SharedReadBuffer)">
-            <summary>
-            Returns a read-only serializer.
-            </summary>
-            <returns>The serializer.</returns>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.GetWriteTranslator(System.IO.Stream)">
-            <summary>
-            Returns a write-only serializer.
-            </summary>
-            <param name="stream">The stream containing data to serialize.</param>
-            <returns>The serializer.</returns>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator">
-            <summary>
-            Implementation of ITranslator for reading from a stream.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator._packetStream">
-            <summary>
-            The stream used as a source or destination for data.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator._reader">
-            <summary>
-            The binary reader used in read mode.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.#ctor(System.IO.Stream,Microsoft.Build.SharedReadBuffer)">
-            <summary>
-            Constructs a serializer from the specified stream, operating in the designated mode.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Reader">
-            <summary>
-            Gets the reader, if any.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Writer">
-            <summary>
-            Gets the writer, if any.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Mode">
-            <summary>
-            Returns the current serialization mode.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Boolean@)">
-            <summary>
-            Translates a boolean.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Byte@)">
-            <summary>
-            Translates a byte.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Int16@)">
-            <summary>
-            Translates a short.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.UInt16@)">
-            <summary>
-            Translates an unsigned short.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Int32@)">
-            <summary>
-            Translates an integer.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Int64@)">
-            <summary>
-            Translates a long.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Double@)">
-            <summary>
-            Translates a double.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.String@)">
-            <summary>
-            Translates a string.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Byte[]@)">
-            <summary>
-            Translates a byte array
-            </summary>
-            <param name="byteArray">The array to be translated</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Byte[]@,System.Int32@)">
-            <summary>
-            Translates a byte array
-            </summary>
-            <param name="byteArray">The array to be translated.</param>
-            <param name="length">The length of array which will be used in translation. This parameter is not used when reading</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.String[]@)">
-            <summary>
-            Translates a string array.
-            </summary>
-            <param name="array">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Collections.Generic.HashSet{System.String}@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.Collections.Generic.List{System.String}@)">
-            <summary>
-            Translates a list of strings
-            </summary>
-            <param name="list">The list to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate``1(System.Collections.Generic.List{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates a list of T using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>
-            </summary>
-            <param name="list">The list to be translated.</param>
-            <param name="objectTranslator">The translator to use for the items in the list</param>
-            <typeparam name="T">TaskItem type</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate``2(System.Collections.Generic.ICollection{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``1})">
-            <summary>
-            Translates a collection of T into the specified type using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/> and <see cref="T:Microsoft.Build.BackEnd.NodePacketCollectionCreator`1"/>
-            </summary>
-            <param name="collection">The collection to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the collection.</param>
-            <param name="collectionFactory">The factory to create the ICollection.</param>
-            <typeparam name="T">The type contained in the collection.</typeparam>
-            <typeparam name="L">The type of collection to be created.</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.DateTime@)">
-            <summary>
-            Translates a DateTime.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(System.TimeSpan@)">
-            <summary>
-            Translates a TimeSpan.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate(Microsoft.Build.Framework.BuildEventContext@)">
-            <summary>
-            Translates a BuildEventContext
-            </summary>
-            <remarks>
-            This method exists only because there is no serialization method built into the BuildEventContext
-            class, and it lives in Framework and we don't want to add a public method to it.
-            </remarks>
-            <param name="value">The context to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateCulture(System.Globalization.CultureInfo@)">
-            <summary>
-            Translates a CultureInfo
-            </summary>
-            <param name="value">The CultureInfo to translate</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateEnum``1(``0@,System.Int32)">
-            <summary>
-            Translates an enumeration.
-            </summary>
-            <typeparam name="T">The enumeration type.</typeparam>
-            <param name="value">The enumeration instance to be translated.</param>
-            <param name="numericValue">The enumeration value as an integer.</param>
-            <remarks>This is a bit ugly, but it doesn't seem like a nice method signature is possible because
-            you can't pass the enum type as a reference and constrain the generic parameter to Enum.  Nor
-            can you simply pass as ref Enum, because an enum instance doesn't match that function signature.
-            Finally, converting the enum to an int assumes that we always want to transport enums as ints.  This
-            works in all of our current cases, but certainly isn't perfectly generic.</remarks>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateDotNet``1(``0@)">
-            <summary>
-            Translates a value using the .Net binary formatter.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.Translate``1(``0@)">
-            <summary>
-            Translates an object implementing INodePacketTranslatable.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateArray``1(``0[]@)">
-            <summary>
-            Translates an array of objects implementing INodePacketTranslatable.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="array">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateArray``1(``0[]@,Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates an array of objects using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="array">The array to be translated.</param>
-            <param name="objectTranslator">The translator to use for the elements in the array</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateDictionary(System.Collections.Generic.Dictionary{System.String,System.String}@,System.Collections.Generic.IEqualityComparer{System.String})">
-            <summary>
-            Translates a dictionary of { string, string }.
-            </summary>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="comparer">The comparer used to instantiate the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateDictionary``1(System.Collections.Generic.Dictionary{System.String,``0}@,System.Collections.Generic.IEqualityComparer{System.String},Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates a dictionary of { string, T }.  
-            </summary>
-            <typeparam name="T">The reference type for the values</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="comparer">The comparer used to instantiate the dictionary.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateDictionary``2(``0@,Microsoft.Build.BackEnd.ObjectTranslator{``1})">
-            <summary>
-            Translates a dictionary of { string, T } for dictionaries with public parameterless constructors.
-            </summary>
-            <typeparam name="D">The reference type for the dictionary.</typeparam>
-            <typeparam name="T">The reference type for values in the dictionary.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateDictionary``2(``0@,Microsoft.Build.BackEnd.ObjectTranslator{``1},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``0})">
-            <summary>
-            Translates a dictionary of { string, T } for dictionaries with public parameterless constructors.
-            </summary>
-            <typeparam name="D">The reference type for the dictionary.</typeparam>
-            <typeparam name="T">The reference type for values in the dictionary.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-            <param name="dictionaryCreator">The delegate used to instantiate the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryReadTranslator.TranslateNullable``1(``0)">
-            <summary>
-            Reads in the boolean which says if this object is null or not.
-            </summary>
-            <typeparam name="T">The type of object to test.</typeparam>
-            <returns>True if the object should be read, false otherwise.</returns>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator">
-            <summary>
-            Implementation of ITranslator for writing to a stream.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator._packetStream">
-            <summary>
-            The stream used as a source or destination for data.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator._writer">
-            <summary>
-            The binary writer used in write mode.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.#ctor(System.IO.Stream)">
-            <summary>
-            Constructs a serializer from the specified stream, operating in the designated mode.
-            </summary>
-            <param name="packetStream">The stream serving as the source or destination of data.</param>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Reader">
-            <summary>
-            Gets the reader, if any.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Writer">
-            <summary>
-            Gets the writer, if any.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Mode">
-            <summary>
-            Returns the current serialization mode.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Boolean@)">
-            <summary>
-            Translates a boolean.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Byte@)">
-            <summary>
-            Translates a byte.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Int16@)">
-            <summary>
-            Translates a short.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.UInt16@)">
-            <summary>
-            Translates an unsigned short.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Int32@)">
-            <summary>
-            Translates an integer.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Int64@)">
-            <summary>
-            Translates a long.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Double@)">
-            <summary>
-            Translates a double.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.String@)">
-            <summary>
-            Translates a string.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.String[]@)">
-            <summary>
-            Translates a string array.
-            </summary>
-            <param name="array">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Collections.Generic.List{System.String}@)">
-            <summary>
-            Translates a list of strings
-            </summary>
-            <param name="list">The list to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Collections.Generic.HashSet{System.String}@)">
-            <inheritdoc />
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate``1(System.Collections.Generic.List{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates a list of T using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>
-            </summary>
-            <param name="list">The list to be translated.</param>
-            <param name="objectTranslator">The translator to use for the items in the list</param>
-            <typeparam name="T">A TaskItemType</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate``2(System.Collections.Generic.IList{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``1})">
-            <summary>
-            Translates a list of T using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>
-            </summary>
-            <param name="list">The list to be translated.</param>
-            <param name="objectTranslator">The translator to use for the items in the list</param>
-            <param name="collectionFactory">factory to create the IList</param>
-            <typeparam name="T">A TaskItemType</typeparam>
-            <typeparam name="L">IList subtype</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate``2(System.Collections.Generic.ICollection{``0}@,Microsoft.Build.BackEnd.ObjectTranslator{``0},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``1})">
-            <summary>
-            Translates a collection of T into the specified type using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/> and <see cref="T:Microsoft.Build.BackEnd.NodePacketCollectionCreator`1"/>
-            </summary>
-            <param name="collection">The collection to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the collection.</param>
-            <param name="collectionFactory">The factory to create the ICollection.</param>
-            <typeparam name="T">The type contained in the collection.</typeparam>
-            <typeparam name="L">The type of collection to be created.</typeparam>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.DateTime@)">
-            <summary>
-            Translates a DateTime.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.TimeSpan@)">
-            <summary>
-            Translates a TimeSpan.
-            </summary>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(Microsoft.Build.Framework.BuildEventContext@)">
-            <summary>
-            Translates a BuildEventContext
-            </summary>
-            <remarks>
-            This method exists only because there is no serialization method built into the BuildEventContext
-            class, and it lives in Framework and we don't want to add a public method to it.
-            </remarks>
-            <param name="value">The context to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateCulture(System.Globalization.CultureInfo@)">
-            <summary>
-            Translates a CultureInfo
-            </summary>
-            <param name="value">The CultureInfo</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateEnum``1(``0@,System.Int32)">
-            <summary>
-            Translates an enumeration.
-            </summary>
-            <typeparam name="T">The enumeration type.</typeparam>
-            <param name="value">The enumeration instance to be translated.</param>
-            <param name="numericValue">The enumeration value as an integer.</param>
-            <remarks>This is a bit ugly, but it doesn't seem like a nice method signature is possible because
-            you can't pass the enum type as a reference and constrain the generic parameter to Enum.  Nor
-            can you simply pass as ref Enum, because an enum instance doesn't match that function signature.
-            Finally, converting the enum to an int assumes that we always want to transport enums as ints.  This
-            works in all of our current cases, but certainly isn't perfectly generic.</remarks>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateDotNet``1(``0@)">
-            <summary>
-            Translates a value using the .Net binary formatter.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate``1(``0@)">
-            <summary>
-            Translates an object implementing INodePacketTranslatable.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="value">The value to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Byte[]@)">
-            <summary>
-            Translates a byte array
-            </summary>
-            <param name="byteArray">The byte array to be translated</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.Translate(System.Byte[]@,System.Int32@)">
-            <summary>
-            Translates a byte array
-            </summary>
-            <param name="byteArray">The array to be translated.</param>
-            <param name="length">The length of array which will be used in translation</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateArray``1(``0[]@)">
-            <summary>
-            Translates an array of objects implementing INodePacketTranslatable.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="array">The array to be translated.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateArray``1(``0[]@,Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates an array of objects using an <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="array">The array to be translated.</param>
-            <param name="objectTranslator">The translator to use for the elements in the array</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateDictionary(System.Collections.Generic.Dictionary{System.String,System.String}@,System.Collections.Generic.IEqualityComparer{System.String})">
-            <summary>
-            Translates a dictionary of { string, string }.
-            </summary>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="comparer">The comparer used to instantiate the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateDictionary``1(System.Collections.Generic.Dictionary{System.String,``0}@,System.Collections.Generic.IEqualityComparer{System.String},Microsoft.Build.BackEnd.ObjectTranslator{``0})">
-            <summary>
-            Translates a dictionary of { string, T }.  
-            </summary>
-            <typeparam name="T">The reference type for the values, which implements INodePacketTranslatable.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="comparer">The comparer used to instantiate the dictionary.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateDictionary``2(``0@,Microsoft.Build.BackEnd.ObjectTranslator{``1})">
-            <summary>
-            Translates a dictionary of { string, T } for dictionaries with public parameterless constructors.
-            </summary>
-            <typeparam name="D">The reference type for the dictionary.</typeparam>
-            <typeparam name="T">The reference type for values in the dictionary.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateDictionary``2(``0@,Microsoft.Build.BackEnd.ObjectTranslator{``1},Microsoft.Build.BackEnd.NodePacketCollectionCreator{``0})">
-            <summary>
-            Translates a dictionary of { string, T } for dictionaries with public parameterless constructors.
-            </summary>
-            <typeparam name="D">The reference type for the dictionary.</typeparam>
-            <typeparam name="T">The reference type for values in the dictionary.</typeparam>
-            <param name="dictionary">The dictionary to be translated.</param>
-            <param name="objectTranslator">The translator to use for the values in the dictionary</param>
-            <param name="dictionaryCreator">The delegate used to instantiate the dictionary.</param>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.BinaryTranslator.BinaryWriteTranslator.TranslateNullable``1(``0)">
-            <summary>
-            Writes out the boolean which says if this object is null or not.
-            </summary>
-            <param name="value">The object to test.</param>
-            <typeparam name="T">The type of object to test.</typeparam>
-            <returns>True if the object should be written, false otherwise.</returns>
-        </member>
-        <member name="T:Microsoft.Build.BackEnd.TranslatorHelpers">
-            <summary>
-            This class provides helper methods to adapt from <see cref="T:Microsoft.Build.BackEnd.NodePacketValueFactory`1"/> to
-            <see cref="T:Microsoft.Build.BackEnd.ObjectTranslator`1"/>.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.BackEnd.TranslatorHelpers.Translate``1(Microsoft.Build.BackEnd.ITranslator,``0@,Microsoft.Build.BackEnd.NodePacketValueFactory{``0})">
-            <summary>
-            Translates an object implementing <see cref="T:Microsoft.Build.BackEnd.ITranslatable"/> which does not expose a
-            public parameterless constructor.
-            </summary>
-            <typeparam name="T">The reference type.</typeparam>
-            <param name="translator">The translator</param>
-            <param name="instance">The value to be translated.</param>
-            <param name="valueFactory">The factory method used to instantiate values of type T.</param>
-        </member>
-        <member name="T:Microsoft.Build.InterningBinaryReader">
-            <summary>
-            Replacement for BinaryReader which attempts to intern the strings read by ReadString.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.InterningBinaryReader.MaxCharsBuffer">
-            <summary>
-            The maximum size, in bytes, to read at once.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.InterningBinaryReader._buffer">
-            <summary>
-            Shared buffer saves allocating these arrays many times.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.InterningBinaryReader._decoder">
-            <summary>
-            The decoder used to translate from UTF8 (or whatever).
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.InterningBinaryReader.#ctor(System.IO.Stream,Microsoft.Build.InterningBinaryReader.Buffer)">
-            <summary>
-            Comment about constructing.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.InterningBinaryReader.ReadString">
-            <summary>
-            Read a string while checking the string precursor for intern opportunities.
-            Taken from ndp\clr\src\bcl\system\io\binaryreader.cs-ReadString()
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.InterningBinaryReader.CreateSharedBuffer">
-            <summary>
-            A shared buffer to avoid extra allocations in InterningBinaryReader.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.InterningBinaryReader.Create(System.IO.Stream,Microsoft.Build.SharedReadBuffer)">
-            <summary>
-            Create a BinaryReader. It will either be an interning reader or standard binary reader
-            depending on whether the interning reader is possible given the buffer and stream.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Build.InterningBinaryReader.Buffer">
-            <summary>
-            Holds thepreallocated buffer. 
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.InterningBinaryReader.Buffer.#ctor">
-            <summary>
-            Yes, we are constructing.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.InterningBinaryReader.Buffer.CharBuffer">
-            <summary>
-            The char buffer.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.InterningBinaryReader.Buffer.ByteBuffer">
-            <summary>
-            The byte buffer.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Build.SharedReadBuffer">
-            <summary>
-            Opaque holder of shared buffer.
-            </summary>
-        </member>
         <member name="F:Microsoft.Build.Tasks.AssemblyFoldersFromConfig.AssemblyFoldersFromConfig._directoryNames">
             <summary>
             The list of directory names found from the config file.
@@ -4943,46 +4017,6 @@
             allowing it to be safely cached.
             </remarks>
         </member>
-        <member name="T:Microsoft.Build.Tasks.CombineTargetFrameworkInfoProperties">
-            <summary>
-            Combines items that represent properties and values into an XML representation.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.CombineTargetFrameworkInfoProperties.RootElementName">
-            <summary>
-            The root element name to use for the generated XML string
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.CombineTargetFrameworkInfoProperties.PropertiesAndValues">
-            <summary>
-            Items to include in the XML.  The ItemSpec should be the property name, and it should have Value metadata for its value.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.CombineTargetFrameworkInfoProperties.Result">
-            <summary>
-            The generated XML representation of the properties and values.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Build.Tasks.CombineXmlElements">
-            <summary>
-            Combines multiple XML elements
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.CombineXmlElements.RootElementName">
-            <summary>
-            The root element name to use for the generated XML string
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.CombineXmlElements.XmlElements">
-            <summary>
-            The XML elements to include as children of the root element
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.CombineXmlElements.Result">
-            <summary>
-            The generated XML
-            </summary>
-        </member>
         <member name="T:Microsoft.Build.Tasks.ConvertToAbsolutePath">
             <summary>
             Task to call Path.GetFullPath
@@ -5033,7 +4067,7 @@
         </member>
         <member name="P:Microsoft.Build.Tasks.PropertyParser.PropertyNameValuePair.Value">
             <summary>
-            Property value fragments. Join with semicolon to get the final value.
+            Property value
             </summary>
         </member>
         <member name="T:Microsoft.Build.Tasks.TaskLoggingHelperExtension">
@@ -7048,7 +6082,6 @@
             <summary>
             Some metadata should not be forwarded between the parent and child items.
             </summary>
-            <returns>The metadata that were removed.</returns>
         </member>
         <member name="M:Microsoft.Build.Tasks.ReferenceTable.FindCopyLocalItems(Microsoft.Build.Framework.ITaskItem[],System.Collections.Generic.List{Microsoft.Build.Framework.ITaskItem})">
             <summary>
@@ -7899,7 +6932,7 @@
         </member>
         <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.LogScatterFiles(Microsoft.Build.Tasks.Reference,Microsoft.Build.Framework.MessageImportance)">
             <summary>
-            Log scatter files.
+            Log the satellite files.
             </summary>
             <param name="reference">The reference.</param>
             <param name="importance">The importance of the message.</param>
@@ -7924,7 +6957,7 @@
             <param name="fusionName">The fusion name of the reference.</param>
             <param name="log">StringBuilder holding information to be logged.</param>
         </member>
-        <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.ReadStateFile(Microsoft.Build.Shared.FileExists)">
+        <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.ReadStateFile">
             <summary>
             Reads the state file (if present) into the cache.
             </summary>
@@ -7983,7 +7016,7 @@
             </summary>
             <param name="installedAssemblyTableInfo">Installed assembly info of the profile redist lists</param>
             <param name="fullRedistAssemblyTableInfo">Installed assemblyInfo for the full framework redist lists</param>
-            <param name="exclusionList">Generated exclusion list</param>
+            <param name="blackList">Generated exclusion list</param>
             <param name="fullFrameworkRedistList">Redist list which will contain the full framework redist list.</param>
         </member>
         <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.GenerateSubSetName(System.String[],Microsoft.Build.Framework.ITaskItem[])">
@@ -8002,17 +7035,17 @@
             Log the target framework subset information.
             </summary>
         </member>
-        <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.ShouldUseSubsetExclusionList">
+        <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.ShouldUseSubsetBlackList">
              <summary>
-             Determine if an exclusion list should be used or not
+             Determine if a black list should be used or not
             
-             The exclusion list should only be used if there are TargetFrameworkSubsets to use or TargetFrameworkProfiles.
+             The black list should only be used if there are TargetFrameworkSubsets to use or TargetFrameworkProfiles.
             
-             1) If we find a Full or equivalent marker in the list of subsets passed in we do not want to generate an exclusion list even if installedAssemblySubsets are passed in
-             2) If we are ignoring the default installed subset tables and we have not passed in any additional subset tables, we do not want to generate an exclusion list
-             3) If no targetframework subsets were passed in and no additional subset tables were passed in, we do not want to generate an exclusion list
+             1) If we find a Full or equivalent marker in the list of subsets passed in we do not want to generate a black list even if installedAssemblySubsets are passed in
+             2) If we are ignoring the default installed subset tables and we have not passed in any additional subset tables, we do not want to generate a black list
+             3) If no targetframework subsets were passed in and no additional subset tables were passed in, we do not want to generate a blacklist
              </summary>
-             <returns>True if we should generate an exclusion list</returns>
+             <returns>True if we should generate a black list, false if a blacklist should not be generated</returns>
         </member>
         <member name="M:Microsoft.Build.Tasks.ResolveAssemblyReference.PopulateSuggestedRedirects(System.Collections.Generic.List{Microsoft.Build.Tasks.DependentAssembly},System.Collections.Generic.List{Microsoft.Build.Tasks.AssemblyNameReference})">
             <summary>
@@ -8948,123 +7981,103 @@
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.ConfigFile">
             <summary>
-            Gets or sets the application configuration file.
-            </summary>
-            <remarks>
+            Indicates the application configuration file.
             For a Win32 native manifest, this input is ignored.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.TargetFrameworkVersion">
             <summary>
-            Gets or sets the target framework version
+            Specifies the target framework version
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.ErrorReportUrl">
             <summary>
-            Gets or sets the link to use if there is a failure launching the application.
+            Specifies the link to use if there is a failure launching the application.
             The specified value should be a fully qualified URL or UNC path.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.HostInBrowser">
             <summary>
-            Gets or sets a value that indicates whether the application will run in IE using WPF's XBAP application model.
+            If true, the application will run in IE using WPF's xbap application model.
             </summary>
-            <value><see langword="true" /> if the application will run in IE using WPF's XBAP application model; otherwise, <see langword="false" />.</value>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.IconFile">
             <summary>
-            Gets or sets the application icon file.
-            </summary>
-            <remarks>
+            Indicates the application icon file.
             The application icon is expressed in the generated application manifest and is used for the start menu and Add/Remove Programs dialog.
             If this input is not specified then a default icon is used.
             For a Win32 native manifest, this input is ignored.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.IsClickOnceManifest">
             <summary>
-            Gets or sets a value that indicates whether the manifest is a ClickOnce application manifest or a native Win32 application manifest.
+            Indicates whether the manifest is a ClickOnce application manifest or a native Win32 application manifest.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.MaxTargetPath">
             <summary>
-            Gets or sets the maximum allowable length of a file path in a ClickOnce application deployment.
-            </summary>
-            <remarks>
+            Specifies the maximum allowable length of a file path in a ClickOnce application deployment.
             If this value is specified, then the length of each file path in the application is checked against this limit.
             Any items that exceed the limit will result in a warning message.
             If this input is not specified or is zero, then no checking is performed.
             For a Win32 native manifest, this input is ignored.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.OSDescription">
             <summary>
-            Gets or sets a textual description for the OS dependency.
+            Specifies a textual description for the OS dependency.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.OSSupportUrl">
             <summary>
-            Gets or sets a support URL for the OS dependency.
+            Specifies a support URL for the OS dependency.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.OSVersion">
             <summary>
-            Gets or sets the minimum OS version required by the application.
-            </summary>
-            <remarks>
-            An example value is "5.1.2600.0" for Windows XP.        
-            If you don't specify a value, a default value is used.
-            The default value is the minimum supported OS of the .NET Framework, which is "4.10.0.0" for Windows 98 Second Edition.
-            However, if the application contains any native or Reg-Free COM references, then the default is the Windows XP version, which is "5.1.2600.0".
+            Specifies the minimum required OS version required by the application.
+            An example value is "5.1.2600.0" for Windows XP.
+            If this input is not specified a default value is used.
+            The default value is the minimum supported OS of the .NET Framework, which is "4.10.0.0" for Windows 98SE.
+            However, if the application contains any native or Reg-Free COM references, then the default will be the Windows XP version.
             For a Win32 native manifest, this input is ignored.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.Product">
             <summary>
-            Gets or sets the name of the application.
-            </summary>
-            <remarks>
+            Specifies the name of the application.
             If this input is not specified then the Product is not written into the Application Manifest
             This name is used for the shortcut name on the Start menu and is part of the name that appears in the Add/Remove Programs dialog.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.Publisher">
             <summary>
-            Gets or sets the publisher of the application.
-            </summary>
-            <remarks>
-            If this input is not, specified then the Publisher is not written into the Application Manifest
+            Specifies the publisher of the application.
+            If this input is not specified then the Publisher is not written into the Application Manifest
             This name is used for the folder name on the Start menu and is part of the name that appears in the Add/Remove Programs dialog.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.SuiteName">
             <summary>
-            Gets or sets the suite name of the application.
-            </summary>
-            <remarks>
+            Specifies the suite name of the application.
             This name is used for the sub-folder name on the Start menu (as a child of the publisher)
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.SupportUrl">
             <summary>
-            Gets or sets the link that appears in the Add/Remove Programs dialog for the application.
-            </summary>
-            <remarks>
+            Specifies the link that appears in the Add/Remove Programs dialog for the application.
             The specified value should be a fully qualified URL or UNC path.
-            </remarks>
+            </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.TrustInfo">
             <summary>
-            Gets or sets a trust object defining the application security.
+            Specifies a trust object defining the application security.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.Deployment.ManifestUtilities.ApplicationManifest.UseApplicationTrust">
             <summary>
-            Gets or sets a value that indicates whether the install will use the settings in the application manifest in the trust prompt.
+            If true, the install will use the settings in the application manifest in the trust prompt.
             </summary>
-            <value>
-            <see langword="true" /> to use the settings in the application manifest in the trust prompt; otherwise, <see langword="false" />.
-            </value>
         </member>
         <member name="T:Microsoft.Build.Tasks.Deployment.ManifestUtilities.AssemblyIdentity">
             <summary>
@@ -11532,6 +10545,14 @@
             Property specifying the encoding of the captured task standard error stream
             </summary>
         </member>
+        <member name="P:Microsoft.Build.Tasks.Exec.UseUtf8Encoding">
+            <summary>
+            Whether or not to use UTF8 encoding for the cmd file and console window.
+            Values: Always, Never, Detect
+            If set to Detect, the current code page will be used unless it cannot represent 
+            the Command string. In that case, UTF-8 is used.
+            </summary>
+        </member>
         <member name="P:Microsoft.Build.Tasks.Exec.StdOutEncoding">
             <summary>
             Project visible property specifying the encoding of the captured task standard output stream
@@ -11700,62 +10721,6 @@
             <summary>
             Examines the item to see if it matches what we are looking for.
             If it does, returns true.
-            </summary>
-        </member>
-        <member name="T:Microsoft.Build.Tasks.FindInvalidProjectReferences">
-            <summary>
-            Returns the reference assembly paths to the various frameworks
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.Tasks.FindInvalidProjectReferences.s_platformMonikerFormat">
-            <summary>
-             Regex for breaking up the platform moniker
-             Example: XNA, Version=8.0
-             </summary>
-        </member>
-        <member name="F:Microsoft.Build.Tasks.FindInvalidProjectReferences.ReferencePlatformMonikerMetadata">
-            <summary>
-            Reference moniker metadata
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.Tasks.FindInvalidProjectReferences.PlatformSimpleNameGroup">
-            <summary>
-            SimpleName group
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.Tasks.FindInvalidProjectReferences.PlatformVersionGroup">
-            <summary>
-            Version group
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.FindInvalidProjectReferences.ProjectReferences">
-            <summary>
-            List of Platform monikers for each referenced project
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.FindInvalidProjectReferences.TargetPlatformVersion">
-            <summary>
-            Target platform version of the current project
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.FindInvalidProjectReferences.TargetPlatformIdentifier">
-            <summary>
-            Target platform identifier of the current project
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.FindInvalidProjectReferences.InvalidReferences">
-            <summary>
-            Invalid references to be unresolved 
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.FindInvalidProjectReferences.Execute">
-            <summary>
-            Execute the task.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.FindInvalidProjectReferences.ParseMoniker(System.String,System.String@,System.Version@)">
-            <summary>
-            Take the identity and the version of a platform moniker
             </summary>
         </member>
         <member name="T:Microsoft.Build.Tasks.GetFrameworkPath">
@@ -13864,6 +12829,7 @@
             <inheritdoc cref="P:Microsoft.Build.Framework.ITaskFactory.FactoryName"/>
         </member>
         <member name="P:Microsoft.Build.Tasks.RoslynCodeTaskFactory.TaskType">
+            <inheritdoc />
             <summary>
             Gets the <see cref="T:System.Type" /> of the compiled task.
             </summary>
@@ -14205,16 +13171,6 @@
             Stores a <see cref="T:System.Threading.CancellationTokenSource"/> used for cancellation.
             </summary>
         </member>
-        <member name="F:Microsoft.Build.Tasks.Unzip._includePatterns">
-            <summary>
-            Stores the include patterns after parsing.
-            </summary>
-        </member>
-        <member name="F:Microsoft.Build.Tasks.Unzip._excludePatterns">
-            <summary>
-            Stores the exclude patterns after parsing.
-            </summary>
-        </member>
         <member name="P:Microsoft.Build.Tasks.Unzip.DestinationFolder">
             <summary>
             Gets or sets a <see cref="T:Microsoft.Build.Framework.ITaskItem"/> with a destination folder path to unzip the files to.
@@ -14235,16 +13191,6 @@
             Gets or sets an array of <see cref="T:Microsoft.Build.Framework.ITaskItem"/> objects containing the paths to .zip archive files to unzip.
             </summary>
         </member>
-        <member name="P:Microsoft.Build.Tasks.Unzip.Include">
-            <summary>
-            Gets or sets an MSBuild glob expression that will be used to determine which files to include being unzipped from the archive.
-            </summary>
-        </member>
-        <member name="P:Microsoft.Build.Tasks.Unzip.Exclude">
-            <summary>
-            Gets or sets an MSBuild glob expression that will be used to determine which files to exclude from being unzipped from the archive.
-            </summary>
-        </member>
         <member name="M:Microsoft.Build.Tasks.Unzip.Cancel">
             <inheritdoc cref="M:Microsoft.Build.Framework.ICancelableTask.Cancel"/>
         </member>
@@ -14257,13 +13203,6 @@
             </summary>
             <param name="sourceArchive">The <see cref="T:System.IO.Compression.ZipArchive"/> containing the files to extract.</param>
             <param name="destinationDirectory">The <see cref="T:System.IO.DirectoryInfo"/> to extract files to.</param>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.Unzip.ShouldSkipEntry(System.IO.Compression.ZipArchiveEntry)">
-            <summary>
-            Determines whether or not a file should be skipped when unzipping by filtering.
-            </summary>
-            <param name="zipArchiveEntry">The <see cref="T:System.IO.Compression.ZipArchiveEntry"/> object containing information about the file in the zip archive.</param>
-            <returns><code>true</code> if the file should be skipped, otherwise <code>false</code>.</returns>
         </member>
         <member name="M:Microsoft.Build.Tasks.Unzip.ShouldSkipEntry(System.IO.Compression.ZipArchiveEntry,System.IO.FileInfo)">
             <summary>
@@ -14702,48 +13641,6 @@
             Returns the default language extension as an out parameter.
             </summary>
         </member>
-        <member name="M:Microsoft.Build.Tasks.WriteCodeFragment.ExtractParameterTypes(System.Collections.IDictionary)">
-            <summary>
-            Finds the metadata items that are used to indicate the types of
-            parameters, and removes those items from the given dictionary.
-            Returns a dictionary that maps parameter names to their declared types.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.WriteCodeFragment.AddArguments(System.CodeDom.CodeAttributeDeclaration,System.Lazy{System.Type},System.Collections.Generic.IReadOnlyList{Microsoft.Build.Tasks.WriteCodeFragment.AttributeParameter},System.Boolean)">
-            <summary>
-            Uses the given parameters to add CodeDom arguments to the given attribute.
-            Returns true if the arguments could be defined, or false if the values could
-            not be converted to the required type. An error is also logged for failures.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.WriteCodeFragment.FindPositionalParameterTypes(System.Type,System.Collections.Generic.IReadOnlyList{Microsoft.Build.Tasks.WriteCodeFragment.AttributeParameter})">
-            <summary>
-            Finds the types that the parameters are likely to be, by finding a constructor
-            on the attribute that has the same number of parameters that have been provided.
-            Returns an array of types with a length equal to the number of positional parameters.
-            If no suitable constructor is found, the array will contain null types.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.WriteCodeFragment.TryConvertParameterValue(System.String,System.String,System.CodeDom.CodeExpression@)">
-            <summary>
-            Attempts to convert the raw value provided in the metadata to the type with the specified name.
-            Returns true if conversion is successful. An error is logged and false is returned if the conversion fails.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.WriteCodeFragment.ConvertParameterValueToInferredType(System.Type,System.String,System.String)">
-            <summary>
-            Convert the raw value provided in the metadata to the type
-            that has been inferred based on the parameter position or name.
-            Returns the converted value as a CodeExpression if successful, or the raw value
-            as a CodeExpression if conversion fails. No errors are logged if the conversion fails.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.WriteCodeFragment.ConvertToCodeExpression(System.String,System.Type)">
-            <summary>
-            Converts the given value to a CodeExpression object where the value is the specified type.
-            Returns the CodeExpression if successful, or throws an exception if the conversion fails.
-            </summary>
-        </member>
         <member name="T:Microsoft.Build.Tasks.XmlPeek">
             <summary>
             A task that returns values as specified by XPath Query
@@ -15104,14 +14001,14 @@
             Default construct.
             </summary>
         </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.FileState.#ctor(Microsoft.Build.BackEnd.ITranslator)">
+        <member name="M:Microsoft.Build.Tasks.SystemState.FileState.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
-            Ctor for translator deserialization
+            Deserializing constuctor.
             </summary>
         </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.FileState.Translate(Microsoft.Build.BackEnd.ITranslator)">
+        <member name="M:Microsoft.Build.Tasks.SystemState.FileState.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
-            Reads/writes this class
+            Serialize the contents of the class.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.SystemState.FileState.LastModified">
@@ -15142,6 +14039,11 @@
             Construct.
             </summary>
         </member>
+        <member name="M:Microsoft.Build.Tasks.SystemState.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Deserialize the contents of the class.
+            </summary>
+        </member>
         <member name="M:Microsoft.Build.Tasks.SystemState.SetInstalledAssemblyInformation(Microsoft.Build.Tasks.AssemblyTableInfo[])">
             <summary>
             Set the target framework paths.
@@ -15150,22 +14052,9 @@
             </summary>
             <param name="installedAssemblyTableInfos">List of Assembly Table Info.</param>
         </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.SerializeCacheByTranslator(System.String,Microsoft.Build.Utilities.TaskLoggingHelper)">
+        <member name="M:Microsoft.Build.Tasks.SystemState.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
-            Writes the contents of this object out to the specified file.
-            TODO: once all derived classes from StateFileBase adopt new serialization, we shall consider to mode this into base class
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.DeserializeCacheByTranslator(System.String,Microsoft.Build.Utilities.TaskLoggingHelper)">
-            <summary>
-            Read the contents of this object out to the specified file.
-            TODO: once all classes derived from StateFileBase adopt the new serialization, we should consider moving this into the base class
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.Translate(Microsoft.Build.BackEnd.ITranslator)">
-            <summary>
-            Reads/writes this class.
-            Used for serialization and deserialization of this class persistent cache.
+            Serialize the contents of the class.
             </summary>
         </member>
         <member name="P:Microsoft.Build.Tasks.SystemState.IsDirty">
@@ -15238,22 +14127,6 @@
             <param name="dependencies">Receives the list of dependencies.</param>
             <param name="scatterFiles">Receives the list of associated scatter files.</param>
             <param name="frameworkName"></param>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.DeserializePrecomputedCachesByTranslator(Microsoft.Build.Framework.ITaskItem[],Microsoft.Build.Utilities.TaskLoggingHelper,Microsoft.Build.Shared.FileExists)">
-            <summary>
-            Reads in cached data from stateFiles to build an initial cache. Avoids logging warnings or errors.
-            </summary>
-            <param name="stateFiles">List of locations of caches on disk.</param>
-            <param name="log">How to log</param>
-            <param name="fileExists">Whether a file exists</param>
-            <returns>A cache representing key aspects of file states.</returns>
-        </member>
-        <member name="M:Microsoft.Build.Tasks.SystemState.SerializePrecomputedCacheByTranslator(System.String,Microsoft.Build.Utilities.TaskLoggingHelper)">
-            <summary>
-            Modifies this object to be more portable across machines, then writes it to filePath.
-            </summary>
-            <param name="stateFile">Path to which to write the precomputed cache</param>
-            <param name="log">How to log</param>
         </member>
         <member name="M:Microsoft.Build.Tasks.SystemState.GetDirectories(System.String,System.String)">
             <summary>
@@ -15466,11 +14339,6 @@
         <member name="M:Microsoft.Build.Collections.CopyOnWriteDictionary`1.Add(System.String,`0)">
             <summary>
             Adds a value to the dictionary.
-            </summary>
-        </member>
-        <member name="M:Microsoft.Build.Collections.CopyOnWriteDictionary`1.SetItems(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,`0}})">
-            <summary>
-            Adds several value to the dictionary.
             </summary>
         </member>
         <member name="M:Microsoft.Build.Collections.CopyOnWriteDictionary`1.ContainsKey(System.String)">
@@ -15958,6 +14826,780 @@
             CopyTo
             </summary>
         </member>
+        <member name="T:Microsoft.Build.IInternable">
+            <summary>
+            Define the methods needed to intern something.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.IInternable.Length">
+            <summary>
+            The length of the target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.IInternable.Item(System.Int32)">
+            <summary>
+            Indexer into the target. Presumed to be fast.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.IInternable.ExpensiveConvertToString">
+            <summary>
+            Convert target to string. Presumed to be slow (and will be called just once).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.IInternable.StartsWithStringByOrdinalComparison(System.String)">
+            <summary>
+            Compare target to string. Assumes string is of equal or smaller length than target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.IInternable.ReferenceEquals(System.String)">
+            <summary>
+            Reference compare target to string. If target is non-string this should return false.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.StringBuilderInternTarget">
+            <summary>
+            A wrapper over StringBuilder.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.StringBuilderInternTarget._target">
+            <summary>
+            The held StringBuilder
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.StringBuilderInternTarget.#ctor(System.Text.StringBuilder)">
+            <summary>
+            Pointless comment about constructor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.StringBuilderInternTarget.Length">
+            <summary>
+            The length of the target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.StringBuilderInternTarget.Item(System.Int32)">
+            <summary>
+            Indexer into the target. Presumed to be fast.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.StringBuilderInternTarget.ReferenceEquals(System.String)">
+            <summary>
+            Never reference equals to string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.StringBuilderInternTarget.ExpensiveConvertToString">
+            <summary>
+            Convert target to string. Presumed to be slow (and will be called just once).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.StringBuilderInternTarget.StartsWithStringByOrdinalComparison(System.String)">
+            <summary>
+            Compare target to string. Assumes string is of equal or smaller length than target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.StringBuilderInternTarget.ToString">
+            <summary>
+            Don't use this function. Use ExpensiveConvertToString
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.CharArrayInternTarget">
+            <summary>
+            A wrapper over char[].
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.CharArrayInternTarget._startIndex">
+            <summary>
+            Start index for the string
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.CharArrayInternTarget._target">
+            <summary>
+            The held array
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.CharArrayInternTarget.#ctor(System.Char[],System.Int32)">
+            <summary>
+            Pointless comment about constructor.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.CharArrayInternTarget.#ctor(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Pointless comment about constructor.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.CharArrayInternTarget.Length">
+            <summary>
+            The length of the target.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.CharArrayInternTarget.Item(System.Int32)">
+            <summary>
+            Indexer into the target. Presumed to be fast.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.CharArrayInternTarget.ReferenceEquals(System.String)">
+            <summary>
+            Convert target to string. Presumed to be slow (and will be called just once).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.CharArrayInternTarget.ExpensiveConvertToString">
+            <summary>
+            Convert target to string. Presumed to be slow (and will be called just once).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.CharArrayInternTarget.StartsWithStringByOrdinalComparison(System.String)">
+            <summary>
+            Compare target to string. Assumes string is of equal or smaller length than target.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.CharArrayInternTarget.ToString">
+            <summary>
+            Don't use this function. Use ExpensiveConvertToString
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.StringInternTarget">
+            <summary>
+            Wrapper over a string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.StringInternTarget._target">
+            <summary>
+            Stores the wrapped string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.StringInternTarget.#ctor(System.String)">
+            <summary>
+            Constructor of the class
+            </summary>
+            <param name="target">The string to wrap</param>
+        </member>
+        <member name="P:Microsoft.Build.StringInternTarget.Length">
+            <summary>
+            Gets the length of the target string.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.StringInternTarget.Item(System.Int32)">
+            <summary>
+            Gets the n character in the target string.
+            </summary>
+            <param name="index">Index of the character to gather.</param>
+            <returns>The character in the position marked by index.</returns>
+        </member>
+        <member name="M:Microsoft.Build.StringInternTarget.ExpensiveConvertToString">
+            <summary>
+            Returns the target which is already a string.
+            </summary>
+            <returns>The target string.</returns>
+        </member>
+        <member name="M:Microsoft.Build.StringInternTarget.StartsWithStringByOrdinalComparison(System.String)">
+            <summary>
+            Compare target to string. Assumes string is of equal or smaller length than target.
+            </summary>
+            <param name="other">The string to compare with the target.</param>
+            <returns>True if target starts with <paramref name="other"/>, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Build.StringInternTarget.ReferenceEquals(System.String)">
+            <summary>
+            Verifies if the reference of the target string is the same of the given string.
+            </summary>
+            <param name="other">The string reference to compare to.</param>
+            <returns>True if both references are equal, false otherwise.</returns>
+        </member>
+        <member name="T:Microsoft.Build.SubstringInternTarget">
+            <summary>
+            Wrapper over a substring of a string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.SubstringInternTarget._target">
+            <summary>
+            Stores the wrapped string.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.SubstringInternTarget._startIndex">
+            <summary>
+            Start index of the substring within the wrapped string.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.SubstringInternTarget.#ctor(System.String,System.Int32,System.Int32)">
+            <summary>
+            Constructor of the class
+            </summary>
+            <param name="target">The string to wrap.</param>
+            <param name="startIndex">Start index of the substring within <paramref name="target"/>.</param>
+            <param name="length">Length of the substring.</param>
+        </member>
+        <member name="P:Microsoft.Build.SubstringInternTarget.Length">
+            <summary>
+            Gets the length of the target substring.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.SubstringInternTarget.Item(System.Int32)">
+            <summary>
+            Gets the n character in the target substring.
+            </summary>
+            <param name="index">Index of the character to gather.</param>
+            <returns>The character in the position marked by index.</returns>
+        </member>
+        <member name="M:Microsoft.Build.SubstringInternTarget.ExpensiveConvertToString">
+            <summary>
+            Returns the target substring as a string.
+            </summary>
+            <returns>The substring.</returns>
+        </member>
+        <member name="M:Microsoft.Build.SubstringInternTarget.StartsWithStringByOrdinalComparison(System.String)">
+            <summary>
+            Compare target substring to a string. Assumes string is of equal or smaller length than the target substring.
+            </summary>
+            <param name="other">The string to compare with the target substring.</param>
+            <returns>True if target substring starts with <paramref name="other"/>, false otherwise.</returns>
+        </member>
+        <member name="M:Microsoft.Build.SubstringInternTarget.ReferenceEquals(System.String)">
+            <summary>
+            Never reference equals to string.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.WeakStringCache">
+            <summary>
+            A cache of weak GC handles pointing to strings. Weak GC handles are functionally equivalent to WeakReference's but have less overhead
+            (they're a struct as opposed to WR which is a finalizable class) at the expense of requiring manual lifetime management. As long as
+            a string has an ordinary strong GC root elsewhere in the process and another string with the same hashcode hasn't reused the entry,
+            the cache has a reference to it and can match it to an internable. When the string is collected, it is also automatically "removed"
+            from the cache by becoming unrecoverable from the GC handle. GC handles that do not reference a live string anymore are freed lazily.
+            </summary>
+            <summary>
+            Implements the WeakStringCache functionality on modern .NET versions where ConcurrentDictionary is available.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.WeakStringCache.DebugInfo">
+            <summary>
+            Debug stats returned by GetDebugInfo().
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.WeakStringCache.StringWeakHandle">
+            <summary>
+            Holds a weak GC handle to a string. Shared by all strings with the same hash code and referencing the last such string we've seen.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.WeakStringCache.StringWeakHandle.WeakHandle">
+            <summary>
+            Weak GC handle to the last string of the given hashcode we've seen.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.WeakStringCache.StringWeakHandle.IsUsed">
+            <summary>
+            Returns true if the string referenced by the handle is still alive.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.StringWeakHandle.GetString``1(``0)">
+            <summary>
+            Returns the string referenced by this handle if it is equal to the given internable.
+            </summary>
+            <param name="internable">The internable describing the string we're looking for.</param>
+            <returns>The string matching the internable or null if the handle is referencing a collected string or the string is different.</returns>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.StringWeakHandle.SetString(System.String)">
+            <summary>
+            Sets the handle to the given string. If the handle is still referencing another live string, that string is effectively forgotten.
+            </summary>
+            <param name="str">The string to set.</param>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.StringWeakHandle.Free">
+            <summary>
+            Frees the GC handle.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.WeakStringCache._initialCapacity">
+            <summary>
+            Initial capacity of the underlying dictionary.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.WeakStringCache._scavengeThreshold">
+            <summary>
+            The maximum size we let the collection grow before scavenging unused entries.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.GetInternableHashCode``1(``0)">
+            <summary>
+            Implements the simple yet very decently performing djb2 hash function (xor version).
+            </summary>
+            <param name="internable">The internable to compute the hash code for.</param>
+            <returns>The 32-bit hash code.</returns>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.Dispose">
+            <summary>
+            Frees all GC handles and clears the cache.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.GetDebugInfoImpl">
+            <summary>
+            Returns internal debug counters calculated based on the current state of the cache.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.GetOrCreateEntry``1(``0,System.Boolean@)">
+            <summary>
+            Main entrypoint of this cache. Tries to look up a string that matches the given internable. If it succeeds, returns
+            the string and sets cacheHit to true. If the string is not found, calls ExpensiveConvertToString on the internable,
+            adds the resulting string to the cache, and returns it, setting cacheHit to false.
+            </summary>
+            <param name="internable">The internable describing the string we're looking for.</param>
+            <param name="cacheHit">true if match found in cache, false otherwise.</param>
+            <returns>A string matching the given internable.</returns>
+            <remarks>
+            This method performs two operations on the underlying ConcurrentDictionary on both cache hit and cache miss.
+            1. It checks whether the dictionary has a matching entry. The entry is temporarily removed from the cache so it doesn't
+               race with Scavenge() freeing GC handles. This is the first operation.
+            2a. If there is a matching entry, we extract the string out of it and put it back in the cache (the second operation).
+            2b. If there is an entry but it doesn't match, or there is no entry for the given hash code, we extract the string from
+                the internable, set it on the entry, and add the entry (back) in the cache.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.Scavenge">
+            <summary>
+            Iterates over the cache and removes unused GC handles, i.e. handles that don't reference live strings.
+            This is expensive so try to call such that the cost is amortized to O(1) per GetOrCreateEntry() invocation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.WeakStringCache.GetDebugInfo">
+            <summary>
+            Returns internal debug counters calculated based on the current state of the cache.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern">
+             <summary>
+             This class is used to selectively intern strings. It should be used at the point of new string creation.
+             For example,
+            
+                 string interned = OpportunisticIntern.Intern(String.Join(",",someStrings));
+            
+             There are currently two underlying implementations. The new default one in WeakStringCacheInterner is based on weak GC handles.
+             The legacy one in BucketedPrioritizedStringList is available only as an escape hatch by setting an environment variable.
+            
+             The legacy implementation uses heuristics to decide whether it will be efficient to intern a string or not. There is no
+             guarantee that a string will intern.
+            
+             The thresholds and sizes were determined by experimentation to give the best number of bytes saved
+             at reasonable elapsed time cost.
+            
+             The new implementation interns all strings but maintains only weak references so it doesn't keep the strings alive.
+             </summary>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern.IInternerImplementation">
+            <summary>
+            Defines the interner interface as we currently implement more than one.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.IInternerImplementation.InterningToString``1(``0)">
+            <summary>
+            Converts the given internable candidate to its string representation. Efficient implementions have side-effects
+            of caching the results to end up with as few duplicates on the managed heap as practical.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.IInternerImplementation.ReportStatistics(System.String)">
+            <summary>
+            Prints implementation specific interning statistics to the console.
+            </summary>
+            <param name="heading">A string identifying the interner in the output.</param>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._instance">
+            <summary>
+            The singleton instance of OpportunisticIntern.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._smallMruSize">
+            <summary>
+            The size of the small mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._largeMruSize">
+            <summary>
+            The size of the large mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._hugeMruSize">
+            <summary>
+            The size of the huge mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._smallMruThreshold">
+            <summary>
+            The smallest size a string can be to be considered small.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._largeMruThreshold">
+            <summary>
+            The smallest size a string can be to be considered large.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._hugeMruThreshold">
+            <summary>
+            The smallest size a string can be to be considered huge.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._ginormousThreshold">
+            <summary>
+            The smallest size a string can be to be ginormous.
+            8K for large object heap.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._interner">
+            <summary>
+            The interner implementation in use.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._whatIfInfinite">
+            <summary>
+            What if Mru lists were infinitely long?
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._whatIfDoubled">
+            <summary>
+            What if we doubled the size of the Mru lists?
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._whatIfHalved">
+            <summary>
+            What if we halved the size of the Mru lists?
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern._whatIfZero">
+            <summary>
+            What if the size of Mru lists was zero? (We still intern tiny strings in this case)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.ResetForTests">
+            <summary>
+            Recreates the singleton instance based on the current environment (test only).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.AssignViaEnvironment(System.String,System.Int32)">
+            <summary>
+            Assign an int from an environment variable. If its not present, use the default.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.EnableStatisticsGathering">
+            <summary>
+            Turn on statistics gathering.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.InternableToString``1(``0)">
+            <summary>
+            Intern the given internable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.StringBuilderToString(System.Text.StringBuilder)">
+            <summary>
+            Potentially Intern the given string builder.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.CharArrayToString(System.Char[],System.Int32)">
+            <summary>
+            Potentially Intern the given char array.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.CharArrayToString(System.Char[],System.Int32,System.Int32)">
+            <summary>
+            Potentially Intern the given char array.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.InternStringIfPossible(System.String)">
+            <summary>
+            Potentially Intern the given string.
+            </summary>
+            <param name="candidate">The string to intern.</param>
+            <returns>The interned string, or the same string if it could not be interned.</returns>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.InternableToStringImpl``1(``0)">
+            <summary>
+            Intern the given internable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.ReportStatistics">
+            <summary>
+            Report statistics about interning. Don't call unless GatherStatistics has been called beforehand.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.TryMatchHardcodedStrings``1(``0,System.String@)">
+            <summary>
+            Try to match the candidate with small number of hardcoded interned string literals.
+            The return value indicates how the string was interned (if at all).
+            </summary>
+            <returns>
+            True if the candidate matched a hardcoded literal, null if it matched a "do not intern" string, false otherwise.
+            </returns>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner">
+            <summary>
+            Implements interning based on a WeakStringCache (new implementation).
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner.InternResult">
+            <summary>
+            Enumerates the possible interning results.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._weakStringCache">
+            <summary>
+            The cache to keep strings in.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._gatherStatistics">
+            <summary>
+            Whether or not to gather statistics.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._hardcodedInternHits">
+            <summary>
+            Number of times interning with hardcoded string literals worked.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._regularInternHits">
+            <summary>
+            Number of times the regular interning path found the string in the cache.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._regularInternMisses">
+            <summary>
+            Number of times the regular interning path added the string to the cache.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._rejectedStrings">
+            <summary>
+            Number of times interning wasn't attempted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._internEliminatedStrings">
+            <summary>
+            Total number of strings eliminated by interning.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._internEliminatedChars">
+            <summary>
+            Total number of chars eliminated across all strings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner._missedHardcodedStrings">
+            <summary>
+            Maps strings that went though the regular (i.e. not hardcoded) interning path to the number of times they have been
+            seen. The higher the number the better the payoff if the string had been hardcoded.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner.InterningToString``1(``0)">
+            <summary>
+            Intern the given internable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner.ReportStatistics(System.String)">
+            <summary>
+            Report statistics to the console.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner.TryIntern``1(``0,System.String@)">
+            <summary>
+            Try to intern the string.
+            The return value indicates the how the string was interned (if at all).
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.WeakStringCacheInterner.InternWithStatistics``1(``0)">
+            <summary>
+            Version of Intern that gathers statistics
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList">
+            <summary>
+            Manages a set of mru lists that hold strings in varying size ranges (legacy implementation).
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._smallMru">
+            <summary>
+            The small string Mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._largeMru">
+            <summary>
+            The large string Mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._hugeMru">
+            <summary>
+            The huge string Mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._ginormous">
+            <summary>
+            Three most recently used strings over 8K.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._smallMruThreshold">
+            <summary>
+            The smallest size a string can be to be considered small.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._largeMruThreshold">
+            <summary>
+            The smallest size a string can be to be considered large.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._hugeMruThreshold">
+            <summary>
+            The smallest size a string can be to be considered huge.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._ginormousThreshold">
+            <summary>
+            The smallest size a string can be to be ginormous.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._gatherStatistics">
+            <summary>
+            Whether or not to gather statistics
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._internHits">
+            <summary>
+            Number of times interning worked.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._internMisses">
+            <summary>
+            Number of times interning didn't work.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._internRejects">
+            <summary>
+            Number of times interning wasn't attempted.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._internEliminatedStrings">
+            <summary>
+            Total number of strings eliminated by interning.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._internEliminatedChars">
+            <summary>
+            Total number of chars eliminated across all strings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._ginormousHits">
+            <summary>
+            Number of times the ginourmous string hit.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._ginormousMisses">
+            <summary>
+            Number of times the ginourmous string missed.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._ginormousCharsSaved">
+            <summary>
+            Chars interned for ginormous range.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._dontTrack">
+            <summary>
+            Whether or not to track ginormous strings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._stopwatch">
+            <summary>
+            The time spent interning.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._missedStrings">
+            <summary>
+            Strings which did not intern
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList._rejectedStrings">
+            <summary>
+            Strings which we didn't attempt to intern
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.GinormousSize">
+            <summary>
+            Number of ginormous strings to keep
+            By observation of Auto7, there are about three variations of the huge solution config blob
+            There aren't really any other strings of this size, but make it 10 to be sure. (There will barely be any misses)
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.#ctor(System.Boolean,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Construct.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.InterningToString``1(``0)">
+            <summary>
+            Intern the given internable.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.ReportStatistics(System.String)">
+            <summary>
+            Report statistics to the console.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.TryIntern``1(``0,System.String@)">
+            <summary>
+            Try to intern the string.
+            Return true if an interned value could be returned.
+            Return false if it was added to the intern list, but wasn't there already.
+            Return null if it didn't meet the length criteria for any of the buckets. Interning was rejected
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.InternWithStatistics``1(``0)">
+            <summary>
+            Version of Intern that gathers statistics
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList">
+            <summary>
+            A singly linked list of strings where the most recently accessed string is at the top.
+            Size expands up to a fixed number of strings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList._size">
+            <summary>
+            Maximum size of the mru list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList._mru">
+            <summary>
+            Head of the mru list.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.#ctor(System.Int32)">
+            <summary>
+            Construct an Mru list with a fixed maximum size.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.TryGet``1(``0,System.String@)">
+            <summary>
+            Try to get one element from the list. Upon leaving the function 'candidate' will be at the head of the Mru list.
+            This function is not thread-safe.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.Statistics">
+            <summary>
+            Returns the number of strings held and the total number of chars held.
+            </summary>
+        </member>
+        <member name="T:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.Node">
+            <summary>
+            Singly linked list node.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.Node.#ctor(System.String)">
+            <summary>
+            Construct a Node
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.Node.Next">
+            <summary>
+            The next node in the list.
+            </summary>
+        </member>
+        <member name="P:Microsoft.Build.OpportunisticIntern.BucketedPrioritizedStringList.PrioritizedStringList.Node.Value">
+            <summary>
+            The held string.
+            </summary>
+        </member>
         <member name="T:Microsoft.Build.Internal.Tracing">
             <summary>
             A debug only helper class for tracing
@@ -16029,6 +15671,16 @@
         <member name="F:Microsoft.Build.Utilities.Traits.CacheFileExistence">
             <summary>
             Cache file existence for the entire process
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.Utilities.Traits.UseLegacyStringInterner">
+            <summary>
+            Use the legacy string interning implementation based on MRU lists.
+            </summary>
+        </member>
+        <member name="F:Microsoft.Build.Utilities.Traits.UseSimpleInternConcurrency">
+            <summary>
+            Eliminate locking in OpportunisticIntern at the expense of memory (in effect only if UseLegacyStringInterner is set).
             </summary>
         </member>
         <member name="F:Microsoft.Build.Utilities.Traits.MSBuildCacheFileEnumerations">

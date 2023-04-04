@@ -1,0 +1,31 @@
+// Copyright (c) Stride contributors (https://stride3d.net) and Silicon Studio Corp. (https://www.siliconstudio.co.jp)
+// Distributed under the MIT license. See the LICENSE.md file in the project root for more information.
+
+namespace VL.Stride.Rendering
+{
+    effect VLAtmosphereEffectMain
+    {    
+        using params VLEffectParameters;
+        using params AtmosphereForwardShadingEffectParameters;
+
+        mixin StrideForwardShadingEffect;
+
+        if (VLEffectParameters.EnableExtensionShader)
+        {
+            mixin VLEffectParameters.MaterialExtensionShader;
+        }
+
+        if (VLEffectParameters.EnableExtensionNameMesh)
+        {
+            mixin VLEffectParameters.MaterialExtensionNameMesh;
+        }
+
+        if (VLEffectParameters.EnableExtensionShaderMesh)
+        {
+            mixin VLEffectParameters.MaterialExtensionShaderMesh;
+        }
+
+        if (AtmosphereForwardShadingEffectParameters.RenderAerialPerspective)
+            mixin AtmosphereForwardRender;
+    };
+}
