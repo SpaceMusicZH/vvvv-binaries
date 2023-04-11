@@ -20,6 +20,8 @@ namespace VL.Stride.Engine
 
         readonly List<GameSystemBase> queue = new List<GameSystemBase>();
         readonly Stack<ConsecutiveRenderSystem> pool = new Stack<ConsecutiveRenderSystem>();
+        public static ProfilingKey drawSystemKey = new ProfilingKey("Scheduler.Draw");
+        private Dictionary<GameSystemBase, ProfilingKey> systemKeys = new Dictionary<GameSystemBase, ProfilingKey>();
 
         public SchedulerSystem([NotNull] IServiceRegistry registry) : base(registry)
         {
@@ -74,18 +76,30 @@ namespace VL.Stride.Engine
             renderContext.Reset();
 
             // Recycle temporary resources (for example textures allocated by render features through GetTemporaryTexture)
-            renderContext.Allocator.Recycle(r => r.AccessCountSinceLastRecycle == 0);
+            renderContext.Allocator.Recycle(r => r.AccessCountSinceLastRecycle == 0); 
 
             try
             {
-                foreach (var system in queue)
+                using (Profiler.Begin(drawSystemKey))
                 {
-                    if (system.Visible)
+                    foreach (var system in queue)
                     {
-                        if (system.BeginDraw())
+                        if (system.Visible)
                         {
-                            system.Draw(gameTime);
-                            system.EndDraw();
+                            if (system.BeginDraw())
+                            {
+                                if (!systemKeys.TryGetValue(system, out var key))
+                                {
+                                    key = new ProfilingKey(drawSystemKey, $"Scheduler.Draw.System.{system.GetType().Name}");
+                                    systemKeys.Add(system, key);
+                                }
+
+                                using (var state = Profiler.Begin(key))
+                                {
+                                    system.Draw(gameTime);
+                                    system.EndDraw();
+                                }
+                            }
                         }
                     }
                 }
@@ -106,6 +120,7 @@ namespace VL.Stride.Engine
             private RenderView renderView;
             private RenderContext renderContext;
             private RenderDrawContext renderDrawContext;
+            private Dictionary<IGraphicsRendererBase, ProfilingKey> rendererKeys = new Dictionary<IGraphicsRendererBase, ProfilingKey>();
 
             public ConsecutiveRenderSystem([NotNull] IServiceRegistry registry) : base(registry)
             {
@@ -142,7 +157,14 @@ namespace VL.Stride.Engine
                         {
                             try
                             {
-                                renderer?.Draw(renderDrawContext);
+                                if (!rendererKeys.TryGetValue(renderer, out var key))
+                                {
+                                    key = new ProfilingKey(drawSystemKey, $"ConsecutiveRenderer.Draw.{renderer.GetType().Name}");
+                                    rendererKeys.Add(renderer, key);
+                                }
+
+                                using (Profiler.Begin(key))
+                                    renderer?.Draw(renderDrawContext);
                             }
                             catch (Exception e)
                             {

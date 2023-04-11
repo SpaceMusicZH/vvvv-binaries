@@ -287,6 +287,70 @@
                 Third: The library as resolved via the default DependencyContext, in the default nuget package cache folder.
             </summary>
         </member>
+        <member name="M:Silk.NET.Core.Loader.DefaultPathResolver.#ctor">
+            <summary>
+            Creates a path resolver pre-loaded with the default <see cref="P:Silk.NET.Core.Loader.DefaultPathResolver.Resolvers"/>, which are the following in the
+            given order:
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.PassthroughResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.LinuxVersioningResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.MacVersioningResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.BaseDirectoryResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.MainModuleDirectoryResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.RuntimesFolderResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.NativePackageResolver" />
+            </summary>
+        </member>
+        <member name="P:Silk.NET.Core.Loader.DefaultPathResolver.Resolvers">
+            <summary>
+            A list of resolvers to use to obtain paths. 
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.PassthroughResolver">
+            <summary>
+            A resolver that returns the given name with no modifications. Note that this resolver is intrinsically
+            meaningful in that always operates on the originally passed name, rather than what's currently in the
+            candidate list (as this would be pointless).
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.BaseDirectoryResolver">
+            <summary>
+            A resolver that returns a path to a file in <see cref="P:System.AppContext.BaseDirectory"/> with the given name.
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.MainModuleDirectoryResolver">
+            <summary>
+            A resolver that returns a path to a file in <see cref="P:System.Diagnostics.Process.MainModule"/>'s
+            <see cref="P:System.Diagnostics.ProcessModule.FileName"/> directory with the given name.
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.RuntimesFolderResolver">
+            <summary>
+            A resolver that, given an absolute or relative path, searches for a "runtimes" folder in the directory
+            represented by the given name for a file matching the given path's file name in one of the applicable
+            RID-specific runtimes folders applicable to the current dependency context. 
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.LinuxVersioningResolver">
+            <summary>
+            A resolver that returns less version-specific Linux shared object names. That is, given a string of
+            "libglfw.so.3.3.6", this resolver will return "libglfw.so.3.3", "libglfw.so.3", and "libglfw.so" (in that
+            order).
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.MacVersioningResolver">
+            <summary>
+            A resolver that returns less version-specific macOS dynamic library names. That is, given a string of
+            "libglfw.3.3.6.dylib", this resolver will return "libglfw.3.3.dylib", "libglfw.3.dylib", and "libglfw.dylib"
+            (in that order).
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.NativePackageResolver">
+            <summary>
+            A resolver that searches the restored NuGet packages for the current executable for a file matching the
+            given file name in one of the applicable RID-specific runtimes folders applicable to the current dependency
+            context. 
+            </summary>
+        </member>
         <member name="M:Silk.NET.Core.Loader.DefaultPathResolver.EnumeratePossibleLibraryLoadTargets(System.String)">
             <summary>
                 Returns an enumerator which yields possible library load targets, in priority order.
