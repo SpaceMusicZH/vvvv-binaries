@@ -388,11 +388,11 @@
         </member>
         <member name="M:VL.Lang.HelpPatchResolver.AllowHelpFlagOnNode(VL.Model.Node,VL.Model.Document)">
             <summary>
-            Help flags can only be set on nodes that are defined in the same package as the document the node is placed in. Returns true when the given node can receive a help flag in the given document
+            Help flags can only be set on nodes that are defined in the same package group as the document the node is placed in.
             </summary>
             <param name="node">The node to be tested</param>
             <param name="document">The document </param>
-            <returns></returns>
+            <returns>true when the given node can receive a help flag in the given document</returns>
         </member>
         <member name="T:VL.Lang.LockFileResolver">
             <summary>
@@ -1799,6 +1799,11 @@
         <member name="P:VL.Lang.Symbols.ISymbolSource.DefinedSymbols">
             <summary>
             All the symbols defined in this symbol source quickly accessible by name. Nested types and operations are expected to be included.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.ISymbolSource.Package">
+            <summary>
+            The package (if any) this symbol source in part of.
             </summary>
         </member>
         <member name="P:VL.Lang.Symbols.ISymbolSource.References">
