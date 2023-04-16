@@ -1,9 +1,0 @@
-﻿shader SRgbToLinear_ShaderFX : ComputeFloat4
-{
-    compose ComputeFloat4 SRgb;
-
-    override float4 Compute()
-    {
-        return ColorUtilityTemp.SRgbToLinear(SRgb.Compute());
-    }
-};
