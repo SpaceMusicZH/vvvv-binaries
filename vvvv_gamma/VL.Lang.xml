@@ -451,51 +451,6 @@
             Mark the first getter as the default fragment so it gets assigned to the default moment if not assigned otherwise.
             </summary>
         </member>
-        <member name="T:VL.Lang.Platforms.IPinDescription">
-            <summary>
-            Describes a pin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPinDescription.Name">
-            <summary>
-            The name of the pin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPinDescription.Kind">
-            <summary>
-            The kind of the pin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPinDescription.Type">
-            <summary>
-            The type of the pin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPinDescription.DefaultValue">
-            <summary>
-            The default value of the pin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPinDescription.Visibility">
-            <summary>
-            The visibility of the pin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPinDescription.FragmentId">
-            <summary>
-            The fragment this pin belongs to.
-            </summary>
-        </member>
-        <member name="T:VL.Lang.Platforms.IPluginHost">
-            <summary>
-            The host which mediates between the plugin and the internal representation of a node definition.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IPluginHost.CurrentDefinition">
-            <summary>
-            The plugin as seen by VL.
-            </summary>
-        </member>
         <member name="T:VL.Lang.Platforms.INodePlugin">
             <summary>
             A node plugin.
@@ -593,6 +548,11 @@
             Simple base class for plugins.
             </summary>
         </member>
+        <member name="T:VL.Lang.Platforms.NodePluginHost">
+            <summary>
+            The host which mediates between the plugin and the internal representation of a node definition.
+            </summary>
+        </member>
         <member name="P:VL.Lang.Platforms.Roslyn.AssemblySymbolSource.ImportedTypes">
             <summary>
             Gets the imported types, nested types are flat in the list
@@ -641,11 +601,6 @@
         <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.This">
             <summary>
             The instance type (if any, e.g. Particle&lt;T&gt;) and the expression denoting to this (__self when emitting hotswap friendly code)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Generator">
-            <summary>
-            The roslyn syntax generator. Convenient helper class to generate roslyn statements and expressions.
             </summary>
         </member>
         <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.BoundExpressions">
@@ -1098,6 +1053,21 @@
         <member name="P:VL.Lang.Properties.M.UnusedPinWhat">
             <summary>
               Looks up a localized string similar to This pin is currently unused..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ViolatesReadPadOnCreateHow">
+            <summary>
+              Looks up a localized string similar to Write into the pad first or access the data from an input pin or other data source..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ViolatesReadPadOnCreateWhat">
+            <summary>
+              Looks up a localized string similar to You try to read from an unitialized pad..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ViolatesReadPadOnCreateWhy">
+            <summary>
+              Looks up a localized string similar to This pad hasn&apos;t been written to yet. .
             </summary>
         </member>
         <member name="P:VL.Lang.Properties.M.ViolatesSingleAssignmentHow">
@@ -3211,13 +3181,13 @@
             Returns a set of elements where none of the elements are in a parent-child relationship. The returned indendependant roots don't have two siblings.
             </summary>
         </member>
-        <member name="M:VL.Model.ModelExtensions.GetSelectionForDuplication(System.Collections.Generic.IEnumerable{VL.Model.Element},System.Collections.Generic.HashSet{VL.Model.Element}@)">
+        <member name="M:VL.Model.ModelExtensions.GetSelectionForDuplication(System.Collections.Generic.IEnumerable{VL.Model.Element},System.Boolean,System.Collections.Generic.HashSet{VL.Model.Element}@)">
             <summary>
             Expands the selection to include referenced pins, slots and subpatches. The additional selected elements will
             also be returned in a seperate set so subsequent operations can act on that information.
             </summary>
         </member>
-        <member name="M:VL.Model.ModelExtensions.PackIntoContainer(System.Collections.Generic.IEnumerable{VL.Model.Element},System.Collections.Generic.HashSet{VL.Model.Element}@)">
+        <member name="M:VL.Model.ModelExtensions.PackIntoContainer(System.Collections.Generic.IEnumerable{VL.Model.Element},System.Boolean,System.Collections.Generic.HashSet{VL.Model.Element}@)">
             <summary>
             Returns a modified common anscestors of the given elements and all the links between them. 
             Will also add shallow compounds to the set of marked elements.
