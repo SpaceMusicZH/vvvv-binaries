@@ -9,6 +9,21 @@
             Raised when the application exits.
             </summary>
         </member>
+        <member name="P:VL.Core.IHotSwappableEntryPoint.OnSwap">
+            <summary>
+            Fires before a frame gets executed.
+            </summary>
+        </member>
+        <member name="M:VL.Core.IHotSwappableEntryPoint.Swap(System.Object,System.Type)">
+            <summary>
+            Allows to swap an object
+            </summary>
+        </member>
+        <member name="M:VL.Core.IHotSwappableEntryPoint.SwapType(System.Type)">
+            <summary>
+            Allows to swap a type (e.g. for a List of Foo1 you get List of Foo2, where Foo2 is the hot-swapped version of Foo)
+            </summary>
+        </member>
         <member name="T:VL.Core.PublicAPI.ICustomRegionPatch">
             <summary>
             This represents the user patch inside the region
@@ -947,17 +962,6 @@
             <param name="result"></param>
             <returns></returns>
         </member>
-        <member name="T:VL.Core.Reactive.IChannelHub">
-            <summary>
-            A ChannelHub manages the lifetime of channels.
-            </summary>
-        </member>
-        <member name="M:VL.Core.Reactive.IChannelHub.BeginChange">
-            <summary>
-            Do several changes to the ChannelHub in one go. using BeginChange()
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:VL.Core.RuntimeGraph">
             <summary>
             A collection of methods used by nodes which introduce new entry points into the VL runtime graph.
@@ -1268,6 +1272,21 @@
             <typeparam name="T">The element type.</typeparam>
             <param name="instance">The instance providing the memory.</param>
             <returns>The size of one element in bytes.</returns>
+        </member>
+        <member name="T:VL.Core.IOptional">
+            <summary>
+            a non-generic View onto Optional
+            </summary>
+        </member>
+        <member name="P:VL.Core.IOptional.Object">
+            <summary>
+            The Value as an object
+            </summary>
+        </member>
+        <member name="P:VL.Core.IOptional.HasValue">
+            <summary>
+            Whether or not a value is present.
+            </summary>
         </member>
         <member name="T:VL.Core.Optional`1">
             <summary>

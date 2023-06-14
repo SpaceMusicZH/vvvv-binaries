@@ -7335,6 +7335,33 @@
             <param name="newValue">Target value</param>
             <returns>Filtered target value</returns>
         </member>
+        <member name="P:VL.Core.Reactive.ChannelBuildDescription.CompileTimeType">
+            <summary>
+            Returns object for patched types. Must bu used when building the pin description.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Reactive.ChannelBuildDescription.RuntimeType">
+            <summary>
+            Returns the type itself. Must not be called during compilation.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Reactive.IChannelHub">
+            <summary>
+            A ChannelHub manages the lifetime of channels.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Reactive.IChannelHub.BeginChange">
+            <summary>
+            Do several changes to the ChannelHub in one go. using BeginChange()
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Core.Reactive.IChannelHub.RegisterModule(VL.Core.Reactive.IModule)">
+            <summary>
+            Please call this inside a static RegisterServices operation
+            </summary>
+            <param name="module"></param>
+        </member>
         <member name="M:Windows.Win32.Foundation.HRESULT.ThrowOnFailure(System.IntPtr)">
             <inheritdoc cref="M:System.Runtime.InteropServices.Marshal.ThrowExceptionForHR(System.Int32,System.IntPtr)" />
             <param name="errorInfo">
