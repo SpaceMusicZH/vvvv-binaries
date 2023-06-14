@@ -1,0 +1,20 @@
+shader GetItemFloat4_ShaderFX : ComputeFloat4, VertexIDStream
+{
+    cbuffer PerMaterial
+    {
+        
+    }
+
+    rgroup PerMaterial
+    {
+        stage Buffer<float4> Colors;
+    }
+
+    
+
+    override float4 Compute()
+    {
+        uint id = streams.VertexID;
+        return Colors[id];
+    }
+};

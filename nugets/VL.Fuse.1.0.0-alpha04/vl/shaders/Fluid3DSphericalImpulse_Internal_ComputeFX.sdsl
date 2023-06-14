@@ -1,0 +1,96 @@
+﻿//----------------------------------------------------------------------------------
+// File:  FluidSim.fx
+// Author: Sarah Tariq and Ignacio Llamas
+// Email:  sdkfeedback@nvidia.com
+//
+// Copyright (c) 2007 NVIDIA Corporation. All rights reserved.
+//
+// TO  THE MAXIMUM  EXTENT PERMITTED  BY APPLICABLE  LAW, THIS SOFTWARE  IS PROVIDED
+// *AS IS*  AND NVIDIA AND  ITS SUPPLIERS DISCLAIM  ALL WARRANTIES,  EITHER  EXPRESS
+// OR IMPLIED, INCLUDING, BUT NOT LIMITED  TO, IMPLIED WARRANTIES OF MERCHANTABILITY
+// AND FITNESS FOR A PARTICULAR PURPOSE.  IN NO EVENT SHALL  NVIDIA OR ITS SUPPLIERS
+// BE  LIABLE  FOR  ANY  SPECIAL,  INCIDENTAL,  INDIRECT,  OR  CONSEQUENTIAL DAMAGES
+// WHATSOEVER (INCLUDING, WITHOUT LIMITATION,  DAMAGES FOR LOSS OF BUSINESS PROFITS,
+// BUSINESS INTERRUPTION, LOSS OF BUSINESS INFORMATION, OR ANY OTHER PECUNIARY LOSS)
+// ARISING OUT OF THE  USE OF OR INABILITY  TO USE THIS SOFTWARE, EVEN IF NVIDIA HAS
+// BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
+//
+//
+//----------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------
+// Shaders to implement a "stable fluids" style semi-Lagrangian solver for 3D smoke
+//--------------------------------------------------------------------------------------
+// It assumes the velocity and pressure grids are collocated
+// It handles boundary conditions for static obstacles stored as an in/out voxel volume
+// BFECC is supported for smoke density advection
+// The diffusion step is skipped
+//--------------------------------------------------------------------------------------
+
+shader Fluid3DSphericalImpulse_Internal_ComputeFX : ComputeShaderBase, Fluid3DGlobals
+{
+    //--------------------------------------------------------------------------------------
+    // Textures
+    //--------------------------------------------------------------------------------------
+
+    Texture3D<float3> Texture_Target; //Input & Output Texture
+    RWTexture3D<float3> Texture_Target_RW; //Input & Output Texture
+    Texture3D<float> Texture_ObstaclesGradient;
+
+    //--------------------------------------------------------------------------------------
+    // Variables
+    //--------------------------------------------------------------------------------------
+    
+    float3 ScaleFactorInverse;
+
+    Buffer<float4> PosSizeBuffer;
+    Buffer<float4> ValueBuffer;
+
+    int SphericalImpulseCount;
+
+
+    
+    //--------------------------------------------------------------------------------------
+    // Helper functions
+    //--------------------------------------------------------------------------------------
+
+    bool IsNonEmptyCell( float3 cellTexCoords )
+    {
+        return (Texture_ObstaclesGradient[cellTexCoords].r > 0.0);
+    }
+    
+    //--------------------------------------------------------------------------------------
+    // Compute Shader
+    //--------------------------------------------------------------------------------------
+
+    override void Compute()
+    {
+        uint3 i = streams.DispatchThreadId;
+
+        if( IsNonEmptyCell(i) )
+        {
+            Texture_Target_RW[i] = 0;
+            return; // !!!
+        }
+
+        float3 AccumValue = Texture_Target[i];
+
+        for(uint s=0 ; s<(uint)SphericalImpulseCount; s++)
+        {
+            float4 Source_PosSize = PosSizeBuffer[s];
+            float4 Source_Value = ValueBuffer[s];
+
+            float dist = length( i - Source_PosSize.xyz ) * Source_PosSize.w;
+            float4 result;
+            result.rgb = Source_Value.xyz;    // + sin(splatColor.rgb*10.0+cell*5.0)*0.2;
+            result.a = exp( -dist * dist );
+                
+            AccumValue +=  result.xyz * result.a;
+
+        }
+
+
+    Texture_Target_RW[i] = AccumValue;
+
+    }
+};

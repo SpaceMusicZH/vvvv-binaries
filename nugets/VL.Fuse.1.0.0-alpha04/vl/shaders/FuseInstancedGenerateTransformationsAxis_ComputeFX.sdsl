@@ -1,0 +1,77 @@
+[Summary("Increments values in a buffer.")]
+shader FuseInstancedGenerateTransformationsAxis_ComputeFX : ComputeShaderBase, FuseCoreTransform
+{
+    
+    void ParticleWorldMatrix(float3 axisX, float3 axisY, float3 axisZ, float3 angles, float3 pivot, float3 scaling, float3 translation, inout float4x4 m, inout float4x4 im)
+    {
+        
+        float3 inverseScaling = 1.0 / scaling;
+
+        im = identity4x4();
+
+        // calc rotation
+        float3x3 rot3x3 = GetEulerMatrix(radians(angles));
+        rot3x3 = mul(float3x3(axisX, axisY, axisZ), rot3x3);
+        m = as4x4(rot3x3);
+
+        float4x4 inverseRotation = transpose(m);
+
+        // scale rows
+        m[0] *= scaling.x;
+        m[1] *= scaling.y;
+        m[2] *= scaling.z;
+
+        // set position
+        translation -= mul(rot3x3, pivot);
+        m[3].xyz = translation.xyz;
+
+        // inv position
+        im[3].xyz = -translation.xyz;
+        
+        // inv rotation
+        im = mul(im, inverseRotation);
+
+        // inv scale
+        im._11_21_31_41 *= inverseScaling.x;
+        im._12_22_32_42 *= inverseScaling.y;
+        im._13_23_33_43 *= inverseScaling.z;
+    }
+
+    struct Transform //needed put float4x4 into a structured buffer
+    {
+        float4x4 Matrix;
+    };
+
+    float3 Angles;
+    float3 Pivot;
+
+    //compose ComputeFloat3 Position;
+	StructuredBuffer<float3> Position;
+	StructuredBuffer<float3> AxisX;
+	StructuredBuffer<float3> AxisY;
+	StructuredBuffer<float3> AxisZ;
+	StructuredBuffer<float3> Size;
+	RWStructuredBuffer<Transform> InstanceWorld;
+	RWStructuredBuffer<Transform> InstanceWorldInverse;
+
+    override void Compute()
+    {
+        uint index = streams.DispatchThreadId.x;
+        
+        //float3 pos = Position.Compute();
+        float3 pos = Position[index];
+        float3 axisX = AxisX[index];
+        float3 axisY = AxisY[index];
+        float3 axisZ = AxisZ[index]; 
+        float3 size = Size[index]; 
+
+        float4x4 world;
+        float4x4 worldInverse;
+        ParticleWorldMatrix(axisX, axisY, axisZ, Angles, Pivot, size, pos, world, worldInverse);
+
+        //TransformTRSWithInverse(pos, normalize(vel), ParticleSize, world, worldInverse);
+
+        InstanceWorld[index].Matrix = world;
+        InstanceWorldInverse[index].Matrix = worldInverse;
+    }
+};

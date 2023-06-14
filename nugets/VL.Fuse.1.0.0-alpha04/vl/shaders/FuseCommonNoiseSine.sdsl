@@ -1,0 +1,70 @@
+shader FuseCommonNoiseSine: FuseCoreMath, FuseCoreMathHash
+{
+	////////////////////////////////////////////////////////////////
+	//
+	//          Sine Basis
+	// 
+	////////////////////////////////////////////////////////////////
+
+	// just for study, but can in fact be a usefel cheap basis.  
+
+	// 1D
+	float sineNoise (float p)
+	{
+		return sin(p*2.);
+	}
+
+	// 2D
+	float sineNoise (float2 p)
+	{
+		float2 s = sin(p*2.);
+		return sumComponent(s) * .5;
+
+
+		// trying out something less regular
+		/*
+		int iter = 4;
+		float2 n = 0.;
+		for(int i=0; i < iter; i++)
+		{
+			float2 fm = hash22(float(i) * float2(34.7,93.27));
+			float2 am = hash22(float(i) * float2(542.98,73.82));
+			n += sin(p * fm) * am;
+		}
+		n /= float(iter);
+		return (n.x + n.y) * .5;
+		*/
+	}
+
+	// 3D
+	float sineNoise (float3 p)
+	{
+		float3 s = sin(p*2.);
+		return sumComponent(s) * .33333333333333;
+	}
+
+	// 4D
+	float sineNoise (float4 p)
+	{
+		float4 s = sin(p*2.);
+		return sumComponent(s) * .25;
+	}
+
+	// 3D with gradient
+	// TODO Replace with analytic 
+	float4 sineNoiseGrad (float3 p)
+	{
+		float n = sineNoise(p);
+		float3  result = n.xxx;
+		float e = 0.001;
+		for(int i = 0; i < 3; i++) 		// just a weird ass way of writing forward difference
+		{
+			float3 offset = .0;
+			offset[i] = e;
+			result[i] = (sineNoise(p + offset) -  result[i]) /  e;
+		}
+	   return float4(n, result);
+
+	}
+
+};

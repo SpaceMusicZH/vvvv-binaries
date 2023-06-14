@@ -1,0 +1,140 @@
+// The MIT License
+// Copyright © 2013 Inigo Quilez
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+// Value Noise (http://en.wikipedia.org/wiki/Value_noise), not to be confused with Perlin's
+// Noise, is probably the simplest way to generate noise (a random smooth signal with 
+// mostly all its energy in the low frequencies) suitable for procedural texturing/shading,
+// modeling and animation.
+//
+// It produces lowe quality noise than Gradient Noise (https://www.shadertoy.com/view/XdXGW8)
+// but it is slightly faster to compute. When used in a fractal construction, the blockyness
+// of Value Noise gets qcuikly hidden, making it a very popular alternative to Gradient Noise.
+//
+// The principle is to create a virtual grid/latice all over the plane, and assign one
+// random value to every vertex in the grid. When querying/requesting a noise value at
+// an arbitrary point in the plane, the grid cell in which the query is performed is
+// determined (line 30), the four vertices of the grid are determined and their random
+// value fetched (lines 35 to 38) and then bilinearly interpolated (lines 35 to 38 again)
+// with a smooth interpolant (line 31 and 33).
+
+
+shader FuseCommonNoiseValueNoise : FuseCoreMathHash
+{
+	
+
+	float valueNoise(float p)
+	{
+		float i = floor(p);
+		float f = frac(p);
+	
+		float u = f * f * (3.0 - 2.0 * f);
+
+		float result =  lerp(hash11(i + 0.0), hash11(i + 1.0), u);
+		return result * 2.0 - 1.0;
+	}
+
+	float valueNoise(float2 p)
+	{
+		float2 i = floor(p);
+		float2 f = frac(p);
+	
+		float2 u = f * f * (3.0 - 2.0 * f);
+
+		float result = lerp(lerp(hash12(i + float2(0.0,0.0)), 
+						 hash12(i + float2(1.0,0.0)), u.x),
+						lerp(hash12(i + float2(0.0,1.0)), 
+						 hash12(i + float2(1.0,1.0)), u.x), u.y);
+
+		return result * 2.0 - 1.0;
+	}
+
+	// Looks like it might be mirroring? 
+	float valueNoise(float3 p)
+	{
+		float3 i = floor(p);
+		float3 f = frac(p);
+
+		float3 u = f * f * (3.0 - 2.0 * f);
+		
+		float result = lerp(lerp(lerp(hash13(i + float3(0,0,0)), 
+							  hash13(i + float3(1,0,0)),u.x),
+						 lerp(hash13(i + float3(0,1,0)), 
+							  hash13(i + float3(1,1,0)),u.x),u.y),
+					lerp(lerp(hash13(i + float3(0,0,1)), 
+							  hash13(i + float3(1,0,1)),u.x),
+						 lerp(hash13(i + float3(0,1,1)), 
+							  hash13(i + float3(1,1,1)),u.x),u.y),u.z);
+		return result * 2.0 - 1.0;
+	}
+
+	float valueNoise(float4 p)
+	{
+		float4 i = floor(p);
+		float4 f = frac(p);
+
+		float4 u = f * f * (3.0 - 2.0 * f);
+		
+		float result = lerp(lerp(lerp(lerp(hash14(i + float4(0,0,0,0)), 
+								   hash14(i + float4(1,0,0,0)),u.x),
+							  lerp(hash14(i + float4(0,1,0,0)), 
+								   hash14(i + float4(1,1,0,0)),u.x),u.y),
+						 lerp(lerp(hash14(i + float4(0,0,1,0)), 
+								   hash14(i + float4(1,0,1,0)),u.x),
+							  lerp(hash14(i + float4(0,1,1,0)), 
+								   hash14(i + float4(1,1,1,0)),u.x),u.y),u.z),
+					lerp(lerp(lerp(hash14(i + float4(0,0,0,1)), 
+								   hash14(i + float4(1,0,0,1)),u.x),
+							  lerp(hash14(i + float4(0,1,0,1)), 
+								   hash14(i + float4(1,1,0,1)),u.x),u.y),
+						 lerp(lerp(hash14(i + float4(0,0,1,1)), 
+								   hash14(i + float4(1,0,1,1)),u.x),
+							  lerp(hash14(i + float4(0,1,1,1)), 
+								   hash14(i + float4(1,1,1,1)),u.x),u.y),u.z),u.w);
+		return result * 2.0 - 1.0;
+	}
+
+	// 3D with Gradient
+	// return  noise (in x) and its derivatives (in yzw)
+	float4 valueNoiseGrad( in float3 x )
+	{
+		float3 i = floor(x);
+		float3 w = frac(x);
+	
+	#if 1
+		// quintic interpolation
+		float3 u = w*w*w*(w*(w*6.0-15.0)+10.0);
+		float3 du = 30.0*w*w*(w*(w-2.0)+1.0);
+	#else
+		// cubic interpolation
+		float3 u = w*w*(3.0-2.0*w);
+		float3 du = 6.0*w*(1.0-w);
+	#endif    
+	
+	
+		float a = hash13(i+float3(0.0,0.0,0.0));
+		float b = hash13(i+float3(1.0,0.0,0.0));
+		float c = hash13(i+float3(0.0,1.0,0.0));
+		float d = hash13(i+float3(1.0,1.0,0.0));
+		float e = hash13(i+float3(0.0,0.0,1.0));
+		float f = hash13(i+float3(1.0,0.0,1.0));
+		float g = hash13(i+float3(0.0,1.0,1.0));
+		float h = hash13(i+float3(1.0,1.0,1.0));
+	
+		float k0 =   a;
+		float k1 =   b - a;
+		float k2 =   c - a;
+		float k3 =   e - a;
+		float k4 =   a - b - c + d;
+		float k5 =   a - c - e + g;
+		float k6 =   a - b - e + f;
+		float k7 = - a + b + c - d + e - f - g + h;
+
+		return float4( k0 + k1*u.x + k2*u.y + k3*u.z + k4*u.x*u.y + k5*u.y*u.z + k6*u.z*u.x + k7*u.x*u.y*u.z, 
+					 du * float3( k1 + k4*u.y + k6*u.z + k7*u.y*u.z,
+								k2 + k5*u.z + k4*u.x + k7*u.z*u.x,
+								k3 + k6*u.x + k5*u.y + k7*u.x*u.y ) );
+	}
+
+};

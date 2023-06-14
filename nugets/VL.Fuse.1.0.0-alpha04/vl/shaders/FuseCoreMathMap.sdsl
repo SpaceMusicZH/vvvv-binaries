@@ -1,0 +1,519 @@
+shader FuseCoreMathMap: FuseCoreMath
+{
+
+	////////////////////////////////////////////////////////////////
+	//
+	//          Handy Mapping Functions
+	// 			
+	////////////////////////////////////////////////////////////////
+
+	
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//             Bias & Gain
+	//
+	////////////////////////////////////////////////////////////////
+
+
+	// Schlick's version of Bias & Gain w/ inversion on 0 to -1 for bias/gain values
+	// these functions expect an input in 0 - 1 range
+
+	float bias(float x, float control = 0.5)
+	{
+		float result = control > 0 ?  (x / ((((1.0/control) - 2.0)*(1.0 - x))+1.0)) :  1-(x / ((((1.0/abs(control)) - 2.0)*(1.0 - x))+1.0));
+		return result;
+	}
+
+	float2 bias(float2 x, float2 control = 0.5)
+	{
+
+		return float2(bias(x.x, control.x), bias(x.y, control.y));
+	}
+
+	float3 bias(float3 x, float3 control = 0.5)
+	{
+
+		return float3(bias(x.x, control.x), bias(x.y, control.y), bias(x.z, control.z));
+	}
+
+	float4 bias(float4 x, float4 control = 0.5)
+	{
+
+		return float4(bias(x.x, control.x), bias(x.y, control.y), bias(x.z, control.z), bias(x.w, control.w));
+	}
+
+
+
+	float gain(float x, float control = 0.5)
+	{
+		if (control > 0)
+		{if(x < 0.5)     return bias(x * 2.0,control)/2.0;   else  return bias(x * 2.0 - 1.0,1.0 - control)/2.0 + 0.5; }
+		else if(x < 0.5)     return 1-(bias(x * 2.0,-control)/2.0);   else  return 1-(bias(x * 2.0 - 1.0,1.0 + control)/2.0 + 0.5); 
+	} 
+
+	float2 gain(float2 x, float2 control = 0.5)
+	{
+
+		return float2(gain(x.x, control.x), gain(x.y, control.y));
+	}
+
+	float3 gain(float3 x, float3 control = 0.5)
+	{
+
+		return float3(gain(x.x, control.x), gain(x.y, control.y), gain(x.z, control.z));
+	}
+
+	float4 gain(float4 x, float4 control = 0.5)
+	{
+
+		return float4(gain(x.x, control.x), gain(x.y, control.y), gain(x.z, control.z), gain(x.w, control.w));
+	}
+
+	////////////////////////////////////////////////////////////////
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//             Bandpass Functions
+	//
+	////////////////////////////////////////////////////////////////
+
+	 float smoothstep2 (float input, float onMin, float onMax, float offMin, float offMax)
+	 {
+		return smoothstep(onMin, onMax, input) * (1 - smoothstep(offMin, offMax, input));
+
+	 }
+
+	 float2 smoothstep2 (float2 input, float2 onMin, float2 onMax, float2 offMin, float2 offMax)
+	 {
+		return float2(	smoothstep2(input.x, onMin.x, onMax.x, offMin.x, offMax.x),
+						smoothstep2(input.y, onMin.y, onMax.y, offMin.y, offMax.y));
+	 }
+
+	 float3 smoothstep2 (float3 input, float3 onMin, float3 onMax, float3 offMin, float3 offMax)
+	 {
+		return float3(	smoothstep2(input.x, onMin.x, onMax.x, offMin.x, offMax.x),
+						smoothstep2(input.y, onMin.y, onMax.y, offMin.y, offMax.y),
+						smoothstep2(input.z, onMin.z, onMax.z, offMin.z, offMax.z));
+	 }
+
+	 float4 smoothstep2 (float4 input, float4 onMin, float4 onMax, float4 offMin, float4 offMax)
+	 {
+		return float4(	smoothstep2(input.x, onMin.x, onMax.x, offMin.x, offMax.x),
+						smoothstep2(input.y, onMin.y, onMax.y, offMin.y, offMax.y),
+						smoothstep2(input.z, onMin.z, onMax.z, offMin.z, offMax.z),
+						smoothstep2(input.w, onMin.w, onMax.w, offMin.w, offMax.w));
+	 }
+
+
+	float pulse(float input, float center, float slopeWidth, float centerWidth = 0.0)
+	{
+		centerWidth *= 0.5;
+		input = abs(input - center);
+		input -= centerWidth;
+		if(input > slopeWidth) return 0.0f;
+		input /= slopeWidth;
+		return 1.0 - input;
+	}
+
+	float2 pulse(float2 input, float2 center, float2 slopeWidth, float2 centerWidth = 0.0)
+	{
+		return float2(	pulse(input.x, center.x, slopeWidth.x, centerWidth.x), 
+						pulse(input.y, center.y, slopeWidth.y, centerWidth.y));
+	}
+
+	float3 pulse(float3 input, float3 center, float3 slopeWidth, float3 centerWidth = 0.0)
+	{
+		return float3(	pulse(input.x, center.x, slopeWidth.x, centerWidth.x), 
+						pulse(input.y, center.y, slopeWidth.y, centerWidth.y),
+						pulse(input.z, center.z, slopeWidth.z, centerWidth.z));
+	}
+
+	float4 pulse(float4 input, float4 center, float4 slopeWidth, float4 centerWidth = 0.0)
+	{
+		return float4(	pulse(input.x, center.x, slopeWidth.x, centerWidth.x), 
+						pulse(input.y, center.y, slopeWidth.y, centerWidth.y),
+						pulse(input.z, center.z, slopeWidth.z, centerWidth.z),
+						pulse(input.w, center.w, slopeWidth.w, centerWidth.w));
+	}
+
+	
+	// adaptivley patched in fuse
+	float cubicPulse(float input, float center, float width)
+	{
+		input = abs(input - center);
+		if(input > width) return 0.0f;
+		input /= width;
+		return 1.0f - input*input*(3.0f-2.0f*input);
+	}
+	//
+	////////////////////////////////////////////////////////////////
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//             Map Functions
+	//
+	////////////////////////////////////////////////////////////////
+
+	float map(float input, float InMin, float InMax, float OutMin, float OutMax)
+	{
+		float range = InMax - InMin;
+		float normalized = (input - InMin) / range;	
+		   return OutMin + normalized * (OutMax - OutMin);
+	}
+	
+
+	float mapClamp(float input, float InMin, float InMax, float OutMin, float OutMax)
+	{
+		float range = InMax - InMin;
+		float normalized = (input - InMin) / range;	
+		float output = OutMin + normalized * (OutMax - OutMin);
+		float minV = min(OutMin,OutMax);
+		float maxV = max(OutMin, OutMax);
+		output = min(max(output, minV), maxV);
+		return output ;
+	}
+
+
+	float mapWrap(float input, float InMin, float InMax, float OutMin, float OutMax)
+	{
+		float range = InMax - InMin;
+		float normalized = (input - InMin) / range;	
+		float output = OutMin + normalized * (OutMax - OutMin);
+		if (normalized < 0) normalized = 1 + normalized;
+		return  OutMin + (normalized % 1) * (OutMax - OutMin);
+	}
+
+
+	float mapMirror(float input, float InMin, float InMax, float OutMin, float OutMax)
+	{
+		float range = InMax - InMin;
+		float normalized = (input - InMin) / range;	
+		normalized = 1-2*abs(frac(normalized*.5)-.5);
+		float output = OutMin + (normalized % 1) * (OutMax - OutMin);
+		return output;
+	}
+
+
+	float2 map(float2 input, float2 InMin, float2 InMax, float2 OutMin, float2 OutMax)
+	{
+		float2 vec;
+		vec.x = map( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = map( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		return vec;
+	}
+
+	float3 map(float3 input, float3 InMin, float3 InMax, float3 OutMin, float3 OutMax)
+	{
+		float3 vec;
+		vec.x = map( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = map( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = map( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		return vec;
+	}
+
+	float4 map(float4 input, float4 InMin, float4 InMax, float4 OutMin, float4 OutMax)
+	{
+		float4 vec;
+		vec.x = map( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = map( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = map( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		vec.w = map( input.w,  InMin.w,  InMax.w,  OutMin.w,  OutMax.w);
+		return vec;
+	}
+
+	float2 mapClamp(float2 input, float2 InMin, float2 InMax, float2 OutMin, float2 OutMax)
+	{
+		float2 vec;
+		vec.x = mapClamp( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapClamp( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		return vec;
+	}
+
+	float3 mapClamp(float3 input, float3 InMin, float3 InMax, float3 OutMin, float3 OutMax)
+	{
+		float3 vec;
+		vec.x = mapClamp( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapClamp( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = mapClamp( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		return vec;
+	}
+
+	float4 mapClamp(float4 input, float4 InMin, float4 InMax, float4 OutMin, float4 OutMax)
+	{
+		float4 vec;
+		vec.x = mapClamp( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapClamp( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = mapClamp( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		vec.w = mapClamp( input.w,  InMin.w,  InMax.w,  OutMin.w,  OutMax.w);
+		return vec;
+	}
+
+	float2 mapWrap(float2 input, float2 InMin, float2 InMax, float2 OutMin, float2 OutMax)
+	{
+		float2 vec;
+		vec.x = mapWrap( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapWrap( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		return vec;
+	}
+
+	float3 mapWrap(float3 input, float3 InMin, float3 InMax, float3 OutMin, float3 OutMax)
+	{
+		float3 vec;
+		vec.x = mapWrap( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapWrap( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = mapWrap( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		return vec;
+	}
+
+	float4 mapWrap(float4 input, float4 InMin, float4 InMax, float4 OutMin, float4 OutMax)
+	{
+		float4 vec;
+		vec.x = mapWrap( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapWrap( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = mapWrap( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		vec.w = mapWrap( input.w,  InMin.w,  InMax.w,  OutMin.w,  OutMax.w);
+		return vec;
+	}
+
+	float2 mapMirror(float2 input, float2 InMin, float2 InMax, float2 OutMin, float2 OutMax)
+	{
+		float2 vec;
+		vec.x = mapMirror( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapMirror( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		return vec;
+	}
+
+	float3 mapMirror(float3 input, float3 InMin, float3 InMax, float3 OutMin, float3 OutMax)
+	{
+		float3 vec;
+		vec.x = mapMirror( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapMirror( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = mapMirror( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		return vec;
+	}
+
+	float4 mapMirror(float4 input, float4 InMin, float4 InMax, float4 OutMin, float4 OutMax)
+	{
+		float4 vec;
+		vec.x = mapMirror( input.x,  InMin.x,  InMax.x,  OutMin.x,  OutMax.x);
+		vec.y = mapMirror( input.y,  InMin.y,  InMax.y,  OutMin.y,  OutMax.y);
+		vec.z = mapMirror( input.z,  InMin.z,  InMax.z,  OutMin.z,  OutMax.z);
+		vec.w = mapMirror( input.w,  InMin.w,  InMax.w,  OutMin.w,  OutMax.w);
+		return vec;
+	}
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//             Easing Functions
+	//
+	////////////////////////////////////////////////////////////////
+
+	// https://github.com/glslify/glsl-easings
+	// http://robertpenner.com/easing/
+
+
+	float ease_backInOut(float t) 
+	{
+		float f = t < 0.5
+		? 2.0 * t
+		: 1.0 - (2.0 * t - 1.0);
+
+		float g = pow(f, 3.0) - f * sin(f * PI);
+
+		return t < 0.5
+		? 0.5 * g
+		: 0.5 * (1.0 - g) + 0.5;
+	}
+
+	float ease_backIn(float t) 
+	{
+		return pow(t, 3.0) - t * sin(t * PI);
+	}
+
+	float ease_backOut(float t) 
+	{
+		float f = 1.0 - t;
+		return 1.0 - (pow(f, 3.0) - f * sin(f * PI));
+	}
+
+	float ease_bounceOut(float t) 
+	{
+		const float a = 4.0 / 11.0;
+		const float b = 8.0 / 11.0;
+		const float c = 9.0 / 10.0;
+
+		const float ca = 4356.0 / 361.0;
+		const float cb = 35442.0 / 1805.0;
+		const float cc = 16061.0 / 1805.0;
+
+		float t2 = t * t;
+
+		return t < a
+		? 7.5625 * t2
+		: t < b
+		? 9.075 * t2 - 9.9 * t + 3.4
+		: t < c
+		? ca * t2 - cb * t + cc
+		: 10.8 * t * t - 20.52 * t + 10.72;
+	}
+
+	float ease_bounceIn(float t) 
+	{
+		return 1.0 - ease_bounceOut(1.0 - t);
+	}
+
+	float ease_bounceInOut(float t) 
+	{
+		return t < 0.5
+		? 0.5 * (1.0 - ease_bounceOut(1.0 - t * 2.0))
+		: 0.5 * ease_bounceOut(t * 2.0 - 1.0) + 0.5;
+	}
+
+	float ease_circularInOut(float t) 
+	{
+		return t < 0.5
+		? 0.5 * (1.0 - sqrt(1.0 - 4.0 * t * t))
+		: 0.5 * (sqrt((3.0 - 2.0 * t) * (2.0 * t - 1.0)) + 1.0);
+	}
+
+	float ease_circularIn(float t) 
+	{
+		return 1.0 - sqrt(1.0 - t * t);
+	}
+
+	float ease_circularOut(float t) 
+	{
+		return sqrt((2.0 - t) * t);
+	}
+
+	float ease_cubicInOut(float t) 
+	{
+		return t < 0.5
+		? 4.0 * t * t * t
+		: 0.5 * pow(2.0 * t - 2.0, 3.0) + 1.0;
+	}
+
+	float ease_cubicIn(float t) 
+	{
+		return t * t * t;
+	}
+
+	float ease_cubicOut(float t) 
+	{
+		float f = t - 1.0;
+		return f * f * f + 1.0;
+	}
+
+	float ease_elasticInOut(float t) 
+	{
+		return t < 0.5
+		? 0.5 * sin(+13.0 * HALFPI * 2.0 * t) * pow(2.0, 10.0 * (2.0 * t - 1.0))
+		: 0.5 * sin(-13.0 * HALFPI * ((2.0 * t - 1.0) + 1.0)) * pow(2.0, -10.0 * (2.0 * t - 1.0)) + 1.0;
+	}
+
+	float ease_elasticIn(float t) 
+	{
+		return sin(13.0 * t * HALFPI) * pow(2.0, 10.0 * (t - 1.0));
+	}
+
+	float ease_elasticOut(float t) 
+	{
+		return sin(-13.0 * (t + 1.0) * HALFPI) * pow(2.0, -10.0 * t) + 1.0;
+	}
+	float ease_exponentialInOut(float t) 
+	{
+		return t == 0.0 || t == 1.0
+		? t
+		: t < 0.5
+		? +0.5 * pow(2.0, (20.0 * t) - 10.0)
+		: -0.5 * pow(2.0, 10.0 - (t * 20.0)) + 1.0;
+	}
+
+	float ease_exponentialIn(float t) 
+	{
+		return t == 0.0 ? t : pow(2.0, 10.0 * (t - 1.0));
+	}
+
+	float ease_exponentialOut(float t) 
+	{
+		return t == 1.0 ? t : 1.0 - pow(2.0, -10.0 * t);
+	}
+
+	float ease_linear(float t) {return t;}
+
+	float ease_quadraticInOut(float t) 
+	{
+		float p = 2.0 * t * t;
+		return t < 0.5 ? p : -p + (4.0 * t) - 1.0;
+	}
+
+	float ease_quadraticIn(float t) 
+	{
+		return t * t;
+	}
+
+	float ease_quadraticOut(float t) 
+	{
+		return -t * (t - 2.0);
+	}
+
+	float ease_quarticInOut(float t) 
+	{
+		return t < 0.5
+		? +8.0 * pow(t, 4.0)
+		: -8.0 * pow(t - 1.0, 4.0) + 1.0;
+	}
+
+	float ease_quarticIn(float t) 
+	{
+		return pow(t, 4.0);
+	}
+
+	float ease_quarticOut(float t) 
+	{
+		return pow(t - 1.0, 3.0) * (1.0 - t) + 1.0;
+	}
+
+	float ease_qinticInOut(float t) 
+	{
+		//return t < 0.5
+		//? +16.0 * pow(t, 5.0)
+		//: -0.5 * pow(2.0 * t - 2.0, 5.0) + 1.0;
+		//: -0.5 * pow(2.0 * t - 2.0, 5.0) + 1.0;
+		return t < 0.5 ? 16 * t * t * t * t * t : 1 - pow(-2 * t + 2, 5) / 2; // could be optimized, orignal code above seemed broken for this one
+	}
+
+	float ease_qinticIn(float t) 
+	{
+		return pow(t, 5.0);
+	}
+
+	float ease_qinticOut(float t) 
+	{
+		return 1.0 - (pow(t - 1.0, 5.0));
+	}
+
+	float ease_sineInOut(float t) 
+	{
+		return -0.5 * (cos(PI * t) - 1.0);
+	}
+
+	float ease_sineIn(float t) 
+	{
+		return sin((t - 1.0) * HALFPI) + 1.0;
+	}
+
+	float ease_sineOut(float t) 
+	{
+		return sin(t * HALFPI);
+	}
+
+
+
+
+};

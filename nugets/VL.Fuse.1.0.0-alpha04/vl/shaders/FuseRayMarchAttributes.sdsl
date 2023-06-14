@@ -1,0 +1,129 @@
+shader FuseRayMarchAttributes: FuseRayMarchBase, ShaderBaseStream, Transformation, Texturing, PositionStream4, NormalStream, FuseCommonTypes
+{
+
+	// the signed distance field to raymarch
+	abstract float4 SDF(float3 p);	
+
+
+	// just generate normals with central difference
+	float3 SDFNormal(float3 p, float e = 0.01)
+	{
+		float3 gradient = float3 (	(SDF(p + float3(e,0,0)).x - SDF(p - float3(e,0,0)).x) / (2*e), 
+									(SDF(p + float3(0,e,0)).x - SDF(p - float3(0,e,0)).x) / (2*e), 
+									(SDF(p + float3(0,0,e)).x - SDF(p - float3(0,0,e)).x) / (2*e)	);
+		return normalize(gradient+0.0000001);
+
+	}
+
+
+	void marchRayDefualt(inout Ray ray, float2 minMaxDist = float2(.05, 100), int maxIter = 180)
+	{
+		float3 startPos = ray.ro + ray.rd * minMaxDist.x;
+		float3 p = startPos;
+		float z = minMaxDist.x;
+		//minMaxDist.y -= minMaxDist.x;
+		for(int i=0; i<maxIter; i++)
+		{
+			float dist = SDF(p).x;
+			p += ray.rd * dist;	
+			z += dist;
+			if(abs(dist) < 0.0001 * z || z > minMaxDist.y) break;
+		}
+
+		if(z > minMaxDist.y) discard;
+		ray.sp = p;
+		ray.sn = SDFNormal(ray.sp);
+	}
+
+	//first raymarching pass (very coarse)
+	float marchCoarse(float3 rayPos, float3 rayDir, float startf, float maxd, int maxIter = 35){
+		float precis = 0.01;
+    	float h=precis*2.0;
+    	float d = startf;
+    	for( int i = 0; i < maxIter; i++ )
+    	{
+        	if( abs(h) < precis || d > maxd ) break;
+        	d += h;
+	    	float res = SDF(rayPos + rayDir * d).x;
+        	h = res;
+    	}
+		return d;
+	}
+
+	//volumetric marching
+float3 marchVolume(float3 rayPos, float3 rayDir)
+{   
+    float3 p = rayPos;
+    float2 r = float2(0.0,0.0);
+    float3 sum = float3(0.0,0.0,0.0);
+    float tot = 0.;
+    for( int i=0; i < 200; i++ )
+    {
+        r = SDF(p);
+        if (r.x > .5)break;
+        
+        p += rayDir * max(.015, max(r.x,0.)*3.);
+    }
+    return p;
+}
+
+
+	float3 rayMarch(float3 rayPos, float3 rayDir, float stepLength = .9, float minDist = 0.1, float maxDist = 200.0, int maxIter = 120)
+	{
+		float3 startPos = rayPos + rayDir * minDist;
+		float3 p = startPos;
+		float z = minDist;
+		maxDist -= minDist;
+		for(int i=0; i<maxIter; i++)
+		{
+			float dist = SDF(p).x;
+			float rayStep = stepLength * dist;
+			p += rayDir * rayStep;	
+			z += rayStep;
+			if(abs(dist) < 0.0001 * z || z > maxDist) break;
+		}
+		return p;
+	}
+	////////////////////////////////////////////////////////////////
+
+
+	
+	
+	
+
+	// Raymarch a scene.  Takes uv and returns pos(p), normals(n) & distance(z)
+	void rayMarcher(float2 uv, out float3 p, out float3 n, out float3 rd, out float z, out float3 attributes)
+	{
+		// Paramerters
+		int marchMaxIterations = 120;
+		float marchMaxDistance = 200;
+		float marchMinDistance = 0.1f;
+		float marchStepLength = 0.75f;
+		float alpha = 1;
+
+		float3 ro;
+		setupRay(uv, ro, rd);
+		/*
+		float far = 200.0;
+		float rz = marchCoarse(ro,rd,0.1,far);
+		float3 pos = ro+rz*rd;
+    	if (rz < far)
+    	{
+    		p = marchVolume(pos,rd);
+    	}	*/
+
+		p = rayMarch(ro, rd, marchStepLength, marchMinDistance, marchMaxDistance, marchMaxIterations);
+		float4 ff=SDF(p);
+		if(abs(ff).x >.5)discard;
+		z = length(p - ro);
+		n = SDFNormal(p);
+		attributes = ff.yzw;
+		//if (n != n) discard;
+	}
+
+
+
+	
+
+
+};

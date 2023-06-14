@@ -1,0 +1,768 @@
+shader FuseCommonNoiseWorley : FuseCoreMathHash
+{
+	/*
+	Just a simple one first, that fits the interface of the general noise node.  Several nodes can deal with more advanded versions
+	
+	TODO:
+
+	-Add F1 F2 	
+	-Add N-SPhere
+
+	Done:
+	-Simple Version
+	-Distance Metrics
+	-Smooth F1
+	-Edge SDF
+
+
+	*/ 
+
+	// can be overridden in patch or shader
+	float distFunc(float x, float y)
+	{
+		return abs(x - y);
+	}
+
+	float distFunc(float2 x, float2 y)
+	{
+		return distance(x, y);
+	}
+
+	float distFunc(float3 x, float3 y)
+	{
+		return distance(x, y);
+	}
+
+	float distFunc(float4 x, float4 y)
+	{
+		return distance(x, y);
+	}
+
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//          Simple F1
+	// 
+	////////////////////////////////////////////////////////////////
+
+	// 1D
+	float worleySimpleNoise (float p, float jitter = .7)
+	{
+		float cellPosition = floor(p);
+		float localPosition = p - cellPosition;
+		float minDistance = 8.0;
+		[unroll]
+		for (int x = -1; x <= 1; x++) 
+		{
+			float cellOffset = x;
+			float pointPosition = cellOffset + hash11(cellPosition + cellOffset) * jitter;
+			float toCell = pointPosition - localPosition;
+			float distanceToPoint = dot(toCell, toCell);
+			if (distanceToPoint < minDistance) minDistance = distanceToPoint;		
+		}
+		return sqrt(minDistance);
+	}
+
+	// 2D
+	float worleySimpleNoise (float2 p, float jitter = .7)
+	{
+		float2 cellPosition = floor(p);
+		float2 localPosition = p - cellPosition;
+		float minDistance = 8.0;
+		[unroll]
+		for (int y = -1; y <= 1; y++) 
+		{
+			[unroll]
+			for (int x = -1; x <= 1; x++) 
+			{
+				float2 cellOffset = float2(x, y);
+				float2 pointPosition = cellOffset + hash22(cellPosition + cellOffset) * jitter;
+				float2 toCell = pointPosition - localPosition;
+				float distanceToPoint = dot(toCell, toCell);
+				if (distanceToPoint < minDistance) minDistance = distanceToPoint;		
+			}
+		}
+		return sqrt(minDistance);
+	}
+
+	// 3D
+	float worleySimpleNoise (float3 p, float jitter = .7)
+	{
+		float3 cellPosition = floor(p);
+		float3 localPosition = p - cellPosition;
+		float minDistance = 8.0;
+		[unroll]
+		for (int z = -1; z <= 1; z++) 
+		{
+			[unroll]
+			for (int y = -1; y <= 1; y++) 
+			{
+				[unroll]
+				for (int x = -1; x <= 1; x++) 
+				{
+					float3 cellOffset = float3(x, y, z);
+					float3 pointPosition = cellOffset + hash33(cellPosition + cellOffset) * jitter;
+					float3 toCell = pointPosition - localPosition;
+					float distanceToPoint = dot(toCell, toCell);
+					if (distanceToPoint < minDistance) minDistance = distanceToPoint;	
+				}
+			}
+		}
+		return sqrt(minDistance);
+	}
+
+	// 4D
+	float worleySimpleNoise (float4 p, float jitter = .7)
+	{
+		float4 cellPosition = floor(p);
+		float4 localPosition = p - cellPosition;
+		float minDistance = 8.0;
+		[unroll]
+		for (int w = -1; w <= 1; w++) 
+		{
+			[unroll]
+			for (int z = -1; z <= 1; z++) 
+			{
+				[unroll]
+				for (int y = -1; y <= 1; y++) 
+				{
+					[unroll]
+					for (int x = -1; x <= 1; x++) 
+					{
+						float4 cellOffset = float4(x, y, z, w);
+						float4 pointPosition = cellOffset + hash44(cellPosition + cellOffset) * jitter;
+						float4 toCell = pointPosition - localPosition;
+						float distanceToPoint = dot(toCell, toCell);
+						if (distanceToPoint < minDistance) minDistance = distanceToPoint;	
+					}
+				}
+			}
+		}
+		return sqrt(minDistance);
+	}
+
+	//3D with gradient
+	float4 worleySimpleNoiseGrad(float3 p)
+	{
+		#define SOMELARGEFLOATS float3( 635.298681, 682.357502, 668.926525 )
+		#define ZINC float3( 48.500388, 65.294118, 63.934599 )
+		//  https://github.com/BrianSharpe/Wombat/blob/master/Cellular3D_Deriv.glsl
+
+		//  establish our grid cell and unit position
+		float3 Pi = floor(p);
+		float3 Pf = p - Pi;
+
+		// clamp the domain
+		Pi.xyz = Pi.xyz - floor(Pi.xyz * ( 1.0 / 69.0 )) * 69.0;
+		float3 Pi_inc1 = step( Pi, 69.0 - 1.5) * ( Pi + 1.0 );
+
+		// calculate the hash ( over -1.0->1.0 range )
+		float4 Pt = float4( Pi.xy, Pi_inc1.xy ) + float2( 50.0, 161.0 ).xyxy;
+		Pt *= Pt;
+		Pt = Pt.xzxz * Pt.yyww;
+
+		float3 lowz_mod = float3( 1.0 / ( SOMELARGEFLOATS + Pi.zzz * ZINC ) );
+		float3 highz_mod = float3( 1.0 / ( SOMELARGEFLOATS + Pi_inc1.zzz * ZINC ) );
+		float4 hash_x0 = frac( Pt * lowz_mod.xxxx ) * 2.0 - 1.0;
+		float4 hash_x1 = frac( Pt * highz_mod.xxxx ) * 2.0 - 1.0;
+		float4 hash_y0 = frac( Pt * lowz_mod.yyyy ) * 2.0 - 1.0;
+		float4 hash_y1 = frac( Pt * highz_mod.yyyy ) * 2.0 - 1.0;
+		float4 hash_z0 = frac( Pt * lowz_mod.zzzz ) * 2.0 - 1.0;
+		float4 hash_z1 = frac( Pt * highz_mod.zzzz ) * 2.0 - 1.0;
+
+		//  generate the 8 point positions
+		const float JITTER_WINDOW = 0.166666666;    // 0.166666666 will guarentee no artifacts.
+		hash_x0 = ( ( hash_x0 * hash_x0 * hash_x0 ) - sign( hash_x0 ) ) * JITTER_WINDOW + float4( 0.0, 1.0, 0.0, 1.0 );
+		hash_y0 = ( ( hash_y0 * hash_y0 * hash_y0 ) - sign( hash_y0 ) ) * JITTER_WINDOW + float4( 0.0, 0.0, 1.0, 1.0 );
+		hash_x1 = ( ( hash_x1 * hash_x1 * hash_x1 ) - sign( hash_x1 ) ) * JITTER_WINDOW + float4( 0.0, 1.0, 0.0, 1.0 );
+		hash_y1 = ( ( hash_y1 * hash_y1 * hash_y1 ) - sign( hash_y1 ) ) * JITTER_WINDOW + float4( 0.0, 0.0, 1.0, 1.0 );
+		hash_z0 = ( ( hash_z0 * hash_z0 * hash_z0 ) - sign( hash_z0 ) ) * JITTER_WINDOW + float4( 0.0, 0.0, 0.0, 0.0 );
+		hash_z1 = ( ( hash_z1 * hash_z1 * hash_z1 ) - sign( hash_z1 ) ) * JITTER_WINDOW + float4( 1.0, 1.0, 1.0, 1.0 );
+
+		//  return the closest squared distance + derivatives ( thanks to Jonathan Dupuy )
+		float4 dx1 = Pf.xxxx - hash_x0;
+		float4 dy1 = Pf.yyyy - hash_y0;
+		float4 dz1 = Pf.zzzz - hash_z0;
+		float4 dx2 = Pf.xxxx - hash_x1;
+		float4 dy2 = Pf.yyyy - hash_y1;
+		float4 dz2 = Pf.zzzz - hash_z1;
+		float4 d1 = dx1 * dx1 + dy1 * dy1 + dz1 * dz1;
+		float4 d2 = dx2 * dx2 + dy2 * dy2 + dz2 * dz2;
+		float4 r1 = d1.x < d1.y ? float4( d1.x, dx1.x, dy1.x, dz1.x ) : float4( d1.y, dx1.y, dy1.y, dz1.y );
+		float4 r2 = d1.z < d1.w ? float4( d1.z, dx1.z, dy1.z, dz1.z ) : float4( d1.w, dx1.w, dy1.w, dz1.w );
+		float4 r3 = d2.x < d2.y ? float4( d2.x, dx2.x, dy2.x, dz2.x ) : float4( d2.y, dx2.y, dy2.y, dz2.y );
+		float4 r4 = d2.z < d2.w ? float4( d2.z, dx2.z, dy2.z, dz2.z ) : float4( d2.w, dx2.w, dy2.w, dz2.w );
+		float4 t1 = r1.x < r2.x ? r1 : r2;
+		float4 t2 = r3.x < r4.x ? r3 : r4;
+		return ( t1.x < t2.x ? t1 : t2 ) * float4( 1.0, 2.0, 2.0, 2.0  ) * ( 9.0 / 12.0 ); // return a value scaled to 0.0->1.0
+	}
+
+	////////////////////////////////////////////////////////////////
+	//
+	//          Smooth F1
+	// 
+	////////////////////////////////////////////////////////////////
+
+	// adapted from IQ's 2d voronoise & blender voronoi node:
+	// http://www.iquilezles.org/www/articles/voronoise/voronoise.htm	
+	// https://github.com/blender/blender/blob/master/intern/cycles/kernel/shaders/node_voronoi_texture.osl
+	
+	// 1D
+	float worleySmoothF1 (float p, out float cellPosition, out float cellID,  float smooth = .2, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float localPosition = p - cellPosition;
+		float smoothDistance  = 8.0;
+		float smoothPosition = 0.0;
+		float smoothID = 0.0;
+		[unroll]
+		for (int x = -1; x <= 1; x++) 
+		{
+			float cellOffset = x;
+			float pointPosition = cellOffset + hash11(cellPosition + cellOffset) * jitter;
+			float distanceToPoint = distFunc(pointPosition, localPosition);	
+			float h = smoothstep(0.0, 1.0, 0.5 + 0.5 * (smoothDistance - distanceToPoint) / smooth);
+			float correctionFactor = smooth * h * (1.0 - h);
+			smoothDistance = lerp(smoothDistance, distanceToPoint, h) - correctionFactor;
+			correctionFactor /= 1.0 + 3.0 * smooth;
+			float cellID = hash11(cellPosition + cellOffset);
+			smoothID = lerp(smoothID, cellID, h) - correctionFactor;
+			smoothPosition = lerp(smoothPosition, pointPosition, h) - correctionFactor;
+		}
+		cellPosition += smoothPosition;
+		cellID = smoothID;
+		return smoothDistance;
+		//return makeWorleyFeature(smoothDistance, cellPosition + smoothPosition, smoothID);
+	}
+
+
+	// 2D
+	float worleySmoothF1 (float2 p, out float2 cellPosition, out float cellID,  float smooth = .2, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float2 localPosition = p - cellPosition;
+		float smoothDistance  = 8.0;
+		float2 smoothPosition = 0.0;
+		float smoothID = 0.0;
+		[unroll]
+		for (int y = -1; y <= 1; y++) 
+		{
+			[unroll]
+			for (int x = -1; x <= 1; x++) 
+			{
+				float2 cellOffset = float2(x, y);
+				float2 pointPosition = cellOffset + hash22(cellPosition + cellOffset) * jitter;
+				float distanceToPoint = distFunc(pointPosition, localPosition);
+				float h = smoothstep(0.0, 1.0, 0.5 + 0.5 * (smoothDistance - distanceToPoint) / smooth);
+				float correctionFactor = smooth * h * (1.0 - h);
+				smoothDistance = lerp(smoothDistance, distanceToPoint, h) - correctionFactor;
+				correctionFactor /= 1.0 + 3.0 * smooth;
+				float cellID = hash12(cellPosition + cellOffset);
+				smoothID = lerp(smoothID, cellID, h) - correctionFactor;
+				smoothPosition = lerp(smoothPosition, pointPosition, h) - correctionFactor;
+			}
+		}
+
+		cellPosition += smoothPosition;
+		cellID = smoothID;
+		return smoothDistance;
+	}
+
+
+	// 3D
+	float worleySmoothF1 (float3 p, out float3 cellPosition, out float cellID,  float smooth = .2, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float3 localPosition = p - cellPosition;
+		float smoothDistance  = 8.0;
+		float3 smoothPosition = 0.0;
+		float smoothID = 0.0;
+		[unroll]
+		for (int z = -1; z <= 1; z++) 
+		{
+			[unroll]
+			for (int y = -1; y <= 1; y++) 
+			{
+				[unroll]
+				for (int x = -1; x <= 1; x++) 
+				{
+					float3 cellOffset = float3(x, y, z);
+					float3 pointPosition = cellOffset + hash33(cellPosition + cellOffset) * jitter;
+					float distanceToPoint = distFunc(pointPosition, localPosition);
+					float h = smoothstep(0.0, 1.0, 0.5 + 0.5 * (smoothDistance - distanceToPoint) / smooth);
+					float correctionFactor = smooth * h * (1.0 - h);
+					smoothDistance = lerp(smoothDistance, distanceToPoint, h) - correctionFactor;
+					correctionFactor /= 1.0 + 3.0 * smooth;
+					float cellID = hash13(cellPosition + cellOffset);
+					smoothID = lerp(smoothID, cellID, h) - correctionFactor;
+					smoothPosition = lerp(smoothPosition, pointPosition, h) - correctionFactor;
+				}
+			}
+		}
+		cellPosition += smoothPosition;
+		cellID = smoothID;
+		return smoothDistance;
+	}
+
+	// 4D
+	float worleySmoothF1 (float4 p, out float4 cellPosition, out float cellID,  float smooth = .2, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float4 localPosition = p - cellPosition;
+		float smoothDistance  = 8.0;
+		float4 smoothPosition = 0.0;
+		float smoothID = 0.0;
+		[unroll]
+		for (int w = -1; w <= 1; w++) 
+		{
+			[unroll]
+			for (int z = -1; z <= 1; z++) 
+			{
+				[unroll]
+				for (int y = -1; y <= 1; y++) 
+				{
+					[unroll]
+					for (int x = -1; x <= 1; x++) 
+					{
+						float4 cellOffset = float4(x, y, z, w);
+						float4 pointPosition = cellOffset + hash44(cellPosition + cellOffset) * jitter;
+						float distanceToPoint = distFunc(pointPosition, localPosition);
+					
+						float h = smoothstep(0.0, 1.0, 0.5 + 0.5 * (smoothDistance - distanceToPoint) / smooth);
+						float correctionFactor = smooth * h * (1.0 - h);
+						smoothDistance = lerp(smoothDistance, distanceToPoint, h) - correctionFactor;
+						correctionFactor /= 1.0 + 3.0 * smooth;
+						float cellID = hash14(cellPosition + cellOffset);
+						smoothID = lerp(smoothID, cellID, h) - correctionFactor;
+						smoothPosition = lerp(smoothPosition, pointPosition, h) - correctionFactor;
+					}
+				}
+			}
+		}
+		cellPosition += smoothPosition;
+		cellID = smoothID;
+		return smoothDistance;
+	}
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//          F1 F2: first and second closest cell infos
+	// 
+	////////////////////////////////////////////////////////////////
+
+
+	// 1D
+	float2 worleyF1F2 (float p, out float F1Pos, out float F2Pos, out float F1ID, out float F2ID, float jitter = .7) // cam make a version with only dist also
+	{
+		float cellPosition = floor(p);
+		float localPosition = p - cellPosition;
+		float2 minDistance = 8.0;
+		float F1TargetOffset, F1TargetPosition, F2TargetOffset, F2TargetPosition;
+
+		[unroll]
+		for (int x = -1; x <= 1; x++) 
+		{
+			float cellOffset = x;
+			float pointPosition = cellOffset + hash11(cellPosition + cellOffset) * jitter;
+			float distanceToPoint = distFunc(pointPosition, localPosition);
+			if (distanceToPoint < minDistance.x) 		
+			{
+			
+				F2TargetOffset = F1TargetOffset;
+				minDistance.y = minDistance.x;
+				F2TargetPosition = F1TargetPosition;
+			
+				F1TargetOffset = cellOffset;
+				minDistance.x = distanceToPoint;
+				F1TargetPosition = pointPosition;
+			}
+			else if (distanceToPoint < minDistance.y) 		
+			{
+				F2TargetOffset = cellOffset;
+				minDistance.y = distanceToPoint;
+				F2TargetPosition = pointPosition;
+			}		
+		
+		}
+		F1ID = hash11(cellPosition + F1TargetOffset);
+		F1Pos = F1TargetPosition + cellPosition;
+		F2ID = hash11(cellPosition + F2TargetOffset);
+		F2Pos = F2TargetPosition + cellPosition;
+		return minDistance;
+	}
+
+	// 2D
+	float2 worleyF1F2 (float2 p, out float2 F1Pos, out float2 F2Pos, out float F1ID, out float F2ID, float jitter = .7) // cam make a version with only dist also
+	{
+		float2 cellPosition = floor(p);
+		float2 localPosition = p - cellPosition;
+		float2 minDistance = 8.0;
+		float2 F1TargetOffset, F1TargetPosition, F2TargetOffset, F2TargetPosition;
+		[unroll]
+		for (int y = -1; y <= 1; y++) 
+		{
+			[unroll]
+			for (int x = -1; x <= 1; x++) 
+			{
+				float2 cellOffset = float2(x, y);
+				float2 pointPosition = cellOffset + hash22(cellPosition + cellOffset) * jitter;
+				float distanceToPoint = distFunc(pointPosition, localPosition);
+				if (distanceToPoint < minDistance.x) 		
+				{
+				
+					F2TargetOffset = F1TargetOffset;
+					minDistance.y = minDistance.x;
+					F2TargetPosition = F1TargetPosition;
+				
+					F1TargetOffset = cellOffset;
+					minDistance.x = distanceToPoint;
+					F1TargetPosition = pointPosition;
+				}
+				else if (distanceToPoint < minDistance.y) 		
+				{
+					F2TargetOffset = cellOffset;
+					minDistance.y = distanceToPoint;
+					F2TargetPosition = pointPosition;
+				}		
+			}
+		}
+		F1ID = hash12(cellPosition + F1TargetOffset);
+		F1Pos = F1TargetPosition + cellPosition;
+		F2ID = hash12(cellPosition + F2TargetOffset);
+		F2Pos = F2TargetPosition + cellPosition;
+		return minDistance;
+	}
+
+	// 3D
+	float2 worleyF1F2 (float3 p, out float3 F1Pos, out float3 F2Pos, out float F1ID, out float F2ID, float jitter = .7) // cam make a version with only dist also
+	{
+		float3 cellPosition = floor(p);
+		float3 localPosition = p - cellPosition;
+		float2 minDistance = 8.0;
+		float3 F1TargetOffset, F1TargetPosition, F2TargetOffset, F2TargetPosition;
+		[unroll]
+		for (int z = -1; z <= 1; z++) 
+		{
+			[unroll]
+			for (int y = -1; y <= 1; y++) 
+			{
+				[unroll]
+				for (int x = -1; x <= 1; x++) 
+				{
+					float3 cellOffset = float3(x, y, z);
+					float3 pointPosition = cellOffset + hash33(cellPosition + cellOffset) * jitter;
+					float distanceToPoint = distFunc(pointPosition, localPosition);
+					if (distanceToPoint < minDistance.x) 		
+					{
+					
+						F2TargetOffset = F1TargetOffset;
+						minDistance.y = minDistance.x;
+						F2TargetPosition = F1TargetPosition;
+					
+						F1TargetOffset = cellOffset;
+						minDistance.x = distanceToPoint;
+						F1TargetPosition = pointPosition;
+					}
+					else if (distanceToPoint < minDistance.y) 		
+					{
+						F2TargetOffset = cellOffset;
+						minDistance.y = distanceToPoint;
+						F2TargetPosition = pointPosition;
+					}		
+					
+				}
+			}
+		}
+		F1ID = hash13(cellPosition + F1TargetOffset);
+		F1Pos = F1TargetPosition + cellPosition;
+		F2ID = hash13(cellPosition + F2TargetOffset);
+		F2Pos = F2TargetPosition + cellPosition;
+		return minDistance;
+	}
+
+	// 4D
+	float2 worleyF1F2 (float4 p, out float4 F1Pos, out float4 F2Pos, out float F1ID, out float F2ID, float jitter = .7) // cam make a version with only dist also
+	{
+		float4 cellPosition = floor(p);
+		float4 localPosition = p - cellPosition;
+		float2 minDistance = 8.0;
+		float4 F1TargetOffset, F1TargetPosition, F2TargetOffset, F2TargetPosition;
+		[unroll]
+		for (int w = -1; w <= 1; w++) 
+		{
+			[unroll]
+			for (int z = -1; z <= 1; z++) 
+			{
+				[unroll]
+				for (int y = -1; y <= 1; y++) 
+				{
+					[unroll]
+					for (int x = -1; x <= 1; x++) 
+					{
+						float4 cellOffset = float4(x, y, z, w);
+						float4 pointPosition = cellOffset + hash44(cellPosition + cellOffset) * jitter;
+						float distanceToPoint = distFunc(pointPosition, localPosition);
+						if (distanceToPoint < minDistance.x) 		
+						{
+						
+							F2TargetOffset = F1TargetOffset;
+							minDistance.y = minDistance.x;
+							F2TargetPosition = F1TargetPosition;
+						
+							F1TargetOffset = cellOffset;
+							minDistance.x = distanceToPoint;
+							F1TargetPosition = pointPosition;
+						}
+						else if (distanceToPoint < minDistance.y) 		
+						{
+							F2TargetOffset = cellOffset;
+							minDistance.y = distanceToPoint;
+							F2TargetPosition = pointPosition;
+						}		
+					}	
+				}
+			}
+		}
+		F1ID = hash14(cellPosition + F1TargetOffset);
+		F1Pos = F1TargetPosition + cellPosition;
+		F2ID = hash14(cellPosition + F2TargetOffset);
+		F2Pos = F2TargetPosition + cellPosition;
+		return minDistance;
+	}
+
+
+	////////////////////////////////////////////////////////////////
+	//
+	//          Edge Distance
+	// 
+	////////////////////////////////////////////////////////////////
+	
+	// 1D
+	float worleyEdgeDist (float p, out float cellPosition, out float cellID, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float localPosition = p - cellPosition;
+		float VecToClosest;
+		float targetOffset, targetPosition, pointPosition ;
+		float minDistance = 8.0;
+		[unroll]
+		for (int x = -1; x <= 1; x++) 
+		{
+			float cellOffset = x;
+			pointPosition = cellOffset + hash11(cellPosition + cellOffset) * jitter;
+			float VecToPoint = pointPosition - localPosition;
+			float distanceToPoint = dot(VecToPoint, VecToPoint);
+			if (distanceToPoint < minDistance) 
+			{
+				minDistance = distanceToPoint;
+				VecToClosest = VecToPoint;
+				targetOffset = cellOffset;
+				targetPosition = pointPosition;
+			}
+		}
+		float minEdgeDistance = 8.0;
+		[unroll]
+		for (int i = -1; i <= 1; i++) 
+		{
+
+			float cellOffset = i;
+			float VecToPoint = cellOffset + hash11(cellPosition + cellOffset) * jitter - localPosition;
+			float perpendicularToEdge = VecToPoint - VecToClosest;
+			if (dot(perpendicularToEdge, perpendicularToEdge) > 0.0001) 
+			{
+				float distanceToEdge = dot((VecToClosest + VecToPoint) / 2.0,
+				normalize(perpendicularToEdge));
+				minEdgeDistance = min(minEdgeDistance, distanceToEdge);
+			}
+		}
+		cellID = hash11(cellPosition + targetOffset);
+		cellPosition += targetPosition;
+		
+		return minEdgeDistance;
+	}
+
+	// 2D
+	float worleyEdgeDist (float2 p, out float2 cellPosition, out float cellID, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float2 localPosition = p - cellPosition;
+		float2 VecToClosest;
+		float2 targetOffset, targetPosition, pointPosition ;
+		float minDistance = 8.0;
+		[unroll]
+		for (int y = -1; y <= 1; y++) 
+		{
+			[unroll]
+			for (int x = -1; x <= 1; x++) 
+			{
+				float2 cellOffset = float2(x, y);
+				pointPosition = cellOffset + hash22(cellPosition + cellOffset) * jitter;
+				float2 VecToPoint = pointPosition - localPosition;
+				float distanceToPoint = dot(VecToPoint, VecToPoint);
+				if (distanceToPoint < minDistance) 
+				{
+					minDistance = distanceToPoint;
+					VecToClosest = VecToPoint;
+					targetOffset = cellOffset;
+					targetPosition = pointPosition;
+				}
+			}
+		}
+		float minEdgeDistance = 8.0;
+		[unroll]
+		for (int i = -1; i <= 1; i++) 
+		{
+			[unroll]
+			for (int j = -1; j <= 1; j++) 
+			{
+				float2 cellOffset = float2(j, i);
+				float2 VecToPoint = cellOffset +
+				hash22(cellPosition + cellOffset) * jitter -
+				localPosition;
+				float2 perpendicularToEdge = VecToPoint - VecToClosest;
+				if (dot(perpendicularToEdge, perpendicularToEdge) > 0.0001) 
+				{
+					float distanceToEdge = dot((VecToClosest + VecToPoint) / 2.0,
+					normalize(perpendicularToEdge));
+					minEdgeDistance = min(minEdgeDistance, distanceToEdge);
+				}
+			}
+		}
+		cellID = hash12(cellPosition + targetOffset);
+		cellPosition += targetPosition;
+		
+		return minEdgeDistance;
+	}
+
+	// 3D
+	float worleyEdgeDist (float3 p, out float3 cellPosition, out float cellID, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float3 localPosition = p - cellPosition;
+		float3 VecToClosest;
+		float3 targetOffset, targetPosition, pointPosition ;
+		float minDistance = 8.0;
+		[unroll]
+		for (int z = -1; z <= 1; z++) 
+		{
+			[unroll]
+			for (int y = -1; y <= 1; y++) 
+			{
+				[unroll]
+				for (int x = -1; x <= 1; x++) 
+				{
+					float3 cellOffset = float3(x, y, z);
+					pointPosition = cellOffset + hash33(cellPosition + cellOffset) * jitter;
+					float3 VecToPoint = pointPosition - localPosition;
+					float distanceToPoint = dot(VecToPoint, VecToPoint);
+					if (distanceToPoint < minDistance) 
+					{
+						minDistance = distanceToPoint;
+						VecToClosest = VecToPoint;
+						targetOffset = cellOffset;
+						targetPosition = pointPosition;
+					}
+				}
+			}
+		}
+		float minEdgeDistance = 8.0;
+		[unroll]
+		for (int k = -1; k <= 1; k++) 
+		{
+			[unroll]
+			for (int j = -1; j <= 1; j++) 
+			{
+				[unroll]
+				for (int i = -1; i <= 1; i++) 
+				{
+					float3 cellOffset = float3(i, j, k);
+					float3 VecToPoint = cellOffset + hash33(cellPosition + cellOffset) * jitter -
+					localPosition;
+					float3 perpendicularToEdge = VecToPoint - VecToClosest;
+					if (dot(perpendicularToEdge, perpendicularToEdge) > 0.0001) 
+					{
+						float distanceToEdge = dot((VecToClosest + VecToPoint) / 2.0,
+						normalize(perpendicularToEdge));
+						minEdgeDistance = min(minEdgeDistance, distanceToEdge);
+					}
+				}
+			}
+		}
+		cellID = hash13(cellPosition + targetOffset);
+		cellPosition += targetPosition;
+
+		return minEdgeDistance;
+	}
+
+	// 4D
+	float worleyEdgeDist (float4 p, out float4 cellPosition, out float cellID, float jitter = .7)
+	{
+		cellPosition = floor(p);
+		float4 localPosition = p - cellPosition;
+		float4 VecToClosest;
+		float4 targetOffset, targetPosition, pointPosition ;
+		float minDistance = 8.0;
+		[unroll]
+		for (int w = -1; w <= 1; w++) 
+		{
+			[unroll]
+			for (int z = -1; z <= 1; z++) 
+			{
+				[unroll]
+				for (int y = -1; y <= 1; y++) 
+				{
+					[unroll]
+					for (int x = -1; x <= 1; x++) 
+					{
+						float4 cellOffset = float4(x, y, z, w);
+						pointPosition = cellOffset + hash44(cellPosition + cellOffset) * jitter;
+						float4 VecToPoint = pointPosition - localPosition;
+						float distanceToPoint = dot(VecToPoint, VecToPoint);
+						if (distanceToPoint < minDistance) 
+						{
+							minDistance = distanceToPoint;
+							VecToClosest = VecToPoint;
+							targetOffset = cellOffset;
+							targetPosition = pointPosition;
+						}
+					}
+				}
+			
+			}
+		}
+		float minEdgeDistance = 8.0;
+		[unroll]
+		for (int l = -1; l <= 1; l++) 
+			{
+			[unroll]
+			for (int k = -1; k <= 1; k++) 
+			{
+				[unroll]
+				for (int j = -1; j <= 1; j++) 
+				{
+					[unroll]
+					for (int i = -1; i <= 1; i++) 
+					{
+						float4 cellOffset = float4(i, j, k, l);
+						float4 VecToPoint = cellOffset + hash44(cellPosition + cellOffset) * jitter -
+						localPosition;
+						float4 perpendicularToEdge = VecToPoint - VecToClosest;
+						if (dot(perpendicularToEdge, perpendicularToEdge) > 0.0001) 
+						{
+							float distanceToEdge = dot((VecToClosest + VecToPoint) / 2.0,
+							normalize(perpendicularToEdge));
+							minEdgeDistance = min(minEdgeDistance, distanceToEdge);
+						}
+					}
+				}
+			}
+		}
+		cellID = hash14(cellPosition + targetOffset);
+		cellPosition += targetPosition;
+
+		return minEdgeDistance;
+	}
+
+};

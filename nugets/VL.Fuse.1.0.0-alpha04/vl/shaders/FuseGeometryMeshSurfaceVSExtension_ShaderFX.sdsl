@@ -1,0 +1,45 @@
+shader FuseGeometryMeshSurfaceVSExtension_ShaderFX : MaterialExtension, FuseGeometryMeshSurfaceStream
+{
+    compose FuseGeometryMeshSurface Surface;
+    // End of the VS (usually skinning)
+    // could also put override here to do things sooner
+
+    stage override void PreTransformPosition() 
+    {
+        base.PreTransformPosition();
+    }
+
+    // End of tessellation (usually displacement mapping in world space, etc...)
+    stage override void TransformPosition() 
+    {
+        // run base functions first
+        base.TransformPosition();
+        base.GenerateNormal_VS();
+
+        // had to do a little juggling to make this work, looks like it should be compacted, but just leave it ;)
+        float3 p =  streams.PositionWS.xyz;
+        float3 n = streams.normalWS.xyz;
+        float2 uv = streams.TexCoord.xy;
+
+        MeshSurface surface = Surface.makeSurface(p, n, uv);
+        assignMeshSurfaceStreams(surface);
+
+        streams.PositionWS.xyz = streams.msP;       
+        float nLenSqr = dot(streams.msN, streams.msN); //check whether normal has a value
+        float3 normal = nLenSqr > 0 ? streams.msN : streams.normalWS.xyz;
+        streams.normalWS = normal;
+        streams.TexCoord.xy = streams.msUV;
+    }
+
+    // normals handled a little seperatly 
+    override stage void GenerateNormal_VS()
+    {
+        //dont do anything here, already done in TransformPosition()
+    }
+    
+    stage override float4 Shading() 
+    {
+        return base.Shading();
+        //return float4(abs(streams.msN), 1);
+    }
+};
