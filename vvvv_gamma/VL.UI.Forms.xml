@@ -697,11 +697,6 @@
             The current selection.
             </summary>
         </member>
-        <member name="E:VL.Core.Viewer.ISelectionProvider.SelectionChanged">
-            <summary>
-            Fired if current selection changed.
-            </summary>
-        </member>
         <member name="T:VL.Core.Viewer.ISelectionService">
             <summary>
             Gives clients the ability to get or set the current selection provider
@@ -712,16 +707,6 @@
         <member name="P:VL.Core.Viewer.ISelectionService.SelectionProvider">
             <summary>
             The current selection provider.
-            </summary>
-        </member>
-        <member name="E:VL.Core.Viewer.ISelectionService.SelectionProviderChanged">
-            <summary>
-            Raised if the current selection provider changed.
-            </summary>
-        </member>
-        <member name="E:VL.Core.Viewer.ISelectionService.CurrentProviderSelectionChanged">
-            <summary>
-            Fired if current selection of current selectionprovider changed.
             </summary>
         </member>
         <member name="T:VL.Core.Viewer.SelectionService">
@@ -1041,7 +1026,7 @@
             This handler gets all events from the canvas and handles interaction state internally
             </summary>
         </member>
-        <member name="M:VL.Lang.View.CanvasView.ConnectionMouseHandler.#ctor(VL.Lang.View.CanvasView,VL.Core.Viewer.VMouseEventArgs,VL.Core.View.IConnectable,System.Boolean,System.Boolean,VL.Core.Viewer.IKeyEventHandler)">
+        <member name="M:VL.Lang.View.CanvasView.ConnectionMouseHandler.#ctor(VL.Lang.View.CanvasView,VL.Core.Viewer.VMouseEventArgs,VL.Core.View.IConnectable,System.Boolean,VL.Lang.View.TempLinkDirection,VL.Lang.View.TempLinkDirection,VL.Core.Viewer.IKeyEventHandler)">
             <summary>
             Initializes a new instance of the <see cref="T:VL.Lang.View.CanvasView.ConnectionMouseHandler"/> class and calls mouse down with the given arg.
             </summary>
@@ -1066,11 +1051,6 @@
         <member name="M:VL.Lang.View.CanvasView.ConnectionMouseHandler.IsLonelyBorderControlPoint(VL.Core.View.IConnectable,System.Boolean)">
             <summary>
             Used to determine whether a new link should be started after connecting to a border control point
-            </summary>
-        </member>
-        <member name="F:VL.Lang.View.CanvasView.ConnectionMouseHandler.FSinkToSource">
-            <summary>
-            Whether the user has started the link from a sink
             </summary>
         </member>
         <member name="F:VL.Lang.View.CanvasView.CursorMouseHandler.FFutureCursor">
@@ -1132,11 +1112,6 @@
             <value>
               <c>true</c> if this instance is the SelectedCanvasView of the EditorControl; otherwise, <c>false</c>.
             </value>
-        </member>
-        <member name="F:VL.Lang.View.CanvasView.DataHubMap">
-            <summary>
-            All data hub views of this canvas add themselves to this map in the constructor
-            </summary>
         </member>
         <member name="M:VL.Lang.View.CanvasView.ToWorldSpace(System.Drawing.PointF,System.Boolean)">
             <summary>
@@ -1208,12 +1183,6 @@
         <member name="P:VL.Lang.View.CanvasView.AllSelectedViews">
             <summary>
             The concatenation of the selected nodes and the selected links
-            </summary>
-        </member>
-        <member name="E:VL.Lang.View.CanvasView.SelectionChanged">
-            <summary>
-            Fires whenever the selection on the patcheditor changes
-            The selection contains the model elements, not the views
             </summary>
         </member>
         <member name="P:VL.Lang.View.CanvasView.CurrentSelection">
@@ -1372,23 +1341,23 @@
             <param name="canvasView">The canvas view to sync</param>
             <returns></returns>
         </member>
-        <member name="M:VL.Lang.View.ViewHelpers.CanConnectTo(VL.Core.View.IConnectable,VL.Core.View.IConnectable,System.Boolean,System.Boolean)">
+        <member name="M:VL.Lang.View.ViewHelpers.CanConnectTo(VL.Core.View.IConnectable,VL.Core.View.IConnectable,System.Boolean,VL.Lang.View.TempLinkDirection)">
             <summary>
             Determines whether this instance can connected to the other one
             </summary>
             <param name="from">From</param>
             <param name="to">To</param>
             <param name="force">if set to <c>true</c> tries to force the connection</param>
-            <param name="sinkToSource">if set to <c>true</c> the from connectable is considered as the sink, otherwise vice versa.</param>
+            <param name="tempLinkDirection">the link direction</param>
         </member>
-        <member name="M:VL.Lang.View.ViewHelpers.CanConnectTo(VL.Model.DataHub,VL.Model.DataHub,System.Boolean,System.Boolean)">
+        <member name="M:VL.Lang.View.ViewHelpers.CanConnectTo(VL.Model.DataHub,VL.Model.DataHub,System.Boolean,VL.Lang.View.TempLinkDirection)">
             <summary>
             Determines whether this instance [can connect to] the specified to hub.
             </summary>
             <param name="fromHub">From hub.</param>
             <param name="toHub">To hub.</param>
             <param name="force">if set to <c>true</c> tries to force the connection</param>
-            <param name="sinkToSource">if set to <c>true</c> the from hub is considered as the sink, otherwise vice versa.</param>
+            <param name="tempLinkDirection">the link direction</param>
         </member>
         <member name="M:VL.Lang.View.ViewHelpers.StandardGetPicks(VL.Lang.View.View,System.Drawing.PointF,VL.Lang.View.PickyReason)">
             <summary>

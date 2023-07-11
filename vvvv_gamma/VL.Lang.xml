@@ -920,6 +920,21 @@
               Looks up a localized string similar to RightClick -&gt; Open to see more..
             </summary>
         </member>
+        <member name="P:VL.Lang.Properties.M.SlotWithSameNameHow">
+            <summary>
+              Looks up a localized string similar to Please rename the property. Search for the pads in your patch and rename them back. The doubled property should vanish..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SlotWithSameNameWhat">
+            <summary>
+              Looks up a localized string similar to A Property of that name exists already..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.SlotWithSameNameWhy">
+            <summary>
+              Looks up a localized string similar to This might be because of a merge(?) It&apos;s a rare error you see here..
+            </summary>
+        </member>
         <member name="P:VL.Lang.Properties.M.SourceAndSinkAreOnSameMomentsHow">
             <summary>
               Looks up a localized string similar to To hand the result of one operation over to use in another operation use a pad. The upstream operation can write data into a pad that downstream operations can then read from at a later moment. Note that the simplest way to insert a pad into a link is by pressing SHIFT while double-clicking the link. And also note that in many scenarios such pads can even be anonymous (ie. you don&apos;t need to give them a name)..
@@ -1116,6 +1131,12 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="M:VL.Lang.PublicAPI.LiveElement.Update(VL.Model.Element)">
+            <summary>
+            Updates the live element based on the given model.
+            </summary>
+            <returns>True if the element should get re-created. For example a data hub returns true if its infered type changed.</returns>
+        </member>
         <member name="P:VL.Lang.PublicAPI.IDataHubInfo.Name">
             <summary>
             The name of the data hub.
@@ -1198,6 +1219,33 @@
             <summary>
             This typically is only of interest for border control points. 
             Splicers e.g. look different from the inside/outside
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.IsCurrentlyUnused">
+            <summary>
+            Whether the data hub is currently unused. Used by fragmented nodes.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.IsModified">
+            <summary>
+            Whether or not a value is stored in the data hub which differs from its default value.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.DataChannel">
+            <summary>
+            Allows to read from and write to the data hub.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ILiveDataHub.Commit">
+            <summary>
+            Commits the stored value in the <see cref="P:VL.Lang.PublicAPI.ILiveDataHub.DataChannel"/> to the solution.
+            Note that in the current implementation values get written back to the solution automatically 
+            after half a second since the last interacion.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ILiveDataHub.Reset">
+            <summary>
+            Resets the value stored in the hub back to its default.
             </summary>
         </member>
         <member name="T:VL.Lang.PublicAPI.ILiveElement">
@@ -1563,7 +1611,12 @@
         </member>
         <member name="P:VL.Lang.Symbols.IDataHubSymbol.Value">
             <summary>
-            The value of the hub if not connected. Returns a dummy if there's none.
+            The value of the hub. If there's no value stored in the hub itself, the default value of the definition (if any) is returned.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Symbols.IDataHubSymbol.DefaultValue">
+            <summary>
+            The default value of the pin definition (if any).
             </summary>
         </member>
         <member name="P:VL.Lang.Symbols.IDataHubSymbol.SourceType">
@@ -2136,36 +2189,6 @@
             </summary>
             <param name="fieldInfo">The field information.</param>
             <returns></returns>
-        </member>
-        <member name="T:VL.Core.RefCountedDictionary`2">
-            <summary>
-            A dictinary that keeps track of how many instances per key are added or removed.
-            </summary>
-            <typeparam name="TKey">The type of the key.</typeparam>
-            <typeparam name="TValue">The type of the value.</typeparam>
-            <seealso cref="T:System.Collections.Generic.Dictionary`2" />
-        </member>
-        <member name="M:VL.Core.RefCountedDictionary`2.GetRefCount(`0)">
-            <summary>
-            Gets the reference count of a specified key, 0 if no entry exists.
-            </summary>
-            <param name="key">The key.</param>
-        </member>
-        <member name="M:VL.Core.RefCountedDictionary`2.Add(`0,`1)">
-            <summary>
-            Adds the specified key and value to the dictionary.
-            </summary>
-            <param name="key">The key of the element to add.</param>
-            <param name="value">The value of the element to add. The value can be null for reference types.</param>
-        </member>
-        <member name="M:VL.Core.RefCountedDictionary`2.Remove(`0)">
-            <summary>
-            Removes the value with the specified key from the <see cref="T:System.Collections.Generic.Dictionary`2" />.
-            </summary>
-            <param name="key">The key of the element to remove.</param>
-            <returns>
-            true if the element is successfully found and removed; otherwise, false.  This method returns false if <paramref name="key" /> is not found in the <see cref="T:System.Collections.Generic.Dictionary`2" />.
-            </returns>
         </member>
         <member name="M:VL.Core.VersionUtils.ParseLanguageVersion(System.String)">
             <summary>

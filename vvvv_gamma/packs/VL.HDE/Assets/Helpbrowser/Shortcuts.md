@@ -27,7 +27,7 @@ Close Active Document|<span class="keyseq"><kbd>Ctrl</kbd><kbd>W</kbd></span>
 Show Active Document in Explorer|<span class="keyseq"><kbd>Alt</kbd><kbd>E</kbd></span>
 View Active Document as Text|<span class="keyseq"><kbd>Alt</kbd><kbd>Shift</kbd><kbd>E</kbd></span>
 Add Existing Dependency|<span class="keyseq"><kbd>Ctrl</kbd><kbd>E</kbd></span>
-Add .NET Framework Assembly|<span class="keyseq"><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>E</kbd></span>
+Add .NET Framework Assembly|<span class="keyseq"><kbd>Ctrl</kbd><kbd>Alt</kbd><kbd>Shift</kbd><kbd>E</kbd></span>
 
 ## Basics
 Description|Action
