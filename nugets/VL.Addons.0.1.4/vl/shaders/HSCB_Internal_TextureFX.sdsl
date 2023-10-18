@@ -1,0 +1,46 @@
+[Category("Filter.ColorManipulation")]
+[Tags("hue, saturation, contrast, brightness")]
+[Summary("Applies hue, saturation, contrast and brightness color correction")]
+
+shader HSCB_Internal_TextureFX : FilterBase
+{
+    [Default(0.0f)]
+    compose ComputeFloat Hue;
+
+    [Default(1.0f)]
+    compose ComputeFloat HueCycles;
+
+    [Default(0.0f)]
+    compose ComputeFloat SaturationBalance;
+
+    [Default(1.0f)]
+    compose ComputeFloat Saturation;
+
+    [Default(0.0f)]
+    compose ComputeFloat Contrast;
+
+    [Default(0.0f)]
+    compose ComputeFloat Brightness;
+
+    float3 safenormalize(float3 x)
+    {
+		x = lerp(x, x + 0.00001,x==0);
+		return normalize(x);
+    }
+
+    float4 Filter(float4 tex0col)
+    {
+        float4 c = tex0col;
+        float3 h = base.RGBtoHSV(c.rgb);
+        h.y = pow(h.y, pow(2, SaturationBalance.Compute())) * Saturation.Compute();
+
+        float3 k0 = base.HSVtoRGB(float3((frac(h.x + Hue.Compute()) - 0) * HueCycles.Compute(), h.y, h.z));
+        float3 k1 = base.HSVtoRGB(float3((frac(h.x + Hue.Compute()) - 1) * HueCycles.Compute(), h.y, h.z));
+        c.rgb = lerp(k0, k1, pow(smoothstep(0, 1, h.x), 2));
+        c.rgb = safenormalize(c.rgb) * sqrt(3) * pow(length(c.rgb) / sqrt(3), pow(2, Contrast.Compute())) * pow(2, Brightness.Compute());
+
+        return c;
+    }
+};
+
+

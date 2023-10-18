@@ -1,0 +1,16 @@
+shader TransformColor_Advanced_Internal_ShaderFX : ComputeFloat4
+{
+    [Default(1.0f, 1.0f, 1.0f, 1.0f)]
+    compose ComputeFloat4 ColorIn;
+
+    compose ComputeFloat4 Control;
+    
+    float4x4 Transform;
+
+    override float4 Compute()
+    {
+        return lerp(ColorIn, mul(ColorIn.Compute(), Transform), Control.Compute());
+    }
+};
+
+

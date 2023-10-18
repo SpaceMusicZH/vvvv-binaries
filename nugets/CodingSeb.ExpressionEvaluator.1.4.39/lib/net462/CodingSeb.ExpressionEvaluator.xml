@@ -1,0 +1,827 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodingSeb.ExpressionEvaluator</name>
+    </assembly>
+    <members>
+        <member name="T:CodingSeb.ExpressionEvaluator.ExpressionEvaluator">
+            <summary>
+            This class allow to evaluate a string math or pseudo C# expression/script
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.operatorsDictionary">
+            <summary>
+            OperatorsDictionaryInit() for values
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.CacheTypesResolutions">
+            <summary>
+            if set to <c>true</c> use a cache for types that were resolved to resolve faster next time.<para/>
+            if set to <c>false</c> the cache of types resolution is not use for this instance of ExpressionEvaluator.<para/>
+            Default : false<para/>
+            The cache is the static Dictionary TypesResolutionCaching (so it is shared by all instances of ExpressionEvaluator that have CacheTypesResolutions enabled)
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.TypesResolutionCaching">
+            <summary>
+            A shared cache for types resolution.
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ClearAllCaches">
+            <summary>
+            Clear all ExpressionEvaluator caches
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Assemblies">
+            <summary>
+            All assemblies needed to resolves Types<para/>
+            By default all assemblies loaded in the current AppDomain
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Namespaces">
+            <summary>
+            All Namespaces Where to find types<para/>
+            Equivalent of a <c>using Namespace;</c>
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Types">
+            <summary>
+            To add or remove specific types to manage in expression.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.TypesToBlock">
+            <summary>
+            A list of type to block an keep un usable in Expression Evaluation for security purpose
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.StaticTypesForExtensionsMethods">
+            <summary>
+            A list of statics types where to find extensions methods
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionCaseSensitiveEvaluationActive">
+            <summary>
+            If <c>true</c> all evaluation are case sensitives.<para/>
+            If <c>false</c> evaluations are case insensitive.<para/>
+            By default = true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionVariablesPersistenceCustomComparer">
+            <summary>
+            If <c>true</c> Variables dictionary is kept as given so variables are persist outside of the evaluator and the comparer for keys can be defined by the user<para/>
+            If <c>false</c> Variables dictionary references are copied internally to follow OptionCaseSensitiveEvaluationActive with an internal protected comparer for keys<para/>
+            By default = false
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionForceIntegerNumbersEvaluationsAsDoubleByDefault">
+            <summary>
+            If <c>true</c> all numbers without decimal and suffixes evaluations will be done as double<para/>
+            If <c>false</c> Integers values without decimal and suffixes will be evaluate as int as in C# (Warning some operation can round values)<para/>
+            By default = false
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.CultureInfoForNumberParsing">
+            <summary>
+            The culture used to evaluate numbers.<para/>
+            Synchronized with OptionNumberParsingDecimalSeparator and OptionNumberParsingThousandSeparator.<para/>
+            So always set a full CultureInfo object and do not change CultureInfoForNumberParsing.NumberFormat.NumberDecimalSeparator and CultureInfoForNumberParsing.NumberFormat.NumberGroupSeparator properties directly.<para/>
+            Warning if using comma in separators change also OptionFunctionArgumentsSeparator and OptionInitializersSeparator otherwise it will create conflicts
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionNumberParsingDecimalSeparator">
+            <summary>
+            Allow to change the decimal separator of numbers when parsing expressions.<para/>
+            By default "."<para/>
+            Warning if using comma change also OptionFunctionArgumentsSeparator and OptionInitializersSeparator otherwise it will create conflicts.<para/>
+            Modify CultureInfoForNumberParsing.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionNumberParsingThousandSeparator">
+            <summary>
+            Allow to change the thousand separator of numbers when parsing expressions.<para/>
+            By default string.Empty<para/>
+            Warning if using comma change also OptionFunctionArgumentsSeparator and OptionInitializersSeparator otherwise it will create conflicts.<para/>
+            Modify CultureInfoForNumberParsing.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionFunctionArgumentsSeparator">
+            <summary>
+            Allow to change the separator of functions arguments.<para/>
+            By default ","<para/>
+            Warning must to be changed if OptionNumberParsingDecimalSeparator = "," otherwise it will create conflicts<para/>
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionInitializersSeparator">
+            <summary>
+            Allow to change the separator of Object and collections Initialization between { and } after the keyword new.<para/>
+            By default ","<para/>
+            Warning must to be changed if OptionNumberParsingDecimalSeparator = "," otherwise it will create conflicts<para/>
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionFluidPrefixingActive">
+            <summary>
+            if <c>true</c> allow to add the prefix Fluid or Fluent before void methods names to return back the instance on which the method is call.<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionInlineNamespacesEvaluationRule">
+            <summary>
+            if <c>AllowAll</c> Allow the use of any inline namespace that is available in memory (Can be slow, and is less secure).<para/>
+            if <c>AllowOnlyInlineNamespacesList</c> Allow only the use of inline namespace defined in <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.InlineNamespacesList"/><para/>
+            if <c>BlockOnlyInlineNamespacesList</c> Allow the use of any inline namespace that is available in memory that is not defined in <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.InlineNamespacesList"/><para/>
+            if <c>BlockAll</c> Unactive the use of inline namespaces<para/>
+            By default : <c>AllowAll</c>
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.InlineNamespacesList">
+            <summary>
+            This list is used to allow or block depending on <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionInlineNamespacesEvaluationRule"/> a list of namespaces for inline writing.<para/>
+            The direct access of type depending on <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Namespaces"/> is not affected by this list.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionNewFunctionEvaluationActive">
+            <summary>
+            if <c>true</c> allow to create instance of object with the Default function new(ClassNam,...).<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionNewKeywordEvaluationActive">
+            <summary>
+            if <c>true</c> allow to create instance of object with the C# syntax new ClassName(...).<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionStaticMethodsCallActive">
+            <summary>
+            if <c>true</c> allow to call static methods on classes.<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionStaticPropertiesGetActive">
+            <summary>
+            if <c>true</c> allow to get static properties on classes<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionInstanceMethodsCallActive">
+            <summary>
+            if <c>true</c> allow to call instance methods on objects.<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionInstancePropertiesGetActive">
+            <summary>
+            if <c>true</c> allow to get instance properties on objects<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionIndexingActive">
+            <summary>
+            if <c>true</c> allow to get object at index or key like <c>IndexedObject[indexOrKey]</c><para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionStringEvaluationActive">
+            <summary>
+            if <c>true</c> allow string interpretation with ""<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionCharEvaluationActive">
+            <summary>
+            if <c>true</c> allow char interpretation with ''<para/>
+            if <c>false</c> unactive this functionality.<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionEvaluateFunctionActive">
+            <summary>
+            If <c>true</c> Evaluate function is callables in an expression.<para/>
+            If <c>false</c> Evaluate is not callable.<para/>
+            By default : true<para/>
+            if set to false for security (also ensure that ExpressionEvaluator type is in TypesToBlock list)
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionVariableAssignationActive">
+            <summary>
+            If <c>true</c> allow to assign a value to a variable in the Variable disctionary with (=, +=, -=, *=, /=, %=, &amp;=, |=, ^=, &lt;&lt;=, &gt;&gt;=, ++ or --)<para/>
+            If <c>false</c> unactive this functionality<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionPropertyOrFieldSetActive">
+            <summary>
+            If <c>true</c> allow to set/modify a property or a field value with (=, +=, -=, *=, /=, %=, &amp;=, |=, ^=, &lt;&lt;=, &gt;&gt;=, ++ or --)<para/>
+            If <c>false</c> unactive this functionality<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionIndexingAssignationActive">
+            <summary>
+            If <c>true</c> allow to assign a indexed element like Collections, List, Arrays and Dictionaries with (=, +=, -=, *=, /=, %=, &amp;=, |=, ^=, &lt;&lt;=, &gt;&gt;=, ++ or --)<para/>
+            If <c>false</c> unactive this functionality<para/>
+            By default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionScriptEvaluateFunctionActive">
+            <summary>
+            If <c>true</c> ScriptEvaluate function is callables in an expression.<para/>
+            If <c>false</c> Evaluate is not callable.<para/>
+            By default : true<para/>
+            if set to false for security (also ensure that ExpressionEvaluator type is in TypesToBlock list)
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionOnNoReturnKeywordFoundInScriptAction">
+            <summary>
+            Set How to react when the keyword return is not found in a script. when using ScriptEvaluate method<para/>
+            If <c>ReturnAutomaticallyLastEvaluatedExpression</c> ScriptEvaluate return automatically the last evaluated expression if no return keyword is met.<para/>
+            If <c>ReturnNull</c> return null if no return keyword is met.<para/>
+            If <c>ThrowSyntaxException</c> a exception is throw if no return keyword is met.<para/>
+            By default : ReturnAutomaticallyLastEvaluatedExpression;
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionScriptNeedSemicolonAtTheEndOfLastExpression">
+            <summary>
+            If <c>true</c> ScriptEvaluate need to have a semicolon [;] after each expression.<para/>
+            If <c>false</c> Allow to omit the semicolon for the last expression of the script.<para/>
+            Default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionAllowNonPublicMembersAccess">
+            <summary>
+            If <c>true</c> Allow to access fields, properties and methods that are not declared public. (private, protected and internal)<para/>
+            If <c>false</c> Allow to access only to public members.<para/>
+            Default : false<para/>
+            Warning : This clearly break the encapsulation principle use this only if you know what you do.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionDetectExtensionMethodsOverloadsOnExtensionMethodNotFound">
+            <summary>
+            If <c>true</c> On unsuccessful call to an extension method, all defined overloads of that method are detected to resolve whether method is defined and called with wrong arguments or method is not defined.<para/>
+            If <c>false</c> Unsucessful call to an extension method will always result in "Method {name} is not defined on type {type}"<para/>
+            Default : true
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionCanDeclareMultiExpressionsLambdaInSimpleExpressionEvaluate">
+            <summary>
+            If <c>true</c> Allow to define multi expression lambda in Expressions (not in script)<para/>
+            If <c>false</c> Can only define simple expression lambda if not in script<para/>
+            Default value : <c>true</c>
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Context">
+            <summary>
+            If set, this object is used to use it's fields, properties and methods as global variables and functions
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.evaluationStackCount">
+            <summary>
+            Counts stack initialisations to determine if the expression entry point was reached. In that case the transported exception should be thrown.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Variables">
+            <summary>
+            A Dictionary of variable name/value that can be use in expressions and scripts evaluate by the current instance of <see cref="T:CodingSeb.ExpressionEvaluator.ExpressionEvaluator"/><para/>
+            Warning : Make a copy of the given dictionary to manage casing.
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ExpressionEvaluating">
+            <summary>
+            Is fired just before an expression is evaluate.<para/>
+            Allow to redefine the expression to evaluate or to force a result value.
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ExpressionEvaluated">
+            <summary>
+            Is fired just before to return the expression evaluation.<para/>
+            Allow to modify on the fly the result of the evaluation.
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.PreEvaluateVariable">
+            <summary>
+            Is fired before a variable, field or property resolution.<para/>
+            Allow to define a variable and the corresponding value on the fly.<para/>
+            Allow also to cancel the evaluation of this variable (consider it does'nt exists)
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.PreEvaluateFunction">
+            <summary>
+            Is fired before a function or method resolution.<para/>
+            Allow to define a function or method and the corresponding value on the fly.<para/>
+            Allow also to cancel the evaluation of this function (consider it does'nt exists)
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.PreEvaluateIndexing">
+            <summary>
+            Is fired before a indexing resolution.<para/>
+            Allow to define an indexing and the corresponding value on the fly.<para/>
+            Allow also to cancel the evaluation of this indexing (consider it does'nt exists)
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.EvaluateVariable">
+            <summary>
+            Is fired if no variable, field or property were found.<para/>
+            Allow to define a variable and the corresponding value on the fly.
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.EvaluateFunction">
+            <summary>
+            Is fired if no function or method were found.<para/>
+            Allow to define a function or method and the corresponding value on the fly.
+            </summary>
+        </member>
+        <member name="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.EvaluateParameterCast">
+            <summary>
+            Is fired when a parameter is not of the correct type for the function.<para/>
+            Allow to define a custom parameter cast to make the function call work on the fly.
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.#ctor">
+            <summary>
+            Default Constructor
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Constructor with variables initialize
+            </summary>
+            <param name="variables">The Values of variables use in the expressions</param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Constructor with variables initialize
+            </summary>
+            <param name="variables">The Values of variables use in the expressions</param>
+            <param name="optionVariablesPersistenceCustomComparer">To set <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionVariablesPersistenceCustomComparer"/> before setting <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Variables"/></param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.#ctor(System.Object)">
+            <summary>
+            Constructor with context initialize
+            </summary>
+            <param name="context">the context that propose it's fields, properties and methods to the evaluation</param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.#ctor(System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Constructor with variables and context initialize
+            </summary>
+            <param name="context">the context that propose it's fields, properties and methods to the evaluation</param>
+            <param name="variables">The Values of variables use in the expressions</param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.#ctor(System.Object,System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Constructor with variables and context initialize
+            </summary>
+            <param name="context">the context that propose it's fields, properties and methods to the evaluation</param>
+            <param name="variables">The Values of variables use in the expressions</param>
+            <param name="optionVariablesPersistenceCustomComparer">To set <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionVariablesPersistenceCustomComparer"/> before setting <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Variables"/></param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ScriptEvaluate``1(System.String)">
+            <summary>
+            Evaluate a script (multiple expressions separated by semicolon)<para/>
+            support some conditional, loop and other C# code flow management keywords
+            </summary>
+            <typeparam name="T">The type in which to cast the result of the expression</typeparam>
+            <param name="script">the script to evaluate</param>
+            <returns>The result of the last evaluated expression</returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ScriptEvaluate(System.String)">
+            <summary>
+            Evaluate a script (multiple expressions separated by semicolon)<para/>
+            support some conditional, loop and other C# code flow management keywords
+            </summary>
+            <param name="script">the script to evaluate</param>
+            <returns>The result of the last evaluated expression</returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Evaluate``1(System.String)">
+            <summary>
+            Evaluate the specified math or pseudo C# expression
+            </summary>
+            <typeparam name="T">The type in which to cast the result of the expression</typeparam>
+            <param name="expression">the math or pseudo C# expression to evaluate</param>
+            <returns>The result of the operation if syntax is correct casted in the specified type</returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.Evaluate(System.String)">
+            <summary>
+            Evaluate the specified math or pseudo C# expression
+            </summary>
+            <param name="expression">the math or pseudo C# expression to evaluate</param>
+            <returns>The result of the operation if syntax is correct</returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.RemoveComments(System.String)">
+            <summary>
+            remove all line and blocks comments of the specified C# script. (Manage in strings comment syntax ignore)
+            based on https://stackoverflow.com/questions/3524317/regex-to-strip-line-comments-from-c-sharp/3524689#3524689
+            </summary>
+            <param name="scriptWithComments">The C# code with comments to remove</param>
+            <returns>The same C# code without comments</returns>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.OptionOnNoReturnKeywordFoundInScriptAction">
+            <summary>
+            This enum represent the way <see cref="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ScriptEvaluate(System.String)"/> behave when no <c>return</c> keyword is found.<para/>
+            Used for the option <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionOnNoReturnKeywordFoundInScriptAction"/>
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.OptionOnNoReturnKeywordFoundInScriptAction.ReturnAutomaticallyLastEvaluatedExpression">
+            <summary>
+            ScriptEvaluate return automatically the last evaluated expression if no return keyword is met.
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.OptionOnNoReturnKeywordFoundInScriptAction.ReturnNull">
+            <summary>
+             ScriptEvaluate Return null if no return keyword is met.
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.OptionOnNoReturnKeywordFoundInScriptAction.ThrowSyntaxException">
+            <summary>
+            A exception is throw if no return keyword is met.
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.InlineNamespacesEvaluationRule">
+            <summary>
+            This enum define the rules to use to allow or block inline namespaces.<para />
+            Used for the option <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.OptionInlineNamespacesEvaluationRule"/>
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.InlineNamespacesEvaluationRule.AllowAll">
+            <summary>
+            Allow the use of any inline namespace that is available in memory
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.InlineNamespacesEvaluationRule.AllowOnlyInlineNamespacesList">
+            <summary>
+            Allow only the use of inline namespace defined in <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.InlineNamespacesList"/>
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.InlineNamespacesEvaluationRule.BlockOnlyInlineNamespacesList">
+            <summary>
+             Allow the use of any inline namespace that is available in memory that is not defined in <see cref="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.InlineNamespacesList"/>
+            </summary>
+        </member>
+        <member name="F:CodingSeb.ExpressionEvaluator.InlineNamespacesEvaluationRule.BlockAll">
+            <summary>
+            Unactive the use of inline namespaces
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.MethodsGroupEncaps">
+            <summary>
+            Represent a group of method on which the override to call is not yet known.<para/>
+            Simulate delegates
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.MethodsGroupEncaps.ContainerObject">
+            <summary>
+            The instance of the object on which the method group is define
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.MethodsGroupEncaps.MethodsGroup">
+            <summary>
+            An array of methods overrides infos that could be potentially use for call
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.BubbleExceptionContainer">
+            <summary>
+            Encapsulate an exception that happend in a sub part of the expression when the evaluation need to continue before throwing the exception.
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.BubbleExceptionContainer.#ctor(System.Exception)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="exception">the exception to encapsulate</param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.BubbleExceptionContainer.Throw">
+            <summary>
+            Rethrow the exception with proper context.
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg">
+            <summary>
+            Infos about the variable, attribut or property that is currently evaluate
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.#ctor(System.String,CodingSeb.ExpressionEvaluator.ExpressionEvaluator,System.Object,System.String,System.Func{System.String,System.Type[]})">
+            <summary>
+            Constructor of the VariableEvaluationEventArg
+            </summary>
+            <param name="name">The name of the variable to Evaluate</param>
+            <param name="evaluator">The <see cref="T:CodingSeb.ExpressionEvaluator.ExpressionEvaluator"/> that detected the variable, field or property to evaluate</param>
+            <param name="onInstance">The object instance on which to evaluate the field or property (will be <see cref="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.This"/>)</param>
+            <param name="genericTypes">The generics types specified when at property access</param>
+            <param name="evaluateGenericTypes">A func to evaluate the list of specific types given between &lt; and &gt;</param>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.Name">
+            <summary>
+            The name of the variable to Evaluate
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.Value">
+            <summary>
+            To set a value to this variable
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.HasValue">
+            <summary>
+            if <c>true</c> the variable is affected<para/>
+            if <c>false</c> it means that the variable does not exist.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.This">
+            <summary>
+            In the case of on the fly instance property definition the instance of the object on which this Property is called.<para/>
+            Otherwise is set to null.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.Evaluator">
+            <summary>
+            A reference on the current expression evaluator.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.HasGenericTypes">
+            <summary>
+            Is <c>true</c> if some generic types are specified with &lt;&gt;.<para/>
+            <c>false</c> otherwise
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.VariableEvaluationEventArg.EvaluateGenericTypes">
+            <summary>
+            In the case where generic types are specified with &lt;&gt;<para/>
+            Evaluate all types and return an array of types
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg">
+            <summary>
+            Infos about the expression that has been/will be evaluated
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg.#ctor(System.String,CodingSeb.ExpressionEvaluator.ExpressionEvaluator)">
+            <summary>
+            Constructor of ExpressionEvaluationEventArg (for <see cref="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ExpressionEvaluating"/> event)
+            </summary>
+            <param name="expression">The expression that will be evaluated</param>
+            <param name="evaluator">The evaluator that will be use to evaluate the expression</param>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg.#ctor(System.String,CodingSeb.ExpressionEvaluator.ExpressionEvaluator,System.Object)">
+            <summary>
+            Constructor of ExpressionEvaluationEventArg (for <see cref="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ExpressionEvaluated"/> event)
+            </summary>
+            <param name="expression">The expression that will be evaluated</param>
+            <param name="evaluator"></param>
+            <param name="value"></param>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg.Evaluator">
+            <summary>
+            The evaluator that has been/will be use to evaluate the expression
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg.Expression">
+            <summary>
+            The Expression that wil be evaluated.
+            Can be modified.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg.Value">
+            <summary>
+            To set the return of the evaluation<para/>
+            In the case of <see cref="E:CodingSeb.ExpressionEvaluator.ExpressionEvaluator.ExpressionEvaluated"/> event, store the result of the evaluation
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ExpressionEvaluationEventArg.HasValue">
+            <summary>
+            if <c>true</c> the expression evaluation has been done<para/>
+            if <c>false</c> it means that the evaluation must continue.
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.VariablePreEvaluationEventArg">
+            <summary>
+            Infos about the variable, attribut or property that is currently evaluate
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.VariablePreEvaluationEventArg.CancelEvaluation">
+            <summary>
+            If set to true cancel the evaluation of the current variable, field or property and throw an exception it does not exists
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg">
+            <summary>
+            Infos about the function or method that is currently evaluate
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.#ctor(System.String,System.Collections.Generic.List{System.String},CodingSeb.ExpressionEvaluator.ExpressionEvaluator,System.Object,System.String,System.Func{System.String,System.Type[]})">
+            <summary>
+            Constructor of the <see cref="T:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg"/>
+            </summary>
+            <param name="name">The name of the function or method</param>
+            <param name="args">Arguments passed to fthe function or method</param>
+            <param name="evaluator">The <see cref="T:CodingSeb.ExpressionEvaluator.ExpressionEvaluator"/> that detected the function or method to evaluate</param>
+            <param name="onInstance">The object instance on which to evaluate the method (will be <see cref="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.This"/>)</param>
+            <param name="genericTypes">The generics types specified when at function calling</param>
+            <param name="evaluateGenericTypes">A func to evaluate the list of specific types given between &lt; and &gt;</param>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.Args">
+            <summary>
+            The not evaluated args of the function
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.EvaluateArgs">
+            <summary>
+            Get the values of the function's args.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.EvaluateArg(System.Int32)">
+            <summary>
+            Get the value of the function's arg at the specified index
+            </summary>
+            <param name="index">The index of the function's arg to evaluate</param>
+            <returns>The evaluated arg</returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.EvaluateArg``1(System.Int32)">
+            <summary>
+            Get the value of the function's arg at the specified index
+            </summary>
+            <typeparam name="T">The type of the result to get. (Do a cast)</typeparam>
+            <param name="index">The index of the function's arg to evaluate</param>
+            <returns>The evaluated arg casted in the specified type</returns>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.Name">
+            <summary>
+            The name of the variable to Evaluate
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.Value">
+            <summary>
+            To set the return value of the function
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.FunctionReturnedValue">
+            <summary>
+            if <c>true</c> the function evaluation has been done,<para/>
+            if <c>false</c> it means that the function does not exist.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.This">
+            <summary>
+            In the case of on the fly instance method definition the instance of the object on which this method (function) is called.<para/>
+            Otherwise is set to null.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.Evaluator">
+            <summary>
+            A reference on the current expression evaluator.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.HasGenericTypes">
+            <summary>
+            Is <c>true</c> if some generic types are specified with &lt;&gt;.<para/>
+            <c>false</c> otherwise
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.FunctionEvaluationEventArg.EvaluateGenericTypes">
+            <summary>
+            In the case where generic types are specified with &lt;&gt;<para/>
+            Evaluate all types and return an array of types
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.FunctionPreEvaluationEventArg">
+            <summary>
+            Infos about the function or method that is currently evaluate
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.FunctionPreEvaluationEventArg.CancelEvaluation">
+            <summary>
+            If set to true cancel the evaluation of the current function or method and throw an exception that the function does not exists
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg">
+            <summary>
+            Infos about the indexing that is currently evaluate
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.#ctor(System.Collections.Generic.List{System.String},CodingSeb.ExpressionEvaluator.ExpressionEvaluator,System.Object)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="args">The not evaluated args of the indexing</param>
+            <param name="evaluator">A reference on the current expression evaluator.</param>
+            <param name="onInstance">The instance of the object on which the indexing is called.<para/>Will be the <see cref="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.This"/> property</param>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.Args">
+            <summary>
+            The not evaluated args of the indexing
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.This">
+            <summary>
+            The instance of the object on which the indexing is called.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.Value">
+            <summary>
+            To set the result value of the indexing
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.HasValue">
+            <summary>
+            if <c>true</c> the indexing evaluation has been done<para/>
+            if <c>false</c> it means that the indexing does not exist.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.Evaluator">
+            <summary>
+            A reference on the current expression evaluator.
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.EvaluateArgs">
+            <summary>
+            Get the values of the indexing's args.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.EvaluateArg(System.Int32)">
+            <summary>
+            Get the value of the indexing's arg at the specified index
+            </summary>
+            <param name="index">The index of the indexing's arg to evaluate</param>
+            <returns>The evaluated arg</returns>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.EvaluateArg``1(System.Int32)">
+            <summary>
+            Get the value of the indexing's arg at the specified index
+            </summary>
+            <typeparam name="T">The type of the result to get. (Do a cast)</typeparam>
+            <param name="index">The index of the indexing's arg to evaluate</param>
+            <returns>The evaluated arg casted in the specified type</returns>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.IndexingPreEvaluationEventArg.CancelEvaluation">
+            <summary>
+            If set to <c>true</c> cancel the evaluation of the current function or method and throw an exception that the function does not exists
+            </summary>
+        </member>
+        <member name="T:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg">
+            <summary>
+            Class ParameterCastEvaluationEventArg
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.MethodInfo">
+            <summary>
+            The information of the method that it try to call
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.This">
+            <summary>
+            In the case of on the fly instance method definition the instance of the object on which this method (function) is called.<para/>
+            Otherwise is set to null.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.Evaluator">
+            <summary>
+            A reference on the current expression evaluator.
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.ParameterType">
+            <summary>
+            The required type of the parameter
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.OriginalArg">
+            <summary>
+            The original argument
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.ArgPosition">
+            <summary>
+            Position of the argument (index from 0)
+            </summary>
+        </member>
+        <member name="M:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.#ctor(System.Reflection.MethodInfo,System.Type,System.Object,System.Int32,CodingSeb.ExpressionEvaluator.ExpressionEvaluator,System.Object)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="methodInfo">The information of the method that it try to call</param>
+            <param name="parameterType">The required type of the parameter</param>
+            <param name="originalArg">The original argument</param>
+            <param name="argPosition">Position of the argument (index from 0)</param>
+            <param name="evaluator">A reference on the current expression evaluator.</param>
+            <param name="onInstance">In the case of on the fly instance method definition the instance of the object on which this method (function) is called.<para/>Otherwise is set to null.<para/>Will be the <see cref="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.This"/> property</param>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.Argument">
+            <summary>
+            To set the modified argument
+            </summary>
+        </member>
+        <member name="P:CodingSeb.ExpressionEvaluator.ParameterCastEvaluationEventArg.FunctionModifiedArgument">
+            <summary>
+            if <c>true</c> the argument has been modified, if <c>false</c> it means that the argument can't be of the given type.
+            </summary>
+        </member>
+    </members>
+</doc>
