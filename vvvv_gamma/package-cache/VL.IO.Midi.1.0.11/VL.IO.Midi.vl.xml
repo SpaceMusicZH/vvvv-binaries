@@ -1,0 +1,670 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.IO.Midi.vl</name>
+    </assembly>
+    <members>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.Command(Sanford.Multimedia.Midi.ChannelMessage,Sanford.Multimedia.Midi.ChannelCommand@)">
+            <summary>Gets the channel command value.</summary>
+            <param name="Command_Out">Gets the channel command value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.Create(VL.Core.NodeContext,Sanford.Multimedia.Midi.ChannelCommand,System.Int32,System.Int32,System.Int32,Sanford.Multimedia.Midi.ChannelMessage@)">
+            <summary>
+            Initializes a new instance of the ChannelEventArgs class with the
+                        specified command, MIDI channel, data 1, and data 2 values.
+            </summary>
+            <param name="Command_In">
+            
+                        The command value.
+            
+            </param>
+            <param name="Midi_Channel_In">
+            
+                        The MIDI channel.
+            
+            </param>
+            <param name="Data_1_In">
+            
+                        The data 1 value.
+            
+            </param>
+            <param name="Data_2_In">
+            
+                        The data 2 value.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the ChannelEventArgs class with the
+                        specified command, MIDI channel, data 1, and data 2 values.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.Data1(Sanford.Multimedia.Midi.ChannelMessage,System.Int32@)">
+            <summary>Gets the first data value.</summary>
+            <param name="Data_1_Out">Gets the first data value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.Data2(Sanford.Multimedia.Midi.ChannelMessage,System.Int32@)">
+            <summary>Gets the second data value.</summary>
+            <param name="Data_2_Out">Gets the second data value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.MessageType(Sanford.Multimedia.Midi.ChannelMessage,Sanford.Multimedia.Midi.MessageType@)">
+            <summary>Gets the EventType.</summary>
+            <param name="Message_Type_Out">Gets the EventType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.MidiChannel(Sanford.Multimedia.Midi.ChannelMessage,System.Int32@)">
+            <summary>Gets the MIDI channel.</summary>
+            <param name="Midi_Channel_Out">Gets the MIDI channel.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.MidiChannelMaxValue(System.Int32@)">
+            <summary>Maximum value allowed for MIDI channels.</summary>
+            <param name="Midi_Channel_Max_Value_Out">Maximum value allowed for MIDI channels.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ChannelMessage._Operations_.Timestamp(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</summary>
+            <param name="Timestamp_Out">Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.Create(VL.Core.NodeContext,Sanford.Multimedia.Midi.MetaType,System.Byte[],Sanford.Multimedia.Midi.MetaMessage@)">
+            <summary>Initializes a new instance of the MetaMessage class.</summary>
+            <remarks>
+            Each MetaMessage has type and length properties. For certain
+                        types, the length of the message data must be a specific value. For
+                        example, tempo messages must have a data length of exactly three.
+                        Some MetaMessage types can have any data length. Text messages are
+                        an example of a MetaMessage that can have a variable data length.
+                        When a MetaMessage is created, the length of the data is checked
+                        to make sure that it is valid for the specified type. If it is not,
+                        an exception is thrown.
+            </remarks>
+            <param name="Type_In">
+            
+                        The type of MetaMessage.
+            
+            </param>
+            <param name="Data_In">
+            
+                        The MetaMessage data.
+            
+            </param>
+            <param name="Output_Out">Initializes a new instance of the MetaMessage class.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.EndOfTrackMessage(Sanford.Multimedia.Midi.MetaMessage@)">
+            <summary>End of track meta message.</summary>
+            <param name="End_Of_Track_Message_Out">End of track meta message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.GetBytes(Sanford.Multimedia.Midi.MetaMessage,System.Byte[]@)">
+            <summary>Gets a copy of the data bytes for this meta message.</summary>
+            <param name="Input_In">Gets a copy of the data bytes for this meta message.</param>
+            <param name="Result_Out">
+            
+                        A copy of the data bytes for this meta message.
+            
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.GetItem(Sanford.Multimedia.Midi.MetaMessage,System.Int32,System.Byte@)">
+            <summary>Gets the element at the specified index.</summary>
+            <param name="Index_In">Gets the element at the specified index.</param>
+            <param name="Item_Out">Gets the element at the specified index.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.KeySigLength(System.Int32@)">
+            <summary>Length in bytes for key signature meta message data.</summary>
+            <param name="Key_Sig_Length_Out">Length in bytes for key signature meta message data.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.Length(Sanford.Multimedia.Midi.MetaMessage,System.Int32@)">
+            <summary>Gets the length of the meta message.</summary>
+            <param name="Length_Out">Gets the length of the meta message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.MessageType(Sanford.Multimedia.Midi.MetaMessage,Sanford.Multimedia.Midi.MessageType@)">
+            <summary>Gets the MetaMessage&apos;s MessageType.</summary>
+            <param name="Message_Type_Out">Gets the MetaMessage&apos;s MessageType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.MetaType(Sanford.Multimedia.Midi.MetaMessage,Sanford.Multimedia.Midi.MetaType@)">
+            <summary>Gets the type of meta message.</summary>
+            <param name="Meta_Type_Out">Gets the type of meta message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.SmpteOffsetLength(System.Int32@)">
+            <summary>Length in bytes for SMPTE offset meta message data.</summary>
+            <param name="Smpte_Offset_Length_Out">Length in bytes for SMPTE offset meta message data.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.Status(Sanford.Multimedia.Midi.MetaMessage,System.Int32@)">
+            <summary>Gets the status value.</summary>
+            <param name="Status_Out">Gets the status value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.TempoLength(System.Int32@)">
+            <summary>Length in bytes for tempo meta message data.</summary>
+            <param name="Tempo_Length_Out">Length in bytes for tempo meta message data.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MetaMessage._Operations_.TimeSigLength(System.Int32@)">
+            <summary>Length in bytes for time signature meta message data.</summary>
+            <param name="Time_Sig_Length_Out">Length in bytes for time signature meta message data.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MidiMessage._Operations_.DeltaFrames(Sanford.Multimedia.Midi.IMidiMessage,System.Int32@)">
+            <summary>
+            Delta samples when the event should be processed in the next audio buffer.
+                        Leave at 0 for realtime input to play as fast as possible.
+                        Set to the desired sample in the next buffer if you play a midi sequence synchronized to the audio callback
+            </summary>
+            <param name="Delta_Frames_Out">
+            Delta samples when the event should be processed in the next audio buffer.
+                        Leave at 0 for realtime input to play as fast as possible.
+                        Set to the desired sample in the next buffer if you play a midi sequence synchronized to the audio callback
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MidiMessage._Operations_.GetBytes(Sanford.Multimedia.Midi.IMidiMessage,System.Byte[]@)">
+            <summary>Gets a byte array representation of the MIDI message.</summary>
+            <param name="Input_In">Gets a byte array representation of the MIDI message.</param>
+            <param name="Result_Out">
+            
+                        A byte array representation of the MIDI message.
+            
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MidiMessage._Operations_.MessageType(Sanford.Multimedia.Midi.IMidiMessage,Sanford.Multimedia.Midi.MessageType@)">
+            <summary>Gets the MIDI event&apos;s type.</summary>
+            <param name="Message_Type_Out">Gets the MIDI event&apos;s type.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.MidiMessage._Operations_.Status(Sanford.Multimedia.Midi.IMidiMessage,System.Int32@)">
+            <summary>Gets the MIDI message&apos;s status value.</summary>
+            <param name="Status_Out">Gets the MIDI message&apos;s status value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ShortMessage._Operations_.Message(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the short message as a packed integer.</summary>
+            <remarks>
+            The message is packed into an integer value with the low-order byte
+                        of the low-word representing the status value. The high-order byte
+                        of the low-word represents the first data value, and the low-order
+                        byte of the high-word represents the second data value.
+            </remarks>
+            <param name="Message_Out">Gets the short message as a packed integer.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ShortMessage._Operations_.Status(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the messages&apos;s status value.</summary>
+            <param name="Status_Out">Gets the messages&apos;s status value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.ShortMessage._Operations_.Timestamp(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</summary>
+            <param name="Timestamp_Out">Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.Create(VL.Core.NodeContext,Sanford.Multimedia.Midi.SysCommonType,Sanford.Multimedia.Midi.SysCommonMessage@)">
+            <summary>
+            Initializes a new instance of the SysCommonMessage class with the
+                        specified type.
+            </summary>
+            <param name="Type_In">
+            
+                        The type of SysCommonMessage.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the SysCommonMessage class with the
+                        specified type.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.Create_SysCommonType_Int32_Int32(Sanford.Multimedia.Midi.SysCommonType,System.Int32,System.Int32,Sanford.Multimedia.Midi.SysCommonMessage@)">
+            <summary>
+            Initializes a new instance of the SysCommonMessage class with the
+                        specified type, first data value, and second data value.
+            </summary>
+            <param name="Type_In">
+            
+                        The type of SysCommonMessage.
+            
+            </param>
+            <param name="Data_1_In">
+            
+                        The first data value.
+            
+            </param>
+            <param name="Data_2_In">
+            
+                        The second data value.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the SysCommonMessage class with the
+                        specified type, first data value, and second data value.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.Create_SysCommonType_Int32(Sanford.Multimedia.Midi.SysCommonType,System.Int32,Sanford.Multimedia.Midi.SysCommonMessage@)">
+            <summary>
+            Initializes a new instance of the SysCommonMessage class with the
+                        specified type and the first data value.
+            </summary>
+            <param name="Type_In">
+            
+                        The type of SysCommonMessage.
+            
+            </param>
+            <param name="Data_1_In">
+            
+                        The first data value.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the SysCommonMessage class with the
+                        specified type and the first data value.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.Data1(Sanford.Multimedia.Midi.SysCommonMessage,System.Int32@)">
+            <summary>Gets the first data value.</summary>
+            <param name="Data_1_Out">Gets the first data value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.Data2(Sanford.Multimedia.Midi.SysCommonMessage,System.Int32@)">
+            <summary>Gets the second data value.</summary>
+            <param name="Data_2_Out">Gets the second data value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.MessageType(Sanford.Multimedia.Midi.SysCommonMessage,Sanford.Multimedia.Midi.MessageType@)">
+            <summary>Gets the MessageType.</summary>
+            <param name="Message_Type_Out">Gets the MessageType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.SysCommonType(Sanford.Multimedia.Midi.SysCommonMessage,Sanford.Multimedia.Midi.SysCommonType@)">
+            <summary>Gets the SysCommonType.</summary>
+            <param name="Sys_Common_Type_Out">Gets the SysCommonType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysCommonMessage._Operations_.Timestamp(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</summary>
+            <param name="Timestamp_Out">Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.Create(VL.Core.NodeContext,System.Byte[],Sanford.Multimedia.Midi.SysExMessage@)">
+            <summary>
+            Initializes a new instance of the SysExMessageEventArgs class with the
+                        specified system exclusive data.
+            </summary>
+            <remarks>
+            The system exclusive data&apos;s status byte, the first byte in the
+                        data, must have a value of 0xF0 or 0xF7.
+            </remarks>
+            <param name="Data_In">
+            
+                        The system exclusive data.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the SysExMessageEventArgs class with the
+                        specified system exclusive data.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.GetItem(Sanford.Multimedia.Midi.SysExMessage,System.Int32,System.Byte@)">
+            <summary>Gets the element at the specified index.</summary>
+            <param name="Index_In">Gets the element at the specified index.</param>
+            <param name="Item_Out">Gets the element at the specified index.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.Length(Sanford.Multimedia.Midi.SysExMessage,System.Int32@)">
+            <summary>Gets the length of the system exclusive data.</summary>
+            <param name="Length_Out">Gets the length of the system exclusive data.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.MessageType(Sanford.Multimedia.Midi.SysExMessage,Sanford.Multimedia.Midi.MessageType@)">
+            <summary>Gets the MessageType.</summary>
+            <param name="Message_Type_Out">Gets the MessageType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.Status(Sanford.Multimedia.Midi.SysExMessage,System.Int32@)">
+            <summary>Gets the status value.</summary>
+            <param name="Status_Out">Gets the status value.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.SysExChannelMaxValue(System.Int32@)">
+            <summary>Maximum value for system exclusive channels.</summary>
+            <param name="Sys_Ex_Channel_Max_Value_Out">Maximum value for system exclusive channels.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.SysExType(Sanford.Multimedia.Midi.SysExMessage,Sanford.Multimedia.Midi.SysExType@)">
+            <summary>Gets the system exclusive type.</summary>
+            <param name="Sys_Ex_Type_Out">Gets the system exclusive type.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysExMessage._Operations_.Timestamp(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</summary>
+            <param name="Timestamp_Out">Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.ActiveSenseMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime active sense message.</summary>
+            <param name="Active_Sense_Message_Out">The instance of the system realtime active sense message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.ClockMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime clock message.</summary>
+            <param name="Clock_Message_Out">The instance of the system realtime clock message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.ContinueMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime continue message.</summary>
+            <param name="Continue_Message_Out">The instance of the system realtime continue message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.MessageType(Sanford.Multimedia.Midi.SysRealtimeMessage,Sanford.Multimedia.Midi.MessageType@)">
+            <summary>Gets the MessageType.</summary>
+            <param name="Message_Type_Out">Gets the MessageType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.ResetMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime reset message.</summary>
+            <param name="Reset_Message_Out">The instance of the system realtime reset message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.StartMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime start message.</summary>
+            <param name="Start_Message_Out">The instance of the system realtime start message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.StopMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime stop message.</summary>
+            <param name="Stop_Message_Out">The instance of the system realtime stop message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.SysRealtimeType(Sanford.Multimedia.Midi.SysRealtimeMessage,Sanford.Multimedia.Midi.SysRealtimeType@)">
+            <summary>Gets the SysRealtimeType.</summary>
+            <param name="Sys_Realtime_Type_Out">Gets the SysRealtimeType.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.TickMessage(Sanford.Multimedia.Midi.SysRealtimeMessage@)">
+            <summary>The instance of the system realtime tick message.</summary>
+            <param name="Tick_Message_Out">The instance of the system realtime tick message.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.Messages.SysRealtimeMessage._Operations_.Timestamp(Sanford.Multimedia.Midi.ShortMessage,System.Int32@)">
+            <summary>Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</summary>
+            <param name="Timestamp_Out">Gets the timestamp of the midi input driver in milliseconds since the midi input driver was started.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Build(Sanford.Multimedia.Midi.MetaTextBuilder,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>Builds the text MetaMessage.</summary>
+            <param name="Input_In">Builds the text MetaMessage.</param>
+            <param name="Output_Out">Builds the text MetaMessage.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Create(VL.Core.NodeContext,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>Initializes a new instance of the MetaMessageTextBuilder class.</summary>
+            <param name="Output_Out">Initializes a new instance of the MetaMessageTextBuilder class.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Create_MetaMessage(Sanford.Multimedia.Midi.MetaMessage,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>
+            Initializes a new instance of the MetaMessageTextBuilder class with the
+                        specified MetaMessage.
+            </summary>
+            <remarks>
+            The MetaMessage must be one of the following text based types:
+            
+                        Copyright
+            
+                        Cuepoint
+            
+                        DeviceName
+            
+                        InstrumentName
+            
+                        Lyric
+            
+                        Marker
+            
+                        ProgramName
+            
+                        Text
+            
+                        TrackName
+            
+                        If the MetaMessage is not a text based type, an exception will be
+                        thrown.
+            </remarks>
+            <param name="Message_In">
+            
+                        The MetaMessage to use for initializing the MetaMessageTextBuilder.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the MetaMessageTextBuilder class with the
+                        specified MetaMessage.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Create_MetaType_String(Sanford.Multimedia.Midi.MetaType,System.String,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>
+            Initializes a new instance of the MetaMessageTextBuilder class with the
+                        specified type.
+            </summary>
+            <remarks>
+            The MetaMessage type must be one of the following text based
+                        types:
+            
+                        Copyright
+            
+                        Cuepoint
+            
+                        DeviceName
+            
+                        InstrumentName
+            
+                        Lyric
+            
+                        Marker
+            
+                        ProgramName
+            
+                        Text
+            
+                        TrackName
+            
+                        If the MetaMessage is not a text based type, an exception
+                        will be thrown.
+            </remarks>
+            <param name="Type_In">
+            
+                        The type of MetaMessage.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the MetaMessageTextBuilder class with the
+                        specified type.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Create_MetaType(Sanford.Multimedia.Midi.MetaType,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>
+            Initializes a new instance of the MetaMessageTextBuilder class with the
+                        specified type.
+            </summary>
+            <remarks>
+            The MetaMessage type must be one of the following text based
+                        types:
+            
+                        Copyright
+            
+                        Cuepoint
+            
+                        DeviceName
+            
+                        InstrumentName
+            
+                        Lyric
+            
+                        Marker
+            
+                        ProgramName
+            
+                        Text
+            
+                        TrackName
+            
+                        If the MetaMessage is not a text based type, an exception
+                        will be thrown.
+            </remarks>
+            <param name="Type_In">
+            
+                        The type of MetaMessage.
+            
+            </param>
+            <param name="Output_Out">
+            Initializes a new instance of the MetaMessageTextBuilder class with the
+                        specified type.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Initialize(Sanford.Multimedia.Midi.MetaTextBuilder,Sanford.Multimedia.Midi.MetaMessage,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>Initializes the MetaMessageTextBuilder with the specified MetaMessage.</summary>
+            <param name="Input_In">Initializes the MetaMessageTextBuilder with the specified MetaMessage.</param>
+            <param name="Message_In">
+            
+                        The MetaMessage to use for initializing the MetaMessageTextBuilder.
+            
+            </param>
+            <param name="Output_Out">Initializes the MetaMessageTextBuilder with the specified MetaMessage.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Result(Sanford.Multimedia.Midi.MetaTextBuilder,Sanford.Multimedia.Midi.MetaTextBuilder@,Sanford.Multimedia.Midi.MetaMessage@)">
+            <summary>Gets the built MetaMessage.</summary>
+            <param name="Result_Out">Gets the built MetaMessage.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.SetText(Sanford.Multimedia.Midi.MetaTextBuilder,System.String,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>Gets or sets the text for the MetaMessage.</summary>
+            <param name="Value_In">Gets or sets the text for the MetaMessage.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.SetType(Sanford.Multimedia.Midi.MetaTextBuilder,Sanford.Multimedia.Midi.MetaType,Sanford.Multimedia.Midi.MetaTextBuilder@)">
+            <summary>Gets or sets the MetaMessage type.</summary>
+            <param name="Value_In">Gets or sets the MetaMessage type.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Text(Sanford.Multimedia.Midi.MetaTextBuilder,Sanford.Multimedia.Midi.MetaTextBuilder@,System.String@)">
+            <summary>Gets or sets the text for the MetaMessage.</summary>
+            <param name="Text_Out">Gets or sets the text for the MetaMessage.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MetaTextBuilder._Operations_.Type(Sanford.Multimedia.Midi.MetaTextBuilder,Sanford.Multimedia.Midi.MetaTextBuilder@,Sanford.Multimedia.Midi.MetaType@)">
+            <summary>Gets or sets the MetaMessage type.</summary>
+            <param name="Type_Out">Gets or sets the MetaMessage type.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiInCaps._Operations_.driverVersion(Sanford.Multimedia.Midi.MidiInCaps,System.Int32@)">
+            <summary>
+            Version number of the device driver for the Midi output device. The
+                        high-order byte is the major version number, and the low-order byte
+                        is the minor version number.
+            </summary>
+            <param name="Input_In">
+            Version number of the device driver for the Midi output device. The
+                        high-order byte is the major version number, and the low-order byte
+                        is the minor version number.
+            </param>
+            <param name="Driver_Version_Out">
+            Version number of the device driver for the Midi output device. The
+                        high-order byte is the major version number, and the low-order byte
+                        is the minor version number.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiInCaps._Operations_.mid(Sanford.Multimedia.Midi.MidiInCaps,System.Int16@)">
+            <summary>
+            Manufacturer identifier of the device driver for the Midi output
+                        device.
+            </summary>
+            <param name="Input_In">
+            Manufacturer identifier of the device driver for the Midi output
+                        device.
+            </param>
+            <param name="Mid_Out">
+            Manufacturer identifier of the device driver for the Midi output
+                        device.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiInCaps._Operations_.name(Sanford.Multimedia.Midi.MidiInCaps,System.String@)">
+            <summary>Product name.</summary>
+            <param name="Input_In">Product name.</param>
+            <param name="Name_Out">Product name.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiInCaps._Operations_.pid(Sanford.Multimedia.Midi.MidiInCaps,System.Int16@)">
+            <summary>Product identifier of the Midi output device.</summary>
+            <param name="Input_In">Product identifier of the Midi output device.</param>
+            <param name="Pid_Out">Product identifier of the Midi output device.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiInCaps._Operations_.support(Sanford.Multimedia.Midi.MidiInCaps,System.Int32@)">
+            <summary>Optional functionality supported by the device.</summary>
+            <param name="Input_In">Optional functionality supported by the device.</param>
+            <param name="Support_Out">Optional functionality supported by the device.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.channelMask(Sanford.Multimedia.Midi.MidiOutCaps,System.Int16@)">
+            <summary>
+            Channels that an internal synthesizer device responds to, where the
+                        least significant bit refers to channel 0 and the most significant
+                        bit to channel 15. Port devices that transmit on all channels set
+                        this member to 0xFFFF.
+            </summary>
+            <param name="Input_In">
+            Channels that an internal synthesizer device responds to, where the
+                        least significant bit refers to channel 0 and the most significant
+                        bit to channel 15. Port devices that transmit on all channels set
+                        this member to 0xFFFF.
+            </param>
+            <param name="Channel_Mask_Out">
+            Channels that an internal synthesizer device responds to, where the
+                        least significant bit refers to channel 0 and the most significant
+                        bit to channel 15. Port devices that transmit on all channels set
+                        this member to 0xFFFF.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.driverVersion(Sanford.Multimedia.Midi.MidiOutCaps,System.Int32@)">
+            <summary>
+            Version number of the device driver for the Midi output device. The
+                        high-order byte is the major version number, and the low-order byte
+                        is the minor version number.
+            </summary>
+            <param name="Input_In">
+            Version number of the device driver for the Midi output device. The
+                        high-order byte is the major version number, and the low-order byte
+                        is the minor version number.
+            </param>
+            <param name="Driver_Version_Out">
+            Version number of the device driver for the Midi output device. The
+                        high-order byte is the major version number, and the low-order byte
+                        is the minor version number.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.mid(Sanford.Multimedia.Midi.MidiOutCaps,System.Int16@)">
+            <summary>
+            Manufacturer identifier of the device driver for the Midi output
+                        device.
+            </summary>
+            <param name="Input_In">
+            Manufacturer identifier of the device driver for the Midi output
+                        device.
+            </param>
+            <param name="Mid_Out">
+            Manufacturer identifier of the device driver for the Midi output
+                        device.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.name(Sanford.Multimedia.Midi.MidiOutCaps,System.String@)">
+            <summary>Product name.</summary>
+            <param name="Input_In">Product name.</param>
+            <param name="Name_Out">Product name.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.notes(Sanford.Multimedia.Midi.MidiOutCaps,System.Int16@)">
+            <summary>
+            Maximum number of simultaneous notes that can be played by an
+                        internal synthesizer device. If the device is a port, this member
+                        is not meaningful and is set to 0.
+            </summary>
+            <param name="Input_In">
+            Maximum number of simultaneous notes that can be played by an
+                        internal synthesizer device. If the device is a port, this member
+                        is not meaningful and is set to 0.
+            </param>
+            <param name="Notes_Out">
+            Maximum number of simultaneous notes that can be played by an
+                        internal synthesizer device. If the device is a port, this member
+                        is not meaningful and is set to 0.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.pid(Sanford.Multimedia.Midi.MidiOutCaps,System.Int16@)">
+            <summary>Product identifier of the Midi output device.</summary>
+            <param name="Input_In">Product identifier of the Midi output device.</param>
+            <param name="Pid_Out">Product identifier of the Midi output device.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.support(Sanford.Multimedia.Midi.MidiOutCaps,System.Int32@)">
+            <summary>Optional functionality supported by the device.</summary>
+            <param name="Input_In">Optional functionality supported by the device.</param>
+            <param name="Support_Out">Optional functionality supported by the device.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.technology(Sanford.Multimedia.Midi.MidiOutCaps,System.Int16@)">
+            <summary>Flags describing the type of the Midi output device.</summary>
+            <param name="Input_In">Flags describing the type of the Midi output device.</param>
+            <param name="Technology_Out">Flags describing the type of the Midi output device.</param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiOutCaps._Operations_.voices(Sanford.Multimedia.Midi.MidiOutCaps,System.Int16@)">
+            <summary>
+            Number of voices supported by an internal synthesizer device. If
+                        the device is a port, this member is not meaningful and is set
+                        to 0.
+            </summary>
+            <param name="Input_In">
+            Number of voices supported by an internal synthesizer device. If
+                        the device is a port, this member is not meaningful and is set
+                        to 0.
+            </param>
+            <param name="Voices_Out">
+            Number of voices supported by an internal synthesizer device. If
+                        the device is a port, this member is not meaningful and is set
+                        to 0.
+            </param>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiDeviceUtils._Operations_.GetInputDeviceNames(VL.Lib.Collections.Spread{System.String}@)">
+            <summary>Lists all midi input devices</summary>
+        </member>
+        <member name="M:_VL_IO_Midi_.IO.Midi.MidiDeviceUtils._Operations_.GetInputDeviceCaps(VL.Lib.Collections.Spread{Sanford.Multimedia.Midi.MidiInCaps}@)">
+            <summary>Lists all midi input devices</summary>
+        </member>
+    </members>
+</doc>

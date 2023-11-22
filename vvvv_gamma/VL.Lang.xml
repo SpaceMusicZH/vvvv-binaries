@@ -563,7 +563,7 @@
             Relative path to document inside of package for document id
             </summary>
         </member>
-        <member name="T:VL.Lang.Platforms.Roslyn.EmitExample.ServicesAreInstalledExample">
+        <member name="T:VL.Lang.Platforms.Roslyn.EmitExample.AppHostIsInstalledExample">
             <summary>
             To ensure that a service registry is current the emitted delegates as well as explicit interface implementations must insert the proper call.
             </summary>
@@ -679,6 +679,12 @@
             <param name="node">The node application representing this plugin.</param>
             <param name="syntaxNodes">Add your statements here.</param> 
             <param name="cp">The border control point being accessed (if any). This parameter is set if the plugin allows access to its border control points from different moments.</param>
+        </member>
+        <member name="F:VL.Lang.Platforms.Roslyn.Slot.Initializer">
+            <summary>
+            Slots for liftings are created on the fly but cached per id. Since they access local variables (for e.g. the one held by <see cref="P:VL.Lang.Platforms.Roslyn.PatchCompiler.NodeContext"/>)
+            we need to trigger those initializers for each constructor separately.
+            </summary>
         </member>
         <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.GetExpression(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol)">
             <summary>
@@ -907,7 +913,7 @@
         </member>
         <member name="P:VL.Lang.Properties.M.PinOfSameNameExistsWhat">
             <summary>
-              Looks up a localized string similar to An output pin with the same name already exists!.
+              Looks up a localized string similar to An output pin with name {0} already exists!.
             </summary>
         </member>
         <member name="P:VL.Lang.Properties.M.PinOfSameNameExistsWhy">
@@ -969,6 +975,22 @@
             <summary>
               Looks up a localized string similar to Beware that the order in which the downstream nodes are executed is not defined. Therefore, if any of those modifies the data, any other downstream node may read that already modified data and you may see unwanted results..
             </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ThroughPadInRecordHow">
+            <summary>
+              Looks up a localized string similar to Most probably you can ignore the warning. Typically only when using the This node you could trick yourself. If you really want to access the new &quot;this&quot; (1) think about using a class or (2) stick with record, but instead of writing into the pad, call a setter that does it for you. You will be able to grab the new snapshot on the output of that setter node..
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ThroughPadInRecordWhat">
+            <summary>
+              Looks up a localized string similar to Pad in a Record: the corresponding Field doesn&apos;t get written on-the-fly. .
+            </summary>
+        </member>
+        <member name="P:VL.Lang.Properties.M.ThroughPadInRecordWhy">
+             <summary>
+               Looks up a localized string similar to Everything downstream will get executed before the new record snapshot gets created.
+            This can be problematic if you try to operate on the new snapshot via the &quot;This&quot; node. It&apos;s not there yet. &quot;This&quot; will still refer to the old snapshot. The new one will get created when we leave this instance operation, which then will contain the value that you just wrote into the pad..
+             </summary>
         </member>
         <member name="P:VL.Lang.Properties.M.TypeIsNoSubtypeOfHow">
             <summary>
@@ -1167,6 +1189,11 @@
             If 
             </summary>
         </member>
+        <member name="P:VL.Lang.PublicAPI.IDataHubInfo.IsOptional">
+            <summary>
+            Whether or not the visibility of this pin can be controlled by the user.
+            </summary>
+        </member>
         <member name="P:VL.Lang.PublicAPI.IElementInfo.ElementID">
             <summary>
             reports ID if enabled in settings
@@ -1219,6 +1246,11 @@
             <summary>
             This typically is only of interest for border control points. 
             Splicers e.g. look different from the inside/outside
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.IsVisible">
+            <summary>
+            A channel to control the visibility of the pin in the patch. Can only be controlled if the pin is optional, see <see cref="P:VL.Lang.PublicAPI.IDataHubInfo.IsOptional"/>.
             </summary>
         </member>
         <member name="P:VL.Lang.PublicAPI.ILiveDataHub.IsCurrentlyUnused">
@@ -1543,62 +1575,7 @@
             Only the most recently emitted assemblies. There's only one assembly per project (latest).
             </summary>
         </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeHost.ImplicitEntryPointInstances">
-            <summary>
-            Returns runtime instances that stem from documents with entry points like seen in tutorials.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeHost.HostingAppInstances">
-            <summary>
-            Returns runtime instances that were explicitly created via hosting environment like vvvv
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeHost.RuntimeMessages">
-            <summary>
-            Returns all the messages of the last frame including exceptions and user code induced messages.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeHost.Mode">
-            <summary>
-            Gets or sets the run mode.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Symbols.IRuntimeHost.Step">
-            <summary>
-            Evaluates the next frame.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeHost.Frame">
-            <summary>
-            Returns the current frame number.
-            </summary>
-        </member>
-        <member name="E:VL.Lang.Symbols.IRuntimeHost.ModeChanged">
-            <summary>
-            Raised when the run mode of the runtime changed.
-            </summary>
-        </member>
-        <member name="E:VL.Lang.Symbols.IRuntimeHost.OnException">
-            <summary>
-            Raised when an exception occurs.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeInstance.NodeId">
-            <summary>
-            The node definition this instance is running.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeInstance.Object">
-            <summary>
-            the actual object
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Symbols.IRuntimeInstance.Services">
-            <summary>
-            Gives access to the services as configured by this particular entry point.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Symbols.RuntimeUtils.ListenTo(VL.Lang.Symbols.IRuntimeHost,VL.Model.Element,System.IObservable{VL.Core.PatchHandle},System.String,VL.Lang.Symbols.SymbolRendering.ElementPart,VL.Core.InstanceFilter)">
+        <member name="M:VL.Lang.Symbols.RuntimeUtils.ListenTo(VL.Lang.Platforms.RuntimeHost,VL.Model.Element,System.IObservable{VL.Core.PatchHandle},System.String,VL.Lang.Symbols.SymbolRendering.ElementPart,VL.Core.InstanceFilter)">
             <summary>
             Gets the patch notifications of the given element. Puts the containing patch in DEBUG mode.
             In case the element is a process node all its fragments will be observed.
@@ -1826,7 +1803,7 @@
         </member>
         <member name="P:VL.Lang.Symbols.ISymbolSource.Package">
             <summary>
-            The package (if any) this symbol source in part of.
+            The package (if any) this symbol source is part of.
             </summary>
         </member>
         <member name="P:VL.Lang.Symbols.ISymbolSource.References">
@@ -1983,12 +1960,12 @@
             Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean)">
+        <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean,System.Func{System.String,System.Boolean})">
             <summary>
             Retrieves symbols of given type and name.
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean,System.Collections.Generic.HashSet{``0})">
+        <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean,System.Collections.Generic.HashSet{``0},System.Func{System.String,System.Boolean})">
             <summary>
             Retrieves symbols of given type and name.
             </summary>
@@ -2028,7 +2005,7 @@
         <member name="P:VL.Lang.Symbols.Scope.Layers">
             <summary>All the layers this scope is composed of.</summary>
         </member>
-        <member name="M:VL.Lang.Symbols.Scope.GetSymbols``1(System.String,System.Boolean,System.Boolean)">
+        <member name="M:VL.Lang.Symbols.Scope.GetSymbols``1(System.String,System.Boolean,System.Boolean,System.Func{System.String,System.Boolean})">
             <summary>
             Retrieves symbols of given type and name.
             </summary>
@@ -2143,12 +2120,12 @@
             you can use an or operation. most constraining relation will win
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.TypeConstraint,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint})">
+        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.TypeConstraint,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},VL.Lang.Symbols.ISymbolSourceProvider)">
             <summary>
             Whether or not the constraint is of the form T to <see cref="T:VL.Core.Optional`1"/> and on a user link or user type annotation
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.ITypeSymbol,VL.Lang.Symbols.ITypeSymbol,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},System.Collections.Generic.IEnumerable{VL.Lang.Symbols.TypeConstraint})">
+        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.IConcreteTypeSymbol,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},System.Collections.Generic.IEnumerable{VL.Lang.Symbols.TypeConstraint},VL.Lang.Symbols.ISymbolSourceProvider)">
             <summary>
             Returns true and injects a new constraint of the form TSource = TSink if the sink is <see cref="T:VL.Core.Optional`1"/>
             </summary>
@@ -2214,6 +2191,11 @@
         <member name="P:VL.Model.Element.Identity">
             <summary>
             The identity of this element inside this session.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Element.UniqueId">
+            <summary>
+            The unique id of this element.
             </summary>
         </member>
         <member name="P:VL.Model.Element.SerializedId">
@@ -2504,7 +2486,7 @@
             <param name="inLink">The link into the node, null if no matching input pin was found</param>
             <param name="outLink">The link out of the node, null if no matching output pin was found</param>
         </member>
-        <member name="M:VL.Model.Commands.AddNodeToLink(VL.Model.Link,VL.Model.Node,VL.Model.Link@,System.Boolean,System.Boolean)">
+        <member name="M:VL.Model.Commands.AddNodeToLink(VL.Model.Link,VL.Model.Node,VL.Model.Link@,System.Boolean)">
             <summary>
             Add node to end of link.
             </summary>
@@ -2512,7 +2494,6 @@
             <param name="node">The node.</param>
             <param name="newLink">The link out of the node, null if no matching output pin was found.</param>
             <param name="sinkToSource">Whether the link goes form sink to source.</param>
-            <param name="deleteReplacedHub">Whether to delete the replaced hub.</param>
         </member>
         <member name="M:VL.Model.Commands.AddCrossLinkPad(VL.Model.Link,VL.Model.Point2,VL.Model.Canvas,VL.Model.Patch)">
             <summary>
@@ -2658,6 +2639,9 @@
             Gets a value indicating whether this instance is an output pin.
             Check whether you want know IsSource instead.
             </summary>
+        </member>
+        <member name="P:VL.Model.Pin.IsHidden">
+            <inheritdoc cref="P:VL.Model.Internal.Pin.IsHidden"/>
         </member>
         <member name="M:VL.Model.Pin.WithBounds(VL.Model.Rectangle2,System.Boolean)">
             <summary>
@@ -2942,6 +2926,12 @@
             The default value of the pin as string or XElement.
             </summary>
         </member>
+        <member name="F:VL.Model.Internal.Pin.visibility">
+            <inheritdoc cref="P:VL.Model.IPin.Visibility" />
+        </member>
+        <member name="F:VL.Model.Internal.Pin.isHidden">
+            <inheritdoc cref="P:VL.Model.IPin.IsHidden" />
+        </member>
         <member name="F:VL.Model.Internal.Pin.summary">
             <summary>
             A short description.
@@ -2957,6 +2947,9 @@
             The default value of the pin as string or XElement.
             </summary>
         </member>
+        <member name="P:VL.Model.Internal.Pin.IsHidden">
+            <inheritdoc cref = "P:VL.Model.IPin.IsHidden"/>
+        </member>
         <member name="P:VL.Model.Internal.Pin.Remarks">
             <summary>
             Remarks are about details.
@@ -2966,6 +2959,9 @@
             <summary>
             A short description.
             </summary>
+        </member>
+        <member name="P:VL.Model.Internal.Pin.Visibility">
+            <inheritdoc cref = "P:VL.Model.IPin.Visibility"/>
         </member>
         <member name="F:VL.Model.Internal.Pad.value">
             <summary>
@@ -3071,7 +3067,7 @@
         </member>
         <member name="M:VL.Model.ModelExtensions.HasCustomValue(VL.Model.Pin)">
             <summary>
-            Whether or not the pins value differs from the default value of its pin definition.
+            Whether or not the value of this pin is modified.
             </summary>
         </member>
         <member name="M:VL.Model.ModelExtensions.IsPinOnNodeOrRegion(VL.Model.Element)">
@@ -3273,11 +3269,6 @@
             A string representation of the number's corresponding roman numeral.
             </returns>
         </member>
-        <member name="M:VL.Model.PackageExtensions.IsVlPackage(VL.Lang.Packages.PackageInfo)">
-            <summary>
-            Whether or not the package contains a main VL document and can therefore be considered a VL package.
-            </summary>
-        </member>
         <member name="T:VL.Model.Point2">
             <summary>
             To get rid of System.Drawing dependency (not cross-platform).
@@ -3292,14 +3283,6 @@
             <summary>
             To get rid of System.Drawing dependency (not cross-platform).
             </summary>
-        </member>
-        <member name="M:VL.Model.StringExtensions.Like(System.String,System.String)">
-            <summary>
-            Compares the string against a given pattern.
-            </summary>
-            <param name="str">The string.</param>
-            <param name="pattern">The pattern to match, where "*" means any sequence of characters, and "?" means any single character.</param>
-            <returns><c>true</c> if the string matches the given pattern; otherwise <c>false</c>.</returns>
         </member>
         <member name="F:VL.Model.TaggedInfo55.remarks">
             <summary>
@@ -3379,6 +3362,18 @@
         <member name="P:VL.Model.IElement.HotSwapId">
             <summary>
             The id used by hot swap to align the fields. Usually the same as the tracing id.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPin.Visibility">
+            <summary>
+            Used by on definition side to control the visibility of pins on application side.
+            Only pins marked as optional can be controlled by the user via the <see cref="P:VL.Model.IPin.IsHidden"/> property.
+            </summary>
+        </member>
+        <member name="P:VL.Model.IPin.IsHidden">
+            <summary>
+            Whether or not the pin is hidden in the UI on application side.
+            This property only affects pins whose definition has the <see cref="P:VL.Model.IPin.Visibility"/> set to <see cref="F:VL.Model.PinVisibility.Optional"/>.
             </summary>
         </member>
         <member name="P:VL.Model.IPin.IsPinGroup">

@@ -4,9 +4,9 @@
         <name>VL.AppServices</name>
     </assembly>
     <members>
-        <member name="T:VL.AppServices.AppHost`1">
+        <member name="M:VL.AppServices.AppHostBase.SetScope(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},System.Boolean)">
             <summary>
-            Encapsulates all the platform independent logic to run a VL app.
+            Sets the scope of the host. Refreshes type regsitry and adaptive lookup tables.
             </summary>
         </member>
         <member name="M:VL.AppServices.CompilerServices.AdaptiveImplementationProvider.CSharpName(System.Type)">
@@ -183,6 +183,11 @@
             We therefor keep the method internal for now.
             </remarks>
         </member>
+        <member name="T:VL.AppServices.ExportedAppHost">
+            <summary>
+            Encapsulates all the platform independent logic to run a VL app.
+            </summary>
+        </member>
         <member name="M:VL.AppServices.Hotswap.SwappableVLObject`1.__Restore``1">
             <summary>
             This gets called from every taget code method with TStateClass being the State object of the program
@@ -203,10 +208,26 @@
             Keeps track of all instantiations which occur during runtime.
             </summary>
         </member>
-        <member name="M:VL.AppServices.Serialization.SerializationContextInternal.#ctor(VL.Core.NodeContext,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
+        <member name="T:VL.AppServices.Logging.ConsoleErrorListener">
+            <summary>
+            Used to redirect the <see cref="P:System.Console.Error"/> stream to an <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
+            </summary>
+        </member>
+        <member name="T:VL.AppServices.Logging.ConsoleOutputListener">
+            <summary>
+            Used to redirect the <see cref="P:System.Console.Out"/> stream to an <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
+            </summary>
+        </member>
+        <member name="T:VL.AppServices.Logging.LoggerTraceListener">
+            <summary>
+            Used to pipe <see cref="T:System.Diagnostics.Trace"/> and <see cref="T:System.Diagnostics.Debug"/> message to an <see cref="T:Microsoft.Extensions.Logging.ILogger"/>.
+            </summary>
+        </member>
+        <member name="M:VL.AppServices.Serialization.SerializationContextInternal.#ctor(VL.Core.AppHost,VL.Core.NodeContext,System.Boolean,System.Boolean,System.Boolean,System.Int32)">
             <summary>
             Creates a new serialization context.
             </summary>
+            <param name="appHost">The app host.</param>
             <param name="nodeContext">The node context.</param>
             <param name="throwOnError">Whether or not serialization errors should lead to an exception.</param>
             <param name="includeDefaults">If true default values will also be serialized.</param>
@@ -253,7 +274,7 @@
             The node context of the object currently being serialized. Used to resolve paths.
             </summary>
         </member>
-        <member name="F:VL.AppServices.Serialization.SerializationContextInternal.TypeRegistry">
+        <member name="P:VL.AppServices.Serialization.SerializationContextInternal.TypeRegistry">
             <summary>
             The type registry used to map .NET types to VL types.
             </summary>
@@ -436,46 +457,6 @@
         <member name="M:VL.Core.PatchHandle.#ctor(VL.Core.NodePath)">
             <summary>
             That's already quite nice! We know the node path, but no object identity available
-            </summary>
-        </member>
-        <member name="T:VL.Model.PinExpositionMode">
-            <summary>
-            Aka AutoConnect. Makes the pin show up in the parent(s).
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinExpositionMode.Local">
-            <summary>
-            Off
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinExpositionMode.InfectPatch">
-            <summary>
-            Makes the pin show up in the surrounding patch
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinExpositionMode.Expose">
-            <summary>
-            Infect all surrounding patches (the call stack)
-            </summary>
-        </member>
-        <member name="T:VL.Model.PinVisibility">
-            <summary>
-            Controls the visibility of pins. 
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinVisibility.Visible">
-            <summary>
-            The pin is always visible.
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinVisibility.Optional">
-            <summary>
-            The user can configure the node to show this pin on application side.
-            </summary>
-        </member>
-        <member name="F:VL.Model.PinVisibility.Hidden">
-            <summary>
-            The user won't see the pin.
             </summary>
         </member>
     </members>

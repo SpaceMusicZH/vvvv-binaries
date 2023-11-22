@@ -61,7 +61,7 @@ Supported attributes:
 
 
 .symbolbrowser {
-    fill: #242424;
+    fill: #181818;
     fill-opacity: 0.95
 }
 
@@ -176,19 +176,21 @@ Supported attributes:
 .generic - makes fill transparent=0, stroke=1
 .accepted - make stroke green
 .force-accepted - make stroke orange
-.committing - make stroke yellow
+.committing - makes stroke yellow
+.critical - makes stroke red, but stronger red as error
 */
 
 .hint { stroke: #33404F; }
 .warning { stroke: #FFB200; stroke-opacity: 0.7; }
 .error { stroke: #B40000; stroke-opacity: 1; }
 .runtimeerror { stroke: #9800AF; stroke-opacity: 1; stroke-width: 2px; }
+.critical { stroke: #E83700; }
 
 .not-executed { fill: #000000; fill-opacity: 0.45 } 
 .not-executed-link { stroke: #000000; stroke-opacity: 0.45; }
 
 /* Deep the opacity as low as region background, otherwise unfocused regions will look darker than when focused. */
-.unused { fill-opacity: 0.5; stroke-opacity: 0.5; }
+.unused { fill-opacity: 0.3; stroke-opacity: 0.3; }
 .generic { fill-opacity: 0; stroke-opacity: 1; }
 .accepted { fill-opacity: 0.5; stroke: #00B512; stroke-opacity: 1; stroke-width: 2px; }
 .force-accepted { stroke-opacity: 1; stroke-width: 2px }

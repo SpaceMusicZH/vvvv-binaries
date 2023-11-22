@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Serialization.MessagePack</name>
+    </assembly>
+    <members>
+        <member name="T:VL.Serialization.MessagePack.Internal.ThreadsafeTypeKeyHashTable`1">
+            <summary>
+            A dictionary where <see cref="T:System.Type"/> is the key, and a configurable <typeparamref name="TValue"/> type
+            that is thread-safe to read and write, allowing concurrent reads and exclusive writes.
+            </summary>
+            <typeparam name="TValue">The type of value stored in the dictionary.</typeparam>
+        </member>
+        <member name="T:VL.Serialization.MessagePack.Resolvers.CachingFormatterResolver">
+            <summary>
+            A base class for <see cref="T:MessagePack.IFormatterResolver"/> classes that want to cache their responses for perf reasons.
+            </summary>
+        </member>
+        <member name="F:VL.Serialization.MessagePack.Resolvers.CachingFormatterResolver.formatters">
+            <summary>
+            The cache of types to their formatters.
+            </summary>
+        </member>
+        <member name="M:VL.Serialization.MessagePack.Resolvers.CachingFormatterResolver.GetFormatter``1">
+            <inheritdoc />
+        </member>
+        <member name="M:VL.Serialization.MessagePack.Resolvers.CachingFormatterResolver.GetFormatterCore``1">
+            <summary>
+            Looks up a formatter for a type that has not been previously cached.
+            </summary>
+            <typeparam name="T">The type to be formatted.</typeparam>
+            <returns>The formatter to use, or <see langword="null"/> if none found.</returns>
+        </member>
+        <member name="P:VL.Serialization.MessagePack.Resolvers.VLResolver.Instance">
+            <summary>
+            The singleton instance that can be used.
+            </summary>
+        </member>
+        <member name="P:VL.Serialization.MessagePack.Resolvers.VLResolver.Options">
+            <summary>
+            A <see cref="T:MessagePack.MessagePackSerializerOptions"/> instance with this formatter pre-configured.
+            </summary>
+        </member>
+    </members>
+</doc>

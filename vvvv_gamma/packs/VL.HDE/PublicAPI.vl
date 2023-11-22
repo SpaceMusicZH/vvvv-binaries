@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="PzCFPY1flhjPMFlQbTo5Xh" LanguageVersion="2023.5.3-0054-g90d9297426" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="PzCFPY1flhjPMFlQbTo5Xh" LanguageVersion="2023.5.3-0229-gcffaae8d4a" Version="0.128">
   <NugetDependency Id="CNS573wcRvlLUojoH3ybmz" Location="VL.CoreLib" Version="2022.5.0-0541-g967690947d" />
   <Patch Id="KoBYdwEegFBMbABui4wO9e">
     <Canvas Id="EzbrlRl0lWIQUtC8Zvg7E8" DefaultCategory="VL" CanvasType="FullCategory">
@@ -296,19 +296,22 @@
     ************************ NamePart ************************
 
 -->
-              <Node Name="NamePart" Bounds="674,263,100,50" Id="B2qKUCzF0j0M6U371qP4Xb">
+              <Node Name="NamePart" Bounds="662,234,112,80" Id="B2qKUCzF0j0M6U371qP4Xb">
                 <p:NodeReference>
                   <Choice Kind="OperationDefinition" Name="Operation" />
                   <FullNameCategoryReference ID="Primitive" />
                 </p:NodeReference>
                 <p:HideCategory p:Type="Boolean">false</p:HideCategory>
                 <Patch Id="GkthF69FJ1oONilWRAkNMx">
-                  <Node Bounds="674,263,10,10" AutoConnect="true" Id="B6BiYZLUFRgNZYYByFOX0f">
-                    <p:NodeReference LastCategoryFullName="VL.Model.NameAndVersion" LastDependency="PublicAPI.vl">
-                      <Choice Kind="OperationNode" Name="NamePart" />
-                      <FullNameCategoryReference ID="VL.Model.NameAndVersion" />
+                  <Node Bounds="674,263,78,26" AutoConnect="true" Id="B6BiYZLUFRgNZYYByFOX0f">
+                    <p:NodeReference LastCategoryFullName="VL.Model.NameAndVersion" LastDependency="VL.Lang.dll">
+                      <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                      <CategoryReference Kind="AssemblyCategory" Name="VL" />
+                      <CategoryReference Kind="AssemblyCategory" Name="NameAndVersion" />
+                      <Choice Kind="OperationCallFlag" Name="NamePart" />
                     </p:NodeReference>
                     <Pin Id="SJESARK5Q7GQL94Pdc1Csr" Name="Input" Kind="StateInputPin" />
+                    <Pin Id="KihICyAMSZSQH1mk8llZse" Name="Output" Kind="OutputPin" IsHidden="true" />
                     <Pin Id="BicSH7vWTBkMZc9tKVpe57" Name="Name Part" Kind="OutputPin" />
                   </Node>
                   <Pin Id="Sbq9bDDxby1LBqQFRNDuX6" Name="Input" Kind="InputPin" />
@@ -320,19 +323,21 @@
     ************************ VersionPart ************************
 
 -->
-              <Node Name="VersionPart" Bounds="674,413,100,50" Id="HAGqMQ5j9oxLDwrfH8PWeL">
+              <Node Name="VersionPart" Bounds="662,384,102,80" Id="HAGqMQ5j9oxLDwrfH8PWeL">
                 <p:NodeReference>
                   <Choice Kind="OperationDefinition" Name="Operation" />
                   <FullNameCategoryReference ID="Primitive" />
                 </p:NodeReference>
                 <p:HideCategory p:Type="Boolean">false</p:HideCategory>
                 <Patch Id="KOLFC5FMFFrOJlIK497oDH">
-                  <Node Bounds="674,413,10,10" AutoConnect="true" Id="QuziGSsaSsuNQyX3oI34B9">
-                    <p:NodeReference LastCategoryFullName="VL.Model.NameAndVersion" LastDependency="PublicAPI.vl">
-                      <Choice Kind="OperationNode" Name="VersionPart" />
-                      <FullNameCategoryReference ID="VL.Model.NameAndVersion" />
+                  <Node Bounds="674,413,78,26" AutoConnect="true" Id="QuziGSsaSsuNQyX3oI34B9">
+                    <p:NodeReference LastCategoryFullName="VL.Model.NameAndVersion" LastDependency="VL.Lang.dll">
+                      <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                      <CategoryReference Kind="AssemblyCategory" Name="NameAndVersion" />
+                      <Choice Kind="OperationCallFlag" Name="VersionPart" />
                     </p:NodeReference>
                     <Pin Id="Sg9VUT06AbzMssxZrDjnsT" Name="Input" Kind="StateInputPin" />
+                    <Pin Id="Iel8UoPWM5OL8LvZEEXZQi" Name="Output" Kind="OutputPin" IsHidden="true" />
                     <Pin Id="U5hC78BeCotLa3I7QnZWwg" Name="Version Part" Kind="OutputPin" />
                   </Node>
                   <Pin Id="Sdp9V18TSoDPFUuXRqx9OR" Name="Input" Kind="InputPin" />

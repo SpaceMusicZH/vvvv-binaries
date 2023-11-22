@@ -141,11 +141,6 @@
             Initialize current options (generally on application startup) if you want to select a default format, picker type, etc.
             </summary>
         </member>
-        <member name="T:VL.ImGui.Widgets.SetItemAllowOverlap">
-            <summary>
-            Allow last item to be overlapped by a subsequent item. Sometimes useful with invisible buttons, selectables, etc. to catch unused area.
-            </summary>
-        </member>
         <member name="T:VL.ImGui.Widgets.SetItemDefaultFocus">
             <summary>
             Make last item the default focused item of a window.
@@ -154,6 +149,11 @@
         <member name="T:VL.ImGui.Widgets.SetKeyboardFocusHere">
             <summary>
             Focus keyboard on the next widget. Use positive 'offset' to access sub components of a multiple component widget. Use -1 to access previous widget.
+            </summary>
+        </member>
+        <member name="T:VL.ImGui.Widgets.SetNextItemAllowOverlap">
+            <summary>
+            Allow next item to be overlapped by a subsequent item. Useful with invisible buttons, selectable, treenode covering an area where subsequent items may need to be added. Note that both Selectable() and TreeNode() have dedicated flags doing this.
             </summary>
         </member>
         <member name="T:VL.ImGui.Widgets.SetNextItemOpen">
@@ -170,6 +170,11 @@
             <summary>
             Notify TabBar or Docking system of a closed tab/window ahead (useful to reduce visual flicker on reorderable tab bars). 
             For TabBar: call inside TabBar region before Tab submissions. Otherwise call with a window name.
+            </summary>
+        </member>
+        <member name="T:VL.ImGui.Widgets.TableAngledHeadersRow">
+            <summary>
+            Submit a row with angled headers for every column with the ImGuiTableColumnFlags_AngledHeader flag. MUST BE FIRST ROW.
             </summary>
         </member>
         <member name="T:VL.ImGui.Widgets.TableHeader">
@@ -452,6 +457,11 @@
             Immutable copy of all ImGui styles
             </summary>
         </member>
+        <member name="P:VL.ImGui.Widgets.StyleSnapshot.TableAngledHeadersAngle">
+            <summary>
+            Angle of angled headers (supported values range from -50.0f degrees to +50.0f degrees).
+            </summary>
+        </member>
         <member name="T:VL.ImGui.Widgets.GetStyleColorName">
             <summary>
             Get a string corresponding to the enum value (for display, saving, etc.).
@@ -672,6 +682,11 @@
             Separator, generally horizontal. Inside a menu bar or in horizontal layout mode, this becomes a vertical separator.
             </summary>
         </member>
+        <member name="T:VL.ImGui.Widgets.SeparatorText">
+            <summary>
+            Formatted text with an horizontal line
+            </summary>
+        </member>
         <member name="P:VL.ImGui.Widgets.SliderWidget`2.Format">
             <summary>
             Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: % .0f" -> Biscuit: 1; etc.
@@ -761,6 +776,23 @@
             Returns true if content is visible.
             </summary>
         </member>
+        <member name="M:VL.ImGui.Context.CaptureItemState">
+            <summary>
+            Captures current item state (IsClicked, IsHovered, etc.) and sets it for subsequent queries after leaving the using block.
+            The captured state will be unset by all widgets except query widgets (determined by <see cref="P:VL.ImGui.Widget.HasItemState"/>).
+            </summary>
+        </member>
+        <member name="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle)">
+            <summary>
+            Applies the style on the ImGui context. Intended to be called by a using statement.
+            </summary>
+            <example>
+            <code>
+            using (context.ApplyStyle(style)) { ... }
+            </code>
+            </example>
+            <returns>A disposable which removes the style on dispose.</returns>
+        </member>
         <member name="T:VL.ImGui.FontConfig">
             <summary>
             Defines a font configuration.
@@ -801,7 +833,7 @@
             Sets the style on the curent ImGui context.
             </summary>
             <remarks>
-            Avoid calling this method directly. Instead use <see cref="M:VL.ImGui.StyleExtensions.Apply(VL.ImGui.IStyle)"/> which enforces a safe usage pattern.
+            Avoid calling this method directly. Instead use <see cref="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle)"/> which enforces a safe usage pattern.
             </remarks>
         </member>
         <member name="M:VL.ImGui.IStyle.Reset(VL.ImGui.Context)">
@@ -809,7 +841,7 @@
             Resets the style on the current ImGui context.
             </summary>
             <remarks>
-            Avoid calling this method directly. Instead use <see cref="M:VL.ImGui.StyleExtensions.Apply(VL.ImGui.IStyle)"/> which enforces a safe usage pattern.
+            Avoid calling this method directly. Instead use <see cref="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle)"/> which enforces a safe usage pattern.
             </remarks>
         </member>
         <member name="M:VL.ImGui.StyleExtensions.Apply(VL.ImGui.IStyle)">
@@ -976,6 +1008,11 @@
         <member name="P:VL.ImGui.Styling.SetTabStyle.Rounding">
             <summary>
             Radius of upper corners of a tab. Set to 0.0 to have rectangular tabs.
+            </summary>
+        </member>
+        <member name="P:VL.ImGui.Styling.SetTabStyle.BorderSize">
+            <summary>
+            Thickness of tab-bar separator, which takes on the tab active color to denote focus.
             </summary>
         </member>
         <member name="P:VL.ImGui.Styling.SetWindowStyle.ResizeGripColor">

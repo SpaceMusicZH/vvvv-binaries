@@ -4,15 +4,155 @@
         <name>VL.Core</name>
     </assembly>
     <members>
-        <member name="P:VL.Core.IAppHost.OnExit">
+        <member name="T:VL.Core.AppHost">
+            <summary>
+            Implemented by all the entry points (vvvv.exe, exported apps, runtime instances).
+            All entry points will make themselfs current before calling into the patch (<see cref="M:VL.Core.AppHost.MakeCurrent"/>).
+            Patches will capture the current app host and restore it in callbacks should no other app host be current (<see cref="M:VL.Core.AppHost.MakeCurrentIfNone"/>).
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.Current">
+            <summary>
+            The app host for the current thread. Throws <see cref="T:System.InvalidOperationException"/> in case no host is installed.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.CurrentOrGlobal">
+            <summary>
+            The app host for the current thread or the global one if there's no host installed on the current thread.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.Global">
+            <summary>
+            The app host for the whole application. 
+            When running inside the editor this refers to the development environment. 
+            When running as a standalone app it's the same as <see cref="P:VL.Core.AppHost.Current"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Core.AppHost.IsCurrent">
+            <summary>
+            Whether or not a context is installed on the current thread.
+            </summary>
+        </member>
+        <member name="M:VL.Core.AppHost.MakeCurrent">
+            <summary>
+            Make the app host current on the current thread.
+            </summary>
+            <returns>A disposable which will restore the previous app host on dispose.</returns>
+        </member>
+        <member name="M:VL.Core.AppHost.MakeCurrentIfNone">
+            <summary>
+            Make the app host current on the current thread if no app host is current yet.
+            </summary>
+            <returns>A disposable which will restore the previous app host on dispose.</returns>
+        </member>
+        <member name="P:VL.Core.AppHost.AppPath">
+            <summary>
+            The file path of the currently running application.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.AppName">
+            <summary>
+            The name of the currently running application.
+            </summary>
+            <remarks>
+            Inside the editor this refers to the VL document name while in an exported app this refers to the exe name.
+            </remarks>
+        </member>
+        <member name="P:VL.Core.AppHost.AppBasePath">
+            <summary>
+            The directory of the currently running application.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.IsExported">
+            <summary>
+            Whether the app is exported and runs standalone as an executable.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.Services">
+            <summary>
+            The service registry of the app.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.TypeRegistry">
+            <summary>
+            The type registry of the app.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.NodeFactoryRegistry">
+            <summary>
+            Contains all the node factories registered for this app.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.NodeFactoryCache">
+            <summary>
+            The node factory cache used by the app. Usually there's only one per process.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.SynchronizationContext">
+            <summary>
+            The synchronization context of the app. Allows to interact with its main thread.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.Factory">
+            <summary>
+            The VL factory of the app. This property exists only for compatibility reasons.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.LoggerFactory">
+            <summary>
+            The logger factory of the app. Logging gets configured by <see cref="M:VL.Core.IStartup.SetupLogging(VL.Core.AppHost,Microsoft.Extensions.Logging.ILoggingBuilder)"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.Configuration">
+            <summary>
+            The configuration of the app. The configuration gets initialized by <see cref="M:VL.Core.IStartup.SetupConfiguration(VL.Core.AppHost,Microsoft.Extensions.Configuration.IConfigurationBuilder)"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.App">
+            <summary>
+            The application patch.
+            </summary>
+        </member>
+        <member name="P:VL.Core.AppHost.OnExit">
             <summary>
             Raised when the application exits.
             </summary>
         </member>
-        <member name="P:VL.Core.IAppHost.AppName">
+        <member name="M:VL.Core.AppHost.TakeOwnership(System.IDisposable)">
             <summary>
-            The name of the document with extension
+            Ties the lifetime of the component to the one of the host.
             </summary>
+        </member>
+        <member name="M:VL.Core.AppHost.KeepAlive">
+            <summary>
+            Tells the app host to stay alive until the returned disposable is disposed.
+            </summary>
+        </member>
+        <member name="M:VL.Core.AppHost.GetDocumentPath(VL.Core.UniqueId)">
+            <summary>
+            The document path. Running inside the editor this refers to the path of the document otherwise the path of the executable.
+            </summary>
+        </member>
+        <member name="M:VL.Core.AppHost.GetPackagePath(System.String)">
+            <summary>
+            The path of the locally installed package. If the package is not installed or the app is running as standalone this will return null.
+            </summary>
+        </member>
+        <member name="M:VL.Core.AppHost.CreateInstance(VL.Core.IVLTypeInfo,VL.Core.NodeContext)">
+            <summary>
+            Create a new instance of the given type by calling it's constructor using default values for any of its arguments.
+            If there's no default constructor registered it will fallback to the default value.
+            </summary>
+            <param name="type">The type to create.</param>
+            <param name="nodeContext">The node context to use. Used by patched types.</param>
+            <returns>The new instance.</returns>
+        </member>
+        <member name="M:VL.Core.AppHost.GetDefaultValue(VL.Core.IVLTypeInfo)">
+            <summary>
+            Retrieves the default value of the given type. 
+            If there's no default value registered it will return the CLR default.
+            </summary>
+            <returns>The default of the given type.</returns>
         </member>
         <member name="P:VL.Core.IHotSwappableEntryPoint.OnSwap">
             <summary>
@@ -189,45 +329,130 @@
             <param name="parameterInfo">The parameter to get the XML documentation for.</param>
             <returns>The XML documenation of the parameter.</returns>
         </member>
+        <member name="T:VL.Core.EditorAttributes.TypeSelectorAttribute">
+            <summary>
+            If present the object editor will show a type selector on channels with an abstract value type.
+            The type selection can be controlled via the <see cref="P:VL.Core.EditorAttributes.TypeSelectorAttribute.Includes"/> and <see cref="P:VL.Core.EditorAttributes.TypeSelectorAttribute.Excludes"/> properties.
+            </summary>
+        </member>
+        <member name="P:VL.Core.EditorAttributes.TypeSelectorAttribute.Includes">
+            <summary>
+            A list of types to include in the dropdown. Wildcards (*) are supported.
+            </summary>
+        </member>
+        <member name="P:VL.Core.EditorAttributes.TypeSelectorAttribute.Excludes">
+            <summary>
+            A list of types to exclude in the dropdown. Wildcards (*) are supported.
+            </summary>
+        </member>
+        <member name="M:VL.Core.EditorAttributes.TypeSelectorAttribute.IsMatch(System.String)">
+            <summary>
+            Whether or not the given type name matches the include and exclude patterns.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.FragmentAttribute">
+            <summary>
+            Marks a method or property to be included as a fragment in a process definition (<see cref="T:VL.Core.Import.ProcessNodeAttribute"/>).
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.FragmentAttribute.Order">
+            <summary>
+            Determines the order of the fragment.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.FragmentAttribute.IsHidden">
+            <summary>
+            Whether or not the fragment shall be hidden. Useful when the fragment selection is set to <see cref="F:VL.Core.Import.FragmentSelection.Implicit"/> and certain members shall not be part of the process.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.FragmentSelection">
+            <summary>
+            Allows to specifify what members of a type get selected to form a process its fragments.
+            </summary>
+        </member>
+        <member name="F:VL.Core.Import.FragmentSelection.Implicit">
+            <summary>
+            All public methods and properties of the type will be included.
+            </summary>
+        </member>
+        <member name="F:VL.Core.Import.FragmentSelection.Explicit">
+            <summary>
+            Only public methods and properties with the <see cref="T:VL.Core.Import.FragmentAttribute"/> will be included.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.ImportAsIsAttribute">
+            <summary>
+            Makes all public types and their members directly available in VL.
+            Process nodes can be defined with the <see cref="T:VL.Core.Import.ProcessNodeAttribute"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ImportAsIsAttribute.Namespace">
+            <summary>
+            Defines the namespace from which types are getting picked up. The namespace will be stripped on VL side.
+            For example namespace = "VL" with class "VL.Foo.Bar" will make it show up as "Bar [Foo]".
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.ProcessNodeAttribute">
+            <summary>
+            Defines a process node. The class must have a public constructor.
+            
+            By default all the public methods and properties are used as fragments.
+            Fragments can be selected individually via the <see cref="P:VL.Core.Import.ProcessNodeAttribute.FragmentSelection"/> property.
+            
+            The default ordering of the fragments is: setters, methods, getters with the inner order determined by the declaration order.
+            
+            Members of base classes are only included if the base class also has the same attribute.
+            Overriding a member will not change the order of the fragment.
+            </summary>
+            <remarks>
+            Note: If set on a class all its members will no longer show up as individual nodes, except the process defines a state output
+            via the <see cref="P:VL.Core.Import.ProcessNodeAttribute.HasStateOutput"/> property.
+            </remarks>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.Name">
+            <summary>
+            The name of the process. Leave empty to use the class name.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.HasStateOutput">
+            <summary>
+            Whether or not the process shall have a state output. If true, the class its members will also be available as individual nodes.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.FragmentSelection">
+            <summary>
+            Controls how fragments get selected. By default all public members will be included.
+            </summary>
+        </member>
         <member name="T:VL.Core.InitializationException">
             <summary>
             Thrown in case initialization code fails.
             </summary>
         </member>
-        <member name="P:VL.Core.IPathProvider.AppBasePath">
+        <member name="T:VL.Core.IStartup">
             <summary>
-            The base path of the currently running application.
+            Implement to take part in the application startup process.
             </summary>
         </member>
-        <member name="M:VL.Core.IPathProvider.GetDocumentBasePath(VL.Core.UniqueId)">
+        <member name="M:VL.Core.IStartup.SetupConfiguration(VL.Core.AppHost,Microsoft.Extensions.Configuration.IConfigurationBuilder)">
             <summary>
-            The document base path. Running inside the editor this refers to the directory of the document otherwise the directory of the executable.
+            Sets up the configuration of the app. This is called first when the app starts.
             </summary>
+            <param name="appHost">The app host - not all properties can be accessed yet, as it is still getting initialized.</param>
+            <param name="configurationBuilder">Used to build the configuration of the app which will later be accessible via the <see cref="P:VL.Core.AppHost.Configuration"/> property.</param>
         </member>
-        <member name="M:VL.Core.IPathProvider.GetPackagePath(System.String)">
+        <member name="M:VL.Core.IStartup.SetupLogging(VL.Core.AppHost,Microsoft.Extensions.Logging.ILoggingBuilder)">
             <summary>
-            The path of the locally installed package. If the package is not installed or the app is running as standalone this will return null.
+            Sets up the logging of the app. This is called after the configuration has been initialized.
             </summary>
+            <param name="appHost">The app host - not all properties can be accessed yet, as it is still getting initialized.</param>
+            <param name="loggingBuilder">Used to configure the logging facilities of the app. Loggers can later be created via the <see cref="P:VL.Core.AppHost.LoggerFactory"/>.</param>
         </member>
-        <member name="M:VL.Core.PathProviderUtils.GetApplicationBasePath(VL.Core.NodeContext)">
+        <member name="M:VL.Core.IStartup.Configure(VL.Core.AppHost)">
             <summary>
-            Retrieves the base path of the current application. In case of a running patch it's the base path of the entry point.
+            Configure any remaining services of the app. All base services (like logging) are available. Called last.
             </summary>
-            <param name="nodeContext">The node context to retrieve the entry point from.</param>
-            <returns>The base path of the application.</returns>
-        </member>
-        <member name="M:VL.Core.PathProviderUtils.GetApplicationBasePath">
-            <summary>
-            Retrieves the base path of the current application. In case of a running patch it's the base path of the entry point.
-            </summary>
-            <returns>The base path of the application.</returns>
-        </member>
-        <member name="M:VL.Core.PathProviderUtils.GetDocumentBasePath(VL.Core.NodeContext)">
-            <summary>
-            Retrieves the base path of the current document.
-            </summary>
-            <param name="nodeContext">The node context to retrieve the current document from.</param>
-            <returns>The base path of the current document.</returns>
+            <param name="appHost">The app host to configure.</param>
         </member>
         <member name="T:VL.Core.IVLObject">
             <summary>
@@ -237,6 +462,11 @@
         <member name="P:VL.Core.IVLObject.Services">
             <summary>
             The service registry which was current when this instance was created.
+            </summary>
+        </member>
+        <member name="P:VL.Core.IVLObject.AppHost">
+            <summary>
+            The app host which created this instance.
             </summary>
         </member>
         <member name="P:VL.Core.IVLObject.Context">
@@ -295,9 +525,9 @@
             Interface to create VL objects.
             </summary>
         </member>
-        <member name="P:VL.Core.IVLFactory.Current">
+        <member name="P:VL.Core.IVLFactory.AppHost">
             <summary>
-            Returns the VL factory installed on the current thread.
+            The app host associated with this factory.
             </summary>
         </member>
         <member name="M:VL.Core.IVLFactory.GetTypeByName(System.String)">
@@ -385,6 +615,11 @@
         <member name="P:VL.Core.IVLPropertyInfo.IsManaged">
             <summary>
             Whether or not the property is system generated.
+            </summary>
+        </member>
+        <member name="P:VL.Core.IVLPropertyInfo.ShouldBeSerialized">
+            <summary>
+            Whether or not this property should be serialized.
             </summary>
         </member>
         <member name="M:VL.Core.IVLPropertyInfo.GetValue(VL.Core.IVLObject)">
@@ -551,7 +786,7 @@
             <param name="value">The value to set.</param>
             <returns>The new instance (if it is a record) with the set value.</returns>
         </member>
-        <member name="M:VL.Core.VLObjectExtensions.TryGetValueByPath``1(VL.Core.IVLObject,System.String,``0,``0@)">
+        <member name="M:VL.Core.VLObjectExtensions.TryGetValueByPath``1(System.Object,System.String,``0,``0@)">
             <summary>
             Tries to retrieve the value from the given path. The path is a dot separated string of property names.
             </summary>
@@ -561,17 +796,6 @@
             <param name="defaultValue">The default value to use in case the lookup failed.</param>
             <param name="value">The returned value.</param>
             <returns>True if the lookup succeeded.</returns>
-        </member>
-        <member name="M:VL.Core.VLObjectExtensions.WithValueByPath``2(``0,System.String,``1)">
-            <summary>
-            Tries to set the value of the given path. The path is a dot separated string of property names.
-            </summary>
-            <typeparam name="TInstance">The type of the instance.</typeparam>
-            <typeparam name="TValue">The expected type of the value.</typeparam>
-            <param name="instance">The root instance to start the lookup from.</param>
-            <param name="path">A dot separated string of property names. Spreaded properties can be indexed using [N] for example "MySpread[0]" sets the first value in MySpread.</param>
-            <param name="value">The value to set.</param>
-            <returns>The new root instance (if it is a record) with the updated spine.</returns>
         </member>
         <member name="M:VL.Core.VLObjectExtensions.IsSupportedCollectionType(VL.Core.IVLTypeInfo)">
             <summary>
@@ -592,6 +816,17 @@
             <param name="descendant">The new descendant.</param>
             <param name="updatedInstance">The updated instance with the descendant replaced.</param>
             <returns>Returns true if a descendant with the same <see cref="P:VL.Core.IVLObject.Identity"/> as the given one was found and replaced.</returns>
+        </member>
+        <member name="M:VL.Core.VLObjectExtensions.WithValueByPath``2(``0,System.String,``1)">
+            <summary>
+            Tries to set the value of the given path. The path is a dot separated string of property names.
+            </summary>
+            <typeparam name="TInstance">The type of the instance.</typeparam>
+            <typeparam name="TValue">The expected type of the value.</typeparam>
+            <param name="instance">The root instance to start the lookup from.</param>
+            <param name="path">A dot separated string of property names. Spreaded properties can be indexed using [N] for example "MySpread[0]" sets the first value in MySpread.</param>
+            <param name="value">The value to set.</param>
+            <returns>The new root instance (if it is a record) with the updated spine.</returns>
         </member>
         <member name="M:VL.Core.VLPropertyInfoExtensions.TryGetValue``1(VL.Core.IVLPropertyInfo,VL.Core.IVLObject,``0,``0@)">
             <summary>
@@ -655,6 +890,11 @@
             Whether or not this type is a VL record (immutable).
             </summary>
         </member>
+        <member name="P:VL.Core.IVLTypeInfo.IsImmutable">
+            <summary>
+            Whether or not this type is immutable.
+            </summary>
+        </member>
         <member name="P:VL.Core.IVLTypeInfo.IsInterface">
             <summary>
             Whether or not this type is an interface.
@@ -698,6 +938,35 @@
             If there's no default value registered for this type it will return the CLR default.
             </summary>
             <returns>The default of this type.</returns>
+        </member>
+        <member name="M:VL.Core.IVLTypeInfo.MakeGenericType(System.Collections.Generic.IReadOnlyList{VL.Core.IVLTypeInfo})">
+            <summary>
+            Creates a generic type instance of out of this generic definition using the given type arguments.
+            </summary>
+            <param name="arguments">The type arguments to use for the type parameters of this definition.</param>
+            <returns>The generic type instance.</returns>
+        </member>
+        <member name="T:VL.Core.Logging.LoggerFactory">
+            <summary>
+            Loggers created by this factory will publish all their messages through the <see cref="P:VL.Core.Logging.LoggerFactory.Messages"/> property.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Logging.LoggerFactory.AllMessages">
+            <summary>
+            The log messages from loggers created by all factories (from all apps).
+            </summary>
+        </member>
+        <member name="P:VL.Core.Logging.LoggerFactory.Messages">
+            <summary>
+            The log messages from loggers created by this factory (from this app).
+            </summary>
+        </member>
+        <member name="M:VL.Core.Logging.LoggerFactory.CreateLogger(System.String,VL.Core.NodeContext)">
+            <summary>
+            Creates a new <see cref="T:Microsoft.Extensions.Logging.ILogger"/>. The logger's category is infered from the node context if not set.
+            </summary>
+            <param name="categoryName">The category of the logger. If not set it will be infered from the node context.</param>
+            <param name="nodeContext">The node context. Will be used to infer the category (if not specified) and can later be used to locate the patch associated with a logged message.</param>
         </member>
         <member name="P:VL.Core.IMainLoopTimer.Interval">
             <summary>
@@ -751,6 +1020,56 @@
             Marks a type as monadic - it can wrap any basic type. The value wrapping is done through an intermediate as specified by the given factory.
             </summary>
         </member>
+        <member name="P:VL.Core.MonadicAttribute.TypeFilter">
+            <summary>
+            An optional type filter. The type must have a default constructor and implement <see cref="T:VL.Core.IMonadicTypeFilter"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Core.IMonadicTypeFilter">
+            <summary>
+            Allows to define what types the factory accepts.
+            </summary>
+        </member>
+        <member name="T:VL.Core.TypeDescriptor">
+            <summary>
+            Used in the <see cref="M:VL.Core.IMonadicTypeFilter.Accepts(VL.Core.TypeDescriptor)"/> method to decribe a type.
+            </summary>
+            <param name="Name">The name of the type as defined in VL.</param>
+            <param name="Category">The category of the type as defined in VL.</param>
+            <param name="IsImmutable">Whether or not the type is immutable.</param>
+            <param name="IsValueType">Whether or not the type is a value type.</param>
+            <param name="IsUnmanaged">Whether or not the type is an unmanaged (blittable) type.</param>
+            <param name="ClrType">The dotnet runtime type. Can be null for patched types.</param>
+        </member>
+        <member name="M:VL.Core.TypeDescriptor.#ctor(System.String,System.String,System.Boolean,System.Boolean,System.Boolean,System.Type)">
+            <summary>
+            Used in the <see cref="M:VL.Core.IMonadicTypeFilter.Accepts(VL.Core.TypeDescriptor)"/> method to decribe a type.
+            </summary>
+            <param name="Name">The name of the type as defined in VL.</param>
+            <param name="Category">The category of the type as defined in VL.</param>
+            <param name="IsImmutable">Whether or not the type is immutable.</param>
+            <param name="IsValueType">Whether or not the type is a value type.</param>
+            <param name="IsUnmanaged">Whether or not the type is an unmanaged (blittable) type.</param>
+            <param name="ClrType">The dotnet runtime type. Can be null for patched types.</param>
+        </member>
+        <member name="P:VL.Core.TypeDescriptor.Name">
+            <summary>The name of the type as defined in VL.</summary>
+        </member>
+        <member name="P:VL.Core.TypeDescriptor.Category">
+            <summary>The category of the type as defined in VL.</summary>
+        </member>
+        <member name="P:VL.Core.TypeDescriptor.IsImmutable">
+            <summary>Whether or not the type is immutable.</summary>
+        </member>
+        <member name="P:VL.Core.TypeDescriptor.IsValueType">
+            <summary>Whether or not the type is a value type.</summary>
+        </member>
+        <member name="P:VL.Core.TypeDescriptor.IsUnmanaged">
+            <summary>Whether or not the type is an unmanaged (blittable) type.</summary>
+        </member>
+        <member name="P:VL.Core.TypeDescriptor.ClrType">
+            <summary>The dotnet runtime type. Can be null for patched types.</summary>
+        </member>
         <member name="T:VL.Core.IMonadicFactory`2">
             <summary>
             Implementations must have a default constructor as well as a static readonly field called "Default".
@@ -790,18 +1109,20 @@
             Contains information about the environment in which a node was created.
             </summary>
         </member>
-        <member name="M:VL.Core.NodeContext.Create(VL.Core.UniqueId)">
+        <member name="P:VL.Core.NodeContext.CurrentRoot">
+            <summary>
+            The current root context provided by the current app host. See <see cref="P:VL.Core.AppHost.CurrentOrGlobal"/> and <see cref="P:VL.Core.AppHost.RootContext"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Core.NodeContext.Create(VL.Core.AppHost)">
             <summary>
             Creates a new root context.
             </summary>
-            <returns>The new root context.</returns>
         </member>
-        <member name="M:VL.Core.NodeContext.#ctor(System.Collections.Immutable.ImmutableStack{VL.Core.UniqueId},System.Boolean)">
+        <member name="M:VL.Core.NodeContext.Create(VL.Core.AppHost,VL.Core.UniqueId)">
             <summary>
-            Creates a new context.
+            Creates a new root context.
             </summary>
-            <param name="path">The path to the node for which this context gets created.</param>
-            <param name="isImmutable">Whether the context must be immutable.</param>
         </member>
         <member name="F:VL.Core.NodeContext.Path">
             <summary>
@@ -818,7 +1139,7 @@
             Whether or not the context is immutable. In an immutable context the state must not be modified.
             </summary>
         </member>
-        <member name="M:VL.Core.NodeContext.CreateSubContext(System.String,System.String,System.UInt32)">
+        <member name="M:VL.Core.NodeContext.CreateSubContext(System.String,System.String)">
             <summary>
             Creates a new sub context.
             </summary>
@@ -983,12 +1304,12 @@
             </summary>
             <param name="exception">The exception to report.</param>
         </member>
-        <member name="M:VL.Core.RuntimeGraph.ReportException(System.Exception,VL.Core.ServiceRegistry)">
+        <member name="M:VL.Core.RuntimeGraph.ReportException(System.Exception,VL.Core.AppHost)">
             <summary>
             The exception to throw by the HandleAsyncException call.
             </summary>
             <param name="exception">The exception to report.</param>
-            <param name="capturedServiceRegistry">The captured service registry.</param>
+            <param name="capturedAppHost">The captured service registry.</param>
         </member>
         <member name="T:VL.Core.ISerializer`1">
             <summary>
@@ -1016,6 +1337,11 @@
         <member name="T:VL.Core.SerializationContext">
             <summary>
             The serialization context.
+            </summary>
+        </member>
+        <member name="P:VL.Core.SerializationContext.AppHost">
+            <summary>
+            The current app host.
             </summary>
         </member>
         <member name="M:VL.Core.SerializationContext.Serialize``1(System.String,``0,System.Boolean)">
@@ -1182,13 +1508,6 @@
             <param name="forType">The type of the instance to serialize.</param>
             <returns>True if an instance of the given type can be serialized.</returns>
         </member>
-        <member name="T:VL.Core.ServiceRegistry">
-            <summary>
-            Provides services for the whole application (<see cref="P:VL.Core.ServiceRegistry.Global"/>) or to a specific call stack (<see cref="P:VL.Core.ServiceRegistry.Current"/>).
-            All entry points (runtime instances, editor extensions, exported apps) will make a registry current before calling into the patch (<see cref="M:VL.Core.ServiceRegistry.MakeCurrent"/>).
-            Patches will capture the current service registry and restore it in callbacks should no other registry be current (<see cref="M:VL.Core.ServiceRegistry.MakeCurrentIfNone"/>).
-            </summary>
-        </member>
         <member name="P:VL.Core.ServiceRegistry.Current">
             <summary>
             The service registry for the current thread. Throws <see cref="T:System.InvalidOperationException"/> in case no registry is installed.
@@ -1209,17 +1528,15 @@
             Whether or not a context is installed on the current thread.
             </summary>
         </member>
-        <member name="M:VL.Core.ServiceRegistry.MakeCurrent">
+        <member name="M:VL.Core.ServiceRegistry.RegisterService``1(``0)">
             <summary>
-            Make the registry current on the current thread.
+            Registers an already existing service of type T. The lifetime will not be managed by the host.
             </summary>
-            <returns>A subscription which will restore the previous registry on dispose.</returns>
         </member>
-        <member name="M:VL.Core.ServiceRegistry.MakeCurrentIfNone">
+        <member name="M:VL.Core.ServiceRegistry.RegisterService``1(System.Func{System.IServiceProvider,``0})">
             <summary>
-            Make the registry current on the current thread if no registry is current yet.
+            Registers a service factory for the service of type T. The lifetime of the created instance will be managed by the host.
             </summary>
-            <returns>A subscription which will restore the previous registry on dispose.</returns>
         </member>
         <member name="T:VL.Core.IHasMemory`1">
             <summary>
@@ -1317,26 +1634,6 @@
         <member name="P:VL.Core.Optional`1.HasNoValue">
             <summary>
             Whether or not the value is missing.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TypeUtils.New(System.Type,VL.Core.NodeContext)">
-            <summary>
-            Creates a new instance of the specified type.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TypeUtils.New``1(VL.Core.NodeContext)">
-            <summary>
-            Creates a new instance of the specified type.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TypeUtils.Default(System.Type)">
-            <summary>
-            Returns the default value as defined by VL.
-            </summary>
-        </member>
-        <member name="M:VL.Core.TypeUtils.Default``1">
-            <summary>
-            Returns the default value as defined by VL.
             </summary>
         </member>
         <member name="T:VL.Core.UniqueId">
@@ -1938,7 +2235,7 @@
         </member>
         <member name="M:VL.Lib.Animation.Clocks.SetCurrentFrameClock(VL.Lib.Animation.IFrameClock)">
             <summary>
-            Sets the clock for the current thread.
+            Sets the clock for the current thread. The returned disposable will set the previous clock when disposed.
             </summary>
         </member>
         <member name="P:VL.Lib.Animation.Clocks.FrameClock">
@@ -3373,6 +3670,21 @@
             Makes sure to call GetHandle before releasing the old handle.
             </summary>
         </member>
+        <member name="M:VL.Lib.Basics.Video.IVideoSource2.Start(VL.Lib.Basics.Video.VideoPlaybackContext)">
+            <summary>
+            Starts a new video playback. Must be thread safe.
+            </summary>
+        </member>
+        <member name="P:VL.Lib.Basics.Video.IVideoSource2.ChangedTicket">
+            <summary>
+            Sinks observe this property to determine whether they need to re-subscribe on the source.
+            </summary>
+        </member>
+        <member name="T:VL.Lib.Basics.Video.IVideoSource">
+            <summary>
+            This interface should no longer be implemented. Implement <see cref="T:VL.Lib.Basics.Video.IVideoSource2"/> instead.
+            </summary>
+        </member>
         <member name="M:VL.Lib.Basics.Video.IVideoSource.GrabVideoFrame">
             <summary>
             Grabs the next video frame from the source.
@@ -3602,6 +3914,46 @@
             To update UI and add change to history for undo, but does not trigger a recompile
             </summary>
         </member>
+        <member name="T:VL.Model.PinExpositionMode">
+            <summary>
+            Aka AutoConnect. Makes the pin show up in the parent(s).
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinExpositionMode.Local">
+            <summary>
+            Off
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinExpositionMode.InfectPatch">
+            <summary>
+            Makes the pin show up in the surrounding patch
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinExpositionMode.Expose">
+            <summary>
+            Infect all surrounding patches (the call stack)
+            </summary>
+        </member>
+        <member name="T:VL.Model.PinVisibility">
+            <summary>
+            Controls the visibility of pins. 
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinVisibility.Visible">
+            <summary>
+            The pin is always visible.
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinVisibility.Optional">
+            <summary>
+            The user can configure the node to show this pin on application side.
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinVisibility.Hidden">
+            <summary>
+            The user won't see the pin.
+            </summary>
+        </member>
         <member name="M:System.Collections.Generic.EnumerableExtensions.Permutations``1(System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{``0}})">
             <summary>
             (a,b),(c,d) -> (a,c),(a,d),(b,c),(b,d)
@@ -3659,6 +4011,14 @@
             <summary>
             if count = 0 returns a default(T)
             </summary>
+        </member>
+        <member name="M:System.Collections.Generic.StringExtensions.Like(System.String,System.String)">
+            <summary>
+            Compares the string against a given pattern.
+            </summary>
+            <param name="str">The string.</param>
+            <param name="pattern">The pattern to match, where "*" means any sequence of characters, and "?" means any single character.</param>
+            <returns><c>true</c> if the string matches the given pattern; otherwise <c>false</c>.</returns>
         </member>
         <member name="M:System.Collections.Immutable.ImmutableStackExtensions.SequenceEqual``1(System.Collections.Immutable.ImmutableStack{``0},System.Collections.Immutable.ImmutableStack{``0},System.Collections.Generic.IEqualityComparer{``0})">
             <summary>

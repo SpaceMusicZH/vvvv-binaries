@@ -1,0 +1,856 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Stride.Runtime.vl</name>
+    </assembly>
+    <members>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.Variables.NORMAL_MO8FCHuZD1oN3OCekkYtCm">
+            <summary>The normal stored in the mesh, untransformed.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.Variables._Operations_.SetVar``2(VL.Stride.Shaders.ShaderFX.SetVar{``0},``1,VL.Stride.Shaders.ShaderFX.SetVar{``0}@)">
+            <summary>Assigns a new value to an existing shader variable.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.Variables._Operations_.DeclAndSetVar``2(System.String,``0,VL.Stride.Shaders.ShaderFX.SetVar{``1}@)">
+            <summary>Declare a shader variable with a give name and initialize it with a value.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.Texture.SampleTexture_BckflDe3bBbM1KG5LnQIxv`1.Update(VL.Stride.Shaders.ShaderFX.DeclTexture,VL.Stride.Shaders.ShaderFX.DeclSampler,VL.Stride.Shaders.ShaderFX.SetVar{Stride.Core.Mathematics.Vector2},VL.Stride.Shaders.ShaderFX.SampleMode,VL.Stride.Shaders.ShaderFX.SetVar{`0}@)">
+            <param name="Sampler_In">If null, a Linear Clamp sampler is used</param>
+            <param name="Tex_Coord_In">If null, TEXCOORD0 semantic is used</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.Texture.SampleLevelTexture_V47lZfFzfmCMnrmXfj7mGR`1.Update(VL.Stride.Shaders.ShaderFX.DeclTexture,VL.Stride.Shaders.ShaderFX.DeclSampler,VL.Stride.Shaders.ShaderFX.SetVar{Stride.Core.Mathematics.Vector2},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{`0}@)">
+            <param name="Sampler_In">If null, a Linear Clamp sampler is used</param>
+            <param name="Tex_Coord_In">If null, TEXCOORD0 semantic is used</param>
+            <param name="LOD_In">If null, 0 is used.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.VarComputeColor_FSCj52SQHKmPGGl2KjWOJp">
+            <summary>Just a type converter, doesn&apos;t change the value. This node will be removed in the future.</summary>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.VarComputeFloat_OHnQOdyVdzmQdQErxbNgmB">
+            <summary>Just a type converter, doesn&apos;t change the value. This node will be removed in the future.</summary>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.In_SromQpaJXLRNMNYkxsg3gT`1">
+            <tags>gpu</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.ShaderFX.ColorIn_PIa08bUbMAUNxfg1drwPs6.SetValue(Stride.Core.Mathematics.Color4,System.Boolean,System.Boolean)">
+            <param name="Is_Normal_In">Set to true if the color is used as normal map. Avoids sRGB conversion.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.CustomComputeDispatcher_C.Update(Stride.Core.Mathematics.Int3,Stride.Core.Mathematics.Int3,System.Boolean,Stride.Graphics.Buffer,System.Int32,System.Func{Stride.Rendering.ParameterCollection,Stride.Rendering.RenderView,Stride.Rendering.RenderDrawContext,Stride.Rendering.ParameterCollection},System.Func{Stride.Rendering.ParameterCollection,Stride.Rendering.RenderView,Stride.Rendering.RenderDrawContext,System.Int32,VL.Stride.Shaders.ComputeEffectDispatcher,Stride.Rendering.ParameterCollection},System.Int32,System.Boolean,System.Boolean@,System.String@)">
+            <param name="Parameter_Setter_In">Gets called right before all dispatch calls.</param>
+            <param name="Per_Iteration_Setter_In">Get called right before the actual dispatch call per iteration, also for the first iteration.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.CustomComputeDispatcher_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.FullscreenQuadRenderer_BhJSftTYy1YMqMFg7MasQE.Update(Stride.Core.Mathematics.Matrix,Stride.Graphics.Texture,VL.Stride.Shaders.ShaderFX.DeclSampler,VL.Stride.Shaders.ShaderFX.SampleMode,Stride.Graphics.BlendStateDescription,Stride.Core.Mathematics.Color4,Stride.Graphics.RasterizerStateDescription,Stride.Graphics.DepthStencilStateDescription,_VL_Stride_Rendering_.Stride.Rendering.MeshRenderer_C@)">
+            <param name="Sampler_In">If null, a linear sampler will be used.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Rendering.FullscreenQuadRenderer_Depth_QIUqoNIVyNoO4gHRtlHj1X.Update(Stride.Core.Mathematics.Matrix,Stride.Graphics.Texture,Stride.Core.Mathematics.Color4,System.Single,Stride.Graphics.BlendStateDescription,Stride.Graphics.RasterizerStateDescription,Stride.Graphics.DepthStencilStateDescription,_VL_Stride_Rendering_.Stride.Rendering.MeshRenderer_C@)">
+            <param name="Depth_In">Logarithmic Depth, 0..1 corresponds to NearPlane...FarPlane</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ValueMap_MSDYzfiuxQTMHIqVDSqrQu">
+            <summary>Use the pixel colors of one channel of a texture map to control a float shader parameter</summary>
+            <tags>gpu</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ColorMap_KOxQ1z1ZXvlODfQvuwEtGx">
+            <summary>Use the pixel colors of a texture map to control a float4 shader parameter</summary>
+            <tags>gpu</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ColorMap_KOxQ1z1ZXvlODfQvuwEtGx.SetFallbackColor(Stride.Core.Mathematics.Color4,System.Boolean,System.Boolean)">
+            <param name="Is_Normal_In">Set to true if the color is used as normal map. Avoids sRGB conversion.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ColorPerInstance_NQz5iCetoSRM02WL9XZlpq`1">
+            <summary>Upload a collection of colors to the GPU to control a float4 shader parameter per instance</summary>
+            <tags>gpu</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ColorPerInstance_NQz5iCetoSRM02WL9XZlpq`1.Update``1(`0,System.Boolean,System.Boolean,VL.Stride.Shaders.ShaderFX.SetVar{Stride.Core.Mathematics.Vector4}@)">
+            <param name="Input_In">RGBA or Vector4 data for each instance.</param>
+            <param name="To_Device_Color_Space_In">If enabled and the pipline is set to linear color space (default), the shader converts the color to linear color space.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ValuePerInstance_C3O7jTdZIFEN0KbBEzwujR`1">
+            <summary>Upload a collection of values to the GPU to control a float shader parameter per instance</summary>
+            <tags>gpu</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ValueIn_CMk0oZdgKBsL1gwtLUhIdA">
+            <summary>Upload a single color value to the GPU to control a float shader parameter</summary>
+            <tags>gpu</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_ShaderFX_.Stride.Materials.Inputs.ColorIn_T2iy60yYGgPPEaHgTUxRyG">
+            <summary>Upload a single color value to the GPU to control a float4 shader parameter</summary>
+            <tags>gpu</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_UV_BwxvNT8Q2cPQatQmLGHL8I">
+            <summary>Samples pixels of a texture in UV space</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_UV_BwxvNT8Q2cPQatQmLGHL8I.Update(Stride.Graphics.Texture,VL.Lib.Collections.Spread{Stride.Core.Mathematics.Vector2},System.Boolean,Stride.Graphics.SamplerState,System.Single,System.Boolean,System.Int32,System.Boolean,System.Boolean@)">
+            <param name="Always_Update_In">If disabled, only updates when any of the inputs other than the Texture input is changed. Useful if you have a static texture and only want to update when e.g. the sample positions have changed.</param>
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_UV_AllocationFree_T4SXmmL9FNFLFT9GzCcXjJ">
+            <summary>Samples pixels of a texture in UV space</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_UV_AllocationFree_T4SXmmL9FNFLFT9GzCcXjJ.Update(Stride.Graphics.Texture,Stride.Core.Mathematics.Vector2[],System.Boolean,Stride.Graphics.SamplerState,System.Single,System.Boolean,System.Int32,System.Boolean,Stride.Core.Mathematics.Color4[]@)">
+            <param name="Always_Update_In">If disabled, only updates when any of the inputs other than the Texture input is changed. Useful if you have a static texture and only want to update when e.g. the sample positions have changed.</param>
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_MqYqrVR1BTcORjCCg8elsd">
+            <summary>Samples pixels of a texture in pixel space</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_MqYqrVR1BTcORjCCg8elsd.Update(Stride.Graphics.Texture,VL.Lib.Collections.Spread{Stride.Core.Mathematics.Int2},System.Boolean,Stride.Graphics.SamplerState,System.Single,System.Boolean,System.Int32,System.Boolean,System.Boolean@)">
+            <param name="Always_Update_In">If disabled, only updates when any of the inputs other than the Texture input is changed. Useful if you have a static texture and only want to update when e.g. the sample positions have changed.</param>
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_AllocationFree_ASzS8IB8paoL1QHnoaJ2Yb">
+            <summary>Samples pixels of a texture in pixel space</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Temp_.Stride.Textures.Pipet_AllocationFree_ASzS8IB8paoL1QHnoaJ2Yb.Update(Stride.Graphics.Texture,Stride.Core.Mathematics.Int2[],System.Boolean,Stride.Graphics.SamplerState,System.Single,System.Boolean,System.Int32,System.Boolean,Stride.Core.Mathematics.Color4[]@)">
+            <param name="Always_Update_In">If disabled, only updates when any of the inputs other than the Texture input is changed. Useful if you have a static texture and only want to update when e.g. the sample positions have changed.</param>
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Instancer_.Stride.Rendering.StreamOutInstancer_FBHuNRR7L9ALXC8p0GP3eB`1.Update``1(Stride.Rendering.Mesh,System.Boolean,System.Int32,Stride.Rendering.Material,`0[],Stride.Core.Mathematics.Matrix,Stride.Engine.Entity@,System.Int32@)">
+            <param name="Max_Instance_Count_In">Defines the size of the intermediate vertex buffer for the stream out stage.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Instancer_.Stride.Rendering.MeshDrawerStreamOut_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_Instancer_.Stride.Rendering.StreamOutInstancer2_DbyCuy9U0UpK95gjQWxDXj`1.Update``1(Stride.Rendering.Mesh,System.Boolean,System.Int32,Stride.Rendering.Material,`0[],VL.Lib.Collections.Spread{Stride.Engine.EntityComponent}@,System.Int32@)">
+            <param name="Max_Instance_Count_In">Defines the size of the intermediate vertex buffer for the stream out stage.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Utils.GenerateNormals_OLrjeOHyHhSPs3wLZNXgF2">
+            <summary>Calculates the vertex normals per triangle. If vertices are shared between triangles, they get an average normal weighted by face size.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Utils.GenerateNormals_OLrjeOHyHhSPs3wLZNXgF2.Update(VL.Lib.Collections.Spread{Stride.Core.Mathematics.Vector3},VL.Lib.Collections.Spread{System.Int32},System.Boolean,VL.Lib.Collections.Spread{Stride.Core.Mathematics.Vector3}@)">
+            <param name="Indices_In">If empty, a consecutive triangle list or strip is assumed.</param>
+            <param name="Is_Triangle_Strip_In">Decides whether to assume triangle list or stirp if no indices are connected.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.BoxFrameRenderer_KnIeAhvGyP7OturynhaRbP">
+            <tags>cube</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.PointMesh_OEyfwkPGeIcNf2eZ70d5mM">
+            <summary>A simple mesh with one Vector4 vertex at the origin.</summary>
+            <remarks>Can be used to draw particle systems by combining it with the &quot;Count&quot; input of the MeshRenderer.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Models.Meshes.DynamicBufferMesh_IfYOPGebb5DP6BQvVBuFVN.SetBoundingBox(Stride.Core.Mathematics.BoundingBox)">
+            <param name="Bounding_Box_In">Sets the bounding box, If not connected, it is set to the unit cube centered at the origin in obect sapce.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.NullMesh_RVhRxaDLhacPJItJYT8T62">
+            <summary>An artificial mesh with one Vector4 vertex at the origin but defined draw count and topolgy.</summary>
+            <remarks>Can be used with geometry shaders to draw particle systems.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Models.Meshes.NullMesh_RVhRxaDLhacPJItJYT8T62.Update(System.Int32,Stride.Graphics.PrimitiveType,Stride.Core.Mathematics.BoundingBox,System.String,Stride.Shaders.ShaderSource,Stride.Rendering.Mesh@)">
+            <param name="Count_In">Sets the vertex count without creating more vertices. This is also the amount of calls of the vertex shader.</param>
+            <param name="Topology_In">The primitive type for the rasterizer. i.e. how the geometry shader output should be rendered.</param>
+            <param name="Bounding_Box_In">Set a bounding box that roughly reflects the volume of what the shader outputs. It gets transformed by the world matrix of the entity. Default is a unit bounding box.</param>
+            <param name="Material_Extension_Name_In">Can be used to load a specific material override shader by name when this mesh is rendered.</param>
+            <param name="Material_Extension_Shader_In">Can be used to set a material override shader when this mesh is rendered.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Models.Meshes.DynamicMesh_Old_EfBs2FfdYY1PZv5Zq9pckw`1.SetBoundingBox(Stride.Core.Mathematics.BoundingBox)">
+            <param name="Bounding_Box_In">Sets the bounding box, If not connected, it is set to the unit cube centered at the origin in obect sapce.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.MeshSplit_Pos3Norm3Tex2Tan4_Tj1btt94kbCNyi1avhvhlm">
+            <summary>Splits a mesh into its vertex components and indices</summary>
+            <remarks>Requires a mesh with at least the corresponding vertex declaration to be connected, ie the declaration of the mesh can be longer, but not shorter than the version of this node defines.</remarks>
+            <tags>explode,vertex,vertices,index,indices</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.MeshSplit_Pos3_J7zO7GXeJTFPhJSWF7DIna">
+            <summary>Splits a mesh into its vertex components and indices</summary>
+            <remarks>Requires a mesh with at least the corresponding vertex declaration to be connected, ie the declaration of the mesh can be longer, but not shorter than the version of this node defines.</remarks>
+            <tags>explode,vertex,vertices,index,indices</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.MeshSplit_Pos3Norm3_JWKeh6jFHM3OLMw1Qcqf5y">
+            <summary>Splits a mesh into its vertex components and indices</summary>
+            <remarks>Requires a mesh with at least the corresponding vertex declaration to be connected, ie the declaration of the mesh can be longer, but not shorter than the version of this node defines.</remarks>
+            <tags>explode,vertex,vertices,index,indices</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Models.Meshes.MeshSplit_Pos3Norm3Tex2_LyiOIAVkJQPL66gywV3ue5">
+            <summary>Splits a mesh into its vertex components and indices</summary>
+            <remarks>Requires a mesh with at least the corresponding vertex declaration to be connected, ie the declaration of the mesh can be longer, but not shorter than the version of this node defines.</remarks>
+            <tags>explode,vertex,vertices,index,indices</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.MeshRenderer_C.SetDrawCount(System.Int32)">
+            <param name="Draw_Count_In">Overwrites the draw count stored in the mesh when &gt; 0</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.MeshRenderer_C.SetTopology(Stride.Graphics.PrimitiveType)">
+            <param name="Topology_In">Overwrites the topology stored in the mesh when the value is not &quot;Undefined&quot;.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.MeshRenderer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.CopyTextureRenderer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.DebugTextRenderer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.DebugTextRenderer3DOld_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Rendering.CopyCounterRenderer_C">
+            <summary>Copies the counter value of a CounterBuffer or AppendBuffer into an ArgsBuffer</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.CopyCounterRenderer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.CopyCounterRenderer_C.Update(Stride.Rendering.IGraphicsRendererBase,Stride.Graphics.Buffer,Stride.Graphics.Buffer,System.Int32,Stride.Graphics.Buffer@,Stride.Graphics.Buffer@)">
+            <param name="Input_In">An optional renderer that gets called just before the copy. Can be used to copy the counter right after a specific compute dispatch.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.Utils._Operations_.CalcDispatchArgs2D(Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Int3@,Stride.Core.Mathematics.Int3@)">
+            <summary>Calculates how many thread groups have to be dispatched for a given count.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.Utils._Operations_.CalcDispatchArgs1D(System.Int32,System.Int32,Stride.Core.Mathematics.Int3@,Stride.Core.Mathematics.Int3@)">
+            <summary>Calculates how many thread groups have to be dispatched for a given count.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.Utils._Operations_.QuantizeCount1D(System.Int32,System.Int32,System.Int32@)">
+            <summary>Calculate an optimal count that is a multiple of the the thread group size. Removes the requirement to check the size in the compute shader.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.Utils._Operations_.CalcDispatchArgs3D(Stride.Core.Mathematics.Int3,Stride.Core.Mathematics.Int3,Stride.Core.Mathematics.Int3@,Stride.Core.Mathematics.Int3@)">
+            <summary>Calculates how many thread groups have to be dispatched for a given count.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.Utils._Operations_.QuantizeCount2D(Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Int2@)">
+            <summary>Calculate an optimal count that is a multiple of the the thread group size. Removes the requirement to check the size in the compute shader.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Rendering.Utils._Operations_.QuantizeCount3D(Stride.Core.Mathematics.Int3,Stride.Core.Mathematics.Int3,Stride.Core.Mathematics.Int3@)">
+            <summary>Calculate an optimal count that is a multiple of the the thread group size. Removes the requirement to check the size in the compute shader.</summary>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Textures.TextureToImage_V5rkdEbku2xLhp2yiawFb9.Update(Stride.Graphics.Texture,System.Int32,Stride.Core.Mathematics.Int2,Stride.Graphics.PixelFormat,VL.Lib.Basics.Imaging.IImage@,System.Boolean@,System.Single@,System.Boolean@)">
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+            <param name="Size_In">If 0, the input size is used. Otherwise the texture will be resized.</param>
+            <param name="New_Format_In">The read back pixel format to write into the image</param>
+            <param name="Is_Blocking_Out">Indicates whether the read back was blocking the main loop</param>
+            <param name="Readback_Time_Out">Read back duration in microseconds</param>
+            <param name="Result_Available_Out">Indicates whether new data is available</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Textures.ReadBackTexture_GQP3tvG4YN6Nq4eGbxf7kT`1">
+            <tags>pipet</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Textures.ReadBackTexture_GQP3tvG4YN6Nq4eGbxf7kT`1.Update(Stride.Graphics.Texture,System.Int32,System.Boolean,`0[]@,System.Boolean@,System.Boolean@,System.Single@,Stride.Rendering.IGraphicsRendererBase@)">
+            <param name="Input_In">Make sure that the pixel format of the input texture corresponds with the readback data structure</param>
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+            <param name="Output_Out">The read back data, only valid during the current update</param>
+            <param name="Result_Available_Out">Indicates whether new data is available</param>
+            <param name="Is_Blocking_Out">Indicates whether the read back was blocking the main loop</param>
+            <param name="Readback_Time_Out">Read back duration in microseconds</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Textures.CopyTexture_UGdw4Tvemx5QK60AS7AHcT.Update(Stride.Graphics.Texture,System.Boolean,Stride.Graphics.PixelFormat,Stride.Graphics.TextureFlags,System.Boolean,System.Boolean,System.Boolean,_VL_Stride_Rendering_.Stride.Rendering.CopyTextureRenderer_C@,Stride.Graphics.Texture@)">
+            <param name="Format_In">Overwrite the texture format if not set to &quot;None&quot;. Make sure that the pixel size in bit is the same as the input texture.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_.Stride.Buffers.ReadBackBuffer_LDYyNy9GNrCPqD5w3TYk8x`1">
+            <tags>pipet</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_.Stride.Buffers.ReadBackBuffer_LDYyNy9GNrCPqD5w3TYk8x`1.Update(Stride.Graphics.Buffer,System.Int32,System.Boolean,`0[]@,System.Boolean@,System.Boolean@,System.Single@,Stride.Rendering.IGraphicsRendererBase@)">
+            <param name="Frame_Delay_In">The number of frames to store before reading back to CPU. Increase if you see that &quot;Is Blocking&quot; is true.</param>
+            <param name="Output_Out">The read back data, only valid during the current update</param>
+            <param name="Result_Available_Out">Indicates whether new data is available</param>
+            <param name="Is_Blocking_Out">Indicates whether the read back was blocking the main loop</param>
+            <param name="Readback_Time_Out">Read back duration in microseconds</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Filter.DirectionalBlur_JQMxtk4r0EVPNzXMfWWGlS.Update(Stride.Graphics.Texture,VL.Stride.Shaders.ShaderFX.SetVar{System.Single},Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,System.Boolean,VL.Stride.Shaders.ShaderFX.SetVar{Stride.Core.Mathematics.Vector4},Stride.Graphics.Texture,Stride.Core.Mathematics.Int2,Stride.Graphics.PixelFormat,System.Boolean,Stride.Graphics.Texture@)">
+            <param name="Control_In">Allows to control the blending between the input texture and the result of the filter. Per channel.</param>
+            <param name="Output_Texture_In">The texture to render to. If not set, the node creates its own output texture based on the input texture.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Filter.Glow_Hz2rlbtqlofLP8AQAVPqLb.Update(Stride.Graphics.Texture,System.Boolean,VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{System.Single},VL.Stride.Shaders.ShaderFX.SetVar{Stride.Core.Mathematics.Vector4},Stride.Graphics.Texture,Stride.Core.Mathematics.Int2,Stride.Graphics.PixelFormat,Stride.Graphics.PixelFormat,Stride.Graphics.SamplerState,System.Boolean,Stride.Graphics.Texture@)">
+            <param name="Always_Generate_Mips_for_Input_In">If true, mipmaps will be generated in every frame, if false only on change of the texture reference. If the texture has mipmaps, nothing will be done.</param>
+            <param name="Control_In">Allows to control the blending between the input texture and the result of the filter. Per channel.</param>
+            <param name="Output_Texture_In">The texture to render to. If not set, the node creates its own output texture based on the input texture.</param>
+            <param name="Render_Format_In">Allows to specify a render format that is differet to the output format</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Mixer.Blend_AFu86hoz4AgPNxFpUGXY6q">
+            <summary>Blend between two textures using different blend operations</summary>
+            <tags>fade,mix,compose,over</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.TextureFXDrawer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_UV_C.SetInput(Stride.Graphics.Texture,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Int2)">
+            <param name="Output_Size_In">When &lt;= 0, the output size is calculated from the relative size of the cropped area.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_UV_C.SetMode(VL.Stride.Effects.TextureFX.ResizeInterpolationType)">
+            <param name="Mode_In">Interpolation mode used when the output size differs from cropped area size.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_UV_C.SetPointSampler(Stride.Graphics.SamplerState)">
+            <param name="Point_Sampler_In">This sampler is used for for NearestNeighbor mode</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_UV_C.SetLinearSampler(Stride.Graphics.SamplerState)">
+            <param name="Linear_Sampler_In">This sampler is used for for all modes except NearestNeighbor</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_C.SetInput(Stride.Graphics.Texture,Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Int2,Stride.Core.Mathematics.Int2)">
+            <param name="Output_Size_In">When &lt;= 0, same as the Size input.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_C.SetMode(VL.Stride.Effects.TextureFX.ResizeInterpolationType)">
+            <param name="Mode_In">Interpolation mode used when the output size differs from cropped area size.</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_C.SetPointSampler(Stride.Graphics.SamplerState)">
+            <param name="Point_Sampler_In">This sampler is used for for NearestNeighbor mode</param>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Crop_C.SetLinearSampler(Stride.Graphics.SamplerState)">
+            <param name="Linear_Sampler_In">This sampler is used for for all modes except NearestNeighbor</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.ChangeFormat_RrwOcCmgdsKOgmTkIHE6fV">
+            <summary>Copies the pixels into a new texture with the given format.</summary>
+            <tags>convert</tags>
+        </member>
+        <member name="M:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.ChangeFormat_RrwOcCmgdsKOgmTkIHE6fV.Update(Stride.Graphics.Texture,Stride.Graphics.PixelFormat,System.Boolean,System.Boolean,System.Boolean,Stride.Graphics.Texture@,System.Boolean@)">
+            <param name="Target_Format_In">Not all target formats work, for example _Typeless formats are not allowed.</param>
+            <param name="Always_Generate_Mipmaps_In">Can be disabled if the input is a static image. Only relevant if the input has mipmaps.</param>
+            <param name="Use_Direct_Copy_If_Possible_In">Use direct copy if the pixel format size matches. Disable, for example, if you want to copy the red channel of a R8G8B8A8 texture into a R32 texture.</param>
+            <param name="Output__Out">description for the output: Output</param>
+            <param name="Direct_Copy_Out">True if a direct resource copy is used, e.g. if the pixel format has the same size.</param>
+        </member>
+        <member name="T:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Insert_UV_EISMVpklMkhPiVuMeaFb7V">
+            <summary>Places the second given texture over the first one.</summary>
+            <remarks>Specify insert position in UV coordinates</remarks>
+            <tags>combine</tags>
+        </member>
+        <member name="T:_VL_Stride_Rendering_TextureFX_.Stride.Textures.Utils.Insert_NXZEkP0IjCePGSAzjt3LSc">
+            <tags>combine</tags>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.PrimitiveType._Operations_.ControlPointCount(Stride.Graphics.PrimitiveType,System.Int32,Stride.Graphics.PrimitiveType@)">
+            <summary>Interpret the vertex data as a patch list.</summary>
+            <param name="Control_Points_In">Number of control points. Value must be in the range 1 to 32.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.Texture._Operations_.CloneWithOptions(Stride.Graphics.Texture,Stride.Graphics.PixelFormat,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage,Stride.Graphics.TextureOptions,Stride.Graphics.Texture@)">
+            <param name="Flags_In">Overwrite the texture flags if not set to &quot;None&quot;</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.Texture._Operations_.Load(Stride.Graphics.GraphicsDevice,System.String,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage,System.Boolean,Stride.Graphics.Texture@)">
+            <summary>Similiar to Stride.Graphics.Texture.Load(Stride.Graphics.GraphicsDevice,System.IO.Stream,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage,System.Boolean) but allocates memory on unmanaged heap only.</summary>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.BlendStateDescription._Operations_.Additive(Stride.Graphics.BlendStateDescription@)">
+            <summary>The sourc and destination get added.</summary>
+            <remarks>
+            Color = Src.RGB + Dst.RGB
+                        Alpha = Src.A + Dst.A
+            </remarks>
+            <param name="Additive_Out">The sourc and destination get added.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.BlendStateDescription._Operations_.AlphaBlend(Stride.Graphics.BlendStateDescription@)">
+            <summary>The source and destination get blended using the alpha value of the source assuming straight alpha.</summary>
+            <remarks>
+            Color = Src.RGB * Src.A + Dst.RGB * (1 - Src.A)
+                        Alpha = Src.A + Dst.A * (1 - Src.A)
+            </remarks>
+            <param name="Alpha_Blend_Out">The source and destination get blended using the alpha value of the source assuming straight alpha.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.BlendStateDescription._Operations_.AlphaBlendPremultiplied(Stride.Graphics.BlendStateDescription@)">
+            <summary>The source and destination get blended using the alpha value of the source assuming premultiplied alpha.</summary>
+            <remarks>
+            Color = Src.RGB + Dst.RGB * (1 - Src.A)
+                        Alpha = Src.A + Dst.A * (1 - Src.A)
+            </remarks>
+            <param name="Alpha_Blend_Premultiplied_Out">The source and destination get blended using the alpha value of the source assuming premultiplied alpha.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.BlendStateDescription._Operations_.None(Stride.Graphics.BlendStateDescription@)">
+            <summary>No blending.</summary>
+            <param name="None_Out">No blending.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.DepthStencilStateDescription._Operations_.Default(Stride.Graphics.DepthStencilStateDescription@)">
+            <summary>Use a depth stencil buffer.</summary>
+            <param name="Default_Out">Use a depth stencil buffer.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.DepthStencilStateDescription._Operations_.DefaultInverse(Stride.Graphics.DepthStencilStateDescription@)">
+            <summary>Default settings using greater comparison for Z.</summary>
+            <param name="Default_Inverse_Out">Default settings using greater comparison for Z.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.DepthStencilStateDescription._Operations_.DepthRead(Stride.Graphics.DepthStencilStateDescription@)">
+            <summary>Enables a read-only depth stencil buffer.</summary>
+            <param name="Depth_Read_Out">Enables a read-only depth stencil buffer.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.DepthStencilStateDescription._Operations_.None(Stride.Graphics.DepthStencilStateDescription@)">
+            <summary>Don&apos;t use a depth stencil buffer.</summary>
+            <param name="None_Out">Don&apos;t use a depth stencil buffer.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.CullBack(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>Culling of primitives with counter-clockwise winding order.</summary>
+            <param name="Cull_Back_Out">Culling of primitives with counter-clockwise winding order.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.CullFront(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>Culling of primitives with clockwise winding order.</summary>
+            <param name="Cull_Front_Out">Culling of primitives with clockwise winding order.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.CullNone(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>No culling.</summary>
+            <param name="Cull_None_Out">No culling.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.Default(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>The default description.</summary>
+            <param name="Default_Out">The default description.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.Wireframe(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>Wireframe rendering with no culling.</summary>
+            <param name="Wireframe_Out">Wireframe rendering with no culling.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.WireframeCullBack(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>Wireframe rendering with culling of primitives in counter-clockwise winding order.</summary>
+            <param name="Wireframe_Cull_Back_Out">Wireframe rendering with culling of primitives in counter-clockwise winding order.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.RasterizerStateDescription._Operations_.WireframeCullFront(Stride.Graphics.RasterizerStateDescription@)">
+            <summary>Wireframe rendering with culling of primitives in clockwise winding order.</summary>
+            <param name="Wireframe_Cull_Front_Out">Wireframe rendering with culling of primitives in clockwise winding order.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.TextureDescription._Operations_.CloneWithOptions(Stride.Graphics.TextureDescription,Stride.Graphics.PixelFormat,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage,Stride.Graphics.TextureOptions,Stride.Graphics.TextureDescription@)">
+            <param name="Format_In">Overwrite the texture format if not set to &quot;None&quot;. Make sure that the pixel size in bit is the same as the input texture.</param>
+            <param name="Flags_In">Overwrite the texture flags if not set to &quot;None&quot;</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Graphics.TextureViewDescription._Operations_.CloneWithOptions(Stride.Graphics.TextureViewDescription,Stride.Graphics.TextureFlags,Stride.Graphics.PixelFormat,Stride.Graphics.TextureViewDescription@)">
+            <param name="Flags_In">Overwrite the texture flags if not set to &quot;None&quot;</param>
+            <param name="Format_In">Overwrite the texture format if not set to &quot;None&quot;. Make sure that the pixel size in bit is the same as the input texture.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ValueParameter{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets a blittable value.</summary>
+            <param name="Input_In">Sets a blittable value.</param>
+            <param name="Output_Out">Sets a blittable value.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ValueParameterKey{``0},``0[],Stride.Rendering.ParameterCollection@)">
+            <summary>Sets blittable values.</summary>
+            <param name="Input_In">Sets blittable values.</param>
+            <param name="Output_Out">Sets blittable values.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.SetObject``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ObjectParameterKey{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets an object.</summary>
+            <param name="Input_In">Sets an object.</param>
+            <param name="Output_Out">Sets an object.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.PermutationParameter{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets a permutation.</summary>
+            <param name="Input_In">Sets a permutation.</param>
+            <param name="Output_Out">Sets a permutation.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.SetValue``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ValueParameterKey{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets a blittable value.</summary>
+            <param name="Input_In">Sets a blittable value.</param>
+            <param name="Output_Out">Sets a blittable value.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ObjectParameterAccessor{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets an object.</summary>
+            <param name="Input_In">Sets an object.</param>
+            <param name="Output_Out">Sets an object.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.PermutationParameterKey{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets a permutation.</summary>
+            <param name="Input_In">Sets a permutation.</param>
+            <param name="Output_Out">Sets a permutation.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ValueParameterKey{``0},System.Int32,``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets blittable values.</summary>
+            <param name="Input_In">Sets blittable values.</param>
+            <param name="Output_Out">Sets blittable values.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ValueParameter{``0},System.Int32,``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets blittable values.</summary>
+            <param name="Input_In">Sets blittable values.</param>
+            <param name="Output_Out">Sets blittable values.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ValueParameterKey{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets a blittable value.</summary>
+            <param name="Input_In">Sets a blittable value.</param>
+            <param name="Output_Out">Sets a blittable value.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Rendering.ParameterCollection._Operations_.Set``1(Stride.Rendering.ParameterCollection,Stride.Rendering.ObjectParameterKey{``0},``0,Stride.Rendering.ParameterCollection@)">
+            <summary>Sets an object.</summary>
+            <param name="Input_In">Sets an object.</param>
+            <param name="Output_Out">Sets an object.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Scene._Operations_.Create(VL.Core.NodeContext,Stride.Engine.Scene@)">
+            <summary>Initializes a new instance of the Stride.Engine.Scene class.</summary>
+            <param name="Output_Out">Initializes a new instance of the Stride.Engine.Scene class.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Scene._Operations_.Children(Stride.Engine.Scene,Stride.Engine.Scene@,Stride.Core.Collections.TrackingCollection{Stride.Engine.Scene}@)">
+            <summary>The child scenes.</summary>
+            <param name="Children_Out">The child scenes.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Scene._Operations_.Entities(Stride.Engine.Scene,Stride.Engine.Scene@,Stride.Core.Collections.TrackingCollection{Stride.Engine.Entity}@)">
+            <summary>The entities.</summary>
+            <param name="Entities_Out">The entities.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Scene._Operations_.Parent(Stride.Engine.Scene,Stride.Engine.Scene@,Stride.Engine.Scene@)">
+            <summary>The parent scene.</summary>
+            <param name="Parent_Out">The parent scene.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Scene._Operations_.SetOffset(Stride.Engine.Scene,Stride.Core.Mathematics.Vector3,Stride.Engine.Scene@)">
+            <summary>An offset applied to all entities of the scene relative to it&apos;s parent scene.</summary>
+            <param name="Input_In">An offset applied to all entities of the scene relative to it&apos;s parent scene.</param>
+            <param name="Output_Out">An offset applied to all entities of the scene relative to it&apos;s parent scene.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Scene._Operations_.Offset(Stride.Engine.Scene,Stride.Engine.Scene@,Stride.Core.Mathematics.Vector3@)">
+            <summary>An offset applied to all entities of the scene relative to it&apos;s parent scene.</summary>
+            <param name="Input_In">An offset applied to all entities of the scene relative to it&apos;s parent scene.</param>
+            <param name="Output_Out">An offset applied to all entities of the scene relative to it&apos;s parent scene.</param>
+            <param name="Offset_Out">An offset applied to all entities of the scene relative to it&apos;s parent scene.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Create(VL.Core.NodeContext,Stride.Engine.Entity@)">
+            <summary>Create a new Stride.Engine.Entity instance.</summary>
+            <param name="Output_Out">Create a new Stride.Engine.Entity instance.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Create(VL.Core.NodeContext,System.String,Stride.Engine.Entity@)">
+            <summary>Create a new Stride.Engine.Entity instance having the provided name.</summary>
+            <param name="Name_In">The name to give to the entity</param>
+            <param name="Output_Out">Create a new Stride.Engine.Entity instance having the provided name.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Create(VL.Core.NodeContext,System.String,Stride.Core.Mathematics.Vector3,System.Nullable{Stride.Core.Mathematics.Quaternion},System.Nullable{Stride.Core.Mathematics.Vector3},Stride.Engine.Entity@)">
+            <summary>Create a new Stride.Engine.Entity instance having the provided name, initial position, rotation and scale.</summary>
+            <param name="Name_In">The name to give to the entity</param>
+            <param name="Position_In">The initial position of the entity</param>
+            <param name="Rotation_In">The initial rotation of the entity</param>
+            <param name="Output_Out">Create a new Stride.Engine.Entity instance having the provided name, initial position, rotation and scale.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.AddComponent(Stride.Engine.Entity,Stride.Engine.EntityComponent,Stride.Engine.Entity@)">
+            <summary>Adds the specified component using the !:EntityComponent.DefaultKey.</summary>
+            <param name="Input_In">Adds the specified component using the !:EntityComponent.DefaultKey.</param>
+            <param name="Component_In">The component.</param>
+            <param name="Output_Out">Adds the specified component using the !:EntityComponent.DefaultKey.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.GetComponent``1(Stride.Engine.Entity,Stride.Engine.Entity@,``0@)">
+            <summary>Gets the first component of the specified type.</summary>
+            <param name="Input_In">Gets the first component of the specified type.</param>
+            <param name="Output_Out">Gets the first component of the specified type.</param>
+            <param name="Result_Out">The component or null if does no exist</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.GetComponent``1(Stride.Engine.Entity,System.Int32,Stride.Engine.Entity@,``0@)">
+            <summary>Gets the index&apos;th component of the specified type. See remarks.</summary>
+            <remarks>If index &gt; 0, it will take the index&apos;th component of the specified .An index == 0 is equivalent to calling if index &lt; 0, it will start from the end of the list to the beginning. A value of -1 means the first last component.</remarks>
+            <param name="Input_In">Gets the index&apos;th component of the specified type. See remarks.</param>
+            <param name="Index_In">The index&apos;th component to select.</param>
+            <param name="Output_Out">Gets the index&apos;th component of the specified type. See remarks.</param>
+            <param name="Result_Out">The component or null if does no exist</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.GetAllComponents``1(Stride.Engine.Entity,Stride.Engine.Entity@,System.Collections.Generic.IEnumerable{``0}@)">
+            <summary>Gets all components of the specified type.</summary>
+            <param name="Input_In">Gets all components of the specified type.</param>
+            <param name="Output_Out">Gets all components of the specified type.</param>
+            <param name="Result_Out">The component or null if does no exist</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.GetEnumerator(Stride.Engine.Entity,Stride.Engine.Entity@,Stride.Core.Collections.FastCollection{Stride.Engine.EntityComponent}.Enumerator@)">
+            <summary>Gets the enumerator of Stride.Engine.EntityComponent</summary>
+            <param name="Input_In">Gets the enumerator of Stride.Engine.EntityComponent</param>
+            <param name="Output_Out">Gets the enumerator of Stride.Engine.EntityComponent</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.GetOrCreateComponent``1(Stride.Engine.Entity,Stride.Engine.Entity@,``0@)">
+            <summary>Gets or create a component with the specified key.</summary>
+            <param name="Input_In">Gets or create a component with the specified key.</param>
+            <param name="Output_Out">Gets or create a component with the specified key.</param>
+            <param name="Result_Out">A new or existing instance of {T}</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.RemoveComponent(Stride.Engine.Entity,Stride.Engine.Entity@)">
+            <summary>Removes the first component of the specified type or derived type.</summary>
+            <param name="Input_In">Removes the first component of the specified type or derived type.</param>
+            <param name="Output_Out">Removes the first component of the specified type or derived type.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.RemoveComponent(Stride.Engine.Entity,Stride.Engine.EntityComponent,Stride.Engine.Entity@)">
+            <summary>Removes the specified component.</summary>
+            <param name="Input_In">Removes the specified component.</param>
+            <param name="Output_Out">Removes the specified component.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.RemoveAllComponents(Stride.Engine.Entity,Stride.Engine.Entity@)">
+            <summary>Removes all components of the specified type or derived type.</summary>
+            <param name="Input_In">Removes all components of the specified type or derived type.</param>
+            <param name="Output_Out">Removes all components of the specified type or derived type.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Components(Stride.Engine.Entity,Stride.Engine.Entity@,Stride.Engine.EntityComponentCollection@)">
+            <summary>The components stored in this entity.</summary>
+            <param name="Components_Out">The components stored in this entity.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.EntityManager(Stride.Engine.Entity,Stride.Engine.Entity@,Stride.Engine.EntityManager@)">
+            <summary>The entity manager which processes this entity.</summary>
+            <param name="Entity_Manager_Out">The entity manager which processes this entity.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Scene(Stride.Engine.Entity,Stride.Engine.Entity@,Stride.Engine.Scene@)">
+            <summary>
+            The scene this entity is in.
+                        Setting this to null will remove the entity from the scene and detach it from its parent if it has one.
+            </summary>
+            <param name="Scene_Out">
+            The scene this entity is in.
+                        Setting this to null will remove the entity from the scene and detach it from its parent if it has one.
+            </param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.SetScene(Stride.Engine.Entity,Stride.Engine.Scene,Stride.Engine.Entity@)">
+            <summary>
+            The scene this entity is in.
+                        Setting this to null will remove the entity from the scene and detach it from its parent if it has one.
+            </summary>
+            <param name="Value_In">
+            The scene this entity is in.
+                        Setting this to null will remove the entity from the scene and detach it from its parent if it has one.
+            </param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Transform(Stride.Engine.Entity,Stride.Engine.Entity@,Stride.Engine.TransformComponent@)">
+            <summary>
+            Gets or sets the P:Stride.Engine.Entity.Transform associated to this entity.
+                        Added for convenience over usual Get/Set method.
+            </summary>
+            <param name="Transform_Out">
+            Gets or sets the P:Stride.Engine.Entity.Transform associated to this entity.
+                        Added for convenience over usual Get/Set method.
+            </param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Clone(Stride.Engine.Entity,Stride.Engine.Entity@)">
+            <summary>Deep clone of this entity.</summary>
+            <param name="Input_In">The entity to clone</param>
+            <param name="Output_Out">The cloned entity</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.Enable(Stride.Engine.Entity,System.Boolean,System.Boolean)">
+            <summary>Enables or disables components of the specified type.</summary>
+            <param name="Input_In">The entity to apply this method.</param>
+            <param name="Enabled_In">If set to true, all components of {T} will be enabled; otherwise they will be disabled</param>
+            <param name="Apply_On_Children_In">Recursively apply this method to the children of this entity</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.EnableAll(Stride.Engine.Entity,System.Boolean,System.Boolean)">
+            <summary>Enables or disables all Stride.Engine.ActivableEntityComponent.</summary>
+            <param name="Input_In">The entity to apply this method.</param>
+            <param name="Enabled_In">If set to true, all Stride.Engine.ActivableEntityComponent will be enabled; otherwise they will be disabled</param>
+            <param name="Apply_On_Children_In">Recursively apply this method to the children of this entity</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Engine.Entity._Operations_.GetChildren(Stride.Engine.Entity,System.Collections.Generic.IEnumerable{Stride.Engine.Entity}@)">
+            <summary>Gets the children of this entity.</summary>
+            <param name="Input_In">The entity</param>
+            <param name="Result_Out">An iteration on the child entity</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Input.IMouseDevice._Operations_.IsButtonDown(Stride.Input.IMouseDevice,Stride.Input.MouseButton,Stride.Input.IMouseDevice@,System.Boolean@)">
+            <summary>Determines whether the specified button is being pressed down</summary>
+            <param name="Input_In">The mouse</param>
+            <param name="Mouse_Button_In">The mouse button</param>
+            <param name="Result_Out">true if the specified button is being pressed down; otherwise, false.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Input.IMouseDevice._Operations_.IsButtonPressed(Stride.Input.IMouseDevice,Stride.Input.MouseButton,Stride.Input.IMouseDevice@,System.Boolean@)">
+            <summary>Determines whether the specified mouse button is pressed since the previous update.</summary>
+            <param name="Mouse_Button_In">The mouse button</param>
+            <param name="Result_Out">true if the specified mouse button is pressed since the previous update; otherwise, false.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Input.IMouseDevice._Operations_.IsButtonReleased(Stride.Input.IMouseDevice,Stride.Input.MouseButton,Stride.Input.IMouseDevice@,System.Boolean@)">
+            <summary>Determines whether the specified mouse button is released.</summary>
+            <param name="Mouse_Button_In">The mouse button</param>
+            <param name="Result_Out">true if the specified mouse button is released; otherwise, false.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Input.IKeyboardDevice._Operations_.IsKeyDown(Stride.Input.IKeyboardDevice,Stride.Input.Keys,Stride.Input.IKeyboardDevice@,System.Boolean@)">
+            <summary>Determines whether the specified key is being pressed down</summary>
+            <param name="Key_In">The key</param>
+            <param name="Result_Out">true if the specified key is being pressed down; otherwise, false.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Input.IKeyboardDevice._Operations_.IsKeyPressed(Stride.Input.IKeyboardDevice,Stride.Input.Keys,Stride.Input.IKeyboardDevice@,System.Boolean@)">
+            <summary>Determines whether the specified key is pressed since the previous update.</summary>
+            <param name="Key_In">The key</param>
+            <param name="Result_Out">true if the specified key is pressed; otherwise, false.</param>
+        </member>
+        <member name="M:_VL_Stride_Runtime_TypeForwards_.Stride.API.Input.IKeyboardDevice._Operations_.IsKeyReleased(Stride.Input.IKeyboardDevice,Stride.Input.Keys,Stride.Input.IKeyboardDevice@,System.Boolean@)">
+            <summary>Determines whether the specified key is released since the previous update.</summary>
+            <param name="Key_In">The key</param>
+            <param name="Result_Out">true if the specified key is released; otherwise, false.</param>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Buffers.ReadBack.ReadBack_RH2RUpkkU3qOkXmvMgGVUB`1.Update(Stride.Graphics.Buffer,System.Int32,System.Int32,`0,System.Boolean,`0[]@)">
+            <param name="Element_Count_In">The number of elements to read back</param>
+            <param name="Elements_Per_Buffer_Structure_In">In case the buffer is structured, set the number of elements per structure. Default is 1.</param>
+            <param name="Example_Element_Of_Type_In">Used to set the element type to read back</param>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Buffers.DynamicBuffer_C82b44KM7nmOgoP82JqMWO`1.Update``1(`0,System.Int32,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Stride.Graphics.Buffer@,System.Boolean@)">
+            <param name="Element_Size_In_Bytes_In">If &lt;= 0, the element size gets auto discovered from the input data</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Buffers.ComputeBuffer_DmEfvnY9LhgL0IgudEOxyM">
+            <tags>structuredbuffer,rwbuffer</tags>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Buffers.ImmutableBuffer_UzEm5Ymj4cZN8XONjvbNX9`1.Update``1(`0,System.Int32,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,System.Boolean,Stride.Graphics.Buffer@,System.Boolean@)">
+            <param name="Element_Size_In_Bytes_In">If &lt;= 0, the element size gets auto discovered from the initial data</param>
+            <param name="Recreate_On_Inital_Data_Change_In">If true, the buffer gets recreated when the inital data changes</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Buffers.DispatchArgsBuffer_DfBGipv0gMxM1yarAzmJmh">
+            <summary>Can be used to copy a buffer counter into it with CopyCounter and as argument buffer for indirect dispatch.</summary>
+            <remarks>Contains 3 unsiged integers for ThreadGroupCountX/Y/Z, all default to 1. Use the CalcDispatchArgs shader to fill the 3 values depending on a given thread group size.</remarks>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Buffers.DrawArgsBuffer_J7akI1tpQ2SQOwszi02xqf">
+            <summary>Can be used to copy a buffer counter into it with CopyCounter and as argument buffer for indirect draw.</summary>
+            <remarks>
+            Contains 4 unsiged integers, their meaning and defaults are:
+            VertexCount = 1
+            InstanceCount = 1
+            StartVertexLocation = 0
+            StartInstanceLocation = 0
+            </remarks>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Buffers.DrawArgsBuffer_Indexed_EdSaGFFflOVMLSRyzUd2tq">
+            <summary>Can be used to copy a buffer counter into it with CopyCounter and as argument buffer for indirect indexed draw.</summary>
+            <remarks>
+            Contains 5 unsiged integers, their meaning and defaults are:
+            IndicesCount = 3
+            InstanceCount = 1
+            StartIndexLocation = 0
+            StartVertexLocation = 0
+            StartInstanceLocation = 0
+            </remarks>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Textures.CloneTexture_LP0S7rvH864PsdlvgOVWhx.Update(Stride.Graphics.Texture,System.Boolean,System.Boolean,System.Boolean,Stride.Graphics.PixelFormat,Stride.Graphics.TextureFlags,System.Boolean,Stride.Graphics.TextureOptions,Stride.Graphics.Texture@)">
+            <param name="Format_In">Overwrite the texture format if not set to &quot;None&quot;. Make sure that the pixel size in bit is the same as the input texture.</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Textures.TextureReader_HrZ7v1TOZ75ODnvgAMM5aV">
+            <summary>Blocking texture file reader.</summary>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Textures.TextureReader_HrZ7v1TOZ75ODnvgAMM5aV.Update(VL.Lib.IO.Path,System.Boolean,Stride.Graphics.Texture@)">
+            <param name="Is_sRGB_In">Describes whether the file content is in sRGB aka gamma color space.</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Textures.ComputeTexture2D_Vao5mu9muXYOjpaceyFIMy">
+            <tags>structuredbuffer,rwbuffer</tags>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Textures.ImmutableTexture2D_NlZ1Wiz1nSGLumavpcD7Fw`1.Update``1(`0,Stride.Core.Mathematics.Int2,Stride.Graphics.PixelFormat,System.Boolean,System.Boolean,Stride.Graphics.Texture@,System.Boolean@)">
+            <param name="Recreate_On_Inital_Data_Change_In">If true, the texture gets recreated when the inital data changes</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Textures.ComputeTexture3D_SO197zGpVYsOMINttv8noS">
+            <tags>structuredbuffer,rwbuffer</tags>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Textures.ImmutableTexture3D_Jr9H2SgSxNyP6XV3v0LHLg`1.Update``1(`0,Stride.Core.Mathematics.Int3,Stride.Graphics.PixelFormat,System.Boolean,System.Boolean,Stride.Graphics.Texture@,System.Boolean@)">
+            <param name="Recreate_On_Inital_Data_Change_In">If true, the texture gets recreated when the inital data changes</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Stride.Textures.ComputeTexture1D_Ble2PwEcLIJPosndgAb3Pm">
+            <tags>structuredbuffer,rwbuffer</tags>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Textures.ImmutableTexture1D_K0Vj0L7OsdvPDPyDP8NEjH`1.Update``1(`0,System.Int32,Stride.Graphics.PixelFormat,System.Boolean,System.Boolean,Stride.Graphics.Texture@,System.Boolean@)">
+            <param name="Recreate_On_Inital_Data_Change_In">If true, the texture gets recreated when the inital data changes</param>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Stride.Textures.Utils._Operations_.ReplaceFormat(Stride.Graphics.PixelFormat,Stride.Graphics.PixelFormat,Stride.Graphics.PixelFormat@)">
+            <param name="New_Format_In">Leave at &quot;None&quot; to use same format as input texture.</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Video.ImagePlayer_FrameBased_Stride_FqmXvulEPFmO2GIAyZs14F">
+            <summary>Plays back a sequence of images from a given directory, controlled by a frame counter</summary>
+            <tags>image,stack,sequence,movie,video,dds</tags>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Video.ImagePlayer_FrameBased_Stride_FqmXvulEPFmO2GIAyZs14F.Update(VL.Lib.IO.Path,System.String,System.Boolean,System.Int32,System.Int32,System.Collections.Generic.IEnumerable{System.Int32},System.Int32,System.Int32,System.Int32,System.Boolean,System.Int32,Stride.Graphics.Texture@,System.Boolean@,System.Int32@,VL.Lib.Collections.Spread{System.Int32}@)">
+            <param name="Seek_Frames_In">A list of frame Ids that will be preloaded so they can be jumped to at any time</param>
+            <param name="Frame_Step_Descending_In">The step-size for reverse playback you&apos;ll be using for the Frame-to-Display input: e.g: 1 = normal speed, 2 = double speed, 3 =  tripple speed,...</param>
+            <param name="Frame_Step_Ascending_In">The step-size for forward playback you&apos;ll be using for the Frame-to-Display input: e.g: 1 = normal speed, 2 = double speed, 3 =  tripple speed,...</param>
+            <param name="Preload_Count_In">The number of frames to preload</param>
+            <param name="Is_sRGB_In">Indicates whether the data in the file is in sRGB color space. This is almost always the case when the file represents color, like in photos or graphics, rather than value data, like in height-, normalmaps or similar.</param>
+            <param name="Frame_to_Display_In">The Id of the frame to display</param>
+            <param name="Preloaded_Frames_Out">The Ids of the currently preloaded frames</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Video.ImagePlayer_Stride_Rf8zNKbH3rROmWYhlPGRaA">
+            <summary>Plays back a sequence of images from a given directory</summary>
+            <tags>image,stack,sequence,movie,video,dds</tags>
+        </member>
+        <member name="M:_VL_Stride_Graphics_.Video.ImagePlayer_Stride_Rf8zNKbH3rROmWYhlPGRaA.Update(VL.Lib.IO.Path,System.String,System.Boolean,System.Single,System.Single,System.Int32,System.Single,System.Boolean,System.Boolean,System.Single,System.Boolean,System.Single,System.Single,_VL_Sync_.IO.ITimeSync_I,Stride.Graphics.Texture@,System.Boolean@,System.Single@,System.Single@,System.Int32@,System.Int32@,VL.Lib.Collections.Spread{System.Int32}@)">
+            <param name="Preload_Count_In">The number of frames to preload</param>
+            <param name="Rate_In">Playback speed multiplier: e.g: 1.0 = normal speed, 0.5 = half speed, 2.0 = double speed. Above 2, only whole, even numbers work correctly!</param>
+            <param name="Preloaded_Frames_Out">The Ids of the currently preloaded frames</param>
+        </member>
+        <member name="T:_VL_Stride_Graphics_.Video.ImagePlayer_Stride.Playhead2_Kxyn85uoNljQF5nAzWcnIh">
+            <summary>Time control with play/pause, loop, speed and seek options.</summary>
+            <tags>integrate,clock,watch</tags>
+        </member>
+        <member name="M:_VL_Stride_Input_.Stride.Input.SplitMouseDevice_NVfomf0AapPPGXo2RcefKg.Update(Stride.Input.IMouseDevice,Stride.Engine.Entity,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Ray@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@,System.Boolean@,System.Boolean@,System.Boolean@,System.Boolean@,System.Boolean@,Stride.Core.Mathematics.Vector2@,System.Single@,Stride.Core.Mathematics.Vector2@,System.Single@,VL.Lib.Collections.Spread{Stride.Input.InputEvent}@)">
+            <param name="Position_in_World_Out">Positon in the XY Plane (Z=0)</param>
+            <param name="Ray_Out">Requires a Camera to be connected to the Mouse node</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Cameras.LookAtRectCamera_OQuCfnT0FHYP5p3pPGpodA">
+            <tags>PerspectiveLookAtRect</tags>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Cameras.FlatCamera_BPN5LxaBM7ZNZvJc9SaoF4">
+            <tags>2D</tags>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Utils.FindEntitiesWithName_DXDHZfSpSJgOiBpY21RfB1`1">
+            <summary>Finds all entities matching a name.</summary>
+            <remarks>Input types can be Entity, Sequence&lt;Entity&gt; or Scene. The input object including all children are considered in the search. The results are cached.</remarks>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Utils.FindEntities_SKVgATbi36ZQRtGisUo1qr`1">
+            <summary>Finds all entities matching a name.</summary>
+            <remarks>Input types can be Entity, Sequence&lt;Entity&gt; or Scene. The input object including all children are considered in the search. The results are cached.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Input.HelpersRenderer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Input.Mouse_SsdmNif5SkdOYjXIjTG2sh.Update(Stride.Engine.Entity,Stride.Engine.Entity@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Ray@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@,System.Boolean@,System.Boolean@,System.Boolean@,System.Boolean@,System.Boolean@,System.Single@,Stride.Core.Mathematics.Vector2@,System.Single@,Stride.Input.IMouseDevice@)">
+            <param name="Position_in_World_Out">Positon in the XY Plane (Z=0)</param>
+            <param name="Ray_Out">Requires a Camera to be connected to the Mouse node</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.Box_C">
+            <tags>cube</tags>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.InstancingEntityTransformComponent_N3j7sYyMEYqLb1dqZrEjw0">
+            <summary>Collects the instance transformations from the TransformComponent of other entities.</summary>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.Torus_C">
+            <tags>donut</tags>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.SetRenderGroup_DwYaLd7meh0NzarXfZl5sm">
+            <summary>Sets the render group of the connected entity, optionally including all children.</summary>
+            <remarks>This node cannot know if the connected entity tree has changed! If that happens, bang the &quot;Refresh&quot; pin once.</remarks>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Models.SetRenderGroup_DwYaLd7meh0NzarXfZl5sm.Update(Stride.Engine.Entity,Stride.Rendering.RenderGroup,System.Boolean,System.Boolean,Stride.Engine.Entity@)">
+            <param name="Refresh_In">Bang this, if the entity tree has changed</param>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Models.InstanceComponent_M0EJbAY9u8pNxUaBIGfUgs.SetParent(Stride.Engine.InstancingComponent)">
+            <param name="Instancing_In">The connected parent instancing. If null, it connects to the closest parent entity with an Instancing component.</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.InstancingArrayComponent_T8nRk9Kz1vlNv4hjHY6wjy">
+            <remarks>Please use InstancingSpreadComponent instead</remarks>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.BoxFrame_MdfNJXLlOjzMB5Tg5Xcmlc">
+            <tags>cube</tags>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Models.Disc_C">
+            <tags>circle,segment</tags>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Lights.SkyboxLight_C.SetupLight(Stride.Graphics.Texture,System.Boolean,System.Single,VL.Stride.Rendering.Lights.SkyboxPreFilteringDiffuseOrder,System.Int32,System.Boolean,System.Single,System.Boolean)">
+            <param name="Force_Build_In">Forces a re-build of the skybox environment map. By default the skybox will only be built when one of its parameters changes.</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Group_TqwCZl6Gra4OmgvUg1POgm">
+            <summary>Groups multiple entities to one and can apply a transformation to them.</summary>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Group_Spectral_OrFKGqkce2jOmqneI85BeX">
+            <summary>Groups a spread of multiple entities to one and can apply a transformation to them</summary>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Rendering.AdditionalSceneTexture_C.Update(Stride.Engine.Entity,Stride.Core.Mathematics.Int2,System.Boolean,Stride.Core.Mathematics.Color4,Stride.Rendering.Images.IPostProcessingEffects,Stride.Graphics.PixelFormat,System.Boolean,Stride.Input.IInputSource,Stride.Graphics.Texture@)">
+            <param name="Is_Shared_In">If true, the back buffer will be a shared texture</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Rendering.AdditionalSceneWindow_C">
+            <summary>A window to render scenes.</summary>
+            <remarks>Requires a RootScene node connected to its input!</remarks>
+            <tags>renderer</tags>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Windowing.WindowRenderer_C.Draw_(Stride.Rendering.RenderDrawContext)">
+            <summary>interface operation summary: Draws this renderer with the specified context. See remarks.</summary>
+            <remarks>interface operation remarks: The method Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext) should be called automatically by the implementation if it was not done before the first draw.</remarks>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.Textures.TextureWindow_GIWyn63DIiaNrp8jRqD5z0">
+            <summary>A window for showing textures fullscreen</summary>
+            <tags>renderer</tags>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.Textures.TextureWindow_GIWyn63DIiaNrp8jRqD5z0.SetPresentInterval(Stride.Graphics.PresentInterval)">
+            <param name="Present_Interval_In">VSync</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.SceneTexture_RGBu8fwahWlPxApKEZ7jTp">
+            <summary>Same as &quot;SceneWindow&quot; but returns a texture with the rendered content.</summary>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.RootScene_GcBzJdp7uHFN7DqiDqkHlb">
+            <summary>The root scene, required in connection with SceneWindow and SceneTexture nodes.</summary>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.GetPatchScript_C`1">
+            <summary>Gets the first ISyncScript with a patch script of the inferred type.</summary>
+            <remarks>If you add a patch scrip after adding this node, use the &quot;Refresh&quot; input to trigger the search again.</remarks>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.SceneWindow_Hcvhp04ldd6NeZxLwOrv9k">
+            <summary>A window to render scenes.</summary>
+            <remarks>Requires a RootScene node connected to its input!</remarks>
+            <tags>renderer</tags>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.SceneWindow_Hcvhp04ldd6NeZxLwOrv9k.SetPresentInterval(Stride.Graphics.PresentInterval)">
+            <param name="Present_Interval_In">VSync</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.RenderWindow_Rd4WYJFTIKiPuj5DtuxddV">
+            <summary>A window for the low-level rendering pipeline.</summary>
+            <tags>renderer</tags>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.RenderWindow_Rd4WYJFTIKiPuj5DtuxddV.SetPresentInterval(Stride.Graphics.PresentInterval)">
+            <param name="Present_Interval_In">VSync</param>
+        </member>
+        <member name="T:_VL_Stride_Engine_.Stride.RenderTexture_IYQobGzVbWEQYcMFud8H4J">
+            <summary>Same as &quot;RenderWindow&quot; but returns a texture with the rendered content.</summary>
+        </member>
+        <member name="M:_VL_Stride_Engine_.Stride.RenderTexture_IYQobGzVbWEQYcMFud8H4J.Update(Stride.Rendering.IGraphicsRendererBase,Stride.Core.Mathematics.Int2,Stride.Rendering.RenderView,Stride.Graphics.PixelFormat,System.Boolean,Stride.Graphics.PixelFormat,System.Boolean,Stride.Rendering.ClearRendererFlags,Stride.Core.Mathematics.Color4,System.Single,System.Byte,System.Boolean,System.Boolean,VL.Stride.Rendering.WithRenderTargetAndViewPort@,Stride.Graphics.Texture@,Stride.Graphics.Texture@)">
+            <param name="Color_Shared_In">If true, the back buffer will be a shared texture</param>
+            <param name="Depth_Shared_In">If true the depth buffer will be a shared texture</param>
+        </member>
+    </members>
+</doc>
