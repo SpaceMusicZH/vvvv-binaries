@@ -1,0 +1,2364 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Stride.Runtime</name>
+    </assembly>
+    <members>
+        <member name="M:VL.Stride.Audio.AudioEmitterExtensions.AddSound(Stride.Engine.AudioEmitterComponent,Stride.Audio.Sound)">
+            <summary>
+            Adds a sound to the audio emitter.
+            </summary>
+            <remarks>
+            It uses the name of the sound as key for the sound controller. So set the Name property of the sound to something meaningful before. 
+            </remarks>
+            <param name="audioEmitter">The audio emitter.</param>
+            <param name="sound">The sound.</param>
+            <returns></returns>
+        </member>
+        <member name="T:VL.Stride.Assets.AssetWrapperBase">
+            <summary>
+            Represets a reference to a runtime asset
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Compositing.PredefinedSortMode.BackToFront">
+            <summary>
+             Sort elements according to the pattern: [RenderFeature Sort Key 8 bits] [Distance back to front 32 bits] [RenderObject states 24 bits]
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Compositing.PredefinedSortMode.FrontToBack">
+            <summary>
+             Sort elements according to the pattern: [RenderFeature Sort Key 8 bits] [Distance front to back 16 bits] [RenderObject states 32 bits]
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Compositing.PredefinedSortMode.StateChange">
+            <summary>
+            Sort elements according to the pattern: [RenderFeature Sort Key 8 bits] RenderObject states 32 bits] [Distance front to back 16 bits]
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Compositing.PredefinedSortMode.FarToNear">
+            <summary>
+             Sort elements according to the pattern: [RenderFeature Sort Key 8 bits] [Distance far to near 16 bits] [RenderObject states 32 bits]
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.ComputeEffect.CustomComputeEffectDispatcher">
+            <summary>
+            A commpute effect dispatcher using a delegate to compute the thread group count.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.CustomComputeEffectDispatcher.ThreadGroupCountsSelector">
+            <summary>
+            The selector function to compute the thread group count based on the thread group size defined by the shader.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.ComputeEffect.DirectComputeEffectDispatcher">
+            <summary>
+            A compute effect dispatcher doing a direct dispatch with the given thread group count.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.DirectComputeEffectDispatcher.ThreadGroupCount">
+            <summary>
+            Gets or sets the number of thread groups to dispatch.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.ComputeEffect.IComputeEffectDispatcher">
+            <summary>
+            A compute effect dispatcher is used by the compute effects to implement the shader dispatch (direct or indirect).
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.ComputeEffect.IComputeEffectDispatcher.UpdateParameters(Stride.Rendering.ParameterCollection,Stride.Core.Mathematics.Int3)">
+            <summary>
+            Updates the parameter collection of the shader.
+            </summary>
+            <param name="parameters">The parameter collection of the shader.</param>
+            <param name="threadGroupSize">The thread group size as defined by the shader in the [numthreads(X, Y, Z)] attribute.</param>
+        </member>
+        <member name="M:VL.Stride.Rendering.ComputeEffect.IComputeEffectDispatcher.Dispatch(Stride.Rendering.RenderDrawContext)">
+            <summary>
+            Dispatches the shader.
+            </summary>
+            <param name="context">The render draw context.</param>
+        </member>
+        <member name="T:VL.Stride.Rendering.ComputeEffect.IndirectComputeEffectDispatcher">
+            <summary>
+            A compute effect dispatcher doing an indirect dispatch using the given argument buffer containing the thread group count at the given byte offset.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.IndirectComputeEffectDispatcher.ArgumentBuffer">
+            <summary>
+            The argument buffer containing the thread group count the shader should be dispatched to.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.IndirectComputeEffectDispatcher.OffsetInBytes">
+            <summary>
+            The offset in bytes into the argument buffer.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.ComputeEffect.VLComputeEffectShader">
+            <summary>
+            A compute effect allowing to customize the dispatch method through <see cref="T:VL.Stride.Rendering.ComputeEffect.IComputeEffectDispatcher"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.VLComputeEffectShader.EffectInstance">
+            <summary>
+            The current effect instance.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.VLComputeEffectShader.ThreadGroupSize">
+            <summary>
+            Gets or sets the number of threads per thread group.
+            This will be set as the [numthreads(X, Y, Z)] attribute in the shader.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.ComputeEffect.VLComputeEffectShader.Dispatcher">
+            <summary>
+            Gets or sets the dispatcher.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.ComputeEffect.VLComputeEffectShader.SetDefaultParameters">
+            <summary>
+            Sets the default parameters (called at constructor time and if <see cref="M:Stride.Rendering.DrawEffect.Reset"/> is called)
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.ComputeEffect.VLComputeEffectShader.UpdateParameters(Stride.Rendering.RenderDrawContext)">
+            <summary>
+            Updates the effect <see cref="P:Stride.Rendering.DrawEffect.Parameters"/> from properties defined in this instance.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.ParameterKeyPinDescription`1">
+            <summary>
+            Currently used for texture input pins of TextureFX nodes that need access to the original ParameterKey of the shader.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:VL.Stride.Rendering.EffectPinDescription" />
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.View">
+            <summary>
+            View matrix. Default to Matrix.Identity.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.ViewInverse">
+            <summary>
+            Inverse View matrix. Default to Matrix.Inverse(View)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.Projection">
+            <summary>
+            Projection matrix. Default to Matrix.Identity.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.ProjectionInverse">
+            <summary>
+            Projection matrix. Default to Matrix.Inverse(Projection).
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.ViewProjection">
+            <summary>
+            ViewProjection matrix. Default to = View * Projection.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.ProjScreenRay">
+            <summary>
+            Screen projected ray vector.  Default to = new Vector2(-1.0f / Projection.M11, 1.0f / Projection.M22);
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.Eye">
+            <summary>
+            Eye vector. Default to = View^-1[M41,M42,M43,1.0]
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.NearClipPlane">
+            <summary>
+            Camera Z NearClipPlane value. 
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.FarClipPlane">
+            <summary>
+            Camera Z FarClipPlane value.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.ZProjection">
+            <summary>
+            Z Retro projection factor used retro project a non-linear 1/z depth in the range [0.0 - 1.0] to a linear-depth in view space.
+            Remarks: ZInViewSpace = ZProjection.y / (depth - ZProjection.x)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.AspectRatio">
+            <summary>
+            The aspect ratio of the current viewport
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerViewParameters.ViewSize">
+            <summary>
+            The size of the current viewport
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.World">
+            <summary>
+            World matrix. Default to Matrix.Identity.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.WorldInverse">
+            <summary>
+            Inverse World matrix. Default to Matrix.Inverse(World).
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.WorldInverseTranspose">
+            <summary>
+            Inverse Transpose World matrix. Default to Matrix.Transpose(Matrix.Inverse(World)).
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.WorldView">
+            <summary>
+            WorldView matrix. Default to = World * View.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.WorldViewInverse">
+            <summary>
+            Inverse WorldView matrix. Default to Matrix.Inverse(WorldView)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.WorldViewProjection">
+            <summary>
+            WorldViewProjection matrix. Default to = World * ViewProjection.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.WorldScale">
+            <summary>
+            The scale of the World. Default to Vector2.One.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.PerDrawParameters.EyeMS">
+            <summary>
+            Eye vector in model space. Default to = (World*View)^-1[M41,M42,M43,1.0]
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CompositionInput.LocalIndex">
+            <summary>
+            The local index of this variable in the shader file.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.ShaderMetadata.GetPinType(Stride.Rendering.ParameterKey,System.Object@,System.Object@)">
+            <summary>
+            Gets the type of the pin, if overwritten by an attribute, e.g. int -> enum.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.ShaderMetadata.IsOptional(Stride.Rendering.ParameterKey)">
+            <summary>
+            Determines whether the specified pin with the given key is optional.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.ShaderMetadata.RegisterAdditionalShaderAttributes">
+            <summary>
+            Registers the additional stride variable attributes. Avoids writing them to the final shader, which would create an error in the native platform compiler.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.EntityRendererComponent">
+            <summary>
+            Renderer components get picked up by the <see cref="T:VL.Stride.Rendering.EntityRendererProcessor"/> for low level rendering.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.EntityRendererComponent.SingleCallPerFrame">
+            <summary>
+            Gets or sets a value indicating whether this renderer should only render once per frame.
+            i.e. not for each eye in a VR rendering setup.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.EntityRendererComponent.RenderStage">
+            <summary>
+            Gets or sets a value indicating on which render stage this renderer should be rendered.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.EntityRendererComponent.RenderGroup">
+            <summary>
+            The render group for this component.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.EntityRendererComponent.Renderer">
+            <summary>
+            The renderer which does the rendering.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.EntityRendererProcessor">
+            <summary>
+            The entity renderer processor installs for each <see cref="T:VL.Stride.Rendering.EntityRendererComponent"/> a <see cref="T:VL.Stride.Rendering.RenderRenderer"/> object in its visibility group.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.GraphicsRendererGroup">
+            <summary>
+            Groups a sequence of <see cref="T:Stride.Rendering.IGraphicsRendererBase"/> into one.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Images.AmbientOcclusionWithOrtho">
+            <summary>
+            Applies an ambient occlusion effect to a scene. Ambient occlusion is a technique which fakes occlusion for objects close to other opaque objects.
+            It takes as input a color-buffer where the scene was rendered, with its associated depth-buffer.
+            You also need to provide the camera configuration you used when rendering the scene.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Images.AmbientOcclusionWithOrthoBlurKeys">
+            <summary>
+            Keys used by <see cref="T:VL.Stride.Rendering.Images.AmbientOcclusionWithOrtho"/> and AmbientOcclusionWithOrthoBlurEffect sdfx
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Lights.SkyboxPreFilteringDiffuseOrder">
+            <summary>
+            Order of a Spherical Harmonic used for the skybox
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Lights.SkyboxPreFilteringDiffuseOrder.Order3">
+            <summary>
+            An order 3 SH.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Lights.SkyboxPreFilteringDiffuseOrder.Order5">
+            <summary>
+            An orde 5 SH.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Lights.LightNodes.SkyboxRenderer.CubeMap">
+            <summary>
+            Gets or sets the type of skybox.
+            </summary>
+            <value>The type of skybox.</value>
+            <userdoc>The texture to use as skybox (eg a cubemap or panoramic texture)</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Lights.LightNodes.SkyboxRenderer.IsSpecularOnly">
+            <summary>
+            Gets or set if this skybox affects specular only, if <c>false</c> this skybox will affect ambient lighting
+            </summary>
+            <userdoc>
+            Use the skybox only for specular lighting
+            </userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Lights.LightNodes.SkyboxRenderer.DiffuseSHOrder">
+            <summary>
+            Gets or sets the diffuse sh order.
+            </summary>
+            <value>The diffuse sh order.</value>
+            <userdoc>The level of detail of the compressed skybox, used for diffuse lighting (dull materials). Order5 is more detailed than Order3.</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Lights.LightNodes.SkyboxRenderer.SpecularCubeMapSize">
+            <summary>
+            Gets or sets the specular cubemap size
+            </summary>
+            <value>The specular cubemap size.</value>
+            <userdoc>The cubemap size used for specular lighting. Larger cubemap have more detail.</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Lights.LightNodes.SkyboxRenderer.ForceBuild">
+            <summary>
+            Forces a re-build of the skybox environment map.
+            By default the skybox will only be built when one of its parameters changes.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.MaterialCustomTessellationFeature">
+            <summary>
+            Material for flat (dicing) tessellation.    
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialCustomTessellationFeature.TessellationStream">
+            <summary>
+            Gets or sets MaterialTessellationStream.
+            </summary>
+            <userdoc>
+            This is the name of the stream that will be arive in HSMain, HSConstantMain and DSMain.
+            </userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialCustomTessellationFeature.TessellationShader">
+            <summary>
+            Gets or sets MaterialTessellationStream.
+            </summary>
+            <userdoc>
+            This is the name of the stream that will be arive in HSMain, HSConstantMain and DSMain.
+            </userdoc>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.MaterialBuilder">
+            <summary>
+            A material defines the appearance of a 3D model surface and how it reacts to light.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialBuilder.Geometry">
+            <summary>
+            The shape of the material.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialBuilder.Shading">
+            <summary>
+            The color characteristics of the material and how it reacts to light.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialBuilder.Misc">
+            <summary>
+            Occlusion, transparency and clear coat shading.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialBuilder.Layers">
+            <summary>
+            The material layers to build more complex materials.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.MaterialBuilderFromDescriptor">
+            <summary>
+            A material defines the appearance of a 3D model surface and how it reacts to light.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialBuilderFromDescriptor.Descriptor">
+            <summary>
+            The material descriptor.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.MaterialBuilderFromMaterial">
+            <summary>
+            A material defines the appearance of a 3D model surface and how it reacts to light.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MaterialBuilderFromMaterial.Material">
+            <summary>
+            The material descriptor.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.GeometryAttributes">
+            <summary>
+            The material geometry attributes define the shape of a material.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.GeometryAttributes.Tessellation">
+            <summary>
+            Gets or sets the tessellation.
+            </summary>
+            <value>The tessellation.</value>
+            <userdoc>The method used for tessellation (subdividing model poligons to increase realism)</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.GeometryAttributes.Displacement">
+            <summary>
+            Gets or sets the displacement.
+            </summary>
+            <value>The displacement.</value>
+            <userdoc>The method used for displacement (altering vertex positions by adding offsets)</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.GeometryAttributes.Surface">
+            <summary>
+            Gets or sets the surface.
+            </summary>
+            <value>The surface.</value>
+            <userdoc>The method used to alter macrosurface aspects (eg perturbing the normals of the model)</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.GeometryAttributes.MicroSurface">
+            <summary>
+            Gets or sets the micro surface.
+            </summary>
+            <value>The micro surface.</value>
+            <userdoc>The method used to alter the material microsurface</userdoc>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.ShadingAttributes">
+            <summary>
+            The material shading attributes define the color characteristics of the material and how it reacts to light.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.ShadingAttributes.Diffuse">
+            <summary>
+            Gets or sets the diffuse.
+            </summary>
+            <value>The diffuse.</value>
+            <userdoc>The method used to determine the diffuse color of the material. 
+            The diffuse color is the essential (pure) color of the object without reflections.</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.ShadingAttributes.DiffuseModel">
+            <summary>
+            Gets or sets the diffuse model.
+            </summary>
+            <value>The diffuse model.</value>
+            <userdoc>The shading model used to render the diffuse color.</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.ShadingAttributes.Specular">
+            <summary>
+            Gets or sets the specular.
+            </summary>
+            <value>The specular.</value>
+            <userdoc>The method used to determine the specular color. 
+            This is the color produced by the reflection of a white light on the object.</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.ShadingAttributes.SpecularModel">
+            <summary>
+            Gets or sets the specular model.
+            </summary>
+            <value>The specular model.</value>
+            <userdoc>The shading model used to render the material specular color</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.ShadingAttributes.Emissive">
+            <summary>
+            Gets or sets the emissive.
+            </summary>
+            <value>The emissive.</value>
+            <userdoc>The method used to determine the emissive color (the color emitted by the object)
+            </userdoc>
+        </member>
+        <member name="T:VL.Stride.Rendering.Materials.MiscAttributes">
+            <summary>
+            The material misc attributes allow to set the occulsion, transparency and material layers.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.Occlusion">
+            <summary>
+            Gets or sets the occlusion.
+            </summary>
+            <value>The occlusion.</value>
+            <userdoc>The occlusion method. Occlusions modulate the ambient and direct lighting of the material to simulate shadows or cavity artifacts.
+            </userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.Transparency">
+            <summary>
+            Gets or sets the transparency.
+            </summary>
+            <value>The transparency.</value>
+            <userdoc>The method used to determine the transparency</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.Overrides">
+            <summary>
+            Gets or sets the overrides.
+            </summary>
+            <value>The overrides.</value>
+            <userdoc>Override properties of the current material</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.CullMode">
+            <summary>
+            Gets or sets the cull mode used for the material.
+            </summary>
+            <userdoc>Cull some faces of the model depending on orientation</userdoc>
+        </member>
+        <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.ClearCoat">
+            <summary>
+            Gets or sets the clear coat shading features for the material.
+            </summary>
+            <userdoc>Use clear-coat shading to simulate vehicle paint</userdoc>
+        </member>
+        <member name="T:VL.Stride.Rendering.MaterialExtensions">
+            <summary>
+            Extension methods for <see cref="T:Stride.Rendering.Material"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.MaterialExtensions.Clone(Stride.Rendering.Material)">
+            <summary>
+            Clone the <see cref="T:Stride.Rendering.Material"/>.
+            </summary>
+            <param name="material">The material to clone.</param>
+            <returns>The cloned material.</returns>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="material"/> is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:VL.Stride.Rendering.MaterialExtensions.New(Stride.Graphics.GraphicsDevice,Stride.Rendering.Materials.MaterialDescriptor,Stride.Core.Serialization.Contents.ContentManager,System.Reactive.Disposables.CompositeDisposable)">
+            <summary>
+            Same as Material.New but also loading referenced content in parameter collection (like EnvironmentLightingDFG_LUT)
+            as well as setting the <see cref="F:VL.Stride.Shaders.ShaderFX.ShaderGraph.GraphSubscriptions"/> on the used <see cref="T:Stride.Rendering.Materials.MaterialGeneratorContext"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.MipMapGenerator">
+            <summary>
+            Generates a texture with the desired amount of mipmaps for a given input texture.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.MipMapGenerator.InputTexture">
+            <summary>
+            The input texture.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.MipMapGenerator.MaxMipMapCount">
+            <summary>
+            The maximum amount of mipmaps to generate. Use zero to generate all.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.MipMapGenerator.OutputTexture">
+            <summary>
+            The output texture with the generated mipmaps.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.MipMapGenerator.ScheduleForRendering">
+            <summary>
+            Places this renderer in the rendering queue.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.ArrowMesh">
+            <summary>
+            Generates a radial 3D Arrow mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.StickLength">
+            <summary>
+            Arrow's stick length
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.StickRadius">
+            <summary>
+            Arrow's stick radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.HeadLength">
+            <summary>
+            Arrow's head length
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.HeadRadius">
+            <summary>
+            Arrow's head radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.TipRadius">
+            <summary>
+            Arrow's tip radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.Tessellation">
+            <summary>
+            Arrow's tessellation (amount of radial slices to split the arrow into). Higher values result in smoother surfaces.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ArrowMesh.Anchor">
+            <summary>
+            Arrow's vertical anchor position
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.ArrowMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a Radial3DArrowGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the ArrowMesh generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.BoxMesh">
+            <summary>
+            Generates a Box mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.BoxMesh.Size">
+            <summary>
+            Box's tessellation (amount of vertices per edge)
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.BoxMesh.Tessellation">
+            <summary>
+            Box's tessellation (amount of vertices per edge)
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.BoxMesh.Anchor">
+            <summary>
+            Box's vertical anchor position
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.BoxMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a GridBox3Generator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the GridBox generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.BoxSphereMesh">
+            <summary>
+            Generates a Box Sphere mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.BoxSphereMesh.Radius">
+            <summary>
+            Sphere's radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.BoxSphereMesh.Tessellation">
+            <summary>
+            Sphere's tessellation (amount of vertices). Higher values result in smoother surfaces
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.BoxSphereMesh.Anchor">
+            <summary>
+            Sphere's vertical anchor position
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.BoxSphereMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a Sphere3Generator_NormalizedCube to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the Sphere generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.ConeMesh">
+            <summary>
+            Generates a Cone mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.Height">
+            <summary>
+            Cone's height
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.Radius">
+            <summary>
+            Cone's radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.FromAngle">
+            <summary>
+            Cone's initial angle in cycles 
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.ToAngle">
+            <summary>
+            Cone's final angle in cycles
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.Capped">
+            <summary>
+            Boolean value indicating if the cone should have a bottom cap
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.GenerateBackFace">
+            <summary>
+            Determines if the cone's back face should be generated or not
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.Tessellation">
+            <summary>
+            Cone's tessellation (amount of radial and of vertical slices to split the cone into). Higher values result in smoother surfaces
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.ConeMesh.Anchor">
+            <summary>
+            Cone's vertical anchor position
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.ConeMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a ConeGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the Cone generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.CylinderMesh">
+            <summary>
+            Generates a Cylinder mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.Height">
+            <summary>
+            Cylinder's height
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.BaseRadius">
+            <summary>
+            Cylinder's base radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.TopRadius">
+            <summary>
+            Cylinder's top radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.FromAngle">
+            <summary>
+            Cylinder's initial angle in cycles 
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.ToAngle">
+            <summary>
+            Cylinder's final angle in cycles
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.Capped">
+            <summary>
+            Boolean value indicating if the cylinder should have caps
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.GenerateBackFace">
+            <summary>
+            Determines if the cylinder's back face should be generated or not
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.Tessellation">
+            <summary>
+            Cylinder's tessellation (amount of radial and of vertical slices to split the cylinder into). Higher values result in smoother surfaces
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.CylinderMesh.Anchor">
+            <summary>
+            Cylinder's vertical anchor position
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.CylinderMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a OpenCylinderGenerator or CappedCylinderGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the Cylinder generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.DiscMesh">
+            <summary>
+            Generates a Disc mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.DiscMesh.OuterRadius">
+            <summary>
+            Disc's outer radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.DiscMesh.InnerRadius">
+            <summary>
+            Disc's inner radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.DiscMesh.FromAngle">
+            <summary>
+            Disc's initial angle in cycles 
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.DiscMesh.ToAngle">
+            <summary>
+            Disc's final angle in cycles
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.DiscMesh.Tessellation">
+            <summary>
+            Disc's tessellation (amount of radial slices to split the cylinder into). Higher values result in smoother surfaces
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Models.DiscMesh.Normal">
+            <summary>
+            Disc's axis to use as the Up vector
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Models.DiscMesh.GenerateBackFace">
+            <summary>
+            Determines if disc's back face should be generated or not
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.DiscMesh.Clockwise">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.DiscMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a PuncturedDiscGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the PuncturedDisc generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.RoundRectangleMesh">
+            <summary>
+            Generates a Rounded Rectangle mesh
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.RoundRectangleMesh.Size">
+            <summary>
+            RoundRectangle's size as a 2D vector
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.RoundRectangleMesh.Radius">
+            <summary>
+            RoundRectangle's corner radius
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.RoundRectangleMesh.SharpCorners">
+            <summary>
+            RoundRectangle's configurable sharp corners. Use the SharpCorner enum's OR operator to configure multiple sharp corners at once
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.RoundRectangleMesh.CornerTessellation">
+            <summary>
+            RoundRectangle's amount of steps per corner
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Models.RoundRectangleMesh.Normal">
+            <summary>
+            RoundRectangle's axis to use as the Up vector
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.Models.RoundRectangleMesh.GenerateBackFace">
+            <summary>
+            Determines if roundRectangle's back face should be generated or not
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.RoundRectangleMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a RoundRectGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the RoundRect generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.RoundRectangleMesh.SharpCorner">
+            <summary>
+            Enum to address the individual corner of a RoundRectModel
+            </summary>
+            Top-bottom and Left-right are inverted in respect to Stride (mesh is looking down) hence the order/value change
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.TubeMesh">
+            <summary>
+            Generates a Tube mesh of configurable shape that follows a 3D path
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.TubeMesh.Path">
+            <summary>
+            Tube's path as an IReadOnlyList of 3D vectors
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.TubeMesh.Closed">
+            <summary>
+            Boolean value indicating if the tube's path should be a closed loop
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.TubeMesh.Shape">
+            <summary>
+            Tube's shape as an IReadOnlyList of 2D vectors
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.TubeMesh.Capped">
+            <summary>
+            Boolean value indicating if the tube should have caps
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.TubeMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a TubeGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the Tube generated with the public property values</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.Utils">
+            <summary>
+            Utility class to aid with G3 to Stride conversions
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.ToGeometricMeshData(g3.MeshGenerator,System.String,Stride.Core.Mathematics.Vector2,System.Single)">
+            <summary>
+            Uses SimpleMesh's vertex, normal and UV data to generate a stride equivalent
+            </summary>
+            <param name="meshGenerator">A g3 SimpleMesh instance</param>
+            <param name="name">The model name</param>
+            <param name="UVScale">UV scale factor as a Vector2</param>
+            <param name="yOffset">Offse along the y axis</param>
+            <returns>An equivalent Stride GeometricMeshData</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.ToVector3d(Stride.Core.Mathematics.Vector3)">
+            <summary>
+            Converts a Stride Vector3 to a geomtry3Sharp Vector3d
+            </summary>
+            <param name="vector">Stride Vector3</param>
+            <returns>A geomtry3Sharp Vector3d</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.ToVector3dList(System.Collections.Generic.IReadOnlyList{Stride.Core.Mathematics.Vector3})">
+            <summary>
+            Converts an IReadOnlyList of Stride Vector3 to an IReadOnlyList of geomtry3Sharp Vector3d
+            </summary>
+            <param name="vectors">IReadOnlyList of Stride Vector3</param>
+            <returns>An equivalent IReadOnlyList of geomtry3Sharp Vector3d</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.ToVector2d(Stride.Core.Mathematics.Vector2)">
+            <summary>
+            Converts a Stride Vector2 to a geomtry3Sharp Vector2d
+            </summary>
+            <param name="vector">Stride Vector2</param>
+            <returns>A geomtry3Sharp Vector2d</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.ToVector2dList(System.Collections.Generic.IReadOnlyList{Stride.Core.Mathematics.Vector2})">
+            <summary>
+            Converts an IReadOnlyList of Stride Vector2 to an IReadOnlyList of geomtry3Sharp Vector2d
+            </summary>
+            <param name="vectors">IReadOnlyList of Stride Vector2</param>
+            <returns>An equivalent IReadOnlyList of geomtry3Sharp Vector2d</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.ToCorner(VL.Stride.Rendering.Models.RoundRectangleMesh.SharpCorner)">
+            <summary>
+            Converts a VL.Stride.Rendering.Models.Corner to a g3.RoundRectGenerator.Corner
+            </summary>
+            <param name="corner">A VL.Stride.Rendering.Models.RoundRectModel.Corner</param>
+            <returns>A g3.RoundRectGenerator.Corner</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.Utils.CalculateYOffset(System.Single,VL.Stride.Rendering.Models.AnchorMode)">
+            <summary>
+            Calculates the approriate Y offset for a mesh with the specified height and anchor mode
+            </summary>
+            <param name="height">Mesh height</param>
+            <param name="anchor">Anchor mode to be used</param>
+            <returns>The approriate Y offset for a mesh with the specified height and anchor mode</returns>
+        </member>
+        <member name="T:VL.Stride.Rendering.Models.VerticalGeneralizedCylinderMesh">
+            <summary>
+            Generates a Vertical Generalized Cylinder mesh, described by multiple concentric circular sections at different distances in the Y axis
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.VerticalGeneralizedCylinderMesh.Capped">
+            <summary>
+            Boolean value indicating if the cylinder should have caps
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.VerticalGeneralizedCylinderMesh.Sections">
+            <summary>
+            IReadOnlyList of circular sections that make up the cylinder
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.VerticalGeneralizedCylinderMesh.Tessellation">
+            <summary>
+            Cylinder's tessellation (amount of radial slices to split the cylinder into). Higher values result in smoother surfaces
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.Models.VerticalGeneralizedCylinderMesh.Anchor">
+            <summary>
+            Cylinder's vertical anchor position
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.Models.VerticalGeneralizedCylinderMesh.CreatePrimitiveMeshData">
+            <summary>
+            Uses the DMesh3 instance generated from a VerticalGeneralizedCylinderGenerator to create an equivalent Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]>
+            </summary>
+            <returns>A Stride GeometricMeshData<![CDATA[<VertexPositionNormalTexture>]]> equivalent to the VerticalGeneralizedCylinder generated with the public property values</returns>
+        </member>
+        <member name="M:VL.Stride.Rendering.ModelHelpers.CalculateVertexNormals(Stride.Core.Mathematics.Vector3[],System.Int32[],Stride.Core.Mathematics.Vector3[],System.Boolean)">
+            <summary>
+            Calculates the vertex normals per triangle. If vertices are shared between triangles, they get an average normal weighted by face size.
+            From: https://gamedev.stackexchange.com/questions/152991/how-can-i-calculate-normals-using-a-vertex-and-index-buffer
+            </summary>
+            <param name="vertexPositions">The vertex positions.</param>
+            <param name="triangleIndices">The triangle indices.</param>
+            <param name="vertexNormals">The vertex normals.</param>
+            <param name="isLefthanded"></param>
+        </member>
+        <member name="T:VL.Stride.Rendering.BufferReadback`1">
+            <summary>
+            Allow readback a Buffer from GPU to CPU with a frame delay count to avoid blocking read.
+            </summary>
+            <typeparam name="T">Pixel struct that should match the input buffer format</typeparam>
+            <remarks>The input buffer should be small enough to avoid CPU/GPU readback stalling</remarks>
+        </member>
+        <member name="M:VL.Stride.Rendering.BufferReadback`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:VL.Stride.Rendering.BufferReadback`1"/> class.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.BufferReadback`1.FrameDelayCount">
+            <summary>
+            Gets or sets the number of frame to store before reading back. Default is <c>16</c>.
+            </summary>
+            <value>The frame delay count.</value>
+        </member>
+        <member name="P:VL.Stride.Rendering.BufferReadback`1.IsResultAvailable">
+            <summary>
+            Gets a boolean indicating whether a result is available from <see cref="P:VL.Stride.Rendering.BufferReadback`1.Result"/>.
+            </summary>
+            <value>A result available.</value>
+        </member>
+        <member name="P:VL.Stride.Rendering.BufferReadback`1.IsSlow">
+            <summary>
+            Gets a boolean indicating whether the readback is slow and may be stalling, indicating a <see cref="P:VL.Stride.Rendering.BufferReadback`1.FrameDelayCount"/> to low or
+            an input buffer too large for an efficient non-blocking readback.
+            </summary>
+            <value>The readback is slow and stalling.</value>
+        </member>
+        <member name="P:VL.Stride.Rendering.BufferReadback`1.ForceGetLatestBlocking">
+            <summary>
+            Gets or sets a value indicating whether [force get latest blocking].
+            </summary>
+            <value><c>true</c> if [force get latest blocking]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VL.Stride.Rendering.BufferReadback`1.ElapsedTime">
+            <summary>
+            Gets the elapsed time to query the result.
+            </summary>
+            <value>The elapsed time.</value>
+        </member>
+        <member name="P:VL.Stride.Rendering.BufferReadback`1.Result">
+            <summary>
+            Gets the result pixels, only valid if <see cref="P:VL.Stride.Rendering.BufferReadback`1.IsResultAvailable"/>
+            </summary>
+            <value>The result.</value>
+        </member>
+        <member name="T:VL.Stride.Rendering.CustomRenderer`1">
+            <summary>
+            A renderer which can provide <see cref="M:VL.Stride.Rendering.RendererBase.Draw(Stride.Rendering.RenderDrawContext)"/> implementation with a stateful region.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.RendererBase.DrawInternal(Stride.Rendering.RenderDrawContext)">
+            <summary>
+            Gets called if the input is assigned or <see cref="P:VL.Stride.Rendering.RendererBase.AlwaysRender"/> is true.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="T:VL.Stride.Rendering.CommonSpace">
+            <summary>
+            Objects are placed inside a space. Setting a space results in setting View and Projection matrices.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.World">
+            <summary>
+            The Space objects normally are placed within. 
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.View">
+            <summary>
+            Place objects relative to the camera. (downstream View Matrix get ignored)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.Projection">
+            <summary>
+            Place objects relative to the projection. (downstream View and Projection Matrices get ignored)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.Normalized">
+            <summary>
+            Height goes from 1 Top to -1 Bottom. The origin is located in the center. 
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.DIP">
+            <summary>
+            Works with device independant pixels. One unit equals 100 actual DIP. The origin is located in the center. Y-Axis points upwards.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.DIPTopLeft">
+            <summary>
+            Works with device independant pixels. One unit equals 100 actual DIP. The origin is located at the top left. Y-Axis points upwards.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.CommonSpace.PixelTopLeft">
+            <summary>
+            Works with pixels. One unit equals 100 actual pixels. The origin is located at the top left. Y-Axis points upwards.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.EntityRendererRenderFeature">
+            <summary>
+            The render feature redirects low level rendering calls to the <see cref="T:Stride.Rendering.IGraphicsRendererBase"/> 
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.EntityRendererRenderFeature.CurrentParentTransformation">
+            <summary>
+            A property key to get the current parent transformation from the <see cref="F:Stride.Core.ComponentBase.Tags"/> property of the render context.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.VLEffectRenderFeature">
+            <summary>
+            Custom render feature, that manages the VLEffectMain effect
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.VLEffectRenderFeature.InitializeCore">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Rendering.VLEffectRenderFeature.PrepareEffectPermutations(Stride.Rendering.RenderDrawContext)">
+            <inheritdoc/>
+        </member>
+        <member name="T:VL.Stride.Rendering.RenderRenderer">
+            <summary>
+            The render object used by the low level rendering system.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.VLForwardRenderer">
+            <summary>
+            Same as the Stride ForwardRenderer class, but with additional ViewportSettings that work similar to the VRSettings.
+            Renders your game. It should use current <see cref="P:Stride.Rendering.RenderContext.RenderView"/> and <see cref="M:Stride.Rendering.CameraComponentRendererExtensions.GetCurrentCamera(Stride.Rendering.RenderContext)"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.LightProbes">
+            <summary>
+            Enable Light Probe.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.OpaqueRenderStage">
+            <summary>
+            The main render stage for opaque geometry.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.TransparentRenderStage">
+            <summary>
+            The transparent render stage for transparent geometry.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.ResolvedRenderStage">
+            <summary>
+            The render stage after the MSAA resolver to draw into the resolved texture
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.ShadowMapRenderStages">
+            <summary>
+            The shadow map render stages for shadow casters. No shadow rendering will happen if null.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.GBufferRenderStage">
+            <summary>
+            The G-Buffer render stage to render depth buffer and possibly some other extra info to buffers (i.e. normals)
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.PostEffects">
+            <summary>
+            The post effects renderer.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.LightShafts">
+            <summary>
+            Light shafts effect
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.VRSettings">
+            <summary>
+            Virtual Reality related settings
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.ViewportSettings">
+            <summary>
+            Multi viewport related settings
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.SubsurfaceScatteringBlurEffect">
+            <summary>
+            Separable subsurface scattering effect
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.MSAALevel">
+            <summary>
+            The level of multi-sampling
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.MSAAResolver">
+            <summary>
+            MSAA Resolver is used to resolve multi-sampled render targets into normal render targets
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Rendering.VLForwardRenderer.BindDepthAsResourceDuringTransparentRendering">
+            <summary>
+            If true, depth buffer generated during <see cref="P:VL.Stride.Rendering.VLForwardRenderer.OpaqueRenderStage"/> will be available as a shader resource named DepthBase.DepthStencil during <see cref="P:VL.Stride.Rendering.VLForwardRenderer.TransparentRenderStage"/>.
+            </summary>
+            <remarks>
+            This is needed by some effects such as particles soft edges.
+            
+            On recent platforms that can bind depth buffer as read-only (<see cref="F:Stride.Graphics.GraphicsDeviceFeatures.HasDepthAsReadOnlyRT"/>), depth buffer will be used as is. Otherwise, a copy will be generated.
+            </remarks>
+        </member>
+        <member name="M:VL.Stride.Rendering.VLForwardRenderer.ResolveMSAA(Stride.Rendering.RenderDrawContext)">
+            <summary>
+            Resolves the MSAA textures. Converts MSAA currentRenderTargets and currentDepthStencil into currentRenderTargetsNonMSAA and currentDepthStencilNonMSAA.
+            </summary>
+            <param name="drawContext">The draw context.</param>
+        </member>
+        <member name="M:VL.Stride.Rendering.VLForwardRenderer.PrepareRenderTargets(Stride.Rendering.RenderDrawContext,Stride.Core.Mathematics.Size2)">
+            <summary>
+            Prepares targets per frame, caching and handling MSAA etc.
+            </summary>
+            <param name="drawContext">The current draw context</param>
+            <param name="renderTargetsSize">The render target size</param>
+        </member>
+        <member name="M:VL.Stride.Rendering.VLForwardRenderer.BakeLightProbes(Stride.Rendering.RenderContext,Stride.Rendering.RenderDrawContext)">
+            <summary>
+            Bake lightprobes into buffers compatible with <see cref="T:Stride.Rendering.LightProbes.LightProbeRenderer"/>
+            </summary>
+            <param name="context"></param>
+            <param name="drawContext">The drawing context</param>
+        </member>
+        <member name="M:VL.Stride.Engine.ComponentUtils.WithParentManager``1(``0,VL.Core.NodeContext,System.Collections.Generic.ICollection{System.IDisposable})">
+            <summary>
+            Installs a <see cref="T:VL.Lib.Collections.TreePatching.TreeNodeParentManager`2"/> for the given component.
+            The manager will be used by the Entity node to ensure that the Component is attached to one entity only.
+            </summary>
+            <param name="component">The component to manage.</param>
+            <param name="nodeContext">The path of the node will be used to generate the warning.</param>
+            <param name="container">The container to which the lifetime of the generated objects will be tied to.</param>
+            <returns>The component itself.</returns>
+        </member>
+        <member name="M:VL.Stride.Engine.ComponentUtils.GetParentManager(Stride.Engine.EntityComponent)">
+            <summary>
+            Retrieves the parent manager for a component. A manager will be created on the fly and registered internally for the component should it not have been created yet.
+            </summary>
+            <param name="component">The component for which to retrieve a manager for.</param>
+            <returns>The parent manager for the component.</returns>
+        </member>
+        <member name="M:VL.Stride.Engine.EntityUtils.WithParentManager(Stride.Engine.Entity,VL.Core.NodeContext)">
+            <summary>
+            Installs a <see cref="T:VL.Lib.Collections.TreePatching.TreeNodeParentManager`2"/> for the given entity.
+            The manager will be used by the EntityManager node to ensure that the Entity has one parent only.
+            </summary>
+            <param name="entity">The entity to manage.</param>
+            <param name="nodeContext">The path of the node will be used to generate the warning.</param>
+            <returns>The entity itself.</returns>
+        </member>
+        <member name="M:VL.Stride.Engine.EntityUtils.GetParentManager(Stride.Engine.Entity)">
+            <summary>
+            Retrieves the parent manager for an entity. A manager will be created on the fly and registered internally for the entity should it not have been created yet.
+            </summary>
+            <param name="entity">The entity for which to retrieve a manager for.</param>
+            <returns>The parent manager for the entity.</returns>
+        </member>
+        <member name="T:VL.Stride.Engine.EntityLink">
+            <summary>
+            Establishes a parent-child relationship between a parent and a child <see cref="T:Stride.Engine.Entity"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Engine.EntitySceneLink">
+            <summary>
+            Establishes a parent-child relationship between a parent <see cref="T:Stride.Engine.Scene"/> and a child <see cref="T:Stride.Engine.Entity"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Engine.SceneLink">
+            <summary>
+            Establishes a parent-child relationship between a parent and a child <see cref="T:Stride.Engine.Scene"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Engine.ComponentLink">
+            <summary>
+            Establishes a link between a <see cref="T:Stride.Engine.EntityComponent"/> and its <see cref="T:Stride.Engine.Entity"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Engine.SceneInstanceRenderer">
+            <summary>
+            Renders a scene instance with a graphics compositor.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Engine.SceneInstanceRenderer.fallbackSceneInstance">
+            <summary>
+            The fallback scene to use in case no scene is connected. 
+            This is needed because we clear the render target through the compositor which in turn expects visibility groups only provided by the scene instance.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Engine.SceneInstanceRenderer.SceneInstance">
+            <summary>
+            Gets or sets the scene instance.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Engine.SceneInstanceRenderer.GraphicsCompositor">
+            <summary>
+            Gets or sets the graphics compositor.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Engine.SceneInstanceSystem">
+            <summary>
+            A game system that updates a scene instance. Drawing is done separately by the <see cref="T:VL.Stride.Engine.SceneInstanceRenderer"/>.
+            This allows you to render the same scene multiple times.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Engine.SceneInstanceSystem.SceneInstance">
+            <summary>
+            Gets the scene instance.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Engine.SceneUtils.WithParentManager(Stride.Engine.Scene,VL.Core.NodeContext)">
+            <summary>
+            Installs a <see cref="T:VL.Lib.Collections.TreePatching.TreeNodeParentManager`2"/> for the given scene.
+            The manager will be used by the SceneManager node to ensure that the Scene has one parent only.
+            </summary>
+            <param name="scene">The scene to manage.</param>
+            <param name="nodeContext">The path of the node will be used to generate the warning.</param>
+            <returns>The scene itself.</returns>
+        </member>
+        <member name="M:VL.Stride.Engine.SceneUtils.GetParentManager(Stride.Engine.Scene)">
+            <summary>
+            Retrieves the parent manager for a scene. A manager will be created on the fly and registered internally for the scene should it not have been created yet.
+            </summary>
+            <param name="scene">The scene for which to retrieve a manager for.</param>
+            <returns>The parent manager for the scene.</returns>
+        </member>
+        <member name="T:VL.Stride.Engine.SchedulerSystem">
+            <summary>
+            Allows to schedule game systems (e.g. a SceneSystem or a LayerSystem) as well as single renderers.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Engine.SchedulerSystem.Schedule(Stride.Games.GameSystemBase)">
+            <summary>
+            Schedule a game system to be processed in this frame.
+            </summary>
+            <param name="gameSystem">The game system to schedule.</param>
+        </member>
+        <member name="M:VL.Stride.Engine.SchedulerSystem.Schedule(Stride.Rendering.IGraphicsRendererBase)">
+            <summary>
+            Schedules a renderer for rendering.
+            </summary>
+            <param name="renderer">The layer to schedule.</param>
+        </member>
+        <member name="M:VL.Stride.Engine.ScreenshotBuilder.SaveScreenshot(Stride.Games.GameBase,System.String,System.Int32,System.Int32,Stride.Graphics.PixelFormat,Stride.Graphics.PixelFormat,Stride.Graphics.ImageFileType)">
+            <summary>
+            Request a screenshot and save it to disc.
+            </summary>
+            <param name="game">The game.</param>
+            <param name="screenshotUrl">The screenshot URL.</param>
+            <param name="width">The width.</param>
+            <param name="height">The height.</param>
+            <param name="pixelFormat">The pixel format.</param>
+            <param name="depthBufferFormat">The depth buffer format.</param>
+            <param name="fileType">Type of the file.</param>
+            <returns>
+            True on success
+            </returns>
+        </member>
+        <member name="T:VL.Stride.Games.GameWindowRenderer">
+            <summary>
+            A GameSystem that allows to draw to another window or control. Currently only valid on desktop with Windows.Forms.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRenderer.#ctor(Stride.Core.IServiceRegistry,Stride.Games.GameContext)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VL.Stride.Games.GameWindowRenderer" /> class.
+            </summary>
+            <param name="registry">The registry.</param>
+            <param name="gameContext">The window context.</param>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRenderer.GameContext">
+            <summary>
+            Gets the underlying native window.
+            </summary>
+            <value>The underlying native window.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRenderer.Window">
+            <summary>
+            Gets the window.
+            </summary>
+            <value>The window.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRenderer.Presenter">
+            <summary>
+            Gets or sets the presenter.
+            </summary>
+            <value>The presenter.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRenderer.WindowManager">
+            <summary>
+            Gets the window manager.
+            </summary>
+            <value>
+            The window manager.
+            </value>
+        </member>
+        <member name="T:VL.Stride.Games.GameWindowRendererManager">
+            <summary>
+            Manages the <see cref="P:VL.Stride.Games.GameWindowRendererManager.GraphicsDevice"/> lifecycle.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Games.GameWindowRendererManager.DefaultBackBufferWidth">
+            <summary>
+            Default width for the back buffer.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Games.GameWindowRendererManager.DefaultBackBufferHeight">
+            <summary>
+            Default height for the back buffer.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRendererManager.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Games.GraphicsDeviceManager" /> class.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredGraphicsProfile">
+            <summary>
+            Gets or sets the list of graphics profile to select from the best feature to the lower feature. See remarks.
+            </summary>
+            <value>The graphics profile.</value>
+            <remarks>
+            By default, the PreferredGraphicsProfile is set to { <see cref="F:Stride.Graphics.GraphicsProfile.Level_11_1"/>, 
+            <see cref="F:Stride.Graphics.GraphicsProfile.Level_11_0"/>,
+            <see cref="F:Stride.Graphics.GraphicsProfile.Level_10_1"/>,
+            <see cref="F:Stride.Graphics.GraphicsProfile.Level_10_0"/>,
+            <see cref="F:Stride.Graphics.GraphicsProfile.Level_9_3"/>,
+            <see cref="F:Stride.Graphics.GraphicsProfile.Level_9_2"/>,
+            <see cref="F:Stride.Graphics.GraphicsProfile.Level_9_1"/>}
+            </remarks>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.ShaderProfile">
+            <summary>
+            Gets or sets the shader graphics profile that will be used to compile shaders. See remarks.
+            </summary>
+            <value>The shader graphics profile.</value>
+            <remarks>If this property is not set, the profile used to compile the shader will be taken from the <see cref="P:VL.Stride.Games.GameWindowRendererManager.GraphicsDevice"/> 
+            based on the list provided by <see cref="P:VL.Stride.Games.GameWindowRendererManager.PreferredGraphicsProfile"/></remarks>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.DeviceCreationFlags">
+            <summary>
+            Gets or sets the device creation flags that will be used to create the <see cref="P:VL.Stride.Games.GameWindowRendererManager.GraphicsDevice"/>
+            </summary>
+            <value>The device creation flags.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.RequiredAdapterUid">
+            <summary>
+            If populated the engine will try to initialize the device with the same unique id
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredColorSpace">
+            <summary>
+            Gets or sets the default color space.
+            </summary>
+            <value>The default color space.</value>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRendererManager.SetPreferredGraphicsProfile(Stride.Graphics.GraphicsProfile[])">
+            <summary>
+            Sets the preferred graphics profile.
+            </summary>
+            <param name="levels">The levels.</param>
+            <seealso cref="P:VL.Stride.Games.GameWindowRendererManager.PreferredGraphicsProfile"/>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.IsFullScreen">
+            <summary>
+            Gets or sets a value indicating whether this instance is full screen.
+            </summary>
+            <value><c>true</c> if this instance is full screen; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredMultisampleCount">
+            <summary>
+            Gets or sets a value indicating whether [prefer multi sampling].
+            </summary>
+            <value><c>true</c> if [prefer multi sampling]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredBackBufferFormat">
+            <summary>
+            Gets or sets the preferred back buffer format.
+            </summary>
+            <value>The preferred back buffer format.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredBackBufferHeight">
+            <summary>
+            Gets or sets the height of the preferred back buffer.
+            </summary>
+            <value>The height of the preferred back buffer.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredBackBufferWidth">
+            <summary>
+            Gets or sets the width of the preferred back buffer.
+            </summary>
+            <value>The width of the preferred back buffer.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredDepthStencilFormat">
+            <summary>
+            Gets or sets the preferred depth stencil format.
+            </summary>
+            <value>The preferred depth stencil format.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredRefreshRate">
+            <summary>
+            Gets or sets the preferred refresh rate.
+            </summary>
+            <value>The preferred refresh rate.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredFullScreenOutputIndex">
+            <summary>
+            The output (monitor) index to use when switching to fullscreen mode. Doesn't have any effect when windowed mode is used.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.SupportedOrientations">
+            <summary>
+            Gets or sets the supported orientations.
+            </summary>
+            <value>The supported orientations.</value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.SynchronizeWithVerticalRetrace">
+            <summary>
+            Gets or sets a value indicating whether [synchronize with vertical retrace].
+            </summary>
+            <value><c>true</c> if [synchronize with vertical retrace]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRendererManager.ApplyRequestedChanges">
+            <summary>
+            Applies the changes from this instance and change or create the <see cref="P:VL.Stride.Games.GameWindowRendererManager.GraphicsDevice"/> according to the new values.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRendererManager.CanResetDevice(Stride.Games.GraphicsDeviceInformation)">
+            <summary>
+            Determines whether this instance is compatible with the the specified new <see cref="T:Stride.Games.GraphicsDeviceInformation"/>.
+            </summary>
+            <param name="newDeviceInfo">The new device info.</param>
+            <returns><c>true</c> if this instance this instance is compatible with the the specified new <see cref="T:Stride.Games.GraphicsDeviceInformation"/>; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRendererManager.FindBestDevice(System.Boolean)">
+            <summary>
+            Finds the best device that is compatible with the preferences defined in this instance.
+            </summary>
+            <param name="anySuitableDevice">if set to <c>true</c> a device can be selected from any existing adapters, otherwise, it will select only from default adapter.</param>
+            <returns>The graphics device information.</returns>
+        </member>
+        <member name="M:VL.Stride.Games.GameWindowRendererManager.RankDevices(System.Collections.Generic.List{Stride.Games.GraphicsDeviceInformation})">
+            <summary>
+            Ranks a list of <see cref="T:Stride.Games.GraphicsDeviceInformation"/> before creating a new device.
+            </summary>
+            <param name="foundDevices">The list of devices that can be reorder.</param>
+        </member>
+        <member name="M:VL.Stride.Games.VLGame.RawTickProducer">
+            <summary>
+            As per https://github.com/stride3d/stride/pull/497 this is the entry point to modify the update logic.
+            This is the same code as in the base class except that the elapsed time is given by our clock.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Graphics.BlendStateDescriptions">
+            <summary>
+            Some predefined blend state descriptions.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.BlendStateDescriptions.None">
+            <summary>
+            No blending.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.BlendStateDescriptions.Additive">
+            <summary>
+            The sourc and destination get added.
+            </summary>
+            <remarks>
+            Color = Src.RGB + Dst.RGB
+            Alpha = Src.A + Dst.A
+            </remarks>
+        </member>
+        <member name="F:VL.Stride.Graphics.BlendStateDescriptions.AlphaBlend">
+            <summary>
+            The source and destination get blended using the alpha value of the source assuming straight alpha.
+            </summary>
+            <remarks>
+            Color = Src.RGB * Src.A + Dst.RGB * (1 - Src.A)
+            Alpha = Src.A + Dst.A * (1 - Src.A)
+            </remarks>
+        </member>
+        <member name="F:VL.Stride.Graphics.BlendStateDescriptions.AlphaBlendPremultiplied">
+            <summary>
+            The source and destination get blended using the alpha value of the source assuming premultiplied alpha.
+            </summary>
+            <remarks>
+            Color = Src.RGB + Dst.RGB * (1 - Src.A)
+            Alpha = Src.A + Dst.A * (1 - Src.A)
+            </remarks>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.CombineWithStructuredBufferTypeFlag(Stride.Graphics.BufferFlags,Stride.Graphics.PixelFormat,VL.Stride.Graphics.StructuredBufferType,Stride.Graphics.BufferFlags@,Stride.Graphics.PixelFormat@)">
+            <summary>
+            Following the spec from: https://docs.microsoft.com/en-us/windows/win32/api/d3d11/ne-d3d11-d3d11_buffer_uav_flag
+            </summary>
+            <param name="bufferFlags"></param>
+            <param name="viewFormat"></param>
+            <param name="structuredBufferType"></param>
+            <param name="flags"></param>
+            <param name="format"></param>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.SetData``1(Stride.Graphics.Buffer,Stride.Graphics.CommandList,VL.Core.IHasMemory{``0},System.Int32)">
+            <summary>
+            Copies the <paramref name="fromData"/> to the given <paramref name="buffer"/> on GPU memory.
+            </summary>
+            <typeparam name="TData">The type of the T data.</typeparam>
+            <param name="buffer">The <see cref="T:Stride.Graphics.Buffer"/>.</param>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
+            <param name="fromData">The data to copy from.</param>
+            <param name="offsetInBytes">The offset in bytes to write to.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <remarks>
+            See the unmanaged documentation about Map/UnMap for usage and restrictions.
+            </remarks>
+            <returns>The GPU buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.SetData``1(Stride.Graphics.Buffer,Stride.Graphics.CommandList,System.ReadOnlyMemory{``0},System.Int32)">
+            <summary>
+            Copies the <paramref name="memory"/> to the given <paramref name="buffer"/> on GPU memory.
+            </summary>
+            <typeparam name="TData">The type of the T data.</typeparam>
+            <param name="buffer">The <see cref="T:Stride.Graphics.Buffer"/>.</param>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
+            <param name="memory">The memory to copy from.</param>
+            <param name="offsetInBytes">The offset in bytes to write to.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <remarks>
+            See the unmanaged documentation about Map/UnMap for usage and restrictions.
+            </remarks>
+            <returns>The GPU buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.New``1(Stride.Graphics.GraphicsDevice,VL.Core.IHasMemory{``0},Stride.Graphics.BufferFlags,Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new <see cref="T:Stride.Graphics.Buffer"/> initialized with a copy of the given data.
+            </summary>
+            <typeparam name="TData">The element type.</typeparam>
+            <param name="device">The graphics device.</param>
+            <param name="fromData">The data to use to initialize the buffer.</param>
+            <param name="bufferFlags">The buffer flags.</param>
+            <param name="usage">The buffer usage.</param>
+            <exception cref="T:System.ArgumentException">If retrieval of read-only memory failed.</exception>
+            <returns>The newly created buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.New``1(Stride.Graphics.GraphicsDevice,System.ReadOnlyMemory{``0},Stride.Graphics.BufferFlags,Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new <see cref="T:Stride.Graphics.Buffer"/> initialized with a copy of the given data.
+            </summary>
+            <typeparam name="TData">The element type.</typeparam>
+            <param name="device">The graphics device.</param>
+            <param name="memory">The data to use to initialize the buffer.</param>
+            <param name="bufferFlags">The buffer flags.</param>
+            <param name="usage">The buffer usage.</param>
+            <exception cref="T:System.ArgumentException">If retrieval of read-only memory failed.</exception>
+            <returns>The newly created buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.CalculateElementCount``1(Stride.Graphics.Buffer)">
+            <summary>
+            Calculates the expected element count of a buffer using a specified type.
+            </summary>
+            <typeparam name="TData">The type of the T pixel data.</typeparam>
+            <returns>The expected width</returns>
+            <exception cref="T:System.ArgumentException">If the size is invalid</exception>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData``1(Stride.Graphics.Buffer,Stride.Graphics.CommandList,``0[],System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies the content of this buffer to an array of data.
+            </summary>
+            <typeparam name="TData">The type of the T data.</typeparam>
+            <param name="thisBuffer"></param>
+            <param name="commandList">The command list.</param>
+            <param name="toData">The destination array to receive a copy of the buffer datas.</param>
+            <param name="doNotWait">if set to <c>true</c> this method will return immediately if the resource is still being used by the GPU for writing. Default is false</param>
+            <param name="offsetInBytes"></param>
+            <param name="lengthInBytes"></param>
+            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <paramref name="doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
+            <remarks>
+            This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
+            This method creates internally a stagging resource if this buffer is not already a stagging resouce, copies to it and map it to memory. Use method with explicit staging resource
+            for optimal performances.</remarks>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData``1(Stride.Graphics.Buffer,Stride.Graphics.CommandList,Stride.Graphics.Buffer,``0[],System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies the content of this buffer from GPU memory to a CPU memory using a specific staging resource.
+            </summary>
+            <param name="thisBuffer"></param>
+            <param name="commandList"></param>
+            <param name="staginBuffer">The staging buffer used to transfer the buffer.</param>
+            <param name="toData">To data pointer.</param>
+            <param name="doNotWait"></param>
+            <param name="offsetInBytes"></param>
+            <param name="lengthInBytes"></param>
+            <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
+            <remarks>
+            This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
+            </remarks>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData(Stride.Graphics.Buffer,Stride.Graphics.CommandList,Stride.Graphics.DataPointer,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies the content of this buffer to an array of data.
+            </summary>
+            <param name="thisBuffer"></param>
+            <param name="commandList">The command list.</param>
+            <param name="toData">The destination array to receive a copy of the buffer datas.</param>
+            <param name="doNotWait">if set to <c>true</c> this method will return immediately if the resource is still being used by the GPU for writing. Default is false</param>
+            <param name="offsetInBytes"></param>
+            <param name="lengthInBytes"></param>
+            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <paramref name="doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
+            <remarks>
+            This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
+            This method creates internally a stagging resource if this buffer is not already a stagging resouce, copies to it and map it to memory. Use method with explicit staging resource
+            for optimal performances.</remarks>
+        </member>
+        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData(Stride.Graphics.Buffer,Stride.Graphics.CommandList,Stride.Graphics.Buffer,Stride.Graphics.DataPointer,System.Boolean,System.Int32,System.Int32)">
+            <summary>
+            Copies the content of this buffer from GPU memory to a CPU memory using a specific staging resource.
+            </summary>
+            <param name="thisBuffer"></param>
+            <param name="commandList"></param>
+            <param name="stagingBuffer">The staging buffer used to transfer the buffer.</param>
+            <param name="toData">To data pointer.</param>
+            <param name="doNotWait"></param>
+            <param name="offsetInBytes"></param>
+            <param name="lengthInBytes"></param>
+            <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
+            <remarks>
+            This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
+            </remarks>
+        </member>
+        <member name="F:VL.Stride.Graphics.BufferViewDescription.Flags">
+            <summary>
+            The flags used for the view. If <see cref="F:Stride.Graphics.BufferFlags.None"/> then the view is using the flags from the buffer.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.BufferViewDescription.Format">
+            <summary>
+            The format of the view, used for typed buffers, usually a 32-bit float format for e.g. Buffer&lt;float4&gt;. Set to <see cref="F:Stride.Graphics.PixelFormat.None"/> when the buffer is raw or structured.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Graphics.DepthStencilStateDescriptions">
+            <summary>
+            Some predefined depth stencil state descriptions.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.DepthStencilStateDescriptions.Default">
+            <summary>
+            Use a depth stencil buffer.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.DepthStencilStateDescriptions.DefaultInverse">
+            <summary>
+            Default settings using greater comparison for Z.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.DepthStencilStateDescriptions.DepthRead">
+            <summary>
+            Enables a read-only depth stencil buffer.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.DepthStencilStateDescriptions.None">
+            <summary>
+            Don't use a depth stencil buffer.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Graphics.RasterizerStateDescriptions">
+            <summary>
+            Some predefined rasterizer state descriptions.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.Default">
+            <summary>
+            The default description.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.CullFront">
+            <summary>
+            Culling of primitives with clockwise winding order.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.CullBack">
+            <summary>
+            Culling of primitives with counter-clockwise winding order.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.CullNone">
+            <summary>
+            No culling.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.WireframeCullFront">
+            <summary>
+            Wireframe rendering with culling of primitives in clockwise winding order.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.WireframeCullBack">
+            <summary>
+            Wireframe rendering with culling of primitives in counter-clockwise winding order.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Graphics.RasterizerStateDescriptions.Wireframe">
+            <summary>
+            Wireframe rendering with no culling.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Graphics.TextureExtensions.SetData``1(Stride.Graphics.Texture,Stride.Graphics.CommandList,VL.Lib.Collections.Spread{``0},System.Int32,System.Int32,System.Nullable{Stride.Graphics.ResourceRegion})">
+            <summary>
+            Copies the <paramref name="fromData"/> to the given <paramref name="texture"/> on GPU memory.
+            </summary>
+            <typeparam name="TData">The type of the T data.</typeparam>
+            <param name="texture"></param>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
+            <param name="fromData">The data to copy from.</param>
+            <param name="arraySlice"></param>
+            <param name="mipSlice"></param>
+            <param name="region"></param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <remarks>
+            See the unmanaged documentation about Map/UnMap for usage and restrictions.
+            </remarks>
+            <returns>The GPU buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Graphics.TextureExtensions.Load(Stride.Graphics.GraphicsDevice,System.String,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage,System.Boolean)">
+            <summary>
+            Similiar to <see cref="M:Stride.Graphics.Texture.Load(Stride.Graphics.GraphicsDevice,System.IO.Stream,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage,System.Boolean)"/> but allocates memory on unmanaged heap only.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Input.InputExtensions.WindowInputSource">
+            <summary>
+            A property key to get the window input source from the <see cref="F:Stride.Core.ComponentBase.Tags"/>.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Input.InputNodes">
+            <summary>
+            A few static methods with null checks for easy usability.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Input.InputNodes.IsKeyPressed(Stride.Input.IKeyboardDevice,Stride.Input.Keys)">
+            <summary>
+            Determines whether the specified key is pressed since the previous update.
+            </summary>
+            <param name="input">The keyboard</param>
+            <param name="key">The key</param>
+            <returns><c>true</c> if the specified key is pressed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Input.InputNodes.IsKeyReleased(Stride.Input.IKeyboardDevice,Stride.Input.Keys)">
+            <summary>
+            Determines whether the specified key is released since the previous update.
+            </summary>
+            <param name="input">The keyboard</param>
+            <param name="key">The key</param>
+            <returns><c>true</c> if the specified key is released; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Input.InputNodes.IsKeyDown(Stride.Input.IKeyboardDevice,Stride.Input.Keys)">
+            <summary>
+            Determines whether the specified key is being pressed down
+            </summary>
+            <param name="input">The keyboard</param>
+            <param name="key">The key</param>
+            <returns><c>true</c> if the specified key is being pressed down; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Input.InputNodes.IsButtonPressed(Stride.Input.IMouseDevice,Stride.Input.MouseButton)">
+            <summary>
+            Determines whether the specified mouse button is pressed since the previous update.
+            </summary>
+            <param name="input">The mouse</param>
+            <param name="mouseButton">The mouse button</param>
+            <returns><c>true</c> if the specified mouse button is pressed since the previous update; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Input.InputNodes.IsButtonReleased(Stride.Input.IMouseDevice,Stride.Input.MouseButton)">
+            <summary>
+            Determines whether the specified mouse button is released.
+            </summary>
+            <param name="input">The mouse</param>
+            <param name="mouseButton">The mouse button</param>
+            <returns><c>true</c> if the specified mouse button is released; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Input.InputNodes.IsButtonDown(Stride.Input.IMouseDevice,Stride.Input.MouseButton)">
+            <summary>
+            Determines whether the specified button is being pressed down
+            </summary>
+            <param name="input">The mouse</param>
+            <param name="mouseButton">The mouse button</param>
+            <returns><c>true</c> if the specified button is being pressed down; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:VL.Stride.Input.InputSourceProcessor.OnEntityComponentRemoved(Stride.Engine.Entity,VL.Stride.Input.InputSourceComponent,VL.Stride.Input.InputSourceProcessor.AssociatedData)">
+            <summary>Run when a matching entity is removed from this entity processor.</summary>
+            <param name="entity">The entity.</param>
+            <param name="component"></param>
+            <param name="data">  The associated data.</param>
+        </member>
+        <member name="M:VL.Stride.Interop.SizeOf``1(``0)">
+            <summary>
+            Returns the size of the object in bytes.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <param name="object">The object.</param>
+            <returns>The size of the object in bytes.</returns>
+        </member>
+        <member name="P:VL.Stride.ProfilerInteraction.RefreshTime">
+            <summary>
+            The time between two refreshes of the profiling information in milliseconds.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.ProfilerInteraction.SortingMode">
+            <summary>
+            Gets or set the sorting mode of the profiling entries
+            </summary>
+        </member>
+        <member name="P:VL.Stride.ProfilerInteraction.FilteringMode">
+            <summary>
+            Gets or sets the type of the profiling to display: CPU or GPU
+            </summary>
+        </member>
+        <member name="P:VL.Stride.ProfilerInteraction.ResultPage">
+            <summary>
+            Gets or sets the current profiling result page to display.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Shaders.ComputeEffectDispatcher.EffectInstance">
+            <summary>
+            The current effect instance.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Shaders.ComputeEffectDispatcher.ThreadGroupCounts">
+            <summary>
+            Gets or sets the number of group counts the shader should be dispatched to.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Shaders.ComputeEffectDispatcher.ThreadNumbers">
+            <summary>
+            Gets or sets the number of threads desired by thread group.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Shaders.ComputeEffectDispatcher.ShaderSourceName">
+            <summary>
+            Gets or sets the name of the input compute shader file (.xksl)
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Shaders.ComputeEffectDispatcher.SetDefaultParameters">
+            <summary>
+            Sets the default parameters (called at constructor time and if <see cref="M:Stride.Rendering.DrawEffect.Reset"/> is called)
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Shaders.ComputeEffectDispatcher.UpdateParameters">
+            <summary>
+            Updates the effect <see cref="P:Stride.Rendering.DrawEffect.Parameters" /> from properties defined in this instance. See remarks.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Shaders.ComputeEffectDispatcher.DrawIteration">
+            <summary>
+            Dispatches the compute shader and sets the counter value, change per iteration effect parameters right before this call.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.ParameterUpdater`2">
+            <summary>
+            Helper class to easily track parameter collections and update one of its parameters.
+            </summary>
+            <typeparam name="TValue">The type of the parameter value</typeparam>
+            <typeparam name="TKey">The type of the parameter key</typeparam>
+        </member>
+        <member name="P:VL.Stride.Shaders.ShaderFX.ComputeOrder.Computes">
+            <summary>
+            The left (background) child node.
+            </summary>
+            <userdoc>
+            The map used for the left (background) node.
+            </userdoc>
+        </member>
+        <member name="P:VL.Stride.Shaders.ShaderFX.DeclResource`1.Resource">
+            <summary>
+            Can be updated from mainloop
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.Functions.OpSDF">
+            <summary>
+            Represents any shader that implements SDF3D with input compositions
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.Functions.OpSF2D">
+            <summary>
+            Represents any shader that implements SDF3D with input compositions
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.Functions.SDF3D">
+            <summary>
+            Represents any shader that implements SDF3D with input compositions
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.Functions.SF2D">
+            <summary>
+            Represents any shader that implements SDF3D with input compositions
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.Functions.VF3D">
+            <summary>
+            Represents any shader that implements SDF3D with input compositions
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Shaders.ShaderFX.InputValue`1.Input">
+            <summary>
+            Can be updated from mainloop
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.BlendOperator">
+            <summary>
+            Operands of the Blend node.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Add">
+            <summary>
+            Add of the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Average">
+            <summary>
+            Average of the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Color">
+            <summary>
+            Color effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.ColorBurn">
+            <summary>
+            Color burn effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.ColorDodge">
+            <summary>
+            Color dodge effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Darken">
+            <summary>
+            Darken effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Desaturate">
+            <summary>
+            Desaturate effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Difference">
+            <summary>
+            Difference of the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Divide">
+            <summary>
+            Divide first texture with the second one.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Exclusion">
+            <summary>
+            Exclusion effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.HardLight">
+            <summary>
+            Hard light effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.HardMix">
+            <summary>
+            hard mix effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Hue">
+            <summary>
+            Hue effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Illuminate">
+            <summary>
+            Illuminate effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.In">
+            <summary>
+            In effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Inverse">
+            <summary>
+            Inverse effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Lighten">
+            <summary>
+            Lighten effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.LinearBurn">
+            <summary>
+            Linear burn effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.LinearDodge">
+            <summary>
+            Linear dodge effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Mask">
+            <summary>
+            Apply mask from second texture to the first one.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Multiply">
+            <summary>
+            Multiply the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Out">
+            <summary>
+            Out effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Over">
+            <summary>
+            Over effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Overlay">
+            <summary>
+            Overlay effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.PinLight">
+            <summary>
+            Pin light effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Saturate">
+            <summary>
+            Saturate effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Saturation">
+            <summary>
+            Saturation effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Screen">
+            <summary>
+            Screen effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.SoftLight">
+            <summary>
+            Soft light effect from the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Subtract">
+            <summary>
+            Subtract the two textures.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.SubstituteAlpha">
+            <summary>
+            Take color for the first texture but alpha from the second
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.BlendOperator.Threshold">
+            <summary>
+            Threshold, resulting in a black-white texture for grayscale against a set threshold
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Shaders.ShaderFX.BlendOperatorExtensions.GetShaderSourceName(VL.Stride.Shaders.ShaderFX.BlendOperator)">
+            <summary>
+            Get the name of the ShaderClassSource corresponding to the operation
+            </summary>
+            <param name="blendOperation">The operand.</param>
+            <returns>The name of the ShaderClassSource.</returns>
+        </member>
+        <member name="P:VL.Stride.Shaders.ShaderFX.RaymarcherMatcap.Input">
+            <summary>
+            Can be updated from mainloop
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.VoidOrUnknown">
+            <summary>
+            For ShaderFX nodes that dont compute a value or an unknown value
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Shaders.ShaderFX.ShaderFXUtils.DeclAndSetVar``1(VL.Stride.Shaders.ShaderFX.IComputeValue{``0})">
+            <summary>
+            Declare a shader variable with name "Var" and initialize it with a value.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="valueGetter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Stride.Shaders.ShaderFX.ShaderFXUtils.DeclAndSetVar``1(System.String,VL.Stride.Shaders.ShaderFX.IComputeValue{``0})">
+            <summary>
+            Declare a shader variable with a give name and initialize it with a value.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="varName"></param>
+            <param name="valueGetter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Stride.Shaders.ShaderFX.ShaderFXUtils.SetVar``1(VL.Stride.Shaders.ShaderFX.SetVar{``0},VL.Stride.Shaders.ShaderFX.IComputeValue{``0})">
+            <summary>
+            Assigns a new value to an existing shader variable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="existingVar"></param>
+            <param name="valueGetter"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Stride.Shaders.ShaderFX.ShaderFXUtils.GetVarValue``1(VL.Stride.Shaders.ShaderFX.SetVar{``0})">
+            <summary>
+            Retrieves the current value of an existing shader variable.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="existingVar"></param>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Stride.Shaders.ShaderFX.ShaderFXUtils.GetShaderMixinSource(Stride.Shaders.ShaderSource)">
+            <summary>
+            Build a encapsulating ShaderMixinSource if necessary.
+            </summary>
+            <param name="shaderSource">The input ShaderSource.</param>
+            <returns>A ShaderMixinSource</returns>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.DeclVar`1">
+            <summary>
+            Contains information about a stream variable and generates a unique but stable ID when the shader gets compiled.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.SetVar`1">
+            <summary>
+            Defines a variable and assigns a value to it. Can also re-assign an existing Var.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <seealso cref="T:VL.Stride.Shaders.ShaderFX.IComputeVoid" />
+        </member>
+        <member name="T:VL.Stride.Shaders.ShaderFX.VarBase`1">
+            <summary>
+            Base class for get or assign a value to a stream variable.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="F:VL.Stride.Shaders.ShaderFX.ShaderGraph.GraphSubscriptions">
+            <summary>
+            Gives access to the <see cref="T:System.Reactive.Disposables.CompositeDisposable"/> whose lifetime is tied to the graph being built.
+            See https://github.com/vvvv/VL.Stride/pull/451 for details.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.RuntimeShaderMixinBuilder">
+            <summary>
+            Builds a shader mixin at runtime based on the shader AST.
+            Can also be used to collect all the compiler parameters of a shader.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Shaders.RuntimeShaderMixinBuilder.ShaderBlockVisitor">
+            <summary>
+            Internal visitor to precalculate all available Parameters in the context
+            </summary>
+        </member>
+        <member name="T:VL.Stride.SkiaRenderer">
+            <summary>
+            Renders the Skia layer into the Stride provided surface.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.SkiaRenderer.WinKeys.MapKeys">
+            <summary>
+            Map between Winform keys and Stride keys.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.SkiaRenderer.WinKeys.ReverseMapKeys">
+            <summary>
+            Map between Stride keys and Winforms keys.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.MergeDrawData(System.Collections.Generic.IList{Stride.Rendering.MeshDraw},System.Boolean,Stride.Graphics.CommandList)">
+            <summary>
+            Transform a vertex buffer positions, normals, tangents and bitangents using the given matrix.
+            </summary>
+            <param name="meshDrawDatas">The mesh draw datas.</param>
+            <param name="can32BitIndex">A flag stating if 32 bit index buffers.</param>
+            <param name="commandList"></param>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.CreateDeclarationMergeGroup(System.Collections.Generic.IList{Stride.Rendering.MeshDraw})">
+            <summary>
+            Group meshes that can be merged because they have the same vertex declaration.
+            </summary>
+            <param name="meshDrawDatas">The list of meshes.</param>
+            <returns>A list of grouped meshes.</returns>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.CreateOptimizedMergeGroups(System.Collections.Generic.IList{Stride.Rendering.MeshDraw},System.Boolean)">
+            <summary>
+            Create group of MeshDrawData that will be merged.
+            </summary>
+            <param name="meshDrawDatas">List of MehsDrawData to merge.</param>
+            <param name="can32BitIndex">A flag stating if 32 bit index buffers are allowed.</param>
+            <returns>A List of groups to merge internally.</returns>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.CreateShortIndexBuffer(System.Int32,System.Int32,System.Byte[],System.Boolean)">
+            <summary>
+            Create an short typed index buffer.
+            </summary>
+            <param name="offset">The offset to apply to the indices.</param>
+            <param name="count">The number of indices.</param>
+            <param name="baseIndices">A possible base index buffer</param>
+            <param name="is32Bit">Stating if baseIndices is filled with 32 bits int</param>
+            <returns>A new index buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.CreateIntIndexBuffer(System.Int32,System.Int32,System.Byte[],System.Boolean)">
+            <summary>
+            Create an int typed index buffer.
+            </summary>
+            <param name="offset">The offset to apply to the indices.</param>
+            <param name="count">The number of indices.</param>
+            <param name="baseIndices">A possible base index buffer</param>
+            <param name="is32Bits">Stating if baseIndices is filled with 32 bits int</param>
+            <returns>A new index buffer.</returns>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.IsIndexed(System.Collections.Generic.IList{Stride.Rendering.MeshDraw})">
+            <summary>
+            Check if a index buffer will be needed for this merge group.
+            </summary>
+            <param name="meshDrawDatas">The list of MeshDrawdata to merge.</param>
+            <returns>True if an index is needed, false otherwise.</returns>
+        </member>
+        <member name="M:VL.Stride.Utils.ModelUtils.GroupDrawData(System.Collections.Generic.IList{Stride.Rendering.MeshDraw},System.Boolean,Stride.Graphics.CommandList)">
+            <summary>
+            Group the meshes.
+            </summary>
+            <param name="meshDrawDatas">The list of meshes to group.</param>
+            <param name="can32BitIndex">A flag stating if 32 bit index buffers are allowed</param>
+            <param name="commandList"></param>
+            <returns>The list of merged meshes.</returns>
+        </member>
+        <member name="M:VL.Stride.Video.TextureToVideoStream.DrawCore(Stride.Rendering.RenderDrawContext)">
+            <inheritdoc />
+        </member>
+        <member name="T:Stride.Rendering.Shadows.VLShadowMapRenderer">
+            <summary>
+            Handles rendering of shadow map casters.
+            </summary>
+        </member>
+        <member name="T:MyGame.BasicCameraController">
+            <summary>
+            A script that allows to move and rotate an entity through keyboard, mouse and touch input to provide basic camera navigation.
+            </summary>
+            <remarks>
+            The entity can be moved using W, A, S, D, Q and E, arrow keys, a gamepad's left stick or dragging/scaling using multi-touch.
+            Rotation is achieved using the Numpad, the mouse while holding the right mouse button, a gamepad's right stick, or dragging using single-touch.
+            </remarks>
+        </member>
+    </members>
+</doc>

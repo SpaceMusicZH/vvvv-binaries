@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Stride.Windows</name>
+    </assembly>
+    <members>
+        <member name="T:VL.Stride.Assets.AssetBuilderServiceScript">
+            <summary>
+            Custom vl script that sets MSBuild
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Assets.AssetBuiltEventArgs">
+            <summary>
+            This class represents the argument of the <see cref="E:VL.Stride.Assets.IBuildService.AssetBuilt"/> event.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Assets.AssetBuiltEventArgs.#ctor(Stride.Core.Assets.AssetItem,Stride.Core.Diagnostics.LoggerResult)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VL.Stride.Assets.AssetBuiltEventArgs"/> class.
+            </summary>
+            <param name="assetItem">The asset item that has been built.</param>
+            <param name="buildLog">The log of the build.</param>
+        </member>
+        <member name="P:VL.Stride.Assets.AssetBuiltEventArgs.AssetItem">
+            <summary>
+            Gets the asset item that has been built.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Assets.AssetBuiltEventArgs.BuildLog">
+            <summary>
+            Gets the log of the build.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Assets.DispatcherService">
+            <summary>
+            This class is the implementation of the <see cref="T:VL.Stride.Assets.IDispatcherService"/> interface for WPF.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.Create">
+            <summary>
+            Creates a new instance of the <see cref="T:VL.Stride.Assets.DispatcherService"/> class using the dispatcher of the current thread.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.#ctor(System.Windows.Threading.Dispatcher)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VL.Stride.Assets.DispatcherService"/> class using the associated dispatcher.
+            </summary>
+            <param name="dispatcher">The dispatcher to use for this instance of <see cref="T:VL.Stride.Assets.DispatcherService"/>.</param>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.Invoke(System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.Invoke``1(System.Func{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.InvokeAsync(System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.LowPriorityInvokeAsync(System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.InvokeAsync``1(System.Func{``0})">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.InvokeTask(System.Func{System.Threading.Tasks.Task})">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.InvokeTask``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.CheckAccess">
+            <inheritdoc/>
+        </member>
+        <member name="M:VL.Stride.Assets.DispatcherService.EnsureAccess(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:VL.Stride.Assets.IBuildService">
+            <summary>
+            This interface represents a service that build assets.
+            </summary>
+        </member>
+        <member name="E:VL.Stride.Assets.IBuildService.AssetBuilt">
+            <summary>
+            Raised when an asset has been built.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Assets.IDispatcherService">
+            <summary>
+            This interface allows to dispatch execution of a portion of code in the thread where it was created, usually the Main thread.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.Invoke(System.Action)">
+            <summary>
+            Executes the given callback in the dispatcher thread. This method will block until the execution of the callback is completed.
+            </summary>
+            <param name="callback">The callback to execute in the dispatcher thread.</param>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.Invoke``1(System.Func{``0})">
+            <summary>
+            Executes the given callback in the dispatcher thread. This method will block until the execution of the callback is completed.
+            </summary>
+            <typeparam name="TResult">The type of result returned by the callback.</typeparam>
+            <param name="callback">The callback to execute in the dispatcher thread.</param>
+            <returns>The result returned by the executed callback.</returns>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.InvokeAsync(System.Action)">
+            <summary>
+            Executes the given asynchronous function in the dispatcher thread. This method will run asynchronously and return immediately.
+            </summary>
+            <param name="callback">The asynchronous function to execute in the dispatcher thread.</param>
+            <returns>A task corresponding to the asynchronous execution of the given function.</returns>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.LowPriorityInvokeAsync(System.Action)">
+            <summary>
+            Executes the given asynchronous function in the dispatcher thread. This method will run asynchronously and return immediately.
+            </summary>
+            <param name="callback">The asynchronous function to execute in the dispatcher thread.</param>
+            <returns>A task corresponding to the asynchronous execution of the given function.</returns>
+            <remarks>This method uses a low priority to schedule the action on the dispatcher thread.</remarks>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.InvokeAsync``1(System.Func{``0})">
+            <summary>
+            Executes the given asynchronous function in the dispatcher thread. This method will run asynchronously and return immediately.
+            </summary>
+            <typeparam name="TResult">The type of result returned by the task.</typeparam>
+            <param name="callback">The asynchronous function to execute in the dispatcher thread.</param>
+            <returns>A task corresponding to the asynchronous execution of the given task.</returns>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.InvokeTask(System.Func{System.Threading.Tasks.Task})">
+            <summary>
+            Executes the given asynchronous task in the dispatcher thread. This method will run asynchronously and return immediately.
+            </summary>
+            <param name="task">The asynchronous task to execute in the dispatcher thread.</param>
+            <returns>A task corresponding to the asynchronous execution of the given function.</returns>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.InvokeTask``1(System.Func{System.Threading.Tasks.Task{``0}})">
+            <summary>
+            Executes the given asynchronous task in the dispatcher thread. This method will run asynchronously and return immediately.
+            </summary>
+            <typeparam name="TResult">The type of result returned by the task.</typeparam>
+            <param name="task">The asynchronous task to execute in the dispatcher thread.</param>
+            <returns>A task corresponding to the asynchronous execution of the given task.</returns>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.CheckAccess">
+            <summary>
+            Verifies that the current thread is the dispatcher thread.
+            </summary>
+            <returns><c>True</c> if the current thread is the dispatcher thread, <c>False</c> otherwise.</returns>
+        </member>
+        <member name="M:VL.Stride.Assets.IDispatcherService.EnsureAccess(System.Boolean)">
+            <summary>
+            Ensures that the current thread is (or is not) the dispatcher thread. This method will throw an exception if it is not the case.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Assets.RuntimeContentLoader">
+            <summary>
+            A class that handles loading/unloading referenced resources for a game used in an editor.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Assets.RuntimeContentLoader.assetsToReloadLock">
+            <summary>
+            RW lock for <see cref="F:VL.Stride.Assets.RuntimeContentLoader.assetsToReloadQueue"/> and <see cref="F:VL.Stride.Assets.RuntimeContentLoader.assetsToReloadMapping"/>.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Assets.RuntimeContentLoader.assetsToReloadQueue">
+            <summary>
+            The assets currently waiting for a reload to be done.
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Assets.RuntimeContentLoader.assetsToReloadMapping">
+            <summary>
+            Fast lookup to know what is in <see cref="F:VL.Stride.Assets.RuntimeContentLoader.assetsToReloadQueue"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Assets.RuntimeContentLoader.#ctor(VL.Stride.Assets.IDispatcherService,VL.Stride.Assets.IRuntimeDatabase,Stride.Core.Diagnostics.ILogger,Stride.Engine.Game)">
+            <summary>
+            Initializes a new instance of the <see cref="T:VL.Stride.Assets.RuntimeContentLoader"/> class
+            </summary>
+            <param name="gameDispatcher">The dispatcher to the game thread.</param>
+            <param name="runtimDatabase"></param>
+            <param name="logger">The logger to use to log operations.</param>
+            <param name="game">The editor game associated with this instance.</param>
+        </member>
+        <member name="P:VL.Stride.Assets.RuntimeContentLoader.AssetLoadingTimeUrls">
+            <summary>
+            A dictionary storing the urls used to load an asset, to use the same at unload, in case the asset has been renamed.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Assets.RuntimeContentLoader.GameDispatcher">
+            <summary>
+            A dispatcher to the game thread.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Assets.RuntimeContentLoader.FastReloadTypes">
+            <summary>
+            Types that support fast reloading (ie. updating existing object instead of loading a new one and updating references).
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Assets.RuntimeContentLoader.Game">
+            <summary>
+            The <see cref="P:VL.Stride.Assets.RuntimeContentLoader.Game"/> associated with this instance.
+            </summary>
+        </member>
+        <member name="E:VL.Stride.Assets.RuntimeContentLoader.AssetLoading">
+            <summary>
+            Raised when an asset start to be compiled and loaded.
+            </summary>
+        </member>
+        <member name="E:VL.Stride.Assets.RuntimeContentLoader.AssetLoaded">
+            <summary>
+            Raised when an asset has been loaded.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Assets.RuntimeContentLoader.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:VL.Stride.Assets.RuntimeContentLoader.ReloadingAsset">
+            <summary>
+            Represents an asset being reloaded asynchronously.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Assets.RuntimeContentLoader.ReloadingAsset.AssetItem">
+            <summary>
+            The asset being reloaded.
+            </summary>
+        </member>
+        <member name="P:VL.Stride.Assets.RuntimeContentLoader.ReloadingAsset.Result">
+            <summary>
+            The task containg the runtime value of the reloaded asset.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Windows.Assets.IAssetBuilderService">
+            <summary>
+            This is just used as a generic key for a singleton 
+            </summary>
+        </member>
+        <member name="T:Faithlife.Utility.GuidUtility">
+            <summary>
+            Helper methods for working with <see cref="T:System.Guid"/>.
+            </summary>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.TryParse(System.String,System.Guid@)">
+            <summary>
+            Tries to parse the specified string as a <see cref="T:System.Guid"/>.  A return value indicates whether the operation succeeded.
+            </summary>
+            <param name="value">The GUID string to attempt to parse.</param>
+            <param name="guid">When this method returns, contains the <see cref="T:System.Guid"/> equivalent to the GUID
+            contained in <paramref name="value"/>, if the conversion succeeded, or Guid.Empty if the conversion failed.</param>
+            <returns><c>true</c> if a GUID was successfully parsed; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.ToLowerNoDashString(System.Guid)">
+            <summary>
+            Converts a GUID to a lowercase string with no dashes.
+            </summary>
+            <param name="guid">The GUID.</param>
+            <returns>The GUID as a lowercase string with no dashes.</returns>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.FromLowerNoDashString(System.String)">
+            <summary>
+            Converts a lowercase, no dashes string to a GUID.
+            </summary>
+            <param name="value">The string.</param>
+            <returns>The GUID.</returns>
+            <exception cref="T:System.FormatException">The argument is not a valid GUID short string.</exception>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.TryFromLowerNoDashString(System.String)">
+            <summary>
+            Attempts to convert a lowercase, no dashes string to a GUID.
+            </summary>
+            <param name="value">The string.</param>
+            <returns>The GUID, if the string could be converted; otherwise, null.</returns>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.Create(System.Guid,System.String)">
+            <summary>
+            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
+            </summary>
+            <param name="namespaceId">The ID of the namespace.</param>
+            <param name="name">The name (within that namespace).</param>
+            <returns>A UUID derived from the namespace and name.</returns>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.Create(System.Guid,System.String,System.Int32)">
+            <summary>
+            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
+            </summary>
+            <param name="namespaceId">The ID of the namespace.</param>
+            <param name="name">The name (within that namespace).</param>
+            <param name="version">The version number of the UUID to create; this value must be either
+            3 (for MD5 hashing) or 5 (for SHA-1 hashing).</param>
+            <returns>A UUID derived from the namespace and name.</returns>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.Create(System.Guid,System.Byte[])">
+            <summary>
+            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
+            </summary>
+            <param name="namespaceId">The ID of the namespace.</param>
+            <param name="nameBytes">The name (within that namespace).</param>
+            <returns>A UUID derived from the namespace and name.</returns>
+        </member>
+        <member name="M:Faithlife.Utility.GuidUtility.Create(System.Guid,System.Byte[],System.Int32)">
+            <summary>
+            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
+            </summary>
+            <param name="namespaceId">The ID of the namespace.</param>
+            <param name="nameBytes">The name (within that namespace).</param>
+            <param name="version">The version number of the UUID to create; this value must be either
+            3 (for MD5 hashing) or 5 (for SHA-1 hashing).</param>
+            <returns>A UUID derived from the namespace and name.</returns>
+        </member>
+        <member name="F:Faithlife.Utility.GuidUtility.DnsNamespace">
+            <summary>
+            The namespace for fully-qualified domain names (from RFC 4122, Appendix C).
+            </summary>
+        </member>
+        <member name="F:Faithlife.Utility.GuidUtility.UrlNamespace">
+            <summary>
+            The namespace for URLs (from RFC 4122, Appendix C).
+            </summary>
+        </member>
+        <member name="F:Faithlife.Utility.GuidUtility.IsoOidNamespace">
+            <summary>
+            The namespace for ISO OIDs (from RFC 4122, Appendix C).
+            </summary>
+        </member>
+    </members>
+</doc>
