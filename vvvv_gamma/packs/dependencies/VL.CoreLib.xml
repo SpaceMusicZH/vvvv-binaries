@@ -3796,6 +3796,21 @@
             <param name="value">The non-premultiplied value.</param>
             <param name="result">The premultiplied result.</param>
         </member>
+        <member name="T:VL.Lib.Control.ScopedValueStore">
+            <summary>
+            This implementation doesn't work with immutable dictionaries as we don't want no allocations.
+            The outer context could have more or less keys depending on the call stack.
+            Let's not pollute the dictionary, let's not consolidate data -> 
+            * We only need to clear the dictionary on Configurate, on update we just overwrite all values of the last frame. 
+              We can guarantee that there are no key value pairs of a different call stack.
+            * Lookup is a bit more work since there are potentially multiple data layers.
+            </summary>
+        </member>
+        <member name="T:VL.Lib.Control.ScopedValueStore.DataLayer">
+            <summary>
+            Doesn't contain the data of "outer" scopedValueStores active in this call stack
+            </summary>
+        </member>
         <member name="M:VL.Lib.Control.TryCatchUtils.Try``1(System.Func{``0},``0,System.Boolean@,System.String@)">
             <summary>
             Runs the given stateless patch and returns whether it has been successful or not
