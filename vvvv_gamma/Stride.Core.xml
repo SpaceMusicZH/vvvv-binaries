@@ -103,30 +103,6 @@
             <param name="largeStep">The maximum step used to go from minimum to maximum.</param>
             <param name="decimalPlaces">The decimal places.</param>
         </member>
-        <member name="M:Stride.Core.Annotations.DataMemberRangeAttribute.#ctor(System.Double,System.Double)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.Annotations.DataMemberRangeAttribute" /> class.
-            </summary>
-            <param name="minimum">The minimum.</param>
-            <param name="maximum">The maximum.</param>
-        </member>
-        <member name="M:Stride.Core.Annotations.DataMemberRangeAttribute.#ctor(System.Double,System.Double,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.Annotations.DataMemberRangeAttribute" /> class.
-            </summary>
-            <param name="minimum">The minimum.</param>
-            <param name="maximum">The maximum.</param>
-            <param name="decimalPlaces">The decimal places</param>
-        </member>
-        <member name="M:Stride.Core.Annotations.DataMemberRangeAttribute.#ctor(System.Double,System.Double,System.Double,System.Double)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.Annotations.DataMemberRangeAttribute" /> class.
-            </summary>
-            <param name="minimum">The minimum.</param>
-            <param name="maximum">The maximum.</param>
-            <param name="smallStep">The minimum step used to go from minimum to maximum.</param>
-            <param name="largeStep">The maximum step.</param>
-        </member>
         <member name="P:Stride.Core.Annotations.DataMemberRangeAttribute.Minimum">
             <summary>
             Gets the minimum inclusive.
@@ -318,17 +294,6 @@
         <member name="M:Stride.Core.AnonymousDisposable.Dispose">
             <inheritdoc/>
         </member>
-        <member name="T:Stride.Core.Collections.ArrayHelper`1">
-            <summary>
-            Array helper for a particular type, useful to get an empty array.
-            </summary>
-            <typeparam name="T">Type of the array element</typeparam>
-        </member>
-        <member name="F:Stride.Core.Collections.ArrayHelper`1.Empty">
-            <summary>
-            An empty array of the specified <see cref="!:T"/> element type.
-            </summary>
-        </member>
         <member name="T:Stride.Core.Collections.ConstrainedList`1">
             <summary>
             Represent a collection associated with a constraint. When an item is added to this collection, it is tested against the constraint.
@@ -392,11 +357,11 @@
         </member>
         <member name="P:Stride.Core.Collections.FastCollection`1.Item(System.Int32)">
             <summary>
-            Gets or sets the element <see cref="!:T"/> at the specified index.
+            Gets or sets the element <typeparamref name="T"/> at the specified index.
             </summary>
             <param name="index">The index.</param>
             <value>
-            The element <see cref="!:T"/>.
+            The element <typeparamref name="T"/>.
             </value>
             <returns>The element at the specified index</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">If index is out of range</exception>
@@ -744,7 +709,32 @@
             an element with the specified value; otherwise, false.
             </returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Stride.Core.Collections.MultiValueSortedDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)" -->
+        <member name="M:Stride.Core.Collections.MultiValueSortedDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">
+            <summary>
+            Copies the elements of the KoderHack.MultiValueSortedDictionary&lt;TKey,TValue&gt;
+            to the specified array of <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            structures, starting at the specified index.
+            </summary>
+            <param name="array">
+            The one-dimensional array of <see cref="T:System.Collections.Generic.KeyValuePair`2"/>
+            structures that is the destination of the elements copied from the current
+            KoderHack.MultiValueSortedDictionary&lt;TKey,TValue&gt; The array must have
+            zero-based indexing.
+            </param>
+            <param name="index">
+            The zero-based index in array at which copying begins.
+            </param>
+            <exception cref="T:System.ArgumentNullException">array is null.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            index is equal to or greater than the length of array.  -or- index is less
+            than 0.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+            The number of elements in the source KoderHack.MultiValueSortedDictionary&lt;TKey,TValue&gt;
+            is greater than the available space from index to the end of the destination
+            array.
+            </exception>
+        </member>
         <member name="M:Stride.Core.Collections.MultiValueSortedDictionary`2.GetEnumerator">
             <summary>
             Returns an enumerator that iterates through the KoderHack.MultiValueSortedDictionary&lt;TKey,TValue&gt;.
@@ -962,7 +952,15 @@
             Enumerates the elements of a KoderHack.MultiValueSortedDictionary&lt;TKey,TValue&gt;.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Core.Collections.MultiValueSortedDictionary`2.Enumerator.Current" -->
+        <member name="P:Stride.Core.Collections.MultiValueSortedDictionary`2.Enumerator.Current">
+            <summary>
+            Gets the element at the current position of the enumerator.
+            </summary>
+            <returns>
+            The element in the <see cref="T:System.Collections.Generic.SortedDictionary`2"/>
+            at the current position of the enumerator.
+            </returns>  
+        </member>
         <member name="P:Stride.Core.Collections.MultiValueSortedDictionary`2.Enumerator.System#Collections#IDictionaryEnumerator#Entry">
             <summary>
             Gets both the key and the value of the current dictionary entry.
@@ -1072,7 +1070,7 @@
         </member>
         <member name="P:Stride.Core.Collections.OrderedCollection`1.Item(System.Int32)">
             <summary>
-            Gets the element <see cref="!:T"/> at the specified index.
+            Gets the element <typeparamref name="T"/> at the specified index.
             </summary>
             <param name="index">The index.</param>
             <returns>The element at the specified index</returns>
@@ -1103,7 +1101,7 @@
         </member>
         <member name="T:Stride.Core.Collections.PoolListStruct`1">
             <summary>
-            A pool of objects allocated and can be cleared without loosing previously allocated instance.
+            A pool of objects allocated and can be cleared without losing previously allocated instance.
             </summary>
             <typeparam name="T">Type of the pooled object</typeparam>
         </member>
@@ -1578,7 +1576,7 @@
         </member>
         <member name="M:Stride.Core.ComponentBaseExtensions.DisposeBy``1(``0,Stride.Core.ICollectorHolder)">
             <summary>
-            Keeps a component alive by adding it to a container.
+            Keeps a disposable object alive by adding it to a container.
             </summary>
             <typeparam name="T">A component</typeparam>
             <param name="thisArg">The component to keep alive.</param>
@@ -1587,7 +1585,24 @@
         </member>
         <member name="M:Stride.Core.ComponentBaseExtensions.RemoveDisposeBy``1(``0,Stride.Core.ICollectorHolder)">
             <summary>
-            Removes a component that ws being kept alive from a container.
+            Removes a disposable object that was being kept alive from a container.
+            </summary>
+            <typeparam name="T">A component</typeparam>
+            <param name="thisArg">The component to remove.</param>
+            <param name="container">The container that kept a reference to the component.</param>
+        </member>
+        <member name="M:Stride.Core.ComponentBaseExtensions.ReleaseBy``1(``0,Stride.Core.ICollectorHolder)">
+            <summary>
+            Keeps a referencable object alive by adding it to a container.
+            </summary>
+            <typeparam name="T">A component</typeparam>
+            <param name="thisArg">The component to keep alive.</param>
+            <param name="container">The container that will keep a reference to the component.</param>
+            <returns>The same component instance</returns>
+        </member>
+        <member name="M:Stride.Core.ComponentBaseExtensions.RemoveReleaseBy``1(``0,Stride.Core.ICollectorHolder)">
+            <summary>
+            Removes a referencable object that was being kept alive from a container.
             </summary>
             <typeparam name="T">A component</typeparam>
             <param name="thisArg">The component to remove.</param>
@@ -1796,22 +1811,15 @@
             <summary>
             When restored, new object is created by using the parameters in
             the YAML data and assigned to the property / field. When the
-            property / filed is writeable, this is the default.
+            property / field is writeable, this is the default.
             </summary>
         </member>
         <member name="F:Stride.Core.DataMemberMode.Content">
             <summary>
-             Only valid for a property / field that has a class or struct type.
-             When restored, instead of recreating the whole class or struct,
+             Only valid for a property / field that return a class, no strings, primitives or value types.
+             When restored, instead of recreating the whole class,
              the members are independently restored. When the property / field
              is not writeable this is the default.
-            </summary>
-        </member>
-        <member name="F:Stride.Core.DataMemberMode.Binary">
-            <summary>
-             Only valid for a property / field that has an  array type of a 
-             some value type. The content of the array is stored in a binary
-             format encoded in base64 style.
             </summary>
         </member>
         <member name="F:Stride.Core.DataMemberMode.Never">
@@ -2924,25 +2932,45 @@
                 profile.Mark("CriticalPart");
             
                 // Adds an attribute that will be logged in End event
-                profile.SetAttribute("ModelCount", modelCount);
+                profile.Attributes.Add("ModelCount", modelCount);
             } // here a 'End' profiling event will be issued.
             </code>
-            By default, the profiler is not enabled, so there is a minimum performance impact leaving it in the code (it has
-            the costs of a lock and a dictionary lookup). It doesn't measure anything and doesn't produce any KPI.
+            By default, the profiler is not enabled, so there is a minimum performance impact leaving it in the code. 
+            It doesn't measure anything and doesn't produce any KPI.
             
-            To enable a particular profiler (before using <see cref="!:Begin()"/> method):
+            To enable a particular profiler (before using <see cref="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey)"/> method):
             <code>
             Profiler.Enable(GameInitialization);
-             </code>
-            To enable all profilers, use <c>Profiler.Enable()</c> method.
+            </code>
+            To enable all profilers, use <c>Profiler.EnableAll()</c> method.
             
-            When the profiler is enabled, it is logged using the logging system through the standard <see cref="F:Stride.Core.Diagnostics.Profiler.Logger"/> infrastructure.
-            The logger module name used is "Profile." concatenates with the name of the profile.
+            When the profiler is enabled, it is logged using the logging system through the standard <see cref="T:Stride.Core.Diagnostics.Logger"/> infrastructure, 
+            if ProfilingKeyFlags.Log is set for the ProfilingKey. The logger module name used is "Profile." concatenates with the name of the profile.
             
             Note also that when profiling, it is possible to attach some property values (counters, indicators...etc.) to a profiler state. This 
-            property values will be displayed along the standard profiler state. You can use <see cref="M:Stride.Core.Diagnostics.ProfilingState.SetAttribute(System.String,System.Object)"/> to attach
+            property values will be displayed along the standard profiler state. You can use <see cref="P:Stride.Core.Diagnostics.ProfilingState.Attributes"/> to attach
             a property value to a <see cref="T:Stride.Core.Diagnostics.ProfilingState"/>.
+            
+            To register your own system to receive <see cref="T:Stride.Core.Diagnostics.ProfilingEvent">ProfilingEvents</see> use the <see cref="M:Stride.Core.Diagnostics.Profiler.Subscribe"/> and 
+            <see cref="M:Stride.Core.Diagnostics.Profiler.Unsubscribe(System.Threading.Channels.ChannelReader{Stride.Core.Diagnostics.ProfilingEvent})"/> methods.
             </remarks>
+        </member>
+        <member name="P:Stride.Core.Diagnostics.Profiler.MinimumProfileDuration">
+            <summary>
+            The minimum duration of events that will be captured. Defaults to 1 µs.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Diagnostics.Profiler.Subscribe">
+            <summary>
+            Subscribes to the generated ProfilingEvents.
+            </summary>
+            <returns>The <see cref="T:System.Threading.Channels.ChannelReader`1"/> which will receive the events.</returns>
+        </member>
+        <member name="M:Stride.Core.Diagnostics.Profiler.Unsubscribe(System.Threading.Channels.ChannelReader{Stride.Core.Diagnostics.ProfilingEvent})">
+            <summary>
+            Unsubscribes from receiving ProfilingEvents.
+            </summary>
+            <param name="eventReader">The reader previously returned by <see cref="M:Stride.Core.Diagnostics.Profiler.Subscribe"/></param>
         </member>
         <member name="M:Stride.Core.Diagnostics.Profiler.EnableAll">
             <summary>
@@ -2979,10 +3007,10 @@
             </summary>
             <param name="profilingKey">The profile key.</param>
             <returns>A profiler state.</returns>
-            <remarks>It is recommended to call this method with <c>using (var profile = Profiler.Profile(...))</c> in order to make sure that the Dispose() method will be called on the
-            <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
+            <remarks>It is recommended to call this method with <c>using (Profiler.Begin(...)) {...}</c> or <c>using var _ = Profiler.Begin(...);</c> 
+            in order to make sure that the Dispose() method will be called on the <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
         </member>
-        <member name="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey,System.String)">
+        <member name="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey)">
             <summary>
             Creates a profiler with the specified key. The returned object must be disposed at the end of the section
             being profiled. See remarks.
@@ -2990,22 +3018,10 @@
             <param name="profilingKey">The profile key.</param>
             <param name="text">The text to log with the profile.</param>
             <returns>A profiler state.</returns>
-            <remarks>It is recommended to call this method with <c>using (var profile = Profiler.Profile(...))</c> in order to make sure that the Dispose() method will be called on the
-            <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
+            <remarks>It is recommended to call this method with <c>using (Profiler.Begin(...)) {...}</c> or <c>using var _ = Profiler.Begin(...);</c> 
+            in order to make sure that the Dispose() method will be called on the <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
         </member>
-        <member name="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey,System.String,System.Object[])">
-            <summary>
-            Creates a profiler with the specified key. The returned object must be disposed at the end of the section
-            being profiled. See remarks.
-            </summary>
-            <param name="profilingKey">The profile key.</param>
-            <param name="textFormat">The text to format.</param>
-            <param name="textFormatArguments">The text format arguments.</param>
-            <returns>A profiler state.</returns>
-            <remarks>It is recommended to call this method with <c>using (var profile = Profiler.Profile(...))</c> in order to make sure that the Dispose() method will be called on the
-            <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey,System.String,Stride.Core.Diagnostics.ProfilingCustomValue,System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
+        <member name="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey,System.String,System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
             <summary>
             Creates a profiler with the specified key. The returned object must be disposed at the end of the section
             being profiled. See remarks.
@@ -3017,21 +3033,20 @@
             <param name="value2">Third value (can be int, float, long or double).</param>
             <param name="value3">Fourth value (can be int, float, long or double).</param>
             <returns>A profiler state.</returns>
-            <remarks>It is recommended to call this method with <c>using (var profile = Profiler.Profile(...))</c> in order to make sure that the Dispose() method will be called on the
-            <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
+            <remarks>It is recommended to call this method with <c>using (Profiler.Begin(...)) {...}</c> or <c>using var _ = Profiler.Begin(...);</c> 
+            in order to make sure that the Dispose() method will be called on the <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
         </member>
         <member name="M:Stride.Core.Diagnostics.Profiler.Reset">
             <summary>
             Resets the id counter to zero and disable all registered profiles.
             </summary>
         </member>
-        <member name="M:Stride.Core.Diagnostics.Profiler.GetEvents(Stride.Core.Diagnostics.ProfilingEventType,System.Boolean)">
+        <member name="M:Stride.Core.Diagnostics.Profiler.SendEventToSubscribers(Stride.Core.Diagnostics.ProfilingEvent)">
             <summary>
-            Retrieve the selected type of events and returns the number of elapsed frames.
+            Sends the event to all existing subscribers.
+            If there are no subscribers the event is dropped.
             </summary>
-            <param name="eventType">The type of events to retrieve</param>
-            <param name="clearOtherEventTypes">if true, also clears the event types to avoid event over-accumulation.</param>
-            <returns>The profiling events.</returns>
+            <param name="e">The event.</param>
         </member>
         <member name="M:Stride.Core.Diagnostics.Profiler.AppendTime(System.Text.StringBuilder,System.Int64,System.Int64)">
             <summary>
@@ -3070,9 +3085,14 @@
             The elapsed time since Begin event.
             </summary>
         </member>
-        <member name="F:Stride.Core.Diagnostics.ProfilingEvent.Text">
+        <member name="F:Stride.Core.Diagnostics.ProfilingEvent.ThreadId">
             <summary>
-            The text.
+            The thread id.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Diagnostics.ProfilingEvent.Message">
+            <summary>
+            The message.
             </summary>
         </member>
         <member name="F:Stride.Core.Diagnostics.ProfilingEvent.Attributes">
@@ -3080,7 +3100,7 @@
             The attributes
             </summary>
         </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingEvent.#ctor(System.Int32,Stride.Core.Diagnostics.ProfilingKey,Stride.Core.Diagnostics.ProfilingMessageType,System.Int64,System.Int64,System.String,System.Collections.Generic.Dictionary{System.Object,System.Object},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
+        <member name="M:Stride.Core.Diagnostics.ProfilingEvent.#ctor(System.Int32,Stride.Core.Diagnostics.ProfilingKey,Stride.Core.Diagnostics.ProfilingMessageType,System.TimeSpan,System.TimeSpan,System.Int32,System.Nullable{Stride.Core.Diagnostics.ProfilingEventMessage},System.Diagnostics.TagList)">
             <summary>
             Initializes a new instance of the <see cref="T:Stride.Core.Diagnostics.ProfilingEvent" /> struct.
             </summary>
@@ -3089,8 +3109,24 @@
             <param name="profilingType">Type of the profiling.</param>
             <param name="timeStamp"></param>
             <param name="elapsedTime">The elapsed time.</param>
-            <param name="text">The text.</param>
+            <param name="Message">The message.</param>
             <param name="attributes">The attributes.</param>
+        </member>
+        <member name="T:Stride.Core.Diagnostics.ProfilingEventMessage">
+            <summary>
+            A message attached to a <see cref="T:Stride.Core.Diagnostics.ProfilingEvent"/>.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.Diagnostics.ProfilingEventMessage.Text">
+            <summary>
+            The text supporting formatting of up to 4 numerical parameters.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Diagnostics.ProfilingEventMessage.#ctor(System.String,System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Diagnostics.ProfilingEventMessage" /> struct.
+            </summary>
+            <param name="text">The text supporting formatting of up to 4 numerical parameters.</param>
             <param name="value0"></param>
             <param name="value1"></param>
             <param name="value2"></param>
@@ -3163,7 +3199,7 @@
             <param name="profilingKey">The profile key.</param>
             <param name="profilingType">Type of the profile.</param>
         </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingMessage.#ctor(System.Int32,Stride.Core.Diagnostics.ProfilingKey,Stride.Core.Diagnostics.ProfilingMessageType,System.String)">
+        <member name="M:Stride.Core.Diagnostics.ProfilingMessage.#ctor(System.Int32,Stride.Core.Diagnostics.ProfilingKey,Stride.Core.Diagnostics.ProfilingMessageType,System.Nullable{Stride.Core.Diagnostics.ProfilingEventMessage})">
             <summary>
             Initializes a new instance of the <see cref="T:Stride.Core.Diagnostics.ProfilingMessage" /> class.
             </summary>
@@ -3189,6 +3225,16 @@
             Gets the type of the profile.
             </summary>
             <value>The type of the profile.</value>
+        </member>
+        <member name="P:Stride.Core.Diagnostics.ProfilingMessage.Message">
+            <summary>
+            Event message.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.Diagnostics.ProfilingMessage.Text">
+            <summary>
+            Text of the log.
+            </summary>
         </member>
         <member name="P:Stride.Core.Diagnostics.ProfilingMessage.ElapsedTime">
             <summary>
@@ -3249,11 +3295,16 @@
             </summary>
             <value>The profiling key.</value>
         </member>
-        <member name="P:Stride.Core.Diagnostics.ProfilingState.DisposeDelegate">
+        <member name="P:Stride.Core.Diagnostics.ProfilingState.Attributes">
             <summary>
-            Gets or sets the dispose profile delegate.
+            A list of attributes (dimensions) associated with this profiling state.
             </summary>
-            <value>The dispose profile delegate.</value>
+        </member>
+        <member name="P:Stride.Core.Diagnostics.ProfilingState.TickFrequency">
+            <summary>
+            Gets or sets the TickFrequency used to convert <see cref="T:System.Int64"/> timestamp to <see cref="T:System.TimeSpan"/>.
+            By default for CPU events it's <see cref="F:System.Diagnostics.Stopwatch.Frequency"/> and for GPU events it's set by the rendering code."/>
+            </summary>
         </member>
         <member name="M:Stride.Core.Diagnostics.ProfilingState.CheckIfEnabled">
             <summary>
@@ -3263,35 +3314,6 @@
             This can be used for long running profiling that are using markers and want to log markers if 
             the profiling was activated at runtime.
             </remarks>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.GetAttribute(System.String)">
-            <summary>
-            Gets the attribute value.
-            </summary>
-            <param name="key">The key.</param>
-            <returns>Value of a key.</returns>
-            <remarks>If profiling was not enabled for this profile key, the attribute is not stored</remarks>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.SetAttribute(System.String,System.Object)">
-            <summary>
-            Sets the attribute value for a specified key. See remarks.
-            </summary>
-            <param name="key">The key.</param>
-            <param name="value">The value.</param>
-            <remarks>If profiling was not enabled for this profile key, the attribute is not stored</remarks>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.Begin(System.String)">
-            <summary>
-            Emits a Begin profiling event with the specified text.
-            </summary>
-            <param name="text">The text.</param>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.Begin(System.String,System.Object[])">
-            <summary>
-            Emits a Begin profiling event with the specified formatted text.
-            </summary>
-            <param name="textFormat">The text format.</param>
-            <param name="textFormatArguments">The text format arguments.</param>
         </member>
         <member name="M:Stride.Core.Diagnostics.ProfilingState.Begin(System.String,System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
             <summary>
@@ -3303,32 +3325,15 @@
             <param name="value2">Third value (can be int, float, long or double).</param>
             <param name="value3">Fourth value (can be int, float, long or double).</param>
         </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.Begin(System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
+        <member name="M:Stride.Core.Diagnostics.ProfilingState.BeginGpu(System.Int64)">
             <summary>
-            Emits a Begin event with the specified formatted text.
+            Emits a Begin event with an override on the timestamp. Internal for the use of Stride.Rendering.
             </summary>
-            <param name="value0">First value (can be int, float, long or double).</param>
-            <param name="value1">Second value (can be int, float, long or double).</param>
-            <param name="value2">Third value (can be int, float, long or double).</param>
-            <param name="value3">Fourth value (can be int, float, long or double).</param>
         </member>
         <member name="M:Stride.Core.Diagnostics.ProfilingState.Mark">
             <summary>
             Emits a Mark event.
             </summary>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.Mark(System.String)">
-            <summary>
-            Emits a Mark event with the specified text.
-            </summary>
-            <param name="text">The text.</param>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.Mark(System.String,System.Object[])">
-            <summary>
-            Emits a Mark event with the specified formatted text.
-            </summary>
-            <param name="textFormat">The text format.</param>
-            <param name="textFormatArguments">The text format arguments.</param>
         </member>
         <member name="M:Stride.Core.Diagnostics.ProfilingState.Mark(System.String,System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
             <summary>
@@ -3340,32 +3345,10 @@
             <param name="value2">Third value (can be int, float, long or double).</param>
             <param name="value3">Fourth value (can be int, float, long or double).</param>
         </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.Mark(System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
-            <summary>
-            Emits a Mark profiling event with the specified text.
-            </summary>
-            <param name="value0">First value (can be int, float, long or double).</param>
-            <param name="value1">Second value (can be int, float, long or double).</param>
-            <param name="value2">Third value (can be int, float, long or double).</param>
-            <param name="value3">Fourth value (can be int, float, long or double).</param>
-        </member>
         <member name="M:Stride.Core.Diagnostics.ProfilingState.End">
             <summary>
             Emits a End profiling event.
             </summary>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.End(System.String)">
-            <summary>
-            Emits a End profiling event with the specified text.
-            </summary>
-            <param name="text">The text.</param>
-        </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.End(System.String,System.Object[])">
-            <summary>
-            Emits a End profiling event with the specified formatted text.
-            </summary>
-            <param name="textFormat">The text format.</param>
-            <param name="textFormatArguments">The text format arguments.</param>
         </member>
         <member name="M:Stride.Core.Diagnostics.ProfilingState.End(System.String,System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
             <summary>
@@ -3377,14 +3360,10 @@
             <param name="value2">Third value (can be int, float, long or double).</param>
             <param name="value3">Fourth value (can be int, float, long or double).</param>
         </member>
-        <member name="M:Stride.Core.Diagnostics.ProfilingState.End(System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue},System.Nullable{Stride.Core.Diagnostics.ProfilingCustomValue})">
+        <member name="M:Stride.Core.Diagnostics.ProfilingState.EndGpu(System.Int64)">
             <summary>
-            Emits a End profiling event with the specified custom value.
+            Emits an End event with an override on the timestamp. Internal for the use of Stride.Rendering.
             </summary>
-            <param name="value0">First value (can be int, float, long or double).</param>
-            <param name="value1">Second value (can be int, float, long or double).</param>
-            <param name="value2">Third value (can be int, float, long or double).</param>
-            <param name="value3">Fourth value (can be int, float, long or double).</param>
         </member>
         <member name="T:Stride.Core.Diagnostics.ProgressStatusEventArgs">
             <summary>
@@ -3939,212 +3918,6 @@
             Gets the id of this instance
             </summary>
         </member>
-        <member name="T:Stride.Core.IL.RemoveInitLocalsAttribute">
-            <summary>
-            Using this optimization attribute will prevent local variables in this method to be zero-ed in the prologue (if the runtime supports it).
-            </summary>
-        </member>
-        <member name="T:Stride.Core.IO.NamespaceDoc">
-            <summary>
-            The <see cref="N:Stride.Core.IO"/> namespace contains additional types for reading and writing to streams, and types that provide directory and path support.
-            It also provides a <see cref="T:Stride.Core.IO.VirtualFileSystem"/> layer that abstracts file accesses and paths of local disks, network, databases, etc.
-            <ul>
-            <li>The <see cref="T:Stride.Core.IO.NativeStream"/> class allows stream reading to and writing from unmanaged data using an <see cref="T:System.IntPtr"/> native pointer.</li>
-            <li>The <see cref="!:UPath"/> class allows manipulation of paths and provides various operation such as absolute/relative path conversion, normalization, etc.</li>
-            </ul>
-            </summary>
-        </member>
-        <member name="T:Stride.Core.IO.NativeMemoryStream">
-            <summary>
-            A <see cref="T:System.IO.MemoryStream"/> over a native memory region.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.#ctor(System.IntPtr,System.Int64)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.IO.NativeMemoryStream"/> class.
-            </summary>
-            <param name="data">The native data pointer.</param>
-            <param name="length">The data length.</param>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.#ctor(System.Byte*,System.Int64)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.IO.NativeMemoryStream"/> class.
-            </summary>
-            <param name="data">The native data pointer.</param>
-            <param name="length">The data length.</param>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Flush">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Seek(System.Int64,System.IO.SeekOrigin)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.SetLength(System.Int64)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Read(System.Span{System.Byte})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Read(System.Byte[],System.Int32,System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.ReadOnlySpan{System.Byte})">
-            <inheritdoc/>
-            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
-            is not large enough to write the specified <paramref name="buffer"/>.</exception>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.Write(System.Byte[],System.Int32,System.Int32)">
-            <inheritdoc/>
-            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
-            is not large enough to write the specified <paramref name="buffer"/>.</exception>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.ReadByte">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeMemoryStream.WriteByte(System.Byte)">
-            <inheritdoc/>
-            <exception cref="T:System.IO.IOException">The remaining capacity in the stream
-            is not large enough to write the specified <paramref name="buffer"/>.</exception>
-        </member>
-        <member name="P:Stride.Core.IO.NativeMemoryStream.CanRead">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeMemoryStream.CanSeek">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeMemoryStream.CanWrite">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeMemoryStream.Length">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeMemoryStream.Position">
-            <inheritdoc/>
-        </member>
-        <member name="T:Stride.Core.IO.NativeStream">
-            <summary>
-            A <see cref="T:System.IO.Stream"/> with additional methods for native read and write operations using <see cref="T:System.IntPtr"/>.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStream.Read(System.IntPtr,System.Int32)">
-            <summary>
-            Reads a block of bytes from the stream and writes the data in a given buffer.
-            </summary>
-            <param name="buffer">When this method returns, contains the specified buffer with the values between 0 and (count - 1) replaced by the bytes read from the current source. </param>
-            <param name="count">The maximum number of bytes to read. </param>
-            <exception cref="T:System.ArgumentNullException">array is null. </exception>
-            <returns>The total number of bytes read into the buffer. This might be less than the number of bytes requested if that number of bytes are not currently available, or zero if the end of the stream is reached.</returns>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStream.Write(System.IntPtr,System.Int32)">
-            <summary>
-            Writes a block of bytes to this stream using data from a buffer.
-            </summary>
-            <param name="buffer">The buffer containing data to write to the stream.</param>
-            <param name="count">The number of bytes to be written to the current stream. </param>
-        </member>
-        <member name="T:Stride.Core.IO.NativeStreamExtensions">
-            <summary>
-            Extension methods concerning <see cref="T:Stride.Core.IO.NativeStream"/>.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamExtensions.ToNativeStream(System.IO.Stream)">
-            <summary>
-            Converts a <see cref="T:System.IO.Stream"/> to a <see cref="T:Stride.Core.IO.NativeStream"/>.
-            </summary>
-            <remarks>
-            If <see cref="!:stream"/> is already a <see cref="T:Stride.Core.IO.NativeStream"/>, it will be returned as is.
-            Otherwise, a <see cref="T:Stride.Core.IO.NativeStreamWrapper"/> around it will be created.
-            </remarks>
-            <param name="stream">The stream.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.CopyToAsync(System.IO.Stream,System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.Flush">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.FlushAsync(System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.ReadAsync(System.Memory{System.Byte},System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.ReadAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.WriteAsync(System.Byte[],System.Int32,System.Int32,System.Threading.CancellationToken)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.Seek(System.Int64,System.IO.SeekOrigin)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.SetLength(System.Int64)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.Read(System.Span{System.Byte})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.Read(System.Byte[],System.Int32,System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.ReadByte">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.Write(System.ReadOnlySpan{System.Byte})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.Write(System.Byte[],System.Int32,System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.NativeStreamWrapper.WriteByte(System.Byte)">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.CanRead">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.CanSeek">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.CanTimeout">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.CanWrite">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.Length">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.Position">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.ReadTimeout">
-            <inheritdoc/>
-        </member>
-        <member name="P:Stride.Core.IO.NativeStreamWrapper.WriteTimeout">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.IO.StreamExtensions.ReadUInt16(System.IO.Stream)">
-            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.ReadUInt16"/></summary>
-        </member>
-        <member name="M:Stride.Core.IO.StreamExtensions.ReadUInt32(System.IO.Stream)">
-            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.ReadUInt32"/></summary>
-        </member>
-        <member name="M:Stride.Core.IO.StreamExtensions.ReadUInt64(System.IO.Stream)">
-            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.ReadUInt64"/></summary>
-        </member>
-        <member name="M:Stride.Core.IO.StreamExtensions.Write(System.IO.Stream,System.UInt16)">
-            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.Write(System.UInt16)"/></summary>
-        </member>
-        <member name="M:Stride.Core.IO.StreamExtensions.Write(System.IO.Stream,System.UInt32)">
-            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.Write(System.UInt32)"/></summary>
-        </member>
-        <member name="M:Stride.Core.IO.StreamExtensions.Write(System.IO.Stream,System.UInt64)">
-            <summary>A temporary replacement for <see cref="M:Stride.Core.IO.NativeStream.Write(System.UInt64)"/></summary>
-        </member>
         <member name="T:Stride.Core.IReferencable">
             <summary>
             Base interface for all referencable objects.
@@ -4178,12 +3951,12 @@
         </member>
         <member name="E:Stride.Core.IServiceRegistry.ServiceAdded">
             <summary>
-            Occurs when a new service is added.
+            Occurs when a new service is added to the registry.
             </summary>
         </member>
         <member name="E:Stride.Core.IServiceRegistry.ServiceRemoved">
             <summary>
-            Occurs when when a service is removed.
+            Occurs when a service is removed from the registry.
             </summary>
         </member>
         <member name="M:Stride.Core.IServiceRegistry.AddService``1(``0)">
@@ -4192,8 +3965,8 @@
             </summary>
             <typeparam name="T">The type of service to add.</typeparam>
             <param name="service">The service to add.</param>
-            <exception cref="T:System.ArgumentNullException">Service cannot be null</exception>
-            <exception cref="T:System.ArgumentException">Service is already registered with this type</exception>
+            <exception cref="T:System.ArgumentNullException">Thrown when the provided service is null.</exception>
+            <exception cref="T:System.ArgumentException">Thrown when a service of the same type is already registered.</exception>
         </member>
         <member name="M:Stride.Core.IServiceRegistry.GetService``1">
             <summary>
@@ -4240,21 +4013,6 @@
             </summary>
             <param name="libraryPath">The full path to the native library.</param>
             <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="T:Stride.Core.NullDisposable">
-            <summary>
-            This class is an implementation of the <see cref="T:System.IDisposable"/> interface that does nothing when disposed.
-            </summary>
-        </member>
-        <member name="F:Stride.Core.NullDisposable.Instance">
-            <summary>
-            A static instance of the <see cref="T:Stride.Core.NullDisposable"/> class.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.NullDisposable.Dispose">
-            <summary>
-            Implementation of the <see cref="M:System.IDisposable.Dispose"/> method. This method does nothing.
-            </summary>
         </member>
         <member name="T:Stride.Core.ObjectCollector">
             <summary>
@@ -5077,38 +4835,6 @@
             The type of the serializer factory.
             </summary>
         </member>
-        <member name="T:Stride.Core.Serialization.BinarySerialization">
-            <summary>
-            Binary serialization method helpers to easily read/write data from a stream.
-            </summary>
-            <remarks>
-            This class is a simple front end to <see cref="T:Stride.Core.Serialization.BinarySerializationReader"/> and <see cref="T:Stride.Core.Serialization.BinarySerializationWriter"/>.
-            </remarks>
-        </member>
-        <member name="M:Stride.Core.Serialization.BinarySerialization.Read``1(System.IO.Stream)">
-            <summary>
-            Reads an object instance from the specified stream.
-            </summary>
-            <typeparam name="T">Type of the object to read</typeparam>
-            <param name="stream">The stream to read the object instance.</param>
-            <returns>An object instance of type T.</returns>
-        </member>
-        <member name="M:Stride.Core.Serialization.BinarySerialization.Read``1(System.Byte[])">
-            <summary>
-            Reads an object instance from the specified byte buffer.
-            </summary>
-            <typeparam name="T">Type of the object to read</typeparam>
-            <param name="buffer">The byte buffer to read the object instance.</param>
-            <returns>An object instance of type T.</returns>
-        </member>
-        <member name="M:Stride.Core.Serialization.BinarySerialization.Write``1(System.IO.Stream,``0)">
-            <summary>
-            Writes an object instance to the specified stream.
-            </summary>
-            <typeparam name="T">Type of the object to write</typeparam>
-            <param name="stream">The stream to write the object instance to.</param>
-            <param name="value">The value to write.</param>
-        </member>
         <member name="T:Stride.Core.Serialization.BinarySerializationReader">
             <summary>
             Implements <see cref="T:Stride.Core.Serialization.SerializationStream"/> as a binary reader.
@@ -5118,7 +4844,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:Stride.Core.Serialization.BinarySerializationReader"/> class.
             </summary>
-            <param name="inputStream">The input stream.</param>
+            <param name="inputStream">The input stream to read from.</param>
         </member>
         <member name="M:Stride.Core.Serialization.BinarySerializationReader.Serialize(System.Boolean@)">
             <inheritdoc />
@@ -5461,59 +5187,6 @@
             The <see cref="N:Stride.Core.Serialization"/> namespace contains types that provides a low-level serialization customizable engine.
             </summary>
         </member>
-        <member name="T:Stride.Core.Serialization.NullSerializationStream">
-            <summary>
-            Empty implementation of <see cref="T:Stride.Core.Serialization.SerializationStream"/>.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Boolean@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Single@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Double@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Int16@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Int32@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Int64@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.UInt16@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.UInt32@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.UInt64@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.String@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Char@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Byte@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.SByte@)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Byte[],System.Int32,System.Int32)">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Serialize(System.Span{System.Byte})">
-            <inheritdoc/>
-        </member>
-        <member name="M:Stride.Core.Serialization.NullSerializationStream.Flush">
-            <inheritdoc/>
-        </member>
         <member name="T:Stride.Core.Serialization.NullSerializer`1">
             <summary>
             A null serializer that can be used to add dummy serialization attributes.
@@ -5522,11 +5195,6 @@
         <member name="T:Stride.Core.Serialization.SerializationStream">
             <summary>
             Base class for implementation of <see cref="T:Stride.Core.Serialization.SerializationStream"/>.
-            </summary>
-        </member>
-        <member name="P:Stride.Core.Serialization.SerializationStream.NativeStream">
-            <summary>
-            The <see cref="T:System.IO.Stream"/> from which this serializer reads or to which it writes.
             </summary>
         </member>
         <member name="P:Stride.Core.Serialization.SerializationStream.UnderlyingStream">
@@ -6523,7 +6191,15 @@
         </member>
         <member name="T:Stride.Core.ServiceRegistry">
             <summary>
-            Base implementation for <see cref="T:Stride.Core.IServiceRegistry"/>
+            Provides a base implementation for managing services within an application. Implements the <see cref="T:Stride.Core.IServiceRegistry"/> interface.
+            </summary>
+            <remarks>
+            This class uses a dictionary to store services by their types. It is thread-safe.
+            </remarks>
+        </member>
+        <member name="F:Stride.Core.ServiceRegistry.ServiceRegistryKey">
+            <summary>
+            The key used to identify the <see cref="T:Stride.Core.ServiceRegistry"/> instance.
             </summary>
         </member>
         <member name="E:Stride.Core.ServiceRegistry.ServiceAdded">
@@ -6537,17 +6213,16 @@
         </member>
         <member name="M:Stride.Core.ServiceRegistry.AddService``1(``0)">
             <inheritdoc />
+            <remarks>
+            This implementation triggers the <see cref="E:Stride.Core.ServiceRegistry.ServiceAdded"/> event after a service is successfully added.
+            </remarks>
         </member>
         <member name="M:Stride.Core.ServiceRegistry.RemoveService``1">
             <inheritdoc />
-        </member>
-        <member name="M:Stride.Core.ServiceRegistryExtensions.GetServiceAs``1(Stride.Core.IServiceRegistry)">
-            <summary>
-            Gets a service instance from a specified interface contract.
-            </summary>
-            <typeparam name="T">Type of the interface contract of the service</typeparam>
-            <param name="registry">The registry.</param>
-            <returns>An instance of the requested service registered to this registry.</returns>
+            <remarks>
+            This implementation triggers the <see cref="E:Stride.Core.ServiceRegistry.ServiceRemoved"/> event after a service is successfully removed.
+            If the service type is not found, this method does nothing.
+            </remarks>
         </member>
         <member name="M:Stride.Core.ServiceRegistryExtensions.GetSafeServiceAs``1(Stride.Core.IServiceRegistry)">
             <summary>
@@ -6663,7 +6338,7 @@
         </member>
         <member name="M:Stride.Core.Storage.ObjectId.op_Explicit(Stride.Core.Storage.ObjectId)~System.Byte[]">
             <summary>
-            Performs an explicit conversion from <see cref="T:Stride.Core.Storage.ObjectId"/> to <see cref="!:byte[]"/>.
+            Performs an explicit conversion from <see cref="T:Stride.Core.Storage.ObjectId"/> to <see cref="T:System.Byte"/>[].
             </summary>
             <param name="objectId">The object id.</param>
             <returns>The result of the conversion.</returns>
@@ -6814,25 +6489,12 @@
             <typeparam name="T">Type must be a struct</typeparam>
             <param name="buffer">The buffer.</param>
         </member>
-        <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write(System.Byte@,System.Int32)">
-            <summary>
-            Writes the specified buffer to this instance.
-            </summary>
-            <param name="buffer">The buffer.</param>
-        </member>
-        <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write``1(``0@)">
-            <summary>
-            Writes the specified buffer to this instance.
-            </summary>
-            <typeparam name="T">Type must be a struct</typeparam>
-            <param name="data">The data.</param>
-        </member>
         <member name="M:Stride.Core.Storage.ObjectIdBuilder.Write(System.Byte*,System.Int32)">
             <summary>
             Writes a buffer of byte to this builder.
             </summary>
             <param name="buffer">The buffer.</param>
-            <param name="count">The count.</param>
+            <param name="length">The lenght.</param>
             <exception cref="T:System.ArgumentNullException">buffer</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">count;Offset + Count is out of range</exception>
         </member>
@@ -6840,8 +6502,7 @@
             <summary>
             Writes a buffer of byte to this builder.
             </summary>
-            <param name="buffer">The buffer.</param>
-            <param name="count">The count.</param>
+            <param name="span">The readonly span.</param>
             <exception cref="T:System.ArgumentNullException">buffer</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">count;Offset + Count is out of range</exception>
         </member>
@@ -7003,14 +6664,25 @@
         </member>
         <member name="T:Stride.Core.Threading.ConcurrentCollector`1">
             <summary>
-            A collector that allows for concurrent adding of items, as well as non-thread-safe clearing and accessing of the underlying colletion.
+            A collector that allows for concurrent adding of items, as well as non-thread-safe clearing and accessing of the underlying collection.
             </summary>
             <typeparam name="T">The element type in the collection.</typeparam>
+        </member>
+        <member name="P:Stride.Core.Threading.ConcurrentCollector`1.Items">
+            <summary>
+            Gets the underlying array. It is an error to access Items after adding elements, but before closing.
+            </summary>
         </member>
         <member name="M:Stride.Core.Threading.ConcurrentCollector`1.Close">
             <summary>
             Consolidates all added items into a single consecutive array. It is an error to access Items after adding elements, but before closing.
             </summary>
+        </member>
+        <member name="M:Stride.Core.Threading.ConcurrentCollector`1.Clear(System.Boolean)">
+            <summary>
+            Clears the collection. If <paramref name="fastClear"/> is true, the underlying array is not cleared.
+            </summary>
+            <param name="fastClear"></param>
         </member>
         <member name="T:Stride.Core.Threading.ConcurrentPool`1">
             <summary>
@@ -7070,6 +6742,35 @@
             </summary>
             <param name="item">The item to release to the pool.</param>
         </member>
+        <member name="M:Stride.Core.Threading.Dispatcher.ForBatched``1(System.Int32,``0)">
+            <summary>
+            The call producing the least amount of overhead, other methods are built on top of this one.
+            </summary>
+            <param name="items">
+            The amount of items to process,
+            this total will be split into multiple batches,
+            each batch runs <typeparamref name="TJob"/>.<see cref="M:Stride.Core.Threading.Dispatcher.IBatchJob.Process(System.Int32,System.Int32)"/> with the range of items for that batch
+            </param>
+            <param name="batchJob">
+            An object shared across all threads running this job, if TJob is a struct each threads will work off of a unique copy of it
+            </param>
+            <exception cref="T:System.Exception">If any of the threads executing this job threw an exception, it will be re-thrown in the caller's scope</exception>
+        </member>
+        <member name="T:Stride.Core.Threading.Dispatcher.IBatchJob">
+            <summary>
+            An implementation of a job running in batches.
+            Implementing this as a struct improves performance as the JIT would have an easier time inlining the call.
+            Implementing this as a class would provide more utility as this object would be shared across all threads,
+            allowing for interlocked operations and other communication between threads.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Threading.Dispatcher.IBatchJob.Process(System.Int32,System.Int32)">
+            <summary>
+            Execute this job over a range of items
+            </summary>
+            <param name="start">the start of the range</param>
+            <param name="endExclusive">the end of the range, iterate as long as i &lt; endExclusive</param>
+        </member>
         <member name="T:Stride.Core.Threading.IPooledClosure">
             <summary>
             Interface implemented by pooled closure types through the AssemblyProcessor.
@@ -7079,7 +6780,7 @@
         <member name="T:Stride.Core.Threading.PooledAttribute">
             <summary>
             Allows delegates passed as parameters to be allocated from a pool and recycled after the method call.
-            To prevent recycling, use <see cref="M:Stride.Core.Threading.PooledDelegateHelper.AddReference(System.Delegate)"/> and <see cref="M:Stride.Core.Threading.PooledDelegateHelper.Release(System.Delegate)"/> to hoold onto references to the delegate.
+            To prevent recycling, use <see cref="M:Stride.Core.Threading.PooledDelegateHelper.AddReference(System.Delegate)"/> and <see cref="M:Stride.Core.Threading.PooledDelegateHelper.Release(System.Delegate)"/> to hold onto references to the delegate.
             </summary>
         </member>
         <member name="T:Stride.Core.Threading.PooledDelegateHelper">
@@ -7129,6 +6830,13 @@
             <summary>
             Queue an action to run on one of the available threads,
             it is strongly recommended that the action takes less than a millisecond.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Threading.ThreadPool.QueueUnsafeWorkItem(System.Object,,System.Int32)">
+            <summary>
+            Queue some work item to run on one of the available threads,
+            it is strongly recommended that the action takes less than a millisecond.
+            Additionally, the parameter provided must be fixed from this call onward until the action has finished executing
             </summary>
         </member>
         <member name="M:Stride.Core.Threading.ThreadPool.TryCooperate">
@@ -7274,166 +6982,6 @@
             Utility class.
             </summary>
         </member>
-        <member name="M:Stride.Core.Utilities.CopyMemory(System.IntPtr,System.IntPtr,System.Int32)">
-            <summary>Copies bytes from the source address to the destination address.
-            <para>A thin wrapper around <see cref="M:System.Runtime.CompilerServices.Unsafe.CopyBlock(System.Void*,System.Void*,System.UInt32)"/>.</para></summary>
-            <param name="destination">The destination address.</param>
-            <param name="source">The source address.</param>
-            <param name="byteCount">The number of bytes to copy.</param>
-            <remarks>This API corresponds to the <c>unaligned.1 cpblk</c> opcode sequence.
-            No alignment assumptions are made about the <paramref name="destination"/> or <paramref name="source"/> pointers.</remarks>
-        </member>
-        <member name="M:Stride.Core.Utilities.CompareMemory(System.IntPtr,System.IntPtr,System.Int32)">
-            <summary>
-            Compares two block of memory.
-            </summary>
-            <param name="from">The pointer to compare from.</param>
-            <param name="against">The pointer to compare against.</param>
-            <param name="sizeToCompare">The size in bytes to compare.</param>
-            <returns>True if the buffers are equivalent, false otherwise.</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.ClearMemory(System.IntPtr,System.Byte,System.Int32)">
-            <summary>Clears the memory.</summary>
-            <param name="destination">The destination address.</param>
-            <param name="value">The byte value to fill the memory with.</param>
-            <param name="sizeInBytesToClear">The size in bytes to clear.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.SizeOf``1">
-            <summary>
-            Return the sizeof a struct from a CLR. Equivalent to sizeof operator but works on generics too.
-            </summary>
-            <typeparam name="T">a struct to evaluate</typeparam>
-            <returns>sizeof this struct</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.SizeOf``1(``0[])">
-            <summary>
-            Return the sizeof an array of struct. Equivalent to sizeof operator but works on generics too.
-            </summary>
-            <typeparam name="T">a struct</typeparam>
-            <param name="array">The array of struct to evaluate.</param>
-            <returns>sizeof in bytes of this array of struct</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Pin``1(``0@,System.Action{System.IntPtr})">
-            <summary>
-            Pins the specified source and call an action with the pinned pointer.
-            </summary>
-            <typeparam name="T">The type of the structure to pin</typeparam>
-            <param name="source">The source.</param>
-            <param name="pinAction">The pin action to perform on the pinned pointer.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.Pin``1(``0[],System.Action{System.IntPtr})">
-            <summary>
-            Pins the specified source and call an action with the pinned pointer.
-            </summary>
-            <typeparam name="T">The type of the structure to pin</typeparam>
-            <param name="source">The source array.</param>
-            <param name="pinAction">The pin action to perform on the pinned pointer.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.ToByteArray``1(``0[])">
-            <summary>
-            Covnerts a structured array to an equivalent byte array.
-            </summary>
-            <param name="source">The source.</param>
-            <returns>The byte array.</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Read``1(System.IntPtr)">
-            <summary>
-            Reads the specified T data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <returns>The data read from the memory location</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Read``1(System.IntPtr,``0@)">
-            <summary>
-            Reads the specified T data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <param name="data">The data write to.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.ReadOut``1(System.IntPtr,``0@)">
-            <summary>
-            Reads the specified T data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <param name="data">The data write to.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.ReadAndPosition``1(System.IntPtr,``0@)">
-            <summary>
-            Reads the specified T data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <param name="data">The data write to.</param>
-            <returns>source pointer + sizeof(T)</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Read``1(System.IntPtr,``0[],System.Int32,System.Int32)">
-            <summary>
-            Reads the specified array T[] data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <param name="data">The data write to.</param>
-            <param name="offset">The offset in the array to write to.</param>
-            <param name="count">The number of T element to read from the memory location</param>
-            <returns>source pointer + sizeof(T) * count</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.UnsafeReadOut``1(System.IntPtr,``0@)">
-            <summary>
-            Reads the specified T data from a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to read</typeparam>
-            <param name="source">Memory location to read from.</param>
-            <param name="data">The data write to.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.Write``1(System.IntPtr,``0@)">
-            <summary>
-            Writes the specified T data to a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to write</typeparam>
-            <param name="destination">Memory location to write to.</param>
-            <param name="data">The data to write.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.WriteAndPosition``1(System.IntPtr,``0@)">
-            <summary>
-            Writes the specified T data to a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to write</typeparam>
-            <param name="destination">Memory location to write to.</param>
-            <param name="data">The data to write.</param>
-            <returns>destination pointer + sizeof(T)</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.UnsafeWrite``1(System.IntPtr,``0@)">
-            <summary>
-            Writes the specified T data to a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to write</typeparam>
-            <param name="destination">Memory location to write to.</param>
-            <param name="data">The data to write.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.Write``1(System.Byte[],``0[],System.Int32,System.Int32)">
-            <summary>
-            Writes the specified array T[] data to a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to write</typeparam>
-            <param name="destination">Memory location to write to.</param>
-            <param name="data">The array of T data to write.</param>
-            <param name="offset">The offset in the array to read from.</param>
-            <param name="count">The number of T element to write to the memory location</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.Write``1(System.IntPtr,``0[],System.Int32,System.Int32)">
-            <summary>
-            Writes the specified array T[] data to a memory location.
-            </summary>
-            <typeparam name="T">Type of a data to write</typeparam>
-            <param name="destination">Memory location to write to.</param>
-            <param name="data">The array of T data to write.</param>
-            <param name="offset">The offset in the array to read from.</param>
-            <param name="count">The number of T element to write to the memory location</param>
-            <returns>destination pointer + sizeof(T) * count</returns>
-        </member>
         <member name="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)">
             <summary>
             Allocate an aligned memory buffer.
@@ -7467,7 +7015,7 @@
         </member>
         <member name="M:Stride.Core.Utilities.FreeMemory(System.IntPtr)">
             <summary>
-            Allocate an aligned memory buffer.
+            Free an aligned memory buffer.
             </summary>
             <remarks>
             The buffer must have been allocated with <see cref="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)"/>
@@ -7479,43 +7027,11 @@
             </summary>
             <param name="disposable">The disposable.</param>
         </member>
-        <member name="M:Stride.Core.Utilities.Join``1(System.String,``0[])">
-            <summary>
-            String helper join method to display an array of object as a single string.
-            </summary>
-            <param name="separator">The separator.</param>
-            <param name="array">The array.</param>
-            <returns>a string with array elements serparated by the seperator</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Join(System.String,System.Collections.IEnumerable)">
-            <summary>
-            String helper join method to display an enumrable of object as a single string.
-            </summary>
-            <param name="separator">The separator.</param>
-            <param name="elements">The enumerable.</param>
-            <returns>a string with array elements serparated by the seperator</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Join(System.String,System.Collections.IEnumerator)">
-            <summary>
-            String helper join method to display an enumrable of object as a single string.
-            </summary>
-            <param name="separator">The separator.</param>
-            <param name="elements">The enumerable.</param>
-            <returns>a string with array elements serparated by the seperator</returns>
-        </member>
         <member name="M:Stride.Core.Utilities.ReadStream(System.IO.Stream)">
             <summary>
               Read stream to a byte[] buffer
             </summary>
             <param name = "stream">input stream</param>
-            <returns>a byte[] buffer</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.ReadStream(System.IO.Stream,System.Int32@)">
-            <summary>
-              Read stream to a byte[] buffer
-            </summary>
-            <param name = "stream">input stream</param>
-            <param name = "readLength">length to read</param>
             <returns>a byte[] buffer</returns>
         </member>
         <member name="M:Stride.Core.Utilities.GetHashCode(System.Collections.IDictionary)">
@@ -7538,22 +7054,6 @@
             <param name="it">An enumerator.</param>
             <returns>Hashcode for the list.</returns>
         </member>
-        <member name="M:Stride.Core.Utilities.Compare(System.Collections.IEnumerable,System.Collections.IEnumerable)">
-            <summary>
-            Compares two collection, element by elements.
-            </summary>
-            <param name="left">A "from" enumerator.</param>
-            <param name="right">A "to" enumerator.</param>
-            <returns>True if lists are identical. False otherwise.</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Compare(System.Collections.IEnumerator,System.Collections.IEnumerator)">
-            <summary>
-            Compares two collection, element by elements.
-            </summary>
-            <param name="leftIt">A "from" enumerator.</param>
-            <param name="rightIt">A "to" enumerator.</param>
-            <returns>True if lists are identical. False otherwise.</returns>
-        </member>
         <member name="M:Stride.Core.Utilities.Compare``2(System.Collections.Generic.IDictionary{``0,``1},System.Collections.Generic.IDictionary{``0,``1})">
             <summary>
             Compares two collection, element by elements.
@@ -7571,23 +7071,6 @@
             <returns>True if lists are identical (but not necessarily in the same order). False otherwise.</returns>
             <remarks>Concrete SortedList is favored over interface to avoid enumerator object allocation.</remarks>
         </member>
-        <member name="M:Stride.Core.Utilities.Compare``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.ICollection{``0})">
-            <summary>
-            Compares two collection, element by elements.
-            </summary>
-            <param name="left">The collection to compare from.</param>
-            <param name="right">The colllection to compare to.</param>
-            <returns>True if lists are identical (but no necessarely of the same time). False otherwise.</returns>
-        </member>
-        <member name="M:Stride.Core.Utilities.Compare``1(System.Collections.Generic.List{``0},System.Collections.Generic.List{``0})">
-            <summary>
-            Compares two list, element by elements.
-            </summary>
-            <param name="left">The list to compare from.</param>
-            <param name="right">The colllection to compare to.</param>
-            <returns>True if lists are sequentially equal. False otherwise.</returns>
-            <remarks>Concrete List is favored over interface to avoid enumerator object allocation.</remarks>
-        </member>
         <member name="M:Stride.Core.Utilities.Swap``1(``0@,``0@)">
             <summary>
             Swaps the value between two references.
@@ -7595,14 +7078,6 @@
             <typeparam name="T">Type of a data to swap.</typeparam>
             <param name="left">The left value.</param>
             <param name="right">The right value.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.Sleep(System.TimeSpan)">
-            <summary>Suspends the current thread for a duration.</summary>
-            <param name="duration">The duration of sleep. Must be non-negative.</param>
-        </member>
-        <member name="M:Stride.Core.Utilities.Sleep(System.Int32)">
-            <summary>Suspends the current thread for a number of milliseconds.</summary>
-            <param name="ms">The duration in milliseconds. Must be non-negative.</param>
         </member>
         <member name="M:Stride.Core.Utilities.IterateTree``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})">
             <summary>

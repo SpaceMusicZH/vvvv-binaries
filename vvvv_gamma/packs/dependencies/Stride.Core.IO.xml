@@ -297,7 +297,6 @@
             The <see cref="N:Stride.Core.IO"/> namespace contains additional types for reading and writing to streams, and types that provide directory and path support.
             It also provides a <see cref="T:Stride.Core.IO.VirtualFileSystem"/> layer that abstracts file accesses and paths of local disks, network, databases, etc.
             <ul>
-            <li>The <see cref="T:Stride.Core.IO.NativeStream"/> class allows stream reading to and writing from unmanaged data using an <see cref="T:System.IntPtr"/> native pointer.</li>
             <li>The <see cref="!:UPath"/> class allows manipulation of paths and provides various operation such as absolute/relative path conversion, normalization, etc.</li>
             </ul>
             </summary>
@@ -622,7 +621,7 @@
         </member>
         <member name="M:Stride.Core.IO.VirtualFileSystem.CreateRelativePath(System.String,System.String)">
             <summary>
-            Creates the relative path that can access to <see cref="!:target"/> from <see cref="!:sourcePath"/>.
+            Creates the relative path that can access to <paramref name="target"/> from <paramref name="sourcePath"/>.
             </summary>
             <param name="target">The target.</param>
             <param name="sourcePath">The source path.</param>

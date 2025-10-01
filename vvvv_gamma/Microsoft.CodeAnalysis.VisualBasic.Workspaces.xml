@@ -62,17 +62,6 @@ Microsoft.CodeAnalysis.VisualBasic.Workspaces
  that expression.
  </summary> 
 </member>
-<member name="P:Microsoft.CodeAnalysis.VisualBasic.Extensions.DirectiveSyntaxExtensions.DirectiveInfo.StartEndMap">
- <summary>
- Returns a map which maps from a DirectiveTriviaSyntax to it's corresponding start/end directive.
- Directives like #ElseIf which exist in the middle of a start/end pair are not included.
- </summary>
-</member>
-<member name="P:Microsoft.CodeAnalysis.VisualBasic.Extensions.DirectiveSyntaxExtensions.DirectiveInfo.ConditionalMap">
- <summary>
- Maps a #If/#ElseIf/#Else/#EndIf directive to its list of matching #If/#ElseIf/#Else/#End directives.
- </summary>
-</member>
 <member name="M:Microsoft.CodeAnalysis.VisualBasic.Extensions.DirectiveSyntaxExtensions.GetMatchingStartOrEndDirective(Microsoft.CodeAnalysis.VisualBasic.Syntax.DirectiveTriviaSyntax,System.Threading.CancellationToken)">
  <summary>
  Given a starting or ending directive, return the matching directive, if it exists. For directives that live
@@ -148,14 +137,6 @@ Microsoft.CodeAnalysis.VisualBasic.Workspaces
  Returns true if this is a block that can contain multiple executable statements.  i.e.
  this node is the VB equivalent of a BlockSyntax in C#.
  </summary>
-</member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Extensions.SyntaxNodeExtensions.ChildThatContainsPosition(Microsoft.CodeAnalysis.SyntaxNode,System.Int32,System.Int32@)">
- <summary>
- Returns child node or token that contains given position.
- </summary>
- <remarks>
- This is a copy of <see cref="M:Microsoft.CodeAnalysis.SyntaxNode.ChildThatContainsPosition(System.Int32)"/>  that also returns the index of the child node.
- </remarks>
 </member>
 <member name="M:Microsoft.CodeAnalysis.VisualBasic.Extensions.SyntaxNodeExtensions.GetRootConditionalAccessExpression(Microsoft.CodeAnalysis.VisualBasic.Syntax.ExpressionSyntax)">
  <summary>
@@ -490,34 +471,9 @@ Microsoft.CodeAnalysis.VisualBasic.Workspaces
  being forced if certain modifiers are present.
  </summary>
 </member>
-<member name="T:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTreeFactoryServiceFactory.VisualBasicSyntaxTreeFactoryService.NullSyntaxReference">
+<member name="T:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTreeFactoryService.ParsedSyntaxTree">
  <summary>
- Represents a syntax reference that was passed a null
- reference to a node. In this case, we just hold onto the
- weak tree reference and throw if any invalid properties
- are accessed.
- </summary>
-</member>
-<member name="T:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTreeFactoryServiceFactory.VisualBasicSyntaxTreeFactoryService.PathSyntaxReference">
- <summary>
- Represents a syntax reference that doesn't actually hold onto the 
- referenced node.  Instead, enough data is held onto so that the node
- can be recovered and returned if necessary.
- </summary>
-</member>
-<member name="T:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTreeFactoryServiceFactory.VisualBasicSyntaxTreeFactoryService.PositionalSyntaxReference">
- <summary>
- Represents a syntax reference that doesn't actually hold onto the referenced node.
- Instead, enough data is held onto so that the node can be recovered and returned if
- necessary.
- </summary>
-</member>
-<member name="T:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTreeFactoryServiceFactory.VisualBasicSyntaxTreeFactoryService.RecoverableSyntaxTree">
- <summary>
- Represents a syntax tree that only has a weak reference to its 
- underlying data.  This way it can be passed around without forcing
- the underlying full tree to stay alive.  Think of it more as a 
- key that can be used to identify a tree rather than the tree itself.
+ Parsed <see cref="T:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSyntaxTree"/> that creates <see cref="T:Microsoft.CodeAnalysis.Text.SourceText"/> with given encoding And checksum algorithm.
  </summary>
 </member>
 <member name="M:Microsoft.CodeAnalysis.VisualBasic.VisualBasicSymbolDeclarationService.GetDeclarations(Microsoft.CodeAnalysis.ISymbol)">
@@ -678,6 +634,9 @@ Microsoft.CodeAnalysis.VisualBasic.Workspaces
 </member>
 <member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.Sort_Imports">
  <summary>&amp;Sort Imports</summary>
+</member>
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.VB_Coding_Conventions">
+ <summary>VB Coding Conventions</summary>
 </member>
 <member name="M:Microsoft.CodeAnalysis.CodeCleanup.Providers.FixIncorrectTokensCodeCleanupProvider.FixIncorrectTokensRewriter.RewriteEndIfStatementOrDirectiveSyntax(Microsoft.CodeAnalysis.SyntaxNode,Microsoft.CodeAnalysis.SyntaxToken,Microsoft.CodeAnalysis.SyntaxToken)">
  <summary>

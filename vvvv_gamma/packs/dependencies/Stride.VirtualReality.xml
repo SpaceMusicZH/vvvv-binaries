@@ -79,15 +79,13 @@
             True if UX has requested re-centering. 
             </summary>
         </member>
-        <member name="M:Stride.VirtualReality.OpenVR.SkipInit``1(``0@)">
-            <summary>Bypasses definite assignment rules for a given reference.
-            <para>A thin wrapper around <see cref="M:System.Runtime.CompilerServices.Unsafe.SkipInit``1(``0@)"/> for the sole purpose of making it usable in an expression.</para></summary>
-            <typeparam name="T">The type of the reference.</typeparam>
-            <param name="value">The reference whose initialization should be skipped.</param>
-            <returns>The reference to <paramref name="value"/>.</returns>
-            <remarks>Take care to ensure that the struct has been initialized appropriately, otherwise the struct's fields could contain uninitialized data from the stack.</remarks>
+        <member name="M:Stride.VirtualReality.OpenXRHmd.New(System.Boolean)">
+            <summary>
+            Creates a VR device using OpenXR.
+            </summary>
+            <param name="requestPassthrough">Whether or not the XR_FB_passthrough extension should be enabled (if available).</param>
         </member>
-        <member name="M:Stride.VirtualReality.OpenXRHmd.CheckResult(Silk.NET.OpenXR.Result,System.String)">
+        <member name="M:Stride.VirtualReality.OpenXRUtils.CheckResult(Silk.NET.OpenXR.Result,System.String)">
             <summary>
             A simple function which throws an exception if the given OpenXR result indicates an error has been raised.
             </summary>
@@ -95,7 +93,15 @@
             <returns>
             The same result passed in, just in case it's meaningful and we just want to use this to filter out errors.
             </returns>
-            <exception cref="T:System.Exception">An exception for the given result if it indicates an error.</exception>
+            <exception cref="T:Stride.VirtualReality.OpenXRException">An exception for the given result if it indicates an error.</exception>
+        </member>
+        <member name="P:Stride.VirtualReality.TouchController.HapticsSupport">
+            <summary>
+            Degree to which this touch controller type supports haptics.
+            None: no haptics support, controller does not vibrate.
+            Limited: cannot vibrate at any specific frequency or amplitude. Corresponding parameter is ignored.
+            Full: vibrate method respects both frequency and vibration parameters
+            </summary>
         </member>
         <member name="M:Stride.VirtualReality.TouchController.IsPressedDown(Stride.VirtualReality.TouchControllerButton)">
             <summary>
@@ -137,6 +143,18 @@
             Returns true if in this frame the button was released
             </summary>
             <param name="button"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Stride.VirtualReality.TouchController.Vibrate(System.Int32,System.Single,System.Single)">
+            <summary>
+            Vibrate the controller for a fixed duration. Do so at specified frequency/amplitude if supported by runtime.
+            Oculus runtime supports vibrating at frequency 0.0, 0.5, or 1.0, and amplitude in range [0.0, 1.0]
+            openVR supports vibrating, but does not support frequency or amplitude
+            openXR and WindowsMixedReality currently do not support vibration.
+            </summary>
+            <param name="durationMs">Vibration duration, in milliseconds</param>
+            <param name="frequency">Frequency of vibration in range [0.0, 1.0]</param>
+            <param name="amplitude">Amplitude of vibration in range [0.0, 1.0]</param>
             <returns></returns>
         </member>
         <member name="F:Stride.VirtualReality.TouchControllerButton.Thumbstick">
@@ -223,6 +241,21 @@
             Allows you to scale the view, effectively it will change the size of the player in respect to the world, turning it into a giant or a tiny ant.
             </summary>
             <remarks>This will reduce the near clip plane of the cameras, it might induce depth issues.</remarks>
+        </member>
+        <member name="P:Stride.VirtualReality.VRDevice.SupportsPassthrough">
+            <summary>
+            Whether or not passthrough is supported by the device. 
+            It needs to be requested on device creation by enabling <see cref="F:Stride.VirtualReality.VRDeviceSystem.RequestPassthrough"/>.
+            If supported, passthrough can be started (and stopped) with the <see cref="M:Stride.VirtualReality.VRDevice.StartPassthrough"/> method.
+            </summary>
+        </member>
+        <member name="M:Stride.VirtualReality.VRDevice.StartPassthrough">
+            <summary>
+            Starts a passthrough. When enabled the scene is rendered on top of the camera image of the device.
+            </summary>
+            <returns>A disposable which will stop the passthrough on dispose.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown if the passthrough mode is not supported by the device.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the passthrough mode is already enabled.</exception>
         </member>
         <member name="T:Stride.StrideVersion">
             <summary>

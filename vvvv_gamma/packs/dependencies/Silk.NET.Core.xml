@@ -24,6 +24,12 @@
             Gets or sets the computed count.
             </summary>
         </member>
+        <member name="P:Silk.NET.Core.Attributes.CountAttribute.Expression">
+            <summary>
+            Gets or sets the mathematical expression corresponding with this count. Used in conjunction with
+            <see cref="P:Silk.NET.Core.Attributes.CountAttribute.Parameter"/>.
+            </summary>
+        </member>
         <member name="T:Silk.NET.Core.Attributes.FlowAttribute">
             <summary>
             The direction a parameter flows.
@@ -229,6 +235,12 @@
             <summary>
             The SDL window handle (SDL_Window* or Window* if using Silk.NET.SDL). May be null, in which case the
             underlying window is not using SDL.
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Silk.NET.Core.Contexts.INativeWindow.DXHandle" -->
+        <member name="P:Silk.NET.Core.Contexts.INativeWindow.EGL">
+            <summary>
+            The handles for the EGL display and EGL surface. May not be null.
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Contexts.INativeWindowSource.Native">
@@ -517,33 +529,39 @@
         </member>
         <member name="P:Silk.NET.Core.Loader.SearchPathContainer.Windows64">
             <summary>
-            Gets the library name to use on Windows 64-bit.
+            Gets the library names to use on Windows 64-bit.
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Loader.SearchPathContainer.Windows86">
             <summary>
-            Gets the library name to use on Windows 32-bit.
+            Gets the library names to use on Windows 32-bit.
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Loader.SearchPathContainer.Linux">
             <summary>
-            Gets the library name to use on Linux.
+            Gets the library names to use on Linux.
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Loader.SearchPathContainer.MacOS">
             <summary>
-            Gets the library name to use on MacOS.
+            Gets the library names to use on MacOS.
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Loader.SearchPathContainer.Android">
             <summary>
-            Gets the library name to use on Android.
+            Gets the library names to use on Android.
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Loader.SearchPathContainer.IOS">
             <summary>
-            Gets the library name to use on iOS.
+            Gets the library names to use on iOS.
             </summary>
+        </member>
+        <member name="M:Silk.NET.Core.Loader.SearchPathContainer.GetLibraryNames">
+            <summary>
+            Gets the possible library names to use for the current platform.
+            </summary>
+            <returns>The library names.</returns>
         </member>
         <member name="M:Silk.NET.Core.Loader.SearchPathContainer.GetLibraryName">
             <summary>
@@ -582,6 +600,16 @@
             </summary>
             <param name="names">An ordered list of names to attempt to load.</param>
             <param name="loader">The loader used to open and close the library, and to load function pointers.</param>
+        </member>
+        <member name="M:Silk.NET.Core.Loader.UnmanagedLibrary.#ctor(Silk.NET.Core.Loader.LibraryLoader,System.IntPtr)">
+            <summary>
+                Constructs a new UnmanagedLibrary with only a loader and handle specified
+            </summary>
+        </member>
+        <member name="M:Silk.NET.Core.Loader.UnmanagedLibrary.TryCreate(System.String,Silk.NET.Core.Loader.LibraryLoader,Silk.NET.Core.Loader.PathResolver,Silk.NET.Core.Loader.UnmanagedLibrary@)">
+            <summary>
+                Tries to create a new UnmanagedLibrary, safely failing
+            </summary>
         </member>
         <member name="M:Silk.NET.Core.Loader.UnmanagedLibrary.#ctor(System.String,Silk.NET.Core.Loader.LibraryLoader,Silk.NET.Core.Loader.PathResolver)">
             <summary>
@@ -655,6 +683,40 @@
             Gets the 32-bit value for this boolean.
             </summary>
         </member>
+        <member name="M:Silk.NET.Core.Bool32.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns> A 32-bit signed integer hash code.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.Equals(System.Object)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool32"/> to another <see cref="T:System.Object"/>. Returns true if they are equal.
+            </summary>
+            <param name="obj"></param>
+            <returns>True if <paramref name="obj"/> is equal to the current <see cref="T:Silk.NET.Core.Bool32"/>.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.Equals(Silk.NET.Core.Bool32)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool32"/> to another <see cref="T:Silk.NET.Core.Bool32"/>. Returns true if they are equal.
+            </summary>
+            <param name="other">The other value.</param>
+            <returns>True if the current <see cref="T:Silk.NET.Core.Bool32"/> is equal to the provided <see cref="T:System.Boolean"/> value.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.Equals(System.UInt32)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:System.UInt32"/>. Returns true if they are equal.
+            </summary>
+            <param name="other">The other value.</param>
+            <returns>True if the current <see cref="T:Silk.NET.Core.Bool32"/> is equal to the provided <see cref="T:System.UInt32"/> value.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.Equals(System.Boolean)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:System.Boolean"/>. Returns true if they are equal.
+            </summary>
+            <param name="other">The other value.</param>
+            <returns>True if the current <see cref="T:Silk.NET.Core.Bool32"/> is equal to the provided <see cref="T:System.Boolean"/> value.</returns>
+        </member>
         <member name="M:Silk.NET.Core.Bool32.#ctor(System.UInt32)">
             <summary>
             Creates a 32-bit boolean from the given 32-bit unsigned integer.
@@ -692,6 +754,248 @@
             Creates a 32-bit boolean from the given 32-bit unsigned integer.
             </summary>
             <param name="val">The 32-bit unsigned integer value.</param>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Equality(Silk.NET.Core.Bool32,Silk.NET.Core.Bool32)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:Silk.NET.Core.Bool32"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Inequality(Silk.NET.Core.Bool32,Silk.NET.Core.Bool32)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:Silk.NET.Core.Bool32"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Equality(Silk.NET.Core.Bool32,System.Boolean)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:System.Boolean"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.Boolean"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Inequality(Silk.NET.Core.Bool32,System.Boolean)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:System.Boolean"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.Boolean"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Equality(System.Boolean,Silk.NET.Core.Bool32)">
+            <summary>
+            Compares a <see cref="T:System.Boolean"/> to a <see cref="T:Silk.NET.Core.Bool32"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.Boolean"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Inequality(System.Boolean,Silk.NET.Core.Bool32)">
+            <summary>
+            Compares a <see cref="T:System.Boolean"/> to a <see cref="T:Silk.NET.Core.Bool32"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.Boolean"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Equality(Silk.NET.Core.Bool32,System.UInt32)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:System.UInt32"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.UInt32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Inequality(Silk.NET.Core.Bool32,System.UInt32)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool32"/> to a <see cref="T:System.UInt32"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.UInt32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Equality(System.UInt32,Silk.NET.Core.Bool32)">
+            <summary>
+            Compares a <see cref="T:System.UInt32"/> to a <see cref="T:Silk.NET.Core.Bool32"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.UInt32"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool32.op_Inequality(System.UInt32,Silk.NET.Core.Bool32)">
+            <summary>
+            Compares a <see cref="T:System.UInt32"/> to a <see cref="T:Silk.NET.Core.Bool32"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.UInt32"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool32"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Silk.NET.Core.Bool8">
+            <summary>
+            A 8-bit boolean.
+            </summary>
+        </member>
+        <member name="P:Silk.NET.Core.Bool8.Value">
+            <summary>
+            Gets the 8-bit value for this boolean.
+            </summary>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns> A 32-bit signed integer hash code.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.Equals(System.Object)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool8"/> to another <see cref="T:System.Object"/>. Returns true if they are equal.
+            </summary>
+            <param name="obj"></param>
+            <returns>True if <paramref name="obj"/> is equal to the current <see cref="T:Silk.NET.Core.Bool8"/>.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.Equals(Silk.NET.Core.Bool8)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool8"/> to another <see cref="T:Silk.NET.Core.Bool8"/>. Returns true if they are equal.
+            </summary>
+            <param name="other">The other value.</param>
+            <returns>True if the current <see cref="T:Silk.NET.Core.Bool8"/> is equal to the provided <see cref="T:System.Boolean"/> value.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.Equals(System.Byte)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:System.Byte"/>. Returns true if they are equal.
+            </summary>
+            <param name="other">The other value.</param>
+            <returns>True if the current <see cref="T:Silk.NET.Core.Bool8"/> is equal to the provided <see cref="T:System.Byte"/> value.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.Equals(System.Boolean)">
+            <summary>
+            Compares the current <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:System.Boolean"/>. Returns true if they are equal.
+            </summary>
+            <param name="other">The other value.</param>
+            <returns>True if the current <see cref="T:Silk.NET.Core.Bool8"/> is equal to the provided <see cref="T:System.Boolean"/> value.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.#ctor(System.Byte)">
+            <summary>
+            Creates a 8-bit boolean from the given byte.
+            </summary>
+            <param name="val">The byte value.</param>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.#ctor(System.Boolean)">
+            <summary>
+            Creates a 8-bit boolean from the given managed boolean.
+            </summary>
+            <param name="val">The boolean value.</param>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Implicit(Silk.NET.Core.Bool8)~System.Boolean">
+            <summary>
+            Converts this 8-bit boolean to a managed boolean.
+            </summary>
+            <param name="val">The 8-bit boolean.</param>
+            <returns>The managed boolean.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Implicit(Silk.NET.Core.Bool8)~System.Byte">
+            <summary>
+            Converts this 8-bit boolean to a byte.
+            </summary>
+            <param name="val">The 8-bit boolean.</param>
+            <returns>The byte.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Implicit(System.Boolean)~Silk.NET.Core.Bool8">
+            <summary>
+            Creates a 8-bit boolean from the given managed boolean.
+            </summary>
+            <param name="val">The boolean value.</param>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Implicit(System.Byte)~Silk.NET.Core.Bool8">
+            <summary>
+            Creates a 8-bit boolean from the given byte.
+            </summary>
+            <param name="val">The byte value.</param>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Equality(Silk.NET.Core.Bool8,Silk.NET.Core.Bool8)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:Silk.NET.Core.Bool8"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Inequality(Silk.NET.Core.Bool8,Silk.NET.Core.Bool8)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:Silk.NET.Core.Bool8"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Equality(Silk.NET.Core.Bool8,System.Boolean)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:System.Boolean"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.Boolean"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Inequality(Silk.NET.Core.Bool8,System.Boolean)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:System.Boolean"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.Boolean"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Equality(System.Boolean,Silk.NET.Core.Bool8)">
+            <summary>
+            Compares a <see cref="T:System.Boolean"/> to a <see cref="T:Silk.NET.Core.Bool8"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.Boolean"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Inequality(System.Boolean,Silk.NET.Core.Bool8)">
+            <summary>
+            Compares a <see cref="T:System.Boolean"/> to a <see cref="T:Silk.NET.Core.Bool8"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.Boolean"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Equality(Silk.NET.Core.Bool8,System.Byte)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:System.Byte"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.Byte"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Inequality(Silk.NET.Core.Bool8,System.Byte)">
+            <summary>
+            Compares a <see cref="T:Silk.NET.Core.Bool8"/> to a <see cref="T:System.Byte"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <param name="right">The right-hand <see cref="T:System.Byte"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Equality(System.Byte,Silk.NET.Core.Bool8)">
+            <summary>
+            Compares a <see cref="T:System.Byte"/> to a <see cref="T:Silk.NET.Core.Bool8"/> for equality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.Byte"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Silk.NET.Core.Bool8.op_Inequality(System.Byte,Silk.NET.Core.Bool8)">
+            <summary>
+            Compares a <see cref="T:System.Byte"/> to a <see cref="T:Silk.NET.Core.Bool8"/> for inequality.
+            </summary>
+            <param name="left">The left-hand <see cref="T:System.Byte"/>.</param>
+            <param name="right">The right-hand <see cref="T:Silk.NET.Core.Bool8"/>.</param>
+            <returns></returns>
         </member>
         <member name="T:Silk.NET.Core.BreakneckLock">
             <summary>
@@ -1013,6 +1317,13 @@
             <param name="version">The 64-bit version structure.</param>
             <returns>The managed representation.</returns>
         </member>
+        <member name="M:Silk.NET.Core.Native.ComPtr`1.Detach">
+            <summary>
+            Detaches the handle encapsulated by this ComPtr such that its lifetime is no longer controlled by the
+            ComPtr.
+            </summary>
+            <returns>The encapsulated handle.</returns>
+        </member>
         <member name="T:Silk.NET.Core.Native.FlowDirection">
             <summary>
             How the parameter should flow - in or out?
@@ -1133,6 +1444,24 @@
             </summary>
             <param name="length">The number of bytes to allocate.</param>
             <returns>A block of global memory.</returns>
+        </member>
+        <member name="T:Silk.NET.Core.Native.IComVtbl">
+            <summary>
+            Represents a type that can be represented as a pointer to a COM V-Table. (i.e. a pointer to a pointer to the first
+            function pointer) 
+            </summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IComVtbl.AsVtblPtr">
+            <summary>
+            Gets the V-Table pointer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Silk.NET.Core.Native.IComVtbl`1">
+            <summary>
+            A marker interface declaring this type to have a V-table for the given COM type. 
+            </summary>
+            <typeparam name="T">The COM type this type contains a V-table to.</typeparam>
         </member>
         <member name="T:Silk.NET.Core.Native.NativeAPI">
             <inheritdoc />
@@ -1496,6 +1825,237 @@
             </summary>
             <param name="hResult">The HRESULT to be converted.</param>
         </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},System.Guid*,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},System.Guid*,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},System.Guid@,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},System.Guid@,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.AddRef(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.Release(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.GetBufferPointer(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.GetBufferSize(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},Silk.NET.Core.Native.ComPtr{``0}@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},System.Span{System.Guid},System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob},System.Span{System.Guid},System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3D10BlobVtblExtensions.QueryInterface``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3D10Blob})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.Guid*,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.Guid*,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.Guid@,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.Guid@,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.AddRef(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.Release(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,System.Void*,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,System.Void*,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,``0@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,``0@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.UnregisterDestructionCallback(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.UInt32)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.ComPtr{``0}@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.Span{System.Guid},System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},System.Span{System.Guid},System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,System.Void*,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,System.Span{``0},System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.RegisterDestructionCallback``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier},Silk.NET.Core.Native.PfnDestructionCallback,System.Span{``0},System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DDestructionNotifierVtblExtensions.QueryInterface``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DDestructionNotifier})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void**,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void*@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,``0@,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,``0@,System.Void**,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,``0@,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,``0@,System.Void*@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,System.Void*,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,System.Void*,System.Void**,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,System.Void*,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,System.Void*,System.Void*@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,``0@,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,``0@,System.Void**,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,``0@,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte@,``0@,System.Void*@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.Void*,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.Void*,System.Void**,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.Void*,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.Void*,System.Void*@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,``0@,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,``0@,System.Void**,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,``0@,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,``0@,System.Void*@,System.UInt32@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Close(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},System.Void*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Close``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},``0@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void**,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void*@,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.ReadOnlySpan{``0},System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.ReadOnlySpan{``0},System.Void**,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.ReadOnlySpan{``0},System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.ReadOnlySpan{``0},System.Void*@,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.Void*,System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.Void*,System.Void**,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.Void*,System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.Void*,System.Void*@,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{``0},System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{``0},System.Void**,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{``0},System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.ReadOnlySpan{System.Byte},System.ReadOnlySpan{``0},System.Void*@,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.Void*,System.Void**,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.Void*,System.Void*@,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.ReadOnlySpan{``0},System.Void**,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.ReadOnlySpan{``0},System.Void**,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.ReadOnlySpan{``0},System.Void*@,System.UInt32*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Open``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},Silk.NET.Core.Native.D3DIncludeType,System.String,System.ReadOnlySpan{``0},System.Void*@,System.Span{System.UInt32})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.D3DIncludeVtblExtensions.Close``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.ID3DInclude},System.ReadOnlySpan{``0})">
+            <summary>To be documented.</summary>
+        </member>
         <member name="M:Silk.NET.Core.Native.ID3D10Blob.QueryInterface(System.Guid*,System.Void**)">
             <summary>To be documented.</summary>
         </member>
@@ -1518,6 +2078,12 @@
             <summary>To be documented.</summary>
         </member>
         <member name="M:Silk.NET.Core.Native.ID3D10Blob.GetBufferSize">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.ID3D10Blob.QueryInterface``1(Silk.NET.Core.Native.ComPtr{``0}@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.ID3D10Blob.QueryInterface``1">
             <summary>To be documented.</summary>
         </member>
         <member name="M:Silk.NET.Core.Native.ID3DDestructionNotifier.QueryInterface(System.Guid*,System.Void**)">
@@ -1551,6 +2117,12 @@
             <summary>To be documented.</summary>
         </member>
         <member name="M:Silk.NET.Core.Native.ID3DDestructionNotifier.UnregisterDestructionCallback(System.UInt32)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.ID3DDestructionNotifier.QueryInterface``1(Silk.NET.Core.Native.ComPtr{``0}@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.ID3DDestructionNotifier.QueryInterface``1">
             <summary>To be documented.</summary>
         </member>
         <member name="M:Silk.NET.Core.Native.ID3DInclude.Open(Silk.NET.Core.Native.D3DIncludeType,System.Byte*,System.Void*,System.Void**,System.UInt32*)">
@@ -1629,6 +2201,120 @@
             <summary>To be documented.</summary>
         </member>
         <member name="M:Silk.NET.Core.Native.ID3DInclude.Close``1(``0@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.QueryInterface(System.Guid*,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.QueryInterface(System.Guid*,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.QueryInterface(System.Guid@,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.QueryInterface(System.Guid@,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.AddRef">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.Release">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetIids(System.UInt32*,System.Guid**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetIids(System.UInt32*,System.Guid*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetIids(System.UInt32@,System.Guid**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetIids(System.UInt32@,System.Guid*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetRuntimeClassName(Silk.NET.Core.Native.WinString*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetRuntimeClassName(Silk.NET.Core.Native.WinString@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetTrustLevel(Silk.NET.Core.Native.TrustLevel*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.GetTrustLevel(Silk.NET.Core.Native.TrustLevel@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.QueryInterface``1(Silk.NET.Core.Native.ComPtr{``0}@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.IInspectable.QueryInterface``1">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Guid*,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Guid*,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Guid@,System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Guid@,System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.AddRef(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.Release(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetIids(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.UInt32*,System.Guid**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetIids(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.UInt32*,System.Guid*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetIids(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.UInt32@,System.Guid**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetIids(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.UInt32@,System.Guid*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetRuntimeClassName(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},Silk.NET.Core.Native.WinString*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetRuntimeClassName(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},Silk.NET.Core.Native.WinString@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetTrustLevel(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},Silk.NET.Core.Native.TrustLevel*)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetTrustLevel(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},Silk.NET.Core.Native.TrustLevel@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},Silk.NET.Core.Native.ComPtr{``0}@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Span{System.Guid},System.Void**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Span{System.Guid},System.Void*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetIids(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Span{System.UInt32},System.Guid**)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetIids(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Span{System.UInt32},System.Guid*@)">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetRuntimeClassName(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Span{Silk.NET.Core.Native.WinString})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.GetTrustLevel(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable},System.Span{Silk.NET.Core.Native.TrustLevel})">
+            <summary>To be documented.</summary>
+        </member>
+        <member name="M:Silk.NET.Core.Native.InspectableVtblExtensions.QueryInterface``1(Silk.NET.Core.Native.ComPtr{Silk.NET.Core.Native.IInspectable})">
             <summary>To be documented.</summary>
         </member>
         <member name="M:Silk.NET.Core.Native.IUnknown.QueryInterface(System.Guid*,System.Void**)">
@@ -1720,6 +2406,15 @@
         </member>
         <member name="F:Silk.NET.Core.Native.UnmanagedType.VariantBool">
             <summary>A 2-byte, OLE-defined VARIANT_BOOL type (true = -1, false = 0).</summary>
+        </member>
+        <member name="F:Silk.NET.Core.Native.UnmanagedType.WinString">
+            <summary>
+            A WinRT string.
+            </summary>
+            <remarks>
+            Value is large enough such that any future additions to .NET's own UnmanagedType shouldn't conflict with
+            this.
+            </remarks>
         </member>
         <member name="T:Silk.NET.Core.Native.VkHandle">
             <summary>

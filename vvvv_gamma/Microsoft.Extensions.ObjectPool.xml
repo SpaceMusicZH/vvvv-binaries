@@ -30,6 +30,12 @@
         <member name="M:Microsoft.Extensions.ObjectPool.DefaultObjectPool`1.Return(`0)">
             <inheritdoc />
         </member>
+        <member name="M:Microsoft.Extensions.ObjectPool.DefaultObjectPool`1.ReturnCore(`0)">
+            <summary>
+            Returns an object to the pool.
+            </summary>
+            <returns>true if the object was returned to the pool</returns>
+        </member>
         <member name="T:Microsoft.Extensions.ObjectPool.DefaultObjectPoolProvider">
             <summary>
             The default <see cref="T:Microsoft.Extensions.ObjectPool.ObjectPoolProvider"/>.
@@ -74,13 +80,27 @@
             <param name="obj">The object to return to the pool.</param>
             <returns><see langword="true" /> if the object should be returned to the pool. <see langword="false" /> if it's not possible/desirable for the pool to keep the object.</returns>
         </member>
+        <member name="T:Microsoft.Extensions.ObjectPool.IResettable">
+            <summary>
+            Defines a method to reset an object to its initial state.
+            </summary>
+        </member>
+        <member name="M:Microsoft.Extensions.ObjectPool.IResettable.TryReset">
+            <summary>
+            Reset the object to a neutral state, semantically similar to when the object was first constructed.
+            </summary>
+            <returns><see langword="true" /> if the object was able to reset itself, otherwise <see langword="false" />.</returns>
+            <remarks>
+            In general, this method is not expected to be thread-safe.
+            </remarks>
+        </member>
         <member name="T:Microsoft.Extensions.ObjectPool.LeakTrackingObjectPool`1">
             <summary>
             An <see cref="T:Microsoft.Extensions.ObjectPool.ObjectPool`1"/> implementation that detects leaks in the use of the object pool.
             <para>
             A leak is produced if an object is leased from the pool but not returned before it is finalized.
             An error is only produced in <c>Debug</c> builds.
-            This type is only recommended to be used for diagnostc builds.
+            This type is only recommended to be used for diagnostic builds.
             </para>
             </summary>
             <typeparam name="T">The type of object which is being pooled.</typeparam>
@@ -172,7 +192,7 @@
             Creates an <see cref="T:Microsoft.Extensions.ObjectPool.ObjectPool`1"/> that pools <see cref="T:System.Text.StringBuilder"/> instances.
             </summary>
             <param name="provider">The <see cref="T:Microsoft.Extensions.ObjectPool.ObjectPoolProvider"/>.</param>
-            <param name="initialCapacity">The initial capacity to initiaize <see cref="T:System.Text.StringBuilder"/> instances with.</param>
+            <param name="initialCapacity">The initial capacity to initialize <see cref="T:System.Text.StringBuilder"/> instances with.</param>
             <param name="maximumRetainedCapacity">The maximum value for <see cref="P:System.Text.StringBuilder.Capacity"/> that is allowed to be
             retained, when an instance is returned.</param>
             <returns>The <see cref="T:Microsoft.Extensions.ObjectPool.ObjectPool`1"/>.</returns>
@@ -212,6 +232,11 @@
         </member>
         <member name="M:Microsoft.Extensions.ObjectPool.StringBuilderPooledObjectPolicy.Return(System.Text.StringBuilder)">
             <inheritdoc />
+        </member>
+        <member name="M:Microsoft.AspNetCore.Shared.ArgumentNullThrowHelper.ThrowIfNull(System.Object,System.String)">
+            <summary>Throws an <see cref="T:System.ArgumentNullException"/> if <paramref name="argument"/> is null.</summary>
+            <param name="argument">The reference type argument to validate as non-null.</param>
+            <param name="paramName">The name of the parameter with which <paramref name="argument"/> corresponds.</param>
         </member>
     </members>
 </doc>

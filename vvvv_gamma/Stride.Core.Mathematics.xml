@@ -8749,6 +8749,12 @@
             and speed is of the essence.
             </remarks>
         </member>
+        <member name="M:Stride.Core.Mathematics.Int3.LengthUntruncated">
+            <summary>
+            Calculates the untruncated length of the vector.
+            </summary>
+            <returns>The length of the vector untruncated.</returns>
+        </member>
         <member name="M:Stride.Core.Mathematics.Int3.LengthSquared">
             <summary>
             Calculates the squared length of the vector.
@@ -8976,6 +8982,22 @@
             <param name="left">The first source vector.</param>
             <param name="right">The second source vector.</param>
             <returns>A vector containing the smallest components of the source vectors.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int3.Round(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Int3@,System.MidpointRounding)">
+            <summary>
+            Returns a vector containing the rounded values of the specified vector.
+            </summary>
+            <param name="value">The source vector.</param>
+            <param name="result">When the method completes, contains an new vector composed of the rounded values of the specified vector.</param>
+            <param name="rounding">The rounding strategy to use.</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int3.Round(Stride.Core.Mathematics.Vector3@,System.MidpointRounding)">
+            <summary>
+            Returns a vector containing the rounded values of the specified vector.
+            </summary>
+            <param name="value">The source vector.</param>
+            <param name="rounding">The rounding strategy to use.</param>
+            <returns>A vector containing the rounded values of the source vector.</returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Int3.op_Addition(Stride.Core.Mathematics.Int3,Stride.Core.Mathematics.Int3)">
             <summary>
@@ -10428,16 +10450,6 @@
             <param name="right">The amount by which to scale.</param>
             <returns>The scaled matrix.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.MultiplyTo(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
-            <summary>
-            Determines the product of two matrices.
-            Variables passed as <paramref name="left"/> or <paramref name="right"/> must not be used as the out parameter
-            <paramref name="result"/>, because <paramref name="result"/> is calculated in-place.
-            </summary>
-            <param name="left">The first matrix to multiply.</param>
-            <param name="right">The second matrix to multiply.</param>
-            <param name="result">The product of the two matrices.</param>
-        </member>
         <member name="M:Stride.Core.Mathematics.Matrix.Multiply(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Determines the product of two matrices.
@@ -10449,16 +10461,6 @@
             <param name="result">The product of the two matrices.</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.MultiplyIn(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
-            <summary>
-            Determines the product of two matrices.
-            Variables passed as <paramref name="left"/> or <paramref name="right"/> must not be used as the out parameter
-            <paramref name="result"/>, because <paramref name="result"/> is calculated in-place.
-            </summary>
-            <param name="left">The first matrix to multiply.</param>
-            <param name="right">The second matrix to multiply.</param>
-            <param name="result">The product of the two matrices.</param>
-        </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.MultiplyRef(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Determines the product of two matrices.
             Variables passed as <paramref name="left"/> or <paramref name="right"/> must not be used as the out parameter
@@ -10593,7 +10595,7 @@
             <param name="value">The matrix whose transpose is to be calculated.</param>
             <param name="result">When the method completes, contains the transpose of the specified matrix.</param>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.Transpose(Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.Transpose(Stride.Core.Mathematics.Matrix@)">
             <summary>
             Calculates the transpose of the specified matrix.
             </summary>
@@ -11398,7 +11400,7 @@
             <param name="columns">The columns.</param>
             <param name="rows">The rows.</param>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Addition(Stride.Core.Mathematics.Matrix,Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Addition(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Adds two matrices.
             </summary>
@@ -11413,7 +11415,7 @@
             <param name="value">The matrix to assert (unchange).</param>
             <returns>The asserted (unchanged) matrix.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Subtraction(Stride.Core.Mathematics.Matrix,Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Subtraction(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Subtracts two matrices.
             </summary>
@@ -11421,14 +11423,14 @@
             <param name="right">The second matrix to subtract.</param>
             <returns>The difference between the two matrices.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_UnaryNegation(Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_UnaryNegation(Stride.Core.Mathematics.Matrix@)">
             <summary>
             Negates a matrix.
             </summary>
             <param name="value">The matrix to negate.</param>
             <returns>The negated matrix.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Multiply(System.Single,Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Multiply(System.Single,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Scales a matrix by a given value.
             </summary>
@@ -11436,7 +11438,7 @@
             <param name="left">The amount by which to scale.</param>
             <returns>The scaled matrix.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Multiply(Stride.Core.Mathematics.Matrix,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Multiply(Stride.Core.Mathematics.Matrix@,System.Single)">
             <summary>
             Scales a matrix by a given value.
             </summary>
@@ -11452,7 +11454,7 @@
             <param name="right">The second matrix to multiply.</param>
             <returns>The product of the two matrices.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Division(Stride.Core.Mathematics.Matrix,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Division(Stride.Core.Mathematics.Matrix@,System.Single@)">
             <summary>
             Scales a matrix by a given value.
             </summary>
@@ -11460,7 +11462,7 @@
             <param name="right">The amount by which to scale.</param>
             <returns>The scaled matrix.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Division(Stride.Core.Mathematics.Matrix,Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Division(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Divides two matrices.
             </summary>
@@ -11468,7 +11470,7 @@
             <param name="right">The second matrix to divide.</param>
             <returns>The quotient of the two matrices.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Equality(Stride.Core.Mathematics.Matrix,Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Equality(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Tests for equality between two objects.
             </summary>
@@ -11476,7 +11478,7 @@
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has the same value as <paramref name="right"/>; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Matrix.op_Inequality(Stride.Core.Mathematics.Matrix,Stride.Core.Mathematics.Matrix)">
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Inequality(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
             Tests for inequality between two objects.
             </summary>
@@ -12663,7 +12665,7 @@
             <param name="value4">Fourth source quaternion.</param>
             <returns>An array of three quaternions that represent control points for spherical quadrangle interpolation.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Quaternion.op_Addition(Stride.Core.Mathematics.Quaternion,Stride.Core.Mathematics.Quaternion)">
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_Addition(Stride.Core.Mathematics.Quaternion@,Stride.Core.Mathematics.Quaternion@)">
             <summary>
             Adds two quaternions.
             </summary>
@@ -12671,7 +12673,7 @@
             <param name="right">The second quaternion to add.</param>
             <returns>The sum of the two quaternions.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Quaternion.op_Subtraction(Stride.Core.Mathematics.Quaternion,Stride.Core.Mathematics.Quaternion)">
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_Subtraction(Stride.Core.Mathematics.Quaternion@,Stride.Core.Mathematics.Quaternion@)">
             <summary>
             Subtracts two quaternions.
             </summary>
@@ -12679,14 +12681,14 @@
             <param name="right">The second quaternion to subtract.</param>
             <returns>The difference of the two quaternions.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Quaternion.op_UnaryNegation(Stride.Core.Mathematics.Quaternion)">
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_UnaryNegation(Stride.Core.Mathematics.Quaternion@)">
             <summary>
             Reverses the direction of a given quaternion.
             </summary>
             <param name="value">The quaternion to negate.</param>
             <returns>A quaternion facing in the opposite direction.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Quaternion.op_Multiply(System.Single,Stride.Core.Mathematics.Quaternion)">
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_Multiply(System.Single,Stride.Core.Mathematics.Quaternion@)">
             <summary>
             Scales a quaternion by the given value.
             </summary>
@@ -12694,7 +12696,7 @@
             <param name="scale">The amount by which to scale the quaternion.</param>
             <returns>The scaled quaternion.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Quaternion.op_Multiply(Stride.Core.Mathematics.Quaternion,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_Multiply(Stride.Core.Mathematics.Quaternion@,System.Single)">
             <summary>
             Scales a quaternion by the given value.
             </summary>
@@ -15721,7 +15723,7 @@
         </member>
         <member name="M:Stride.Core.Mathematics.Vector3.Max(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Returns a vector containing the smallest components of the specified vectors.
+            Returns a vector containing the largest components of the specified vectors.
             </summary>
             <param name="left">The first source vector.</param>
             <param name="right">The second source vector.</param>
@@ -16044,7 +16046,7 @@
             <param name="angle">The angle to rotate by in radians.</param>
             <returns>The rotated vector.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Addition(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Addition(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
             Adds two vectors.
             </summary>
@@ -16052,14 +16054,14 @@
             <param name="right">The second vector to add.</param>
             <returns>The sum of the two vectors.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_UnaryPlus(Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_UnaryPlus(Stride.Core.Mathematics.Vector3@)">
             <summary>
             Assert a vector (return it unchanged).
             </summary>
             <param name="value">The vector to assert (unchange).</param>
             <returns>The asserted (unchanged) vector.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Subtraction(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Subtraction(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
             Subtracts two vectors.
             </summary>
@@ -16067,14 +16069,14 @@
             <param name="right">The second vector to subtract.</param>
             <returns>The difference of the two vectors.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_UnaryNegation(Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_UnaryNegation(Stride.Core.Mathematics.Vector3@)">
             <summary>
             Reverses the direction of a given vector.
             </summary>
             <param name="value">The vector to negate.</param>
             <returns>A vector facing in the opposite direction.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Multiply(System.Single,Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Multiply(System.Single,Stride.Core.Mathematics.Vector3@)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -16082,7 +16084,7 @@
             <param name="scale">The amount by which to scale the vector.</param>
             <returns>The scaled vector.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Multiply(Stride.Core.Mathematics.Vector3,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Multiply(Stride.Core.Mathematics.Vector3@,System.Single)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -16090,7 +16092,7 @@
             <param name="scale">The amount by which to scale the vector.</param>
             <returns>The scaled vector.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Multiply(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Multiply(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
             Modulates a vector with another by performing component-wise multiplication.
             </summary>
@@ -16098,7 +16100,7 @@
             <param name="right">The second vector to multiply.</param>
             <returns>The multiplication of the two vectors.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Addition(Stride.Core.Mathematics.Vector3,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Addition(Stride.Core.Mathematics.Vector3@,System.Single)">
             <summary>
             Adds a vector with the given value.
             </summary>
@@ -16106,7 +16108,7 @@
             <param name="scale">The amount by which to scale the vector.</param>
             <returns>The vector offset.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Subtraction(Stride.Core.Mathematics.Vector3,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Subtraction(Stride.Core.Mathematics.Vector3@,System.Single)">
             <summary>
             Substracts a vector by the given value.
             </summary>
@@ -16114,7 +16116,7 @@
             <param name="scale">The amount by which to scale the vector.</param>
             <returns>The vector offset.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Division(System.Single,Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Division(System.Single,Stride.Core.Mathematics.Vector3@)">
             <summary>
             Divides a numerator by a vector.
             </summary>
@@ -16122,7 +16124,7 @@
             <param name="value">The value.</param>
             <returns>The scaled vector.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Division(Stride.Core.Mathematics.Vector3,System.Single)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Division(Stride.Core.Mathematics.Vector3@,System.Single)">
             <summary>
             Scales a vector by the given value.
             </summary>
@@ -16130,7 +16132,7 @@
             <param name="scale">The amount by which to scale the vector.</param>
             <returns>The scaled vector.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Division(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Division(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
             Divides a vector by the given vector, component-wise.
             </summary>
@@ -16154,35 +16156,26 @@
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has a different value than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Explicit(Stride.Core.Mathematics.Vector3)~Stride.Core.Mathematics.Vector2">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Explicit(Stride.Core.Mathematics.Vector3@)~Stride.Core.Mathematics.Vector2">
             <summary>
             Performs an explicit conversion from <see cref="T:Stride.Core.Mathematics.Vector3"/> to <see cref="T:Stride.Core.Mathematics.Vector2"/>.
             </summary>
             <param name="value">The value.</param>
             <returns>The result of the conversion.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Explicit(Stride.Core.Mathematics.Vector3)~Stride.Core.Mathematics.Vector4">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Explicit(Stride.Core.Mathematics.Vector3@)~Stride.Core.Mathematics.Vector4">
             <summary>
             Performs an explicit conversion from <see cref="T:Stride.Core.Mathematics.Vector3"/> to <see cref="T:Stride.Core.Mathematics.Vector4"/>.
             </summary>
             <param name="value">The value.</param>
             <returns>The result of the conversion.</returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.op_Explicit(Stride.Core.Mathematics.Vector3)~Stride.Core.Mathematics.Int3">
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Explicit(Stride.Core.Mathematics.Vector3@)~Stride.Core.Mathematics.Int3">
             <summary>
             Performs an explicit conversion from <see cref="T:Stride.Core.Mathematics.Vector3"/> to <see cref="T:Stride.Core.Mathematics.Int3"/>.
             </summary>
             <param name="value">The value.</param>
             <returns>The result of the conversion.</returns>
-        </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.NearEqual(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
-            <summary>
-            Tests whether one 3D vector is near another 3D vector.
-            </summary>
-            <param name="left">The left vector.</param>
-            <param name="right">The right vector.</param>
-            <param name="epsilon">The epsilon.</param>
-            <returns><c>true</c> if left and right are near another 3D, <c>false</c> otherwise</returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector3.NearEqual(Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>

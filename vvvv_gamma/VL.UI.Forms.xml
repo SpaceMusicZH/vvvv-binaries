@@ -238,6 +238,11 @@
             The type of the value.
             </summary>
         </member>
+        <member name="P:VL.HDE.PatchEditor.Editors.IValueEditor.InnerType">
+            <summary>
+            The type of the wrapped value, for example float for Channel&lt;float&gt;
+            </summary>
+        </member>
         <member name="P:VL.HDE.PatchEditor.Editors.IValueEditor.Tag">
             <summary>
             Custom user data.
@@ -300,6 +305,21 @@
             Use this in order to make a threadsafe copy of the value. Typically used when visualizing values streaming from the user program.
             </summary>
         </member>
+        <member name="P:VL.HDE.PatchEditor.Editors.IValueEditor.Settings">
+            <summary>
+            Settings that configure the editor
+            </summary>
+        </member>
+        <member name="P:VL.HDE.PatchEditor.Editors.IValueEditor.OmitClippingIndicator">
+            <summary>
+            For multicomponent editors to prevent showing the indicator for all its children
+            </summary>
+        </member>
+        <member name="P:VL.HDE.PatchEditor.Editors.IValueEditor.HasClippedCaption">
+            <summary>
+            To indicate whether the displayed value is clipped
+            </summary>
+        </member>
         <member name="P:VL.HDE.PatchEditor.Editors.IMulticomponentEditor.Horizontal">
             <summary>
             Specifies the layout of the subcomponents
@@ -313,11 +333,6 @@
         <member name="P:VL.HDE.PatchEditor.Editors.IMulticomponentEditor.ComponentCount">
             <summary>
             The total number of components
-            </summary>
-        </member>
-        <member name="P:VL.HDE.PatchEditor.Editors.IMulticomponentEditor.Settings">
-            <summary>
-            Settings that configure the editors
             </summary>
         </member>
         <member name="F:VL.HDE.PatchEditor.Editors.ValueChangedEventArgs.OldValue">
@@ -367,7 +382,7 @@
             <summary>
             Tries to convert a value of unknown type.
             </summary>
-            <param name="unkown">The value with an unknown type. For example consider the spread editor handling any sequence. The incoming value could have the runtime type array.</param>
+            <param name="unknown">The value with an unknown type. For example consider the spread editor handling any sequence. The incoming value could have the runtime type array.</param>
             <param name="value">The converted value. In case of the spread editor this would have been done by casting the incoming value up to IEnumerable and calling ToSpread on it.</param>
             <returns>True if value was converted.</returns>
         </member>
@@ -593,6 +608,47 @@
               Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
             </summary>
         </member>
+        <member name="T:VL.UI.Forms.Resources.Icons">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.document">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.function">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.functor">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.module">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="P:VL.UI.Forms.Resources.Icons.name_space">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
         <member name="T:VL.UI.Forms.EditorRuntime">
             <summary>
             Runs *.HDE.vl patches in the same thread as the patch editor.
@@ -651,10 +707,9 @@
             <param name="document"></param>
             <returns></returns>
         </member>
-        <member name="P:VL.UI.Forms.VLContext.NewInstanceAllowed">
+        <member name="T:VL.UI.Forms.VLContext.MessageHandlerWindow">
             <summary>
-            Gets a value indicating whether a new instance is allowed to open.
-            It checks for the '-m' or '--allowmultiple' commandline arg and whether another instance is already running.
+            Invisible window we use for IPC
             </summary>
         </member>
         <member name="M:VL.UI.Frames.ScreenCapture.CaptureScreen">
@@ -804,17 +859,6 @@
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
             </summary>
-        </member>
-        <member name="M:VL.Core.SingleAppInstanceUtils.GetOrAddAppMutex(System.String,System.Boolean@,System.Boolean)">
-            <summary>
-            Tries to create a mutex with given name. Also sets the static OtherInstanceIsRunning property.
-            </summary>
-            <param name="mutexName">Name of the mutex.</param>
-            <param name="isNew">True if the mutex was created, false if another instance exists already</param>
-            <param name="addGlobalPrefix">If set to <c>true</c> the "Global\" prefis is added.</param>
-            <returns>
-            The new or existing mutex.
-            </returns>
         </member>
         <member name="F:VL.FileTypeAssociationDialog.components">
             <summary>
@@ -987,7 +1031,7 @@
             this method pulls data out of the model and displays it in the canvas
             </summary>
         </member>
-        <member name="M:VL.Lang.View.View.IntersectsWith(System.Drawing.RectangleF,VL.Lang.View.PickyReason)">
+        <member name="M:VL.Lang.View.View.IntersectsWith(VL.Lang.View.PickData)">
             <summary>
             Whether or not the view intersects with the given rectangle in world space.
             </summary>
@@ -995,7 +1039,7 @@
             <param name="reason">The reason for the intersect test. Used for example by pads to test different areas.</param>
             <returns>True if the view intersects.</returns>
         </member>
-        <member name="M:VL.Lang.View.View.IntersectsWithChildren(System.Drawing.RectangleF)">
+        <member name="M:VL.Lang.View.View.IntersectsWithChildren(VL.Lang.View.PickData)">
             <summary>
             Whether or not any of the view's children might intersect with the given rectangle in world space.
             Used to reduce overall amount of intersect tests.
@@ -1008,16 +1052,7 @@
             Picking is done in view space (canvas).
             </summary>
             <typeparam name="T">The views which shall be picked.</typeparam>
-            <param name="viewPoint">The point of interest (in view space).</param>
-            <param name="reason">The pick reason.</param>
-            <returns>The picked views.</returns>
-        </member>
-        <member name="M:VL.Lang.View.View.GetPickPath``1(System.Drawing.RectangleF,VL.Lang.View.PickyReason)">
-            <summary>
-            Picking is done in view space (canvas).
-            </summary>
-            <typeparam name="T">The views which shall be picked.</typeparam>
-            <param name="viewRect">The rectangle of interest (in view space).</param>
+            <param name="viewPosPixel">The position of interest (in view space, which is in pixel).</param>
             <param name="reason">The pick reason.</param>
             <returns>The picked views.</returns>
         </member>
@@ -1157,7 +1192,7 @@
             The key event handler, driven by key message preview in EditorControl
             </summary>
         </member>
-        <member name="F:VL.Lang.View.CanvasView.CGeneralPickAreaForConnectablesAndLinks">
+        <member name="M:VL.Lang.View.CanvasView.SelectMoveHandler(VL.Core.Viewer.VMouseEventArgs)">
             <summary>
             for the general / always-need-to-be-working case this may not be too big... 
             to get better pickyness for your view try to adapt intersect in your view.
@@ -1371,7 +1406,7 @@
             <param name="reason"></param>
             <returns></returns>
         </member>
-        <member name="M:VL.Lang.View.ViewHelpers.StandardPicks(VL.Core.Viewer.VMouseEventArgs)">
+        <member name="M:VL.Lang.View.ViewHelpers.StandardPicks(VL.Core.Viewer.VMouseEventArgs,VL.Lang.View.PickyReason)">
             <summary>
             Get standard picks from quick pick
             </summary>
@@ -1425,7 +1460,7 @@
             Link view class, displays a link between data hubs
             </summary>
         </member>
-        <member name="M:VL.Lang.View.LinkView.GetNodeBounds(System.Object,System.Boolean)">
+        <member name="M:VL.Lang.View.LinkView.GetNodeBounds(System.Object,System.Boolean,VL.Lang.View.RegionView@)">
             <summary>
             Calculates the bounds of the node body associated with this connectable for the link path
             </summary>
@@ -1602,47 +1637,6 @@
             <summary>
             A MenuSeparator should be rendered by a viewer in a way to reflect the
             separation of two menu entries.
-            </summary>
-        </member>
-        <member name="T:VL.Forms.Resources.icons">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.document">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.function">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.functor">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.module">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-            </summary>
-        </member>
-        <member name="P:VL.Forms.Resources.icons.name_space">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
             </summary>
         </member>
         <member name="T:VL.CoreLib.Windows.ScreenshotHelper.TernaryRasterOperations">

@@ -1,0 +1,135 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Audio.vl</name>
+    </assembly>
+    <members>
+        <member name="T:_VL_Audio_.Audio.DriverSettings_KuVlAdkS707LcgTmpwbm2r">
+            <summary>Chooses and configures the audio driver</summary>
+            <remarks>Only one instance of this node must exist!</remarks>
+            <tags>audioengine</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Sink.AudioOut_AUHLL4CKw7sNv9pneoZtP0">
+            <summary>Sends audio signals to the drivers outputs</summary>
+            <remarks>The first slice will go to first driver output channel, the second slice will be second and so on... With the Channel Offset pin, the channels can be moved to other outputs</remarks>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Sink.GetSamples_HLSuzSaWCLgODBuZ9kxQ1E">
+            <summary>Returns the last &apos;Count&apos; samples</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Sink.A2V_IfxNUkID71bMzKOMadtbgU">
+            <summary>Returns the latest audio sample as value</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Sink.WavWriter_DeoVLcAZ5WdLs2i5i9GeGr">
+            <summary>Writes an audiosignal to disk as a .wav file</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Source.AudioIn_FFS395946jvPxWmcddZxxi">
+            <summary>Returns the audio input signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Source.AudioPlayer_ItYymiDKOMELD9d43wjAYV">
+            <summary>Plays back sound files</summary>
+            <tags>wav,mp3,aiff,sound,file</tags>
+        </member>
+        <member name="M:_VL_Audio_.Audio.Source.AudioPlayer_ItYymiDKOMELD9d43wjAYV.Update(VL.Lib.IO.Path,System.Boolean,System.Single,System.Single,System.Single,System.Boolean,System.Single,System.Single,System.Boolean,VL.Lib.Collections.Spread{VL.Audio.AudioSignal}@,System.Single@,System.Single@,System.Boolean@,System.Int32@,System.Int32@,System.String@)">
+            <param name="Loop_End_Time_In">Set &lt; 0 to loop the whole file</param>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Source.WaveTable_LHgIldikUzFNDjWVzUzY6r">
+            <summary>Generates an audio signal from a wave table</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Source.ValueSequence_Up4J7wbKFbEM3fA9bo55Jj">
+            <summary>Generates a sequence of values which are played back as an audio signal</summary>
+            <tags>sequencer,clip,loop</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Source.Granulator_Cpm8695zjcjOQfjcTcuvCe">
+            <summary>Reads grains from an audio file</summary>
+            <tags>granular,synthesis</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Source.StepSequencer_FTrfDzlpu8fLL1f68ccMm3">
+            <summary>Generates a sequence of values which are played back as an audio signal</summary>
+            <tags>sequencer,clip,loop</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Analysis.Meter_UF5dEH2A8JiPAkhTTconda">
+            <summary>Calculates the maximum dB of an audio signal</summary>
+            <tags>level,dB,decibel</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Analysis.FFT_BeqQjRlr5kVOJ0N5Txrqtn">
+            <summary>Calculates the FFT of an audio signal</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.BufferRecorder_TSkA3MH1OpUPI0qGCSA0dp">
+            <summary>Records audio into a buffer</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.BufferPlayer_NS0ZOPuy5tRL8yu20oHjRJ">
+            <summary>Plays back audio from a Buffer</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.Buffer_C">
+            <summary>Holds a one channel audio Buffer</summary>
+            <remarks>To specify the buffer size by the number of samples (instead of length in seconds), use the optional Size input</remarks>
+        </member>
+        <member name="M:_VL_Audio_.Audio.Buffers.Buffer_C.Update(System.Int32,System.Single,System.Collections.Generic.IEnumerable{System.Single},System.Boolean,System.Int32@)">
+            <param name="Size_In">Number of samples. Ignored, if an Initial Buffer is provided</param>
+            <param name="Length_In">In seconds. Ignored, if an Initial Buffer or Size is provided</param>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.WavWriter_Buffer_PbfQt5LL5H3P9IbVudA9jQ">
+            <summary>Writes a Buffer to disk as a WAV file</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.WavReader_Buffer_JMgd44Rqs7PL2YNGHCUyGU">
+            <summary>Reads a buffer from disk from a WAV file</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.WaveForm_Buffer_QEkoqTWW8raQQt1c8HbLVi">
+            <summary>Extracts a waveform from a given buffer</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.BufferReader_GFi7Up5UjBrOmaiOLnO0mj">
+            <summary>Reads samples from a buffer</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.BufferWriter_CaOsiEs2PYrN1zKnkXqA5t">
+            <summary>Writes samples into a buffer</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Buffers.BufferClearer_AaVy501eKUmQEFnRMIfE8a">
+            <summary>Writes samples into a buffer</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Operators.OperatorPlus_Spectral_UXhAjfqfADANJa054gwfcy">
+            <summary>Adds audio signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Operators.OperatorMultiply_Spectral_BgZx0If85w0Nm0yGr4YOb0">
+            <summary>Multiplies audio signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Operators.OperatorMinus_Spectral_PyDmACQkotoNtYKaNeZdYM">
+            <summary>Subtracts audio signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Operators.OperatorPlus_NSqYqjVerIrNH8csPUlYuF">
+            <summary>Adds audio signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Operators.OperatorMultiply_M9XaouBMujkOIoobTdzoRK">
+            <summary>Multiplies audio signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Operators.OperatorMinus_BbhhrpVKna5PHUO9xNgsQG">
+            <summary>Subtracts audio signals</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Utils.WaveForm_UHY2POUv9zrO2PVQoZ0zio">
+            <summary>Extracts a waveform from a given file</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Utils.MatrixMixer_R3HUiMXrx7bM9H43lpEF2s">
+            <summary>Mixes a spread of Audio input channels to a spread of output channels</summary>
+        </member>
+        <member name="M:_VL_Audio_.Audio.Utils.MatrixMixer_R3HUiMXrx7bM9H43lpEF2s.Update(System.Collections.Generic.IReadOnlyList{VL.Audio.AudioSignal},System.Int32,System.Collections.Generic.IEnumerable{System.Collections.Generic.IEnumerable{System.Single}},System.Boolean,VL.Lib.Collections.Spread{VL.Audio.AudioSignal}@)">
+            <param name="Gain_Matrix_In">The Gain matrix needs as many rows as the mixer has input channels and as many columns as it has output channels.</param>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Utils.StereoMixer_KY08QgCBpWxO9awIi4RkgZ">
+            <summary>Mixes a spread of Audio input channels to a spread of output channels</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.Utils.Resample_TVQlTQ2jaaKODQ4WsOyh42">
+            <summary>Resamples the input signal to any output sample rate</summary>
+        </member>
+        <member name="T:_VL_Audio_.Audio.DriverStatus_KO34XCKo2v1OzrwCrrrcJn">
+            <summary>Returns the current audio driver configuration</summary>
+            <tags>audioengine</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.TimingSettings_P5Il0xX3TglQBKUh2ToNGX">
+            <summary>Configures the audio engines timing</summary>
+            <remarks>Only one instance of this node must exist!</remarks>
+            <tags>audioengine</tags>
+        </member>
+        <member name="T:_VL_Audio_.Audio.SettingsFromFile_RZPiRBW3tLeNQcSa1F9sBn">
+            <summary>Loads driver and timing settings from a file</summary>
+        </member>
+    </members>
+</doc>

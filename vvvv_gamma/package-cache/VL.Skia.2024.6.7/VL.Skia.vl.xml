@@ -1,0 +1,967 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Skia.vl</name>
+    </assembly>
+    <members>
+        <member name="M:_VL_Skia_.Graphics.Skia.DefaultBehavior_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>interface operation summary: If notification got processed return true.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.DefaultRendering_C.Render_(VL.Skia.CallerInfo)">
+            <summary>interface operation summary: Renders the layer.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.ViewportDispatcher_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>interface operation summary: If notification got processed return true.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.RenderingNode_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.RenderingNode_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>
+            interface operation summary: Scene graph nodes typically notify upstream before considering to apply own logic.
+                        Typically only apply own logic if notification didn&apos;t get processed by upstream.
+                        Return if notification got processed.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.RenderingNode_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Vertices_DUg2OVRNWvCQMFSi9qZcir">
+            <summary>Draws the given triangles</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawPath_B5wYA2D334kMvk12hQ0Bw9">
+            <summary>Draws a given path</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Clear_B7wcEtJT7QrOw9jTRtBtUK">
+            <summary>Clears the renderer with the specified color</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Grid_FF6vzd19BBBNiAp7ZWdPIE">
+            <summary>Draws a grid</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.ClipRect_GlOIyEaUbHsMosVV0w15Lj">
+            <summary>Clips a layer at the given rectangle</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Arrow_LkmkJWVjwT1N0iaFX8x0DS">
+            <summary>Draws an arrow between two points</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Axis_Oe1WZr0mGFOMNDYsxhecLK">
+            <summary>Draws an X/Y axis at the coordinate origin</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.AxisAndGrid_IoZZD6fo7sLQOZqqUiM59g">
+            <summary>Draws an X/Y axis and a grid at the coordinate origin</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Segment_GZna11iNZrnOZuKfkW1Equ">
+            <summary>Draws a segment with variable point count at the given position</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Polygon_OpmdO5gZr3xLcHs8bYnFf1">
+            <summary>Draws a polygon</summary>
+            <tags>line,shape</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Text.Text_Bounds_BF8wwA0GV1NLPYvGsYUsL4">
+            <summary>Draws the given text in the given bounds</summary>
+            <remarks>Use FontAndParagraph [Graphics.Skia.Paint] to adjust various parameters</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Text.Text_IDhaSC7EQyYLRW7vKwiIIb">
+            <summary>Draws the given text at the given position</summary>
+            <remarks>Use FontAndParagraph [Graphics.Skia.Paint] to adjust various parameters</remarks>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Text.Text_Baseline.TextLayer_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Text.Text_Baseline.TextLayer_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Segment_Bounds_SPpxs9DNsctPmfATRrVfUe">
+            <summary>Draws a segment with variable point count in the given bounds</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Star_T8CjXM1wiJEPzRNVu13T6s">
+            <summary>Draws a star with variable spike count and inner and outer radius</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Spiral_Rdw4Yfui0nPMP7gnpfO37B">
+            <summary>Draws a spiral</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.ClipPath_S6FEgmfchSRQaaYF2XfbOf">
+            <summary>Clips a layer at the given path</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Mask_TpN8EtstDWxOH21GfG69gZ">
+            <summary>Masks out one layer given another one</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Mask_JcaRCXWuXcXOmn9Yi86X69">
+            <summary>Masks out one layer given another one</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.PerfMeter_DKSmSgD1BJLLXIBIEGXfce">
+            <summary>Draws a performance meter with fps and other timing information</summary>
+            <tags>line,shape</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.PathLayer_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.PathLayer_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Rectangle_KrMUyIM5UCKL1aqQ0xQ3vh">
+            <summary>Draws a rectangle at the given position, with the given size</summary>
+            <tags>quad</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.RoundRectangle_ORIzah5ECIFPO6Z983qw5x">
+            <summary>Draws a round rectangle at the given position, with the given size</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawSVG_QicDs6M1Mf5N9nQYNtwA4b">
+            <summary>Draws an svg-image at the given position, with the given size</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawImage_HtRZIc5D5goOJBxUBLUKsQ">
+            <summary>Draws an image at the given position, with the given size</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Oval_Bounds_J9gTclPWe4kLiywAy86pZr">
+            <summary>Draws an oval in the given bounds</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawSVG_Bounds_EaD943WzdWdOHWho1njCIz">
+            <summary>Draws an svg-image in the given bounds</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Points_IJtsDRTA78IMUTL6TAnrvJ">
+            <summary>Draws a spread of circle or squares at the given positions with a given size</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Oval_PjU5C9UgB4XOM42gvZj0Cm">
+            <summary>Draws an oval at the given position, with the given size</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawImage_Bounds_Go9UPmnx3zoM6Z1tgYO2BI">
+            <summary>Draws an image in the given bounds</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Checkerboard_S8yON0jADV8MKozWdAh1ON">
+            <summary>Fills the renderer with a checkerboard pattern</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Circle_PkBNwasMVJjOdYsVSPoZ1g">
+            <summary>Draws a circle at the given position, with the given size</summary>
+            <tags>segment</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Circle_Circle_TeZYCC80AH4OEq9Yf05td0">
+            <summary>Draws a circle in the given circle</summary>
+            <tags>segment</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.ClientBounds_C">
+            <tags>Renderer,Bounds,Viewport,Worldspace</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.ClientBounds_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>
+            interface operation summary: Scene graph nodes typically notify upstream before considering to apply own logic.
+                        Typically only apply own logic if notification didn&apos;t get processed by upstream.
+                        Return if notification got processed.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.ClientBounds_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.PictureLayer_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.PictureLayer_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.ImageLayer_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.ImageLayer_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Rectangle_Bounds_C">
+            <summary>Draws a rectangle in the given bounds</summary>
+            <tags>quad</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Rectangle_Bounds_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Rectangle_Bounds_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.RoundRectangle_Bounds_C">
+            <summary>Draws a round rectangle in the given bounds</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.RoundRectangle_Bounds_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.RoundRectangle_Bounds_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Circle_Bounds_C">
+            <summary>Draws a circle in the given bounds</summary>
+            <tags>segment</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Circle_Bounds_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Circle_Bounds_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.Line_C">
+            <summary>Draws a line between two points</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Line_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.Line_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawPicture_Bounds_RzCGts9XBF6MXoxqdJ0wFq">
+            <summary>Draws a prerecorded picture (svg) in the given bounds</summary>
+            <tags>svg,drawsvg</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Layers.DrawPicture_Ikk3nElW3paMuLOEoElz5K">
+            <summary>Draws a prerecorded picture (svg) at the given position, with the given size</summary>
+            <tags>svg,drawsvg</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.ReplayPicture_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.AdaptiveLayer_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>
+            interface operation summary: Scene graph nodes typically notify upstream before considering to apply own logic.
+                        Typically only apply own logic if notification didn&apos;t get processed by upstream.
+                        Return if notification got processed.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Layers.AdaptiveLayer_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.BreakAtWidth_O6BNnKOQUTEMxNdfgCRJ1w">
+            <tags>text,split</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.BreakAtRect_ElCWs4dwpeUQQLkxdw01MI">
+            <tags>text,split</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Ellipsis_Right_Pixel_OD9tdyJlggmMEd3dqtN2jF">
+            <tags>clip</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Ellipsis_Left_Pixel_Pyb0lyOah8lQZkEtv2TlXn">
+            <tags>clip</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Ellipsis_Center_Pixel_Tgye8NnVAIoLDOopjR4AaJ">
+            <tags>clip</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Ellipsis_Ends_Pixel_Djt23V1EjSVNNGHqvmPeK2">
+            <tags>clip</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Paint.SetTypeface_B04LmgYE4U2NNGGOxZoFnU">
+            <tags>font</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Paint.SetTypefaceStyle_MoGKeiO9W0hMONCpTgYUkq">
+            <tags>font,italic,bold</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Paint.SetTypefaceSlant_Dv94kdD3tXqL3XkaZ95LYU">
+            <tags>font</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Paint.SetTypefaceWidth_AhgeWXy5L6TPjj72VUBAOl">
+            <tags>font</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Paint.SetTypefaceWeight_FlzKxuQGGgmOwqONeEktcj">
+            <tags>font</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Text.Paint._Operations_.BreakText(System.String,System.Single,_VL_Skia_.Graphics.Skia.SkiaPaint_R,SkiaSharp.SKPaint@,System.Int64@,System.Single@,System.String@)">
+            <summary>Measure the text, stopping early if the measured width exceeds maxWidth.</summary>
+            <param name="Text_In">The text to be measured.</param>
+            <param name="Max_Width_In">The maximum width. Only the subset of text whose accumulated widths are &lt;= Max Width are measured.</param>
+            <param name="Output_Out">Measure the text, stopping early if the measured width exceeds maxWidth.</param>
+            <param name="Result_Out">Returns the number of characters of text that were measured.</param>
+            <param name="Measured_Width_Out">The actual width of the measured text.</param>
+            <param name="Measured_Text_Out">The text that was measured.</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.SetTextSize_QI38Jjk5kaVN53dJij0KIZ">
+            <tags>font</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Typeface_FromName_Q6b2DSnKxo3MAnm9n9ZKZo">
+            <tags>font</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.Typeface_FromFile_QUjcUSukHXZN7VDVLAGOJp">
+            <tags>font</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.FontAndParagraph_HsZhLZKEOOGP7Xiftx1SLN">
+            <tags>typeface,italic,bold</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.MatchCharacter_UdHVKOcSnJNNa9QOwjKFsi">
+            <tags>font,typeface</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Text.BreakLineAtWidth_BGu18hKEb99NbFlPAWNZhx">
+            <tags>text,split</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetColor_ErmwE010oOSLqOYWImAOgN">
+            <summary>Apply a color to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetStyle_K86rgtlymU8NzNDsMxFLvX">
+            <summary>Apply the fill/stroke style to the paint</summary>
+            <tags>fill,stroke</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetStrokeWidth_KnQo797H9sWM7zw8vskJYm">
+            <summary>Apply a stroke width to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetStrokeJoin_K0JtDGorQigQSKUENlFSDl">
+            <summary>Apply a stroke join style to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetStrokeCap_BHhG72VK9aGMrt8yFiiyZJ">
+            <summary>Apply a stroke cap style to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetShader_HaUZB0OOWJZP67JvPLHLQI">
+            <summary>Apply a shader to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.Stroke_ApdGyamrLDXOTiJpdyhyN9">
+            <summary>Use to draw the outline of primitives with the given color and specifiy properties of the stroke</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetImageFilter_BQMYguKjl9lM0ghKWWmgDd">
+            <summary>Apply an image filter to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetColorFilter_Sy5AIchAMWtM8XD0BHYUVd">
+            <summary>Apply a color filter to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.Fill_UsNlhFP5Z8VOaaHSrZXiyC">
+            <summary>Use to draw filled primitives with the given color</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetBlendMode_LJKa0rW707FLA7SbthLEaQ">
+            <summary>Apply a blend mode</summary>
+            <tags>add</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetMaskFilter_QOW4NgX2GNFOrYmX2Gg4aW">
+            <summary>Apply a mask filter to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetAlpha_GGYejxVIB0CO3kgS6iMxJ7">
+            <summary>Apply an alpha value to the colorof the paint</summary>
+            <tags>transparency,opacity</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.SetStrokeMiter_PIIB7xmQJVKLYL5fwvRCqO">
+            <summary>Apply a stroke miter to the paint</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.Lighting_GXvOgfRlzrFQZdXyA9NaMx">
+            <summary>Multiplies the RGB channels by one color, and then adds a second color, pinning the result for each component to [0..255].</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.LumaColor_DB7AUA7NLgaLzUDwAf0MNq">
+            <summary>Luminance-to-alpha color filter</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.LUT_J1Tnf5WugPcND2berYpRv1">
+            <summary>Uses each pixels value as an index into a lookup table and applies the color of the table to the pixel</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.Contrast_QsekEnsFoH4N9ge8RH7cFT">
+            <summary>Changes the contrast of the image</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.Brightness_U2JoKCIdqLXLIuzhVWWufB">
+            <summary>Changes the brightness of the image</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.Transform_MZ77Ogv1cS0O9GrA2vjN9d">
+            <summary>Applies a matrix operations for color processing</summary>
+            <remarks>For more info see: Matrix Operations for Image Processing http://www.graficaobscura.com/matrix/index.html</remarks>
+            <tags>matrix</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Paint.ColorFilters.Grayscale_L2PESBEM9IkNzJYrPjkwXs">
+            <summary>Converts the image to grayscale</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paint._Operations_.Handle(_VL_Skia_.Graphics.Skia.SkiaPaint_R,_VL_Skia_.Graphics.Skia.SkiaPaint_R@,System.IntPtr@)">
+            <summary>Gets or sets the handle to the underlying native object.</summary>
+            <remarks>Setting this value will register this object with the lifetime tracker.</remarks>
+            <param name="Handle_Out">Gets or sets the handle to the underlying native object.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paint._Operations_.GetFIllPath(SkiaSharp.SKPath,_VL_Skia_.Graphics.Skia.SkiaPaint_R,System.Single,SkiaSharp.SKPath@)">
+            <summary>Creates a new path from the result of applying any and all effects to a source path.</summary>
+            <tags>Outline</tags>
+            <param name="Input_In">The input path.</param>
+            <param name="Res_Scale_In">If &gt; 1, increase precision, else if (0 &lt; res &lt; 1) reduce precision in favor of speed/size.</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Transform.Transform_FwX2Jt8yhtVOKxyXSTS8pk">
+            <summary>Applies a transformation to a layer</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Transform.TransformSRT_Oc7C6Oc4qP6M6mhsHRSy9b">
+            <summary>Applies a transformation to a layer using Scaling, Rotation and Translation inputs</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Transform.UniformScale_RgE8SxjSPdCO6frhV40GAB">
+            <summary>Applies a uniform scaling to a layer</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Transform.Camera_O7LYHPQQKLULO8HuE2Sxbd">
+            <summary>Provides a simple 2d camera for panning and zooming</summary>
+            <remarks>
+            Pan: Right drag
+            Zoom: Mouse wheel
+            Reset: Longpress the R key
+            </remarks>
+            <tags>pan,zoom</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Behaviors.ButtonBehavior_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>interface operation summary: If notification got processed return true.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Behaviors.LatestPosition_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>interface operation summary: If notification got processed return true.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ParseSvgPathData(System.String,SkiaSharp.SKPath@)">
+            <summary>Creates a path based on the SVG path data string.</summary>
+            <param name="Svg_Path_In">The SVG path data.</param>
+            <param name="Result_Out">Returns the new path if successful, otherwise .</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ToSvgPathData(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.String@)">
+            <summary>Returns a SVG path data representation of the current path.</summary>
+            <param name="Input_In">Returns a SVG path data representation of the current path.</param>
+            <param name="Output_Out">Returns a SVG path data representation of the current path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Convexity(SkiaSharp.SKPath,SkiaSharp.SKPath@,SkiaSharp.SKPathConvexity@)">
+            <summary>Gets or sets the path&apos;s convexity.</summary>
+            <remarks>If it is currently unknown, then this function will attempt to compute the convexity (and cache the result).</remarks>
+            <param name="Convexity_Out">Gets or sets the path&apos;s convexity.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.SetConvexity(SkiaSharp.SKPath,SkiaSharp.SKPathConvexity,SkiaSharp.SKPath@)">
+            <summary>Gets or sets the path&apos;s convexity.</summary>
+            <remarks>If it is currently unknown, then this function will attempt to compute the convexity (and cache the result).</remarks>
+            <param name="Value_In">Gets or sets the path&apos;s convexity.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.FillType(SkiaSharp.SKPath,SkiaSharp.SKPath@,SkiaSharp.SKPathFillType@)">
+            <summary>Gets or sets the path&apos;s fill type.</summary>
+            <remarks>This is used to define how &quot;inside&quot; is computed. The default value is F:SkiaSharp.SKPathFillType.Winding.</remarks>
+            <param name="Fill_Type_Out">Gets or sets the path&apos;s fill type.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.SetFillType(SkiaSharp.SKPath,SkiaSharp.SKPathFillType,SkiaSharp.SKPath@)">
+            <summary>Gets or sets the path&apos;s fill type.</summary>
+            <remarks>This is used to define how &quot;inside&quot; is computed. The default value is F:SkiaSharp.SKPathFillType.Winding.</remarks>
+            <param name="Value_In">Gets or sets the path&apos;s fill type.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.IsConcave(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.Boolean@)">
+            <summary>Gets a value indicating whether the path is concave.</summary>
+            <remarks>If it is currently unknown, then this function will attempt to compute the convexity (and cache the result).</remarks>
+            <param name="Is_Concave_Out">Gets a value indicating whether the path is concave.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.IsConvex(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.Boolean@)">
+            <summary>Gets a value indicating whether the path is convex.</summary>
+            <remarks>If it is currently unknown, then this function will attempt to compute the convexity (and cache the result).</remarks>
+            <param name="Is_Convex_Out">Gets a value indicating whether the path is convex.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.IsEmpty(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.Boolean@)">
+            <summary>Gets a value indicating whether or not the path is empty (contains no lines or curves).</summary>
+            <param name="Is_Empty_Out">Gets a value indicating whether or not the path is empty (contains no lines or curves).</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.LastPoint(SkiaSharp.SKPath,SkiaSharp.SKPath@,Stride.Core.Mathematics.Vector2@)">
+            <summary>Return the last point on the path. If no points have been added, (0, 0) is returned.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.PointCount(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.Int32@)">
+            <summary>Gets the number of points on the path.</summary>
+            <param name="Point_Count_Out">Gets the number of points on the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Points(SkiaSharp.SKPath,SkiaSharp.SKPath@,VL.Lib.Collections.Spread{Stride.Core.Mathematics.Vector2}@)">
+            <summary>Gets all the points in the path.</summary>
+            <remarks>
+            ## Remarks
+            
+            The number of points will be &lt;xref:SkiaSharp.SKPath.PointCount&gt;, To only
+            return a subset of the points in the path, use
+            &lt;xref:SkiaSharp.SKPath.GetPoints%2A&gt;.
+            </remarks>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.SegmentMasks(SkiaSharp.SKPath,SkiaSharp.SKPath@,SkiaSharp.SKPathSegmentMask@)">
+            <summary>Gets a set of flags indicating if the path contains one or more segments of that type.</summary>
+            <param name="Segment_Masks_Out">Gets a set of flags indicating if the path contains one or more segments of that type.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.VerbCount(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.Int32@)">
+            <summary>Gets the number of verbs in the path.</summary>
+            <param name="Verb_Count_Out">Gets the number of verbs in the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.MoveTo(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Set the beginning of the next contour to the point.</summary>
+            <param name="Input_In">Set the beginning of the next contour to the point.</param>
+            <param name="Output_Out">Set the beginning of the next contour to the point.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddArc(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,System.Single,System.Single,SkiaSharp.SKPath@)">
+            <summary>Adds the specified arc to the path as a new contour.</summary>
+            <param name="Input_In">Adds the specified arc to the path as a new contour.</param>
+            <param name="Output_Out">Adds the specified arc to the path as a new contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddCircle(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPathDirection,System.Single,SkiaSharp.SKPath@)">
+            <summary>Adds a closed circle contour to the path.</summary>
+            <param name="Input_In">Adds a closed circle contour to the path.</param>
+            <param name="Dir_In">The direction to wind the circle&apos;s contour.</param>
+            <param name="Radius_In">The radius of the circle.</param>
+            <param name="Output_Out">Adds a closed circle contour to the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddOval(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,SkiaSharp.SKPathDirection,SkiaSharp.SKPath@)">
+            <summary>Adds a closed oval contour to the path.</summary>
+            <param name="Input_In">Adds a closed oval contour to the path.</param>
+            <param name="Direction_In">The direction to wind the oval&apos;s contour.</param>
+            <param name="Output_Out">Adds a closed oval contour to the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddPath(SkiaSharp.SKPath,SkiaSharp.SKPath,SkiaSharp.SKPathAddMode,SkiaSharp.SKPath@)">
+            <summary>Extends the current path with the path elements from another path, using the specified extension mode.</summary>
+            <param name="Input_In">Extends the current path with the path elements from another path, using the specified extension mode.</param>
+            <param name="Other_In">The path containing the elements to be added to the current path.</param>
+            <param name="Mode_In">Determines how the Other path contours are added to the path. On F:SkiaSharp.SKPathAddMode.Append mode, contours are added as new contours. On F:SkiaSharp.SKPathAddMode.Extend mode, the last contour of the path is extended with the first contour of the Other path.</param>
+            <param name="Output_Out">Extends the current path with the path elements from another path, using the specified extension mode.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddPoly(SkiaSharp.SKPath,System.Collections.Generic.IEnumerable{Stride.Core.Mathematics.Vector2},System.Boolean,SkiaSharp.SKPath@)">
+            <summary>Adds a new contour made of just lines.</summary>
+            <param name="Input_In">Adds a new contour made of just lines.</param>
+            <param name="Close_In">Whether or not to close the path.</param>
+            <param name="Output_Out">Adds a new contour made of just lines.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddRect(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,SkiaSharp.SKPathDirection,SkiaSharp.SKPath@)">
+            <summary>Adds a closed rectangle contour to the path.</summary>
+            <param name="Input_In">Adds a closed rectangle contour to the path.</param>
+            <param name="Direction_In">The direction to wind the rectangle&apos;s contour.</param>
+            <param name="Output_Out">Adds a closed rectangle contour to the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddRoundedRect(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Adds a closed rectangle with rounded corners to the current path.</summary>
+            <param name="Input_In">Adds a closed rectangle with rounded corners to the current path.</param>
+            <param name="Output_Out">Adds a closed rectangle with rounded corners to the current path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ArcTo(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,System.Single,SkiaSharp.SKPath@)">
+            <summary>Appends a line and arc to the current path.</summary>
+            <remarks>This is the same as the PostScript call &quot;arct&quot;.</remarks>
+            <param name="Input_In">Appends a line and arc to the current path.</param>
+            <param name="Corner_Radius_In">The corner radius.</param>
+            <param name="Output_Out">Appends a line and arc to the current path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Close(SkiaSharp.SKPath,SkiaSharp.SKPath@)">
+            <summary>Closes the current contour.</summary>
+            <remarks>If the current point is not equal to the first point of the contour, a line segment is automatically added.</remarks>
+            <param name="Input_In">Closes the current contour.</param>
+            <param name="Output_Out">Closes the current contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ConicTo(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,System.Single,SkiaSharp.SKPath@)">
+            <summary>Add a conic path from the last point.</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Add a conic path from the last point.</param>
+            <param name="Weight_In">The weight of the conic curve.</param>
+            <param name="Output_Out">Add a conic path from the last point.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.CubicTo(Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Adds a cubic bezier from the last point.</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Adds a cubic bezier from the last point.</param>
+            <param name="Output_Out">Adds a cubic bezier from the last point.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.GetBounds(SkiaSharp.SKPath,SkiaSharp.SKPath@,Stride.Core.Mathematics.RectangleF@,System.Boolean@)">
+            <summary>Returns the bounds of the path&apos;s points.</summary>
+            <remarks>This bounds may be larger than the actual shape, since curves do not extend as far as their control points. Additionally this bound encompasses all points, even isolated MoveTo either preceding or following the last non-degenerate contour.</remarks>
+            <param name="Input_In">Returns the bounds of the path&apos;s points.</param>
+            <param name="Output_Out">Returns the bounds of the path&apos;s points.</param>
+            <param name="Success_Out">Returns true if the path is not empty, otherwise false.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.GetTightBounds(SkiaSharp.SKPath,SkiaSharp.SKPath@,Stride.Core.Mathematics.RectangleF@,System.Boolean@)">
+            <summary>Gets the &quot;tight&quot; bounds of the path. Unlike SkiaSharp.SKPath.GetBounds(SkiaSharp.SKRect@), the control points of curves are excluded.</summary>
+            <param name="Input_In">Gets the &quot;tight&quot; bounds of the path. Unlike SkiaSharp.SKPath.GetBounds(SkiaSharp.SKRect@), the control points of curves are excluded.</param>
+            <param name="Output_Out">Gets the &quot;tight&quot; bounds of the path. Unlike SkiaSharp.SKPath.GetBounds(SkiaSharp.SKRect@), the control points of curves are excluded.</param>
+            <param name="Success_Out">Returns true if the bounds could be computed, otherwise false.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.LineTo(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Add a line from the last point to the specified point (x, y).</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Add a line from the last point to the specified point (x, y).</param>
+            <param name="Output_Out">Add a line from the last point to the specified point (x, y).</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Offset(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Offset the path by the specified distance.</summary>
+            <param name="Input_In">Offset the path by the specified distance.</param>
+            <param name="Output_Out">Offset the path by the specified distance.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Op(SkiaSharp.SKPath,SkiaSharp.SKPath,SkiaSharp.SKPathOp,SkiaSharp.SKPath@,SkiaSharp.SKPath@)">
+            <summary>Compute the result of a logical operation on two paths.</summary>
+            <param name="Input_In">Compute the result of a logical operation on two paths.</param>
+            <param name="Other_In">The second operand.</param>
+            <param name="Op_In">The logical operator.</param>
+            <param name="Output_Out">Compute the result of a logical operation on two paths.</param>
+            <param name="Result_Out">Returns the resulting path if the operation was successful, otherwise .</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.QuadTo(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Add a quadratic bezier from the last point.</summary>
+            <remarks>
+            ## Remarks
+            
+            Add a quadratic bezier from the last point, approaching control point
+            (`x0`, `y0`), and ending at (`x1`, `y1`).
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Add a quadratic bezier from the last point.</param>
+            <param name="Output_Out">Add a quadratic bezier from the last point.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Reset(SkiaSharp.SKPath,SkiaSharp.SKPath@)">
+            <summary>Clear any lines and curves from the path, making it empty.</summary>
+            <remarks>This frees up internal storage associated with those segments.</remarks>
+            <param name="Input_In">Clear any lines and curves from the path, making it empty.</param>
+            <param name="Output_Out">Clear any lines and curves from the path, making it empty.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Rewind(SkiaSharp.SKPath,SkiaSharp.SKPath@)">
+            <summary>Clear any lines and curves from the path, making it empty.</summary>
+            <remarks>Any internal storage for those lines/curves is retained, making reuse of the path potentially faster.</remarks>
+            <param name="Input_In">Clear any lines and curves from the path, making it empty.</param>
+            <param name="Output_Out">Clear any lines and curves from the path, making it empty.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.Transform(SkiaSharp.SKPath,Stride.Core.Mathematics.Matrix,SkiaSharp.SKPath@)">
+            <summary>Applies a transformation matrix to the all the elements in the path.</summary>
+            <param name="Input_In">Applies a transformation matrix to the all the elements in the path.</param>
+            <param name="Output_Out">Applies a transformation matrix to the all the elements in the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ArcTo_Relative(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,System.Single,SkiaSharp.SKPathArcSize,SkiaSharp.SKPathDirection,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>The same as SkiaSharp.SKPath.ArcTo(System.Single,System.Single,System.Single,SkiaSharp.SKPathArcSize,SkiaSharp.SKPathDirection,System.Single,System.Single), but the coordinates are considered relative to the last point on this contour.</summary>
+            <param name="Input_In">The same as SkiaSharp.SKPath.ArcTo(System.Single,System.Single,System.Single,SkiaSharp.SKPathArcSize,SkiaSharp.SKPathDirection,System.Single,System.Single), but the coordinates are considered relative to the last point on this contour.</param>
+            <param name="Large_Arc_In">Determines whether the smallest or largest arc possible is drawn.</param>
+            <param name="Sweep_In">Determines if the arc should be swept in an anti-clockwise or clockwise direction.</param>
+            <param name="Output_Out">The same as SkiaSharp.SKPath.ArcTo(System.Single,System.Single,System.Single,SkiaSharp.SKPathArcSize,SkiaSharp.SKPathDirection,System.Single,System.Single), but the coordinates are considered relative to the last point on this contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ArcTo(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,System.Single,System.Single,System.Boolean,SkiaSharp.SKPath@)">
+            <summary>Appends the specified arc to the path.</summary>
+            <remarks>
+            ## Remarks
+            
+            If the start of the arc is different from the path&apos;s current last point, then
+            an automatic &lt;xref:SkiaSharp.SKPath.LineTo%2A&gt; is added to connect the current
+            contour to the start of the arc. However, if the path is empty, then we call
+            &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; with the first point of the arc.
+            </remarks>
+            <param name="Input_In">Appends the specified arc to the path.</param>
+            <param name="Force_Move_To_In">Whether to always begin a new contour with the arc.</param>
+            <param name="Output_Out">Appends the specified arc to the path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ArcTo(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,System.Single,SkiaSharp.SKPathArcSize,SkiaSharp.SKPathDirection,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Appends an elliptical arc from the current point in the format used by SVG.</summary>
+            <param name="Input_In">Appends an elliptical arc from the current point in the format used by SVG.</param>
+            <param name="Large_Arc_In">Determines whether the smallest or largest arc possible is drawn.</param>
+            <param name="Sweep_In">Determines if the arc should be swept in an anti-clockwise or clockwise direction.</param>
+            <param name="Output_Out">Appends an elliptical arc from the current point in the format used by SVG.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ConicTo_Relative(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,System.Single,SkiaSharp.SKPath@)">
+            <summary>Same as SkiaSharp.SKPath.ConicTo(System.Single,System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Same as SkiaSharp.SKPath.ConicTo(System.Single,System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+            <param name="Weight_In">The weight of the conic curve.</param>
+            <param name="Output_Out">Same as SkiaSharp.SKPath.ConicTo(System.Single,System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.CubicTo_Relative(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Same as SkiaSharp.SKPath.CubicTo(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Same as SkiaSharp.SKPath.CubicTo(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+            <param name="Output_Out">Same as SkiaSharp.SKPath.CubicTo(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.LineTo_Relative(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Same as SkiaSharp.SKPath.LineTo(System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Same as SkiaSharp.SKPath.LineTo(System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+            <param name="Output_Out">Same as SkiaSharp.SKPath.LineTo(System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.MoveTo_Relative(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Same as SkiaSharp.SKPath.MoveTo(System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</summary>
+            <param name="Input_In">Same as SkiaSharp.SKPath.MoveTo(System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+            <param name="Output_Out">Same as SkiaSharp.SKPath.MoveTo(System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.QuadTo_Relative(SkiaSharp.SKPath,Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPath@)">
+            <summary>Same as SkiaSharp.SKPath.QuadTo(System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</summary>
+            <remarks>
+            ## Remarks
+            
+            If no &lt;xref:SkiaSharp.SKPath.MoveTo%2A&gt; call has been made for this contour,
+            the first point is automatically set to (0, 0).
+            </remarks>
+            <param name="Input_In">Same as SkiaSharp.SKPath.QuadTo(System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+            <param name="Output_Out">Same as SkiaSharp.SKPath.QuadTo(System.Single,System.Single,System.Single,System.Single) but the coordinates are considered relative to the last point on this contour.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.ToSVGPathData(SkiaSharp.SKPath,SkiaSharp.SKPath@,System.String@)">
+            <summary>Returns a SVG path data representation of the current path.</summary>
+            <param name="Input_In">Returns a SVG path data representation of the current path.</param>
+            <param name="Output_Out">Returns a SVG path data representation of the current path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.FitToBounds(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,VL.Lib.Mathematics.SizeMode,VL.Lib.Mathematics.RectangleAnchor,SkiaSharp.SKPath@,Stride.Core.Mathematics.RectangleF@)">
+            <summary>Fits a path into a bounds.</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.VerbsAndPoints(SkiaSharp.SKPath,SkiaSharp.SKPath@,VL.Lib.Collections.Spread{SkiaSharp.SKPathVerb}@,VL.Lib.Collections.Spread{VL.Lib.Collections.Spread{Stride.Core.Mathematics.Vector2}}@)">
+            <summary>Creates a raw iterator object to scan the all of the segments (lines, quadratics, cubics) of each contours in a path.</summary>
+            <remarks>
+            ## Remarks
+            
+            Unlike the &lt;xref:SkiaSharp.SKPath.CreateIterator%2A&gt; method, this iterator
+            does not clean up or normalize the values in the path. It returns the raw
+            elements contained in the path.
+            </remarks>
+            <param name="Output_Out">Creates a raw iterator object to scan the all of the segments (lines, quadratics, cubics) of each contours in a path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Paths._Operations_.AddRoundRect(SkiaSharp.SKPath,Stride.Core.Mathematics.RectangleF,Stride.Core.Mathematics.Vector2,SkiaSharp.SKPathDirection,SkiaSharp.SKPath@)">
+            <summary>Adds a closed rectangle with rounded corners to the current path.</summary>
+            <param name="Input_In">Adds a closed rectangle with rounded corners to the current path.</param>
+            <param name="Dir_In">The direction to wind the rectangle&apos;s contour.</param>
+            <param name="Output_Out">Adds a closed rectangle with rounded corners to the current path.</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Imaging._Operations_.FromImage(VL.Lib.Basics.Imaging.IImage,System.Boolean,SkiaSharp.SKImage@)">
+            <summary>Convertes an IImage to an SKImage</summary>
+            <param name="Discard_Higher_Bits_In">Skia cannot handle 16bit images. Therefore in case the input is of type R16 this decides whether to discard the higher or lower bits in the conversion to 8bit</param>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Imaging._Operations_.TryFromImage(VL.Lib.Basics.Imaging.IImage,System.Boolean,System.Boolean@,SkiaSharp.SKImage@)">
+            <summary>Tries to convert an IImage to an SKImage</summary>
+            <param name="Discard_Higher_Bits_In">Skia cannot handle 16bit images. Therefore in case the input is of type R16 this decides whether to discard the higher or lower bits in the conversion to 8bit</param>
+            <param name="Image_Out">The converted image or null if the conversion was not possible.</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Imaging.FromBytes_V7UQw1twGvdQGVfmpUHpau">
+            <summary>Loads an image file from disk</summary>
+            <remarks>Use with DrawImage node</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Imaging.Resize_Relative_PrxQ4yXF6NrQCjZUjUaMwz">
+            <tags>scale</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Imaging.Resize_BMlbmNQewtvQY7cQ8E9Nlp">
+            <tags>scale</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Imaging.Resize__1_C">
+            <tags>scale</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.SVGWriter_S1V8r00yvXIPxmNeYR4E4t">
+            <summary>Saves an svg file to disk</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.SVGReader_IXolwqIL5QXQBVXpl6sbUe">
+            <summary>Loads an svg file from disk</summary>
+            <remarks>Use with DrawSVG</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.ImageReader_UC1s8DxbdtUNPDaHW24IK1">
+            <summary>Loads an image file from disk</summary>
+            <remarks>Use with DrawImage node</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.ImageWriter_PARs7eThtWbQADYsh3QdEf">
+            <summary>Saves an image file to disk</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.GifPlayer_HLZyDFMHmAIO6cnccYabQn">
+            <summary>Returns individual images from an animated gif for drawing</summary>
+            <remarks>Use with GifReader and DrawImage</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.GifReader_BGmFh7peisVOBYWRGJnOHX">
+            <summary>Loads a gif file from disk</summary>
+            <remarks>Use with GifPlayer and DrawImage</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.GifReader_Url_I4QVy0mcwbEODLPmqlQAEy">
+            <summary>Loads a gif file from a given URL</summary>
+            <remarks>Use with GifPlayer and DrawImage</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.GifReader_Reactive_NVdhCbXtys2OnOjnvarCm3">
+            <summary>Loads a gif file from disk in the background</summary>
+            <remarks>Use with GifPlayer and DrawImage</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Mouse_RRIr7MnhWPsLv3N4JaZGne">
+            <summary>Returns position, button and wheel states for the connected Skia renderer</summary>
+            <tags>cursor,wheel</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.Mouse_RRIr7MnhWPsLv3N4JaZGne.Update(VL.Skia.ILayer@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.Vector2@,System.Boolean@,System.Boolean@,System.Boolean@,System.Int32@)">
+            <param name="Context_Out">Connect this to the renderer you want the mouse state from</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Keyboard_Dy3U5ocD9m1QTbPlaoxMVN">
+            <summary>Returns the currently pressed keys for the connected Skia renderer</summary>
+            <remarks>Use in connection with KeyMatch [IO.Keyboard]</remarks>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.Keyboard_Dy3U5ocD9m1QTbPlaoxMVN.Update(VL.Skia.ILayer@,VL.Lib.IO.IKeyboard@,System.Collections.Immutable.ImmutableHashSet{VL.Lib.IO.Keys}@)">
+            <param name="Context_Out">Connect this to the renderer you want the keyboard state from</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Touch_TK5zv45JKv3N5Lgucx2Qz2">
+            <summary>Returns touch position and ID states for the connected Skia renderer</summary>
+            <tags>cursor,wheel</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.Touch_TK5zv45JKv3N5Lgucx2Qz2.Update(VL.Skia.ILayer@,VL.Lib.Collections.Spread{Stride.Core.Mathematics.Vector2}@,VL.Lib.Collections.Spread{System.Int32}@)">
+            <param name="Context_Out">Connect this to the renderer you want the touch state from</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.PDFWriter_SMnYkGSOCeHMMOQ5dSnA1O">
+            <summary>Saves a pdf file to disk</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.PDFWriter_SMnYkGSOCeHMMOQ5dSnA1O.Update(VL.Skia.ILayer,VL.Lib.IO.Path,Stride.Core.Mathematics.Color4,VL.Skia.CommonSpace,System.String,System.String,System.Int32,System.Int32,System.Single,System.Int32,System.Boolean)">
+            <param name="Width_In">In pixel</param>
+            <param name="Height_In">In pixel</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.PDFWriter_Multipage_GV7GTVSNVM3QTJYht6xxWr">
+            <summary>Saves a pdf file to disk</summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.PDFWriter_Multipage_GV7GTVSNVM3QTJYht6xxWr.Update(System.Collections.Generic.IEnumerable{VL.Skia.ILayer},VL.Lib.IO.Path,Stride.Core.Mathematics.Color4,VL.Skia.CommonSpace,System.String,System.String,System.Int32,System.Int32,System.Single,System.Int32,System.Boolean)">
+            <param name="Width_In">In pixel</param>
+            <param name="Height_In">In pixel</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.InjectNotifications_C">
+            <summary>Injects notifications to the Layer.</summary>
+            <tags>mouse,keyboard</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.InjectNotifications_C.Notify_(VL.Lib.IO.Notifications.INotification,VL.Skia.CallerInfo,System.Boolean@)">
+            <summary>
+            interface operation summary: Scene graph nodes typically notify upstream before considering to apply own logic.
+                        Typically only apply own logic if notification didn&apos;t get processed by upstream.
+                        Return if notification got processed.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.IO.InjectNotifications_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Gesture.GestureState_R7Kt2uro7fkMk1Lt6HUWgK">
+            <summary>Returns the current gesture state of a touch screen.</summary>
+            <tags>touch</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Keyboard.KeyboardState_FWRYiZyypwZPvLPUVDhSgJ">
+            <summary>Returns the currently pressed keys.</summary>
+            <remarks>Use in connection with KeyMatch [IO.Keyoboard].</remarks>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Keyboard.KeyMatch_Pj2Pg6KELmnQZbr7B4gLzv">
+            <summary>Returns whether a given key is down.</summary>
+            <remarks>Use in connection with KeyboardState [IO.Keyoboard].</remarks>
+            <tags>keyboard</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Keyboard.KeyToggle_S7yb3oVMHpRMUZ2I7OpcmH">
+            <tags>keymatch,keyboard,cursor</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Keyboard.KeyPressed_GvchClDoHDkNSVjqPWszew">
+            <tags>keymatch,keyboard,cursor</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Keyboard.KeyBang_Ov18vVi3eZ2Ls3jKjhk8OW">
+            <tags>keymatch,keyboard,cursor</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Mouse.MouseState_BNOhaxXysw1MZBzyJMI18t">
+            <summary>Returns the current state of the mouse, including position, buttons and wheel.</summary>
+            <tags>cursor,wheel</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.IO.Touch.TouchState_AbSz4N84RluObKcGxCb0KD">
+            <summary>Returns the touch state of a touch screen.</summary>
+            <tags>gesture</tags>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.Unwrapped.SKColorFilter._Operations_.CreateDefault">
+            <summary>Creates a new luminance-to-alpha color filter.</summary>
+            <returns>Returns the new SkiaSharp.SKColorFilter.</returns>
+        </member>
+        <member name="M:_VL_Skia_.Graphics.Skia.SkiaRenderer._Operations_.RenderTime(VL.Skia.SkiaRenderer,VL.Skia.SkiaRenderer@,System.Single@)">
+            <summary>The time to evaluate and draw the layer input in μs.</summary>
+            <param name="Render_Time_Out">The time to evaluate and draw the layer input in μs.</param>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Renderer_OffScreen_RLWydv6sROHOoNyUFt170X">
+            <summary>Use to render an image without showing a window</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Group_Spectral_R3dTESX62CMMHp8R1KPp2g">
+            <summary>Use to connect a spread of layers to one input</summary>
+            <remarks>The drawing order of the layers is defined by their index in the spread: First item is drawn first</remarks>
+            <tags>layer,spread</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Group_TKtMtIW1WMIOfh4AlYkjTy">
+            <summary>Use to connect multiple layers to one input</summary>
+            <remarks>The drawing order of the connected layers is defined by their input index: Leftmost is drawn first</remarks>
+            <tags>layer</tags>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.Renderer_OJ1oTnNZv8VQL8P2l3hkH7">
+            <summary>Use to render into a window</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.RenderWindow_Upcoming_FN5PWnEpmS6QDJeTnhbjRV">
+            <summary>Use to render into a window</summary>
+        </member>
+        <member name="T:_VL_Skia_.Graphics.Skia.PictureRecorder_OQKzZnfyHL8LSGjBK5amv7">
+            <summary>Records and stores all drawing commands in a picture</summary>
+        </member>
+        <member name="T:_VL_Skia_.Video.ImagePlayer_FrameBased_Skia_GfDdGDb87UaLOuIfe1qf1z">
+            <summary>Plays back a sequence of images from a given directory</summary>
+            <tags>image,stack,sequence,movie,video</tags>
+        </member>
+        <member name="M:_VL_Skia_.Video.ImagePlayer_FrameBased_Skia_GfDdGDb87UaLOuIfe1qf1z.Update(VL.Lib.IO.Path,System.String,System.Boolean,System.Int32,System.Int32,System.Collections.Generic.IEnumerable{System.Int32},System.Int32,System.Int32,System.Int32,System.Int32,SkiaSharp.SKImage@,System.Boolean@,System.Int32@,VL.Lib.Collections.Spread{System.Int32}@)">
+            <param name="Seek_Frames_In">A list of frame Ids that will be preloaded so they can be jumped to at any time</param>
+            <param name="Frame_Step_Descending_In">The step-size for reverse playback you&apos;ll be using for the Frame-to-Display input: e.g: 1 = normal speed, 2 = double speed, 3 =  tripple speed,...</param>
+            <param name="Frame_Step_Ascending_In">The step-size for forward playback you&apos;ll be using for the Frame-to-Display input: e.g: 1 = normal speed, 2 = double speed, 3 =  tripple speed,...</param>
+            <param name="Preload_Count_In">The number of frames to preload</param>
+            <param name="Frame_to_Display_In">The Id of the frame to display</param>
+            <param name="Preloaded_Frames_Out">The Ids of the currently preloaded frames</param>
+        </member>
+        <member name="T:_VL_Skia_.Video.ImagePlayer_Skia_Aj5NT9ZOZEsNn2w4D9Wq6l">
+            <summary>Plays back a sequence of images from a given directory</summary>
+            <tags>image,stack,sequence,movie,video</tags>
+        </member>
+        <member name="M:_VL_Skia_.Video.ImagePlayer_Skia_Aj5NT9ZOZEsNn2w4D9Wq6l.Update(VL.Lib.IO.Path,System.String,System.Boolean,System.Single,System.Single,System.Int32,System.Single,System.Boolean,System.Boolean,System.Single,System.Boolean,System.Single,System.Single,_VL_Sync_.IO.ITimeSync_I,SkiaSharp.SKImage@,System.Boolean@,System.Single@,System.Single@,System.Int32@,System.Int32@,VL.Lib.Collections.Spread{System.Int32}@)">
+            <param name="Preload_Count_In">The number of frames to preload</param>
+            <param name="Rate_In">Playback speed multiplier: e.g: 1.0 = normal speed, 0.5 = half speed, 2.0 = double speed. Above 2, only whole, even numbers work correctly!</param>
+            <param name="Preloaded_Frames_Out">The Ids of the currently preloaded frames</param>
+        </member>
+        <member name="T:_VL_Skia_.Video.LottiePlayer_Skia_C">
+            <tags>skottie</tags>
+        </member>
+        <member name="M:_VL_Skia_.Video.LottiePlayer_Skia_C.Update(VL.Lib.IO.Path,Stride.Core.Mathematics.RectangleF,System.Single,System.Boolean,System.Boolean,System.Single,System.Boolean,System.Single,System.Single,System.Boolean,VL.Skia.ILayer@,System.String@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.RectangleF@,System.Single@,System.Single@,System.Single@)">
+            <param name="Rate_In">Playback speed multiplier: e.g: 1.0 = normal speed, 0.5 = half speed, 2.0 = double speed.</param>
+        </member>
+        <member name="M:_VL_Skia_.Video.LottiePlayer_Skia_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Video.LottiePlayer_Skia_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Video.LottiePlayer_FrameBased_Skia_C">
+            <tags>skottie</tags>
+        </member>
+        <member name="M:_VL_Skia_.Video.LottiePlayer_FrameBased_Skia_C.Update(VL.Lib.IO.Path,Stride.Core.Mathematics.RectangleF,System.Int32,System.Int32,System.Int32,VL.Skia.ILayer@,System.String@,Stride.Core.Mathematics.Vector2@,Stride.Core.Mathematics.RectangleF@,System.Int32@,System.Int32@)">
+            <param name="Frame_to_Display_In">The Id of the frame to display</param>
+        </member>
+        <member name="M:_VL_Skia_.Video.LottiePlayer_FrameBased_Skia_C.Render_(VL.Skia.CallerInfo)">
+            <summary>
+            interface operation summary: Renders the layer. Called from downstream.
+                        Scene graph elements should render themselves before calling render upstream.
+            </summary>
+        </member>
+        <member name="M:_VL_Skia_.Video.LottiePlayer_FrameBased_Skia_C.Bounds_(System.Nullable{Stride.Core.Mathematics.RectangleF}@)">
+            <summary>interface operation summary: The Bounds of the rendering</summary>
+        </member>
+        <member name="T:_VL_Skia_.Video.ImagePlayer_Skia.Playhead2_E7s1NLm0IdIPeWmePat32R">
+            <summary>Time control with play/pause, loop, speed and seek options.</summary>
+            <tags>integrate,clock,watch</tags>
+        </member>
+    </members>
+</doc>

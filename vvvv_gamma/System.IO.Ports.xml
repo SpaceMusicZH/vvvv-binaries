@@ -26,19 +26,29 @@
             Adds the extended path prefix (\\?\) if not relative or already a device path.
             </summary>
         </member>
-        <member name="M:System.IO.PathInternal.IsDevice(System.String)">
+        <member name="M:System.IO.PathInternal.IsDevice(System.ReadOnlySpan{System.Char})">
             <summary>
             Returns true if the path uses any of the DOS device path syntaxes. ("\\.\", "\\?\", or "\??\")
             </summary>
         </member>
-        <member name="M:System.IO.PathInternal.IsExtended(System.String)">
+        <member name="M:System.IO.PathInternal.IsDeviceUNC(System.ReadOnlySpan{System.Char})">
+            <summary>
+            Returns true if the path is a device UNC (\\?\UNC\, \\.\UNC\)
+            </summary>
+        </member>
+        <member name="M:System.IO.PathInternal.IsExtended(System.ReadOnlySpan{System.Char})">
             <summary>
             Returns true if the path uses the canonical form of extended syntax ("\\?\" or "\??\"). If the
             path matches exactly (cannot use alternate directory separators) Windows will skip normalization
             and path length checks.
             </summary>
         </member>
-        <member name="M:System.IO.PathInternal.IsPartiallyQualified(System.String)">
+        <member name="M:System.IO.PathInternal.GetRootLength(System.ReadOnlySpan{System.Char})">
+            <summary>
+            Gets the length of the root of the path (drive, share, etc.).
+            </summary>
+        </member>
+        <member name="M:System.IO.PathInternal.IsPartiallyQualified(System.ReadOnlySpan{System.Char})">
             <summary>
             Returns true if the path specified is relative to the current drive or working directory.
             Returns false if the path is fixed to a specific drive or UNC path.  This method does no
@@ -55,6 +65,47 @@
         <member name="M:System.IO.PathInternal.IsDirectorySeparator(System.Char)">
             <summary>
             True if the given character is a directory separator.
+            </summary>
+        </member>
+        <member name="M:System.IO.PathInternal.NormalizeDirectorySeparators(System.String)">
+             <summary>
+             Normalize separators in the given path. Converts forward slashes into back slashes and compresses slash runs, keeping initial 2 if present.
+             Also trims initial whitespace in front of "rooted" paths (see PathStartSkip).
+            
+             This effectively replicates the behavior of the legacy NormalizePath when it was called with fullCheck=false and expandShortpaths=false.
+             The current NormalizePath gets directory separator normalization from Win32's GetFullPathName(), which will resolve relative paths and as
+             such can't be used here (and is overkill for our uses).
+            
+             Like the current NormalizePath this will not try and analyze periods/spaces within directory segments.
+             </summary>
+             <remarks>
+             The only callers that used to use Path.Normalize(fullCheck=false) were Path.GetDirectoryName() and Path.GetPathRoot(). Both usages do
+             not need trimming of trailing whitespace here.
+            
+             GetPathRoot() could technically skip normalizing separators after the second segment- consider as a future optimization.
+            
+             For legacy .NET Framework behavior with ExpandShortPaths:
+              - It has no impact on GetPathRoot() so doesn't need consideration.
+              - It could impact GetDirectoryName(), but only if the path isn't relative (C:\ or \\Server\Share).
+            
+             In the case of GetDirectoryName() the ExpandShortPaths behavior was undocumented and provided inconsistent results if the path was
+             fixed/relative. For example: "C:\PROGRA~1\A.TXT" would return "C:\Program Files" while ".\PROGRA~1\A.TXT" would return ".\PROGRA~1". If you
+             ultimately call GetFullPath() this doesn't matter, but if you don't or have any intermediate string handling could easily be tripped up by
+             this undocumented behavior.
+            
+             We won't match this old behavior because:
+            
+               1. It was undocumented
+               2. It was costly (extremely so if it actually contained '~')
+               3. Doesn't play nice with string logic
+               4. Isn't a cross-plat friendly concept/behavior
+             </remarks>
+        </member>
+        <member name="M:System.IO.PathInternal.IsEffectivelyEmpty(System.ReadOnlySpan{System.Char})">
+            <summary>
+            Returns true if the path is effectively empty for the current OS.
+            For unix, this is empty or null. For Windows, this is empty, null, or
+            just spaces ((char)32).
             </summary>
         </member>
         <member name="T:System.IO.Win32Marshal">
@@ -85,10 +136,38 @@
             If not, returns the HRESULT unchanged
             </summary>
         </member>
-        <member name="M:System.IO.Win32Marshal.GetMessage(System.Int32)">
+        <member name="M:System.Text.ValueStringBuilder.GetPinnableReference">
             <summary>
-            Returns a string message for the specified Win32 error code.
+            Get a pinnable reference to the builder.
+            Does not ensure there is a null char after <see cref="P:System.Text.ValueStringBuilder.Length"/>
+            This overload is pattern matched in the C# 7.3+ compiler so you can omit
+            the explicit method call, and write eg "fixed (char* c = builder)"
             </summary>
+        </member>
+        <member name="M:System.Text.ValueStringBuilder.GetPinnableReference(System.Boolean)">
+            <summary>
+            Get a pinnable reference to the builder.
+            </summary>
+            <param name="terminate">Ensures that the builder has a null char after <see cref="P:System.Text.ValueStringBuilder.Length"/></param>
+        </member>
+        <member name="P:System.Text.ValueStringBuilder.RawChars">
+            <summary>Returns the underlying storage of the builder.</summary>
+        </member>
+        <member name="M:System.Text.ValueStringBuilder.AsSpan(System.Boolean)">
+            <summary>
+            Returns a span around the contents of the builder.
+            </summary>
+            <param name="terminate">Ensures that the builder has a null char after <see cref="P:System.Text.ValueStringBuilder.Length"/></param>
+        </member>
+        <member name="M:System.Text.ValueStringBuilder.Grow(System.Int32)">
+            <summary>
+            Resize the internal buffer either by doubling current buffer size or
+            by adding <paramref name="additionalCapacityBeyondPos"/> to
+            <see cref="F:System.Text.ValueStringBuilder._pos"/> whichever is greater.
+            </summary>
+            <param name="additionalCapacityBeyondPos">
+            Number of chars requested beyond current position.
+            </param>
         </member>
         <member name="P:System.SR.IO_EOF_ReadBeyondEOF">
             <summary>Unable to read beyond the end of the stream.</summary>
@@ -174,24 +253,6 @@
         <member name="P:System.SR.InvalidOperation_EndWriteCalledMultiple">
             <summary>EndWrite can only be called once for each asynchronous operation.</summary>
         </member>
-        <member name="P:System.SR.IO_PortNotFound">
-            <summary>The specified port does not exist.</summary>
-        </member>
-        <member name="P:System.SR.IO_PortNotFoundFileName">
-            <summary>The port '{0}' does not exist.</summary>
-        </member>
-        <member name="P:System.SR.UnauthorizedAccess_IODenied_NoPortName">
-            <summary>Access to the port is denied.</summary>
-        </member>
-        <member name="P:System.SR.IO_PathTooLong_PortName">
-            <summary>The specified port name is too long.  The port name must be less than 260 characters.</summary>
-        </member>
-        <member name="P:System.SR.IO_SharingViolation_NoPortName">
-            <summary>The process cannot access the port because it is being used by another process.</summary>
-        </member>
-        <member name="P:System.SR.IO_SharingViolation_Port">
-            <summary>The process cannot access the port '{0}' because it is being used by another process.</summary>
-        </member>
         <member name="P:System.SR.UnauthorizedAccess_IODenied_Port">
             <summary>Access to the port '{0}' is denied.</summary>
         </member>
@@ -200,9 +261,6 @@
         </member>
         <member name="P:System.SR.PlatformNotSupported_SerialPort_GetPortNames">
             <summary>Enumeration of serial port names is not supported on the current platform.</summary>
-        </member>
-        <member name="P:System.SR.IO_PathTooLong_Path_PortName">
-            <summary>The specified port name '{0}' is too long.  The port name must be less than 260 characters.</summary>
         </member>
         <member name="P:System.SR.IO_PathTooLong">
             <summary>The specified file name or path is too long, or a component of the specified path is too long.</summary>

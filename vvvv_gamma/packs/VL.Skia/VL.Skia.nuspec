@@ -2,27 +2,28 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
   <metadata>
     <id>VL.Skia</id>
-    <version>2023.5.3-0380-g4d7f3342a6</version>
+    <version>2024.6.7</version>
     <authors>vvvv group</authors>
     <license type="expression">LGPL-3.0-only</license>
     <licenseUrl>https://licenses.nuget.org/LGPL-3.0-only</licenseUrl>
     <icon>nugeticon.png</icon>
     <projectUrl>http://vvvv.org/</projectUrl>
-    <description>A 2d graphics rendering library</description>
-    <copyright>Copyright © 2023 by vvvv group. All rights reserved.</copyright>
-    <tags>2d, renderer, gpu, image, gif, svg, pdf, text, touch, imageplayer, video, lottie, skottie</tags>
-    <repository type="git" commit="e99de2d0e470074a7ddb913f16d570e503c0d2ec" />
+    <description>A 2d graphics rendering library for vvvv based on Skia</description>
+    <copyright>Copyright © 2025 by vvvv group. All rights reserved.</copyright>
+    <tags>VL, 2d, renderer, gpu, image, gif, svg, pdf, text, touch, imageplayer, video, lottie, skottie</tags>
+    <repository type="git" commit="0dbac5fa3883fd050bad5df86a76677e343a8f90" />
     <dependencies>
-      <group targetFramework="net6.0-windows7.0">
-        <dependency id="VL.Core.Skia.Windows" version="2023.5.3-0380-g4d7f3342a6" exclude="Build,Analyzers" />
-        <dependency id="VL.CoreLib" version="2023.5.3-0380-g4d7f3342a6" exclude="Build,Analyzers" />
-        <dependency id="VL.Core" version="2023.5.3-0380-g4d7f3342a6" exclude="Build,Analyzers" />
+      <group targetFramework="net8.0-windows7.0">
+        <dependency id="VL.Core.Commands" version="2024.6.7" exclude="Build,Analyzers" />
+        <dependency id="VL.Core.Skia.Windows" version="2024.6.7" exclude="Build,Analyzers" />
+        <dependency id="VL.CoreLib" version="2024.6.7" exclude="Build,Analyzers" />
+        <dependency id="VL.Core" version="2024.6.7" exclude="Build,Analyzers" />
         <dependency id="SharpDX.Direct3D11" version="4.2.0" exclude="Build,Analyzers" />
         <dependency id="SkiaSharp.Skottie" version="2.88.6" exclude="Build,Analyzers,BuildTransitive" />
       </group>
     </dependencies>
     <frameworkReferences>
-      <group targetFramework="net6.0-windows7.0">
+      <group targetFramework="net8.0-windows7.0">
         <frameworkReference name="Microsoft.WindowsDesktop.App.WindowsForms" />
       </group>
     </frameworkReferences>

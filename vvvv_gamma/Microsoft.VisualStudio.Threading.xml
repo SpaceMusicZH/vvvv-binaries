@@ -4,6 +4,22 @@
         <name>Microsoft.VisualStudio.Threading</name>
     </assembly>
     <members>
+        <member name="T:System.Runtime.CompilerServices.IsExternalInit">
+            <summary>
+                Reserved to be used by the compiler for tracking metadata.
+                This class should not be used by developers in source code.
+            </summary>
+            <remarks>
+                This definition is provided by the <i>IsExternalInit</i> NuGet package (https://www.nuget.org/packages/IsExternalInit).
+                Please see https://github.com/manuelroemer/IsExternalInit for more information.
+            </remarks>
+        </member>
+        <member name="M:System.Diagnostics.RoslynDebug.Assert(System.Boolean)">
+            <inheritdoc cref="M:System.Diagnostics.Debug.Assert(System.Boolean)" />
+        </member>
+        <member name="M:System.Diagnostics.RoslynDebug.Assert(System.Boolean,System.String)">
+            <inheritdoc cref="M:System.Diagnostics.Debug.Assert(System.Boolean,System.String)" />
+        </member>
         <member name="T:Microsoft.VisualStudio.Threading.AsyncAutoResetEvent">
             <summary>
             An asynchronous implementation of an AutoResetEvent.
@@ -46,8 +62,8 @@
             </summary>
             <param name="allowInliningAwaiters">
             A value indicating whether to complete the task synchronously in the <see cref="M:Microsoft.VisualStudio.Threading.AsyncAutoResetEvent.Set" /> method,
-            as opposed to asynchronously. <c>false</c> better simulates the behavior of the
-            <see cref="T:System.Threading.AutoResetEvent" /> class, but <c>true</c> can result in slightly better performance.
+            as opposed to asynchronously. <see langword="false" /> better simulates the behavior of the
+            <see cref="T:System.Threading.AutoResetEvent" /> class, but <see langword="true" /> can result in slightly better performance.
             </param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncAutoResetEvent.WaitAsync">
@@ -84,7 +100,7 @@
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.AsyncAutoResetEvent.WaiterCompletionSource" /> class.
             </summary>
             <param name="owner">The event that is initializing this value.</param>
-            <param name="allowInliningContinuations"><c>true</c> to allow continuations to be inlined upon the completer's callstack.</param>
+            <param name="allowInliningContinuations"><see langword="true" /> to allow continuations to be inlined upon the completer's callstack.</param>
             <param name="cancellationToken">The cancellation token associated with the waiter.</param>
         </member>
         <member name="P:Microsoft.VisualStudio.Threading.AsyncAutoResetEvent.WaiterCompletionSource.CancellationToken">
@@ -424,8 +440,8 @@
             <param name="allowInliningAwaiters">
             A value indicating whether to allow <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.WaitAsync" /> callers' continuations to execute
             on the thread that calls <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.SetAsync" /> before the call returns.
-            <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.SetAsync" /> callers should not hold private locks if this value is <c>true</c> to avoid deadlocks.
-            When <c>false</c>, the task returned from <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.WaitAsync" /> may not have fully transitioned to
+            <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.SetAsync" /> callers should not hold private locks if this value is <see langword="true" /> to avoid deadlocks.
+            When <see langword="false" />, the task returned from <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.WaitAsync" /> may not have fully transitioned to
             its completed state by the time <see cref="M:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.SetAsync" /> returns to its caller.
             </param>
         </member>
@@ -454,7 +470,7 @@
             <remarks>
             <para>
             On .NET versions prior to 4.6:
-            This method may return before the signal set has propagated (so <see cref="P:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.IsSet" /> may return <c>false</c> for a bit more if called immediately).
+            This method may return before the signal set has propagated (so <see cref="P:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.IsSet" /> may return <see langword="false" /> for a bit more if called immediately).
             The returned task completes when the signal has definitely been set.
             </para>
             <para>
@@ -481,7 +497,7 @@
             <remarks>
             <para>
             On .NET versions prior to 4.6:
-            This method may return before the signal set has propagated (so <see cref="P:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.IsSet" /> may return <c>false</c> for a bit more if called immediately).
+            This method may return before the signal set has propagated (so <see cref="P:Microsoft.VisualStudio.Threading.AsyncManualResetEvent.IsSet" /> may return <see langword="false" /> for a bit more if called immediately).
             The returned task completes when the signal has definitely been set.
             </para>
             <para>
@@ -600,14 +616,14 @@
             Adds an element to the tail of the queue if it has not yet completed.
             </summary>
             <param name="value">The value to add.</param>
-            <returns><c>true</c> if the value was added to the queue; <c>false</c> if the queue is already completed.</returns>
+            <returns><see langword="true" /> if the value was added to the queue; <see langword="false" /> if the queue is already completed.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncQueue`1.TryPeek(`0@)">
             <summary>
             Gets the value at the head of the queue without removing it from the queue, if it is non-empty.
             </summary>
             <param name="value">Receives the value at the head of the queue; or the default value for the element type if the queue is empty.</param>
-            <returns><c>true</c> if the queue was non-empty; <c>false</c> otherwise.</returns>
+            <returns><see langword="true" /> if the queue was non-empty; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncQueue`1.Peek">
             <summary>
@@ -639,7 +655,7 @@
             otherwise returns without an element.
             </summary>
             <param name="value">Receives the element from the head of the queue; or <c>default(T)</c> if the queue is empty.</param>
-            <returns><c>true</c> if an element was dequeued; <c>false</c> if the queue was empty.</returns>
+            <returns><see langword="true" /> if an element was dequeued; <see langword="false" /> if the queue was empty.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncQueue`1.Microsoft#VisualStudio#Threading#ThreadingTools#ICancellationNotification#OnCanceled">
             <inheritdoc />
@@ -657,7 +673,7 @@
             </summary>
             <param name="valueCheck">The test on the head element that must succeed to dequeue.</param>
             <param name="value">Receives the element from the head of the queue; or <c>default(T)</c> if the queue is empty.</param>
-            <returns><c>true</c> if an element was dequeued; <c>false</c> if the queue was empty.</returns>
+            <returns><see langword="true" /> if an element was dequeued; <see langword="false" /> if the queue was empty.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncQueue`1.OnEnqueued(`0,System.Boolean)">
             <summary>
@@ -665,8 +681,8 @@
             </summary>
             <param name="value">The enqueued value.</param>
             <param name="alreadyDispatched">
-            <c>true</c> if the item will skip the queue because a dequeuer was already waiting for an item;
-            <c>false</c> if the item was actually added to the queue.
+            <see langword="true" /> if the item will skip the queue because a dequeuer was already waiting for an item;
+            <see langword="false" /> if the item was actually added to the queue.
             </param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncQueue`1.OnDequeued(`0)">
@@ -687,7 +703,7 @@
             </summary>
             <param name="valueCheck">The test on the head element that must succeed to dequeue.</param>
             <param name="value">Receives the element from the head of the queue; or <c>default(T)</c> if the queue is empty.</param>
-            <returns><c>true</c> if an element was dequeued; <c>false</c> if the queue was empty.</returns>
+            <returns><c><see langword="true" /></c> if an element was dequeued; <see langword="false" /> if the queue was empty.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncQueue`1.CompleteIfNecessary">
             <summary>
@@ -842,6 +858,11 @@
             asynchronously with respect to the releasing thread.
             </remarks>
         </member>
+        <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.etw">
+            <summary>
+            A helper class to produce ETW trace events.
+            </summary>
+        </member>
         <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.captureDiagnostics">
             <summary>
             A value indicating whether extra resources should be spent to collect diagnostic information
@@ -860,11 +881,6 @@
             new top-level lock requests should be serviced.
             </summary>
         </member>
-        <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.etw">
-            <summary>
-            A helper class to produce ETW trace events.
-            </summary>
-        </member>
         <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.pendingWriterLockDeadlockCheckTimer">
             <summary>
             A timer to recheck potential deadlock caused by pending writer locks.
@@ -880,7 +896,7 @@
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock" /> class.
             </summary>
             <param name="captureDiagnostics">
-            <c>true</c> to spend additional resources capturing diagnostic details that can be used
+            <see langword="true" /> to spend additional resources capturing diagnostic details that can be used
             to analyze deadlocks or other issues.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskContext,System.Boolean)">
@@ -891,7 +907,7 @@
             A JoinableTaskContext to help resolve deadlocks caused by interdependency between top read lock tasks when there is a pending write lock blocking one of them.
             </param>
             <param name="captureDiagnostics">
-            <c>true</c> to spend additional resources capturing diagnostic details that can be used
+            <see langword="true" /> to spend additional resources capturing diagnostic details that can be used
             to analyze deadlocks or other issues.</param>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockFlags">
@@ -959,7 +975,7 @@
             Gets a value indicating whether the caller holds a read lock.
             </summary>
             <remarks>
-            This property returns <c>false</c> if any other lock type is held, unless
+            This property returns <see langword="false" /> if any other lock type is held, unless
             within that alternate lock type this lock is also nested.
             </remarks>
         </member>
@@ -969,7 +985,7 @@
             to the lock compatibility of the caller's context.
             </summary>
             <remarks>
-            This property returns <c>false</c> if any other lock type is held, unless
+            This property returns <see langword="false" /> if any other lock type is held, unless
             within that alternate lock type this lock is also nested.
             </remarks>
         </member>
@@ -978,7 +994,7 @@
             Gets a value indicating whether the caller holds an upgradeable read lock.
             </summary>
             <remarks>
-            This property returns <c>false</c> if any other lock type is held, unless
+            This property returns <see langword="false" /> if any other lock type is held, unless
             within that alternate lock type this lock is also nested.
             </remarks>
         </member>
@@ -988,7 +1004,7 @@
             to the lock compatibility of the caller's context.
             </summary>
             <remarks>
-            This property returns <c>false</c> if any other lock type is held, unless
+            This property returns <see langword="false" /> if any other lock type is held, unless
             within that alternate lock type this lock is also nested.
             </remarks>
         </member>
@@ -997,7 +1013,7 @@
             Gets a value indicating whether the caller holds a write lock.
             </summary>
             <remarks>
-            This property returns <c>false</c> if any other lock type is held, unless
+            This property returns <see langword="false" /> if any other lock type is held, unless
             within that alternate lock type this lock is also nested.
             </remarks>
         </member>
@@ -1007,7 +1023,7 @@
             to the lock compatibility of the caller's context.
             </summary>
             <remarks>
-            This property returns <c>false</c> if any other lock type is held, unless
+            This property returns <see langword="false" /> if any other lock type is held, unless
             within that alternate lock type this lock is also nested.
             </remarks>
         </member>
@@ -1046,9 +1062,9 @@
             hold an active lock.
             </summary>
             <remarks>
-            The default implementation of this property returns <c>true</c>
+            The default implementation of this property returns <see langword="true" />
             when the calling thread is NOT an STA thread.
-            This property may be overridden to return <c>false</c>
+            This property may be overridden to return <see langword="false" />
             on threads that may compromise the integrity of the lock.
             </remarks>
         </member>
@@ -1159,15 +1175,15 @@
             <summary>
             Disposes managed and unmanaged resources held by this instance.
             </summary>
-            <param name="disposing"><c>true</c> if <see cref="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Dispose" /> was called; <c>false</c> if the object is being finalized.</param>
+            <param name="disposing"><see langword="true" /> if <see cref="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Dispose" /> was called; <see langword="false" /> if the object is being finalized.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockStackContains(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockFlags,Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockHandle)">
             <summary>
             Checks whether the aggregated flags from all locks in the lock stack satisfy the specified flag(s).
             </summary>
-            <param name="flags">The flag(s) that must be specified for a <c>true</c> result.</param>
+            <param name="flags">The flag(s) that must be specified for a <see langword="true" /> result.</param>
             <param name="handle">The head of the lock stack to consider.</param>
-            <returns><c>true</c> if all the specified flags are found somewhere in the lock stack; <c>false</c> otherwise.</returns>
+            <returns><see langword="true" /> if all the specified flags are found somewhere in the lock stack; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.GetAggregateLockFlags">
             <summary>
@@ -1183,7 +1199,7 @@
             <summary>
             Fired when any lock is being released.
             </summary>
-            <param name="exclusiveLockRelease"><c>true</c> if the last write lock that the caller holds is being released; <c>false</c> otherwise.</param>
+            <param name="exclusiveLockRelease"><see langword="true" /> if the last write lock that the caller holds is being released; <see langword="false" /> otherwise.</param>
             <param name="releasingLock">The lock being released.</param>
             <returns>A task whose completion signals the conclusion of the asynchronous operation.</returns>
         </member>
@@ -1196,11 +1212,11 @@
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.GetTaskSchedulerForReadLockRequest">
             <summary>
             Get the task scheduler to execute the continuation when the lock is acquired.
-             AsyncReaderWriterLock uses a special <see cref="T:System.Threading.SynchronizationContext" /> to handle execusive locks, and will ignore task scheduler provided, so this is only used in a read lock scenario.
+             AsyncReaderWriterLock uses a special <see cref="T:System.Threading.SynchronizationContext" /> to handle exclusive locks, and will ignore task scheduler provided, so this is only used in a read lock scenario.
             This method is called within the execution context to wait the read lock, so it can pick up <see cref="T:System.Threading.Tasks.TaskScheduler" /> based on the current execution context.
             Note: the task scheduler is only used, when the lock is issued later.  If the lock is issued immediately when <see cref="P:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.CanCurrentThreadHoldActiveLock" /> returns true, it will be ignored.
             </summary>
-            <returns>A task scheduler to schedule the continutation task when a lock is issued.</returns>
+            <returns>A task scheduler to schedule the continuation task when a lock is issued.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.OnExclusiveLockReleasedAsync">
             <summary>
@@ -1269,7 +1285,7 @@
             Gets a value indicating whether all issued locks are merely the top-level lock or nesting locks of the specified lock.
             </summary>
             <param name="awaiter">The most nested lock.</param>
-            <returns><c>true</c> if all issued locks are the specified lock or nesting locks of it.</returns>
+            <returns><see langword="true" /> if all issued locks are the specified lock or nesting locks of it.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockStackContains(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockKind,Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter)">
             <summary>
@@ -1277,7 +1293,7 @@
             </summary>
             <param name="kind">The kind of lock being queried for.</param>
             <param name="awaiter">The (possibly nested) lock.</param>
-            <returns><c>true</c> if the lock holder (also) holds the specified kind of lock.</returns>
+            <returns><see langword="true" /> if the lock holder (also) holds the specified kind of lock.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.IsStickyWriteUpgradedLock(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter)">
             <summary>
@@ -1285,28 +1301,28 @@
             which has actually be upgraded.
             </summary>
             <param name="awaiter">The lock to test.</param>
-            <returns><c>true</c> if the test succeeds; <c>false</c> otherwise.</returns>
+            <returns><see langword="true" /> if the test succeeds; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.IsLockHeld(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockKind,Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter,System.Boolean,System.Boolean)">
             <summary>
             Checks whether the caller's held locks (or the specified lock stack) includes an active lock of the specified type.
-            Always <c>false</c> when called on an STA thread.
+            Always <see langword="false" /> when called on an STA thread.
             </summary>
             <param name="kind">The type of lock to check for.</param>
             <param name="awaiter">The most nested lock of the caller, or null to look up the caller's lock in the CallContext.</param>
-            <param name="checkSyncContextCompatibility"><c>true</c> to throw an exception if the caller has an exclusive lock but not an associated SynchronizationContext.</param>
-            <param name="allowNonLockSupportingContext"><c>true</c> to return true when a lock is held but unusable because of the context of the caller.</param>
-            <returns><c>true</c> if the caller holds active locks of the given type; <c>false</c> otherwise.</returns>
+            <param name="checkSyncContextCompatibility"><see langword="true" /> to throw an exception if the caller has an exclusive lock but not an associated SynchronizationContext.</param>
+            <param name="allowNonLockSupportingContext"><see langword="true" /> to return true when a lock is held but unusable because of the context of the caller.</param>
+            <returns><see langword="true" /> if the caller holds active locks of the given type; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.IsLockActive(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter,System.Boolean,System.Boolean)">
             <summary>
             Checks whether a given lock is active.
-            Always <c>false</c> when called on an STA thread.
+            Always <see langword="false" /> when called on an STA thread.
             </summary>
             <param name="awaiter">The lock to check.</param>
-            <param name="considerStaActive">if <c>false</c> the return value will always be <c>false</c> if called on an STA thread.</param>
-            <param name="checkSyncContextCompatibility"><c>true</c> to throw an exception if the caller has an exclusive lock but not an associated SynchronizationContext.</param>
-            <returns><c>true</c> if the lock is currently issued and the caller is not on an STA thread.</returns>
+            <param name="considerStaActive">if <see langword="false" /> the return value will always be <see langword="false" /> if called on an STA thread.</param>
+            <param name="checkSyncContextCompatibility"><see langword="true" /> to throw an exception if the caller has an exclusive lock but not an associated SynchronizationContext.</param>
+            <returns><see langword="true" /> if the lock is currently issued and the caller is not on an STA thread.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.CheckSynchronizationContextAppropriateForLock(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter)">
             <summary>
@@ -1320,7 +1336,7 @@
             </summary>
             <param name="awaiter">The awaiter to issue a lock to.</param>
             <param name="previouslyQueued">
-            A value indicating whether this lock was previously queued.  <c>false</c> if this is a new just received request.
+            A value indicating whether this lock was previously queued.  <see langword="false" /> if this is a new just received request.
             The value is used to determine whether to reject it if <see cref="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Complete" /> has already been called and this
             is a new top-level request.
             </param>
@@ -1337,7 +1353,7 @@
             to the top-level lock request held by the given lock holder.
             </summary>
             <param name="headAwaiter">The awaiter to start the search down the stack from.</param>
-            <returns>The least nested upgradeable reader lock with sticky write flag; or <c>null</c> if none was found.</returns>
+            <returns>The least nested upgradeable reader lock with sticky write flag; or <see langword="null" /> if none was found.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.GetActiveLockSet(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.LockKind)">
             <summary>
@@ -1358,7 +1374,7 @@
             Walks the nested lock stack until it finds an active one.
             </summary>
             <param name="awaiter">The most nested lock to consider.  May be null.</param>
-            <returns>The first active lock encountered, or <c>null</c> if none.</returns>
+            <returns>The first active lock encountered, or <see langword="null" /> if none.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.IssueAndExecute(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter)">
             <summary>
@@ -1376,7 +1392,7 @@
             <returns>
             A task that should complete before the releasing thread accesses any resource protected by
             a lock wrapping the lock being released.
-            The task will always be complete if <paramref name="lockConsumerCanceled" /> is <c>true</c>.
+            The task will always be complete if <paramref name="lockConsumerCanceled" /> is <see langword="true" />.
             This method guarantees that the lock is effectively released from the caller, and the <paramref name="awaiter" />
             can be safely recycled, before the synchronous portion of this method completes.
             </returns>
@@ -1397,15 +1413,15 @@
             </summary>
             <param name="awaiter">The awaiter being released.</param>
             <param name="upgradedStickyWrite">A flag indicating whether the lock being released was an upgraded read lock with the sticky write flag set.</param>
-            <param name="searchAllWaiters"><c>true</c> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
+            <param name="searchAllWaiters"><see langword="true" /> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.TryInvokeLockConsumer(System.Boolean)">
             <summary>
             Issues locks to one or more queued lock requests and executes their continuations
             based on lock availability and policy-based prioritization (writer-friendly, etc.)
             </summary>
-            <param name="searchAllWaiters"><c>true</c> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
-            <returns><c>true</c> if any locks were issued; <c>false</c> otherwise.</returns>
+            <param name="searchAllWaiters"><see langword="true" /> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
+            <returns><see langword="true" /> if any locks were issued; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.InvokeBeforeWriteLockReleaseHandlersAsync">
             <summary>
@@ -1430,14 +1446,14 @@
             <summary>
             Issues locks to all queued reader lock requests if there are no issued write locks.
             </summary>
-            <param name="searchAllWaiters"><c>true</c> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
+            <param name="searchAllWaiters"><see langword="true" /> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
             <returns>A value indicating whether any readers were issued locks.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.TryInvokeOneUpgradeableReaderIfAppropriate(System.Boolean)">
             <summary>
             Issues a lock to the next queued upgradeable reader, if no upgradeable read or write locks are currently issued.
             </summary>
-            <param name="searchAllWaiters"><c>true</c> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
+            <param name="searchAllWaiters"><see langword="true" /> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
             <returns>A value indicating whether any upgradeable readers were issued locks.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.TryInvokeOneWriterIfAppropriate(System.Boolean)">
@@ -1445,7 +1461,7 @@
             Issues a lock to the next queued writer, if no other locks are currently issued
             or the last contending read lock was removed allowing a waiting upgradeable reader to upgrade.
             </summary>
-            <param name="searchAllWaiters"><c>true</c> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
+            <param name="searchAllWaiters"><see langword="true" /> to scan the entire queue for pending lock requests that might qualify; used when qualifying locks were delayed for some reason besides lock contention.</param>
             <returns>A value indicating whether a writer was issued a lock.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.TryInvokeAnyWaitersInQueue(System.Collections.Generic.Queue{Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter},System.Boolean)">
@@ -1453,8 +1469,8 @@
             Scans a lock awaiter queue for any that can be issued locks now.
             </summary>
             <param name="waiters">The queue to scan.</param>
-            <param name="breakOnFirstIssue"><c>true</c> to break out immediately after issuing the first lock.</param>
-            <returns><c>true</c> if any lock was issued; <c>false</c> otherwise.</returns>
+            <param name="breakOnFirstIssue"><see langword="true" /> to break out immediately after issuing the first lock.</param>
+            <returns><see langword="true" /> if any lock was issued; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.PendAwaiter(Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter)">
             <summary>
@@ -1489,7 +1505,7 @@
             <param name="kind">The type of lock being requested.</param>
             <param name="options">Any flags applied to the lock request.</param>
             <param name="cancellationToken">The cancellation token.</param>
-            <param name="checkSyncContextCompatibility"><c>true</c> to throw an exception if the caller has an exclusive lock but not an associated SynchronizationContext.</param>
+            <param name="checkSyncContextCompatibility"><see langword="true" /> to throw an exception if the caller has an exclusive lock but not an associated SynchronizationContext.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaitable.GetAwaiter">
             <summary>
@@ -1665,14 +1681,23 @@
             The cancellation token that would terminate waiting for a lock that is not yet available.
             </summary>
         </member>
-        <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.cancellationRegistration">
-            <summary>
-            The cancellation token event that should be disposed of to free memory when we no longer need to receive cancellation notifications.
-            </summary>
-        </member>
         <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.options">
             <summary>
             The flags applied to this lock.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.requestingStackTrace">
+            <summary>
+            The stack trace of the caller originally requesting the lock.
+            </summary>
+            <remarks>
+            This field is initialized only when <see cref="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock" /> is constructed with
+            the captureDiagnostics parameter set to <see langword="true" />.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.cancellationRegistration">
+            <summary>
+            The cancellation token event that should be disposed of to free memory when we no longer need to receive cancellation notifications.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.fault">
@@ -1707,15 +1732,6 @@
             <summary>
             The synchronization context applied to folks who hold the lock.
             </summary>
-        </member>
-        <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.requestingStackTrace">
-            <summary>
-            The stacktrace of the caller originally requesting the lock.
-            </summary>
-            <remarks>
-            This field is initialized only when <see cref="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock" /> is constructed with
-            the captureDiagnostics parameter set to <c>true</c>.
-            </remarks>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.data">
             <summary>
@@ -1794,7 +1810,7 @@
             <summary>
             Gets a value indicating whether the lock is active.
             </summary>
-            <value><c>true</c> iff the lock has bee issued, has not yet been released, and the caller is on an MTA thread.</value>
+            <value><see langword="true" /> iff the lock has bee issued, has not yet been released, and the caller is on an MTA thread.</value>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.OnCompleted(System.Action)">
             <summary>
@@ -1824,7 +1840,7 @@
             <summary>
             Executes the code that requires the lock.
             </summary>
-            <returns><c>true</c> if the continuation was (asynchronously) invoked; <c>false</c> if there was no continuation available to invoke.</returns>
+            <returns><see langword="true" /> if the continuation was (asynchronously) invoked; <see langword="false" /> if there was no continuation available to invoke.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterLock.Awaiter.SetFault(System.Exception)">
             <summary>
@@ -1901,7 +1917,7 @@
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2" /> class.
             </summary>
             <param name="captureDiagnostics">
-            <c>true</c> to spend additional resources capturing diagnostic details that can be used
+            <see langword="true" /> to spend additional resources capturing diagnostic details that can be used
             to analyze deadlocks or other issues.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskContext,System.Boolean)">
@@ -1912,7 +1928,7 @@
             A JoinableTaskContext to help resolve dead locks caused by interdependency between top read lock tasks when there is a pending write lock blocking one of them.
             </param>
             <param name="captureDiagnostics">
-            <c>true</c> to spend additional resources capturing diagnostic details that can be used
+            <see langword="true" /> to spend additional resources capturing diagnostic details that can be used
             to analyze deadlocks or other issues.</param>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.LockFlags">
@@ -2023,9 +2039,9 @@
             Marks any loaded resources as having been retrieved under a lock if they
             satisfy some predicate.
             </summary>
-            <param name="resourceCheck">A function that returns <c>true</c> if the provided resource should be considered retrieved.</param>
+            <param name="resourceCheck">A function that returns <see langword="true" /> if the provided resource should be considered retrieved.</param>
             <param name="state">The state object to pass as a second parameter to <paramref name="resourceCheck" />.</param>
-            <returns><c>true</c> if the delegate returned <c>true</c> on any of the invocations.</returns>
+            <returns><see langword="true" /> if the delegate returned <see langword="true" /> on any of the invocations.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.SetAllResourcesToUnknownState">
             <summary>
@@ -2036,6 +2052,13 @@
             <summary>
             Returns the aggregate of the lock flags for all nested locks.
             </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.GetTaskSchedulerToPrepareResourcesForConcurrentAccess(`1)">
+            <summary>
+            Gets a task scheduler to prepare a resource for concurrent access.
+            </summary>
+            <param name="resource">The resource to prepare.</param>
+            <returns>A <see cref="T:System.Threading.Tasks.TaskScheduler" />.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.PrepareResourceForConcurrentAccessAsync(`1,System.Threading.CancellationToken)">
             <summary>
@@ -2287,9 +2310,9 @@
             Marks any loaded resources as having been retrieved under a lock if they
             satisfy some predicate.
             </summary>
-            <param name="resourceCheck">A function that returns <c>true</c> if the provided resource should be considered retrieved.</param>
+            <param name="resourceCheck">A function that returns <see langword="true" /> if the provided resource should be considered retrieved.</param>
             <param name="state">The state object to pass as a second parameter to <paramref name="resourceCheck" />.</param>
-            <returns><c>true</c> if the delegate returned <c>true</c> on any of the invocations.</returns>
+            <returns><see langword="true" /> if the delegate returned <see langword="true" /> on any of the invocations.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.Helper.OnExclusiveLockReleasedAsync">
             <summary>
@@ -2355,22 +2378,24 @@
             Gets the state the resource will be in when inner task has completed.
             </summary>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.Helper.ResourcePreparationTaskState.Create(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock{`0,`1}.Helper.ResourceState,System.Threading.CancellationToken)">
+        <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.Helper.ResourcePreparationTaskState.Create(System.Func{System.Threading.CancellationToken,System.Threading.Tasks.Task},Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock{`0,`1}.Helper.ResourceState,System.Threading.Tasks.TaskScheduler,System.Threading.CancellationToken)">
             <summary>
             Creates a task to prepare the source and returns it with <see cref="T:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.Helper.ResourcePreparationTaskState" />.
             </summary>
             <param name="taskCreation">A callback method to create the preparation task.</param>
             <param name="finalState">The final resource state when the preparation is done.</param>
+            <param name="taskScheduler">A task scheduler for continuation.</param>
             <param name="cancellationToken">A cancellation token to abort the preparation task.</param>
             <returns>The preparation task and its status to be used to join more waiting tasks later.</returns>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.Helper.ResourcePreparationTaskState.TryJoinPrepationTask(System.Threading.Tasks.Task@,System.Threading.CancellationToken)">
+        <member name="M:Microsoft.VisualStudio.Threading.AsyncReaderWriterResourceLock`2.Helper.ResourcePreparationTaskState.TryJoinPreparationTask(System.Threading.Tasks.Task@,System.Threading.Tasks.TaskScheduler,System.Threading.CancellationToken)">
             <summary>
             Try to join an existing preparation task.
             </summary>
-            <param name="task">The new waiting task to be compeleted when the resource preparation is done.</param>
-            <param name="cancellationToken">A cancellation token to abandone the new waiting task.</param>
-            <returns>True if it joins sucessfully, it return false, if the current task has been cancelled.</returns>
+            <param name="task">The new waiting task to be completed when the resource preparation is done.</param>
+            <param name="taskScheduler">A task scheduler for continuation.</param>
+            <param name="cancellationToken">A cancellation token to abandon the new waiting task.</param>
+            <returns>True if it joins successfully, it return false, if the current task has been cancelled.</returns>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.AsyncSemaphore">
             <summary>
@@ -2476,7 +2501,7 @@
             <summary>
             Disposes managed and unmanaged resources held by this instance.
             </summary>
-            <param name="disposing"><c>true</c> if <see cref="M:Microsoft.VisualStudio.Threading.AsyncSemaphore.Dispose" /> was called; <c>false</c> if the object is being finalized.</param>
+            <param name="disposing"><see langword="true" /> if <see cref="M:Microsoft.VisualStudio.Threading.AsyncSemaphore.Dispose" /> was called; <see langword="false" /> if the object is being finalized.</param>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.AsyncSemaphore.Releaser">
             <summary>
@@ -2564,7 +2589,7 @@
             Returns a Task that completes when the specified registry key changes.
             </summary>
             <param name="registryKey">The registry key to watch for changes.</param>
-            <param name="watchSubtree"><c>true</c> to watch the keys descendent keys as well; <c>false</c> to watch only this key without descendents.</param>
+            <param name="watchSubtree"><see langword="true" /> to watch the keys descendent keys as well; <see langword="false" /> to watch only this key without descendents.</param>
             <param name="change">Indicates the kinds of changes to watch for.</param>
             <param name="cancellationToken">A token that may be canceled to release the resources from watching for changes and complete the returned Task as canceled.</param>
             <returns>
@@ -2622,7 +2647,7 @@
             Returns a Task that completes when the specified registry key changes.
             </summary>
             <param name="registryKeyHandle">The handle to the open registry key to watch for changes.</param>
-            <param name="watchSubtree"><c>true</c> to watch the keys descendent keys as well; <c>false</c> to watch only this key without descendents.</param>
+            <param name="watchSubtree"><see langword="true" /> to watch the keys descendent keys as well; <see langword="false" /> to watch only this key without descendents.</param>
             <param name="change">Indicates the kinds of changes to watch for.</param>
             <param name="cancellationToken">A token that may be canceled to release the resources from watching for changes and complete the returned Task as canceled.</param>
             <returns>
@@ -2724,7 +2749,7 @@
             <summary>
             Gets a value indicating whether no yield is necessary.
             </summary>
-            <value><c>true</c> if the caller is already running on that TaskScheduler.</value>
+            <value><see langword="true" /> if the caller is already running on that TaskScheduler.</value>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.AwaitExtensions.TaskSchedulerAwaiter.OnCompleted(System.Action)">
             <summary>
@@ -3047,6 +3072,21 @@
             Release the keep alive count reserved by this instance.
             </summary>
         </member>
+        <member name="F:Microsoft.VisualStudio.Threading.Boxed.True">
+            <summary>
+            Returns an object containing <see langword="true" />.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.Boxed.False">
+            <summary>
+            Returns an object containing <see langword="false" />.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.Boxed.Box(System.Boolean)">
+            <summary>
+            Returns an object containing specified value.
+            </summary>
+        </member>
         <member name="T:Microsoft.VisualStudio.Threading.CancellableJoinComputation">
             <summary>
             Represents a possible shared computation task, which can be joined by multiple consumers with a cancellation token.
@@ -3061,7 +3101,7 @@
         <member name="F:Microsoft.VisualStudio.Threading.CancellableJoinComputation.joinedWaitingList">
             <summary>
             A list of task completion sources which represents joined waiting requests with cancellable cancellation tokens.
-            When an individule cancellation token is triggered, we may allow that specific waiting task to continue, and only all of them abandone the computation then we may
+            When an individual cancellation token is triggered, we may allow that specific waiting task to continue, and only all of them abandon the computation then we may
             cancel the inner computation.
             </summary>
         </member>
@@ -3097,20 +3137,22 @@
             Gets the inner computation task.
             </summary>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.CancellableJoinComputation.TryJoinComputation(System.Boolean,System.Threading.Tasks.Task@,System.Threading.CancellationToken)">
+        <member name="M:Microsoft.VisualStudio.Threading.CancellableJoinComputation.TryJoinComputation(System.Boolean,System.Threading.Tasks.Task@,System.Threading.Tasks.TaskScheduler,System.Threading.CancellationToken)">
             <summary>
             Try to join the computation.
             </summary>
             <param name="isInitialTask">It is true for the initial task starting the computation. This must be called once right after the constructor.</param>
             <param name="task">Returns a task which can be waited on.</param>
+            <param name="taskScheduler">A task scheduler for continuation.</param>
             <param name="cancellationToken">A cancellation token to abort this waiting.</param>
             <returns>It returns false, if the inner task is aborted. In which case, no way to join the existing computation.</returns>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.CancellableJoinComputation.JoinNotCancellableTaskAsync(System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:Microsoft.VisualStudio.Threading.CancellableJoinComputation.JoinNotCancellableTaskAsync(System.Boolean,System.Threading.Tasks.TaskScheduler,System.Threading.CancellationToken)">
             <summary>
             A simple way to join if the inner task cannot be cancelled.
             </summary>
             <param name="isInitialTask">Whether it is the first task to start the computation.</param>
+            <param name="taskScheduler">A task scheduler for continuation.</param>
             <param name="cancellationToken">A cancellation token to abort the waiting.</param>
             <returns>A task to complete when the computation ends.</returns>
         </member>
@@ -3210,7 +3252,7 @@
             </summary>
             <param name="left">The left operand.</param>
             <param name="right">The right operand.</param>
-            <returns><c>true</c> if they are equal; <c>false</c> otherwise.</returns>
+            <returns><see langword="true" /> if they are equal; <see langword="false" /> otherwise.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.CancellationTokenExtensions.CombinedCancellationToken.op_Inequality(Microsoft.VisualStudio.Threading.CancellationTokenExtensions.CombinedCancellationToken,Microsoft.VisualStudio.Threading.CancellationTokenExtensions.CombinedCancellationToken)">
             <summary>
@@ -3218,7 +3260,7 @@
             </summary>
             <param name="left">The left operand.</param>
             <param name="right">The right operand.</param>
-            <returns><c>true</c> if they are not equal; <c>false</c> if they are equal.</returns>
+            <returns><see langword="true" /> if they are not equal; <see langword="false" /> if they are equal.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.CancellationTokenExtensions.CombinedCancellationToken.Dispose">
             <summary>
@@ -3285,7 +3327,7 @@
             <param name="joinableTask">The task whose request to transition to the main thread has completed.</param>
             <param name="canceled">A value indicating whether the transition was cancelled before it was fulfilled.</param>
             <remarks>
-            This event is usually raised on the main thread, but can be on another thread when <paramref name="canceled" /> is <c>true</c>.
+            This event is usually raised on the main thread, but can be on another thread when <paramref name="canceled" /> is <see langword="true" />.
             </remarks>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.Dgml.Namespace">
@@ -3317,7 +3359,7 @@
             <param name="priority">
             The priority with which to schedule any work on the UI thread,
             when and if <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.SwitchToMainThreadAsync(System.Threading.CancellationToken)" /> is called
-            and for each asynchronous return to the main thread after an <c>await</c>.
+            and for each asynchronous return to the main thread after an <see langword="await" />.
             </param>
             <returns>A <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory" /> that may be used for scheduling async work with the specified priority.</returns>
         </member>
@@ -3465,7 +3507,7 @@
             <summary>
             Gets the nested hang reports, if any.
             </summary>
-            <value>A read only collection, or <c>null</c>.</value>
+            <value>A read only collection, or <see langword="null" />.</value>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.IAsyncDisposable">
             <summary>
@@ -3566,7 +3608,7 @@
             <summary>
             Gets a value indicating whether an awaiting expression should yield.
             </summary>
-            <value>Always <c>false</c>.</value>
+            <value>Always <see langword="false" />.</value>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.InlineResumable.GetResult">
             <summary>
@@ -3623,7 +3665,7 @@
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.InternalUtilities.GetAsyncReturnStackFrames(System.Delegate)">
             <summary>
-            Walk the continuation objects inside "async state machines" to generate the return callstack.
+            Walk the continuation objects inside "async state machines" to generate the return call stack.
             FOR DIAGNOSTIC PURPOSES ONLY.
             </summary>
             <param name="continuationDelegate">The delegate that represents the head of an async continuation chain.</param>
@@ -3757,6 +3799,15 @@
             Store the task's initial creationOptions.
             </summary>
         </member>
+        <member name="F:Microsoft.VisualStudio.Threading.JoinableTask.token">
+            <summary>
+            The serializable token associated with this particular <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.
+            </summary>
+            <remarks>
+            This will be created when the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> was created with a parent token
+            or lazily created when this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> needs to be serialized.
+            </remarks>
+        </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTask.nestingFactories">
             <summary>
             Other instances of <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory" /> that should be posted
@@ -3780,7 +3831,7 @@
             had given us a Task.
             </summary>
             <value>
-            This is <c>null</c> until after <see cref="F:Microsoft.VisualStudio.Threading.JoinableTask.initialDelegate" /> returns a <see cref="P:Microsoft.VisualStudio.Threading.JoinableTask.Task" /> (or the <see cref="P:Microsoft.VisualStudio.Threading.JoinableTask.Task" /> property is observed),
+            This is <see langword="null" /> until after <see cref="F:Microsoft.VisualStudio.Threading.JoinableTask.initialDelegate" /> returns a <see cref="P:Microsoft.VisualStudio.Threading.JoinableTask.Task" /> (or the <see cref="P:Microsoft.VisualStudio.Threading.JoinableTask.Task" /> property is observed),
             and retains its value even after this JoinableTask completes.
             </value>
         </member>
@@ -3815,12 +3866,13 @@
             Backing field for the <see cref="P:Microsoft.VisualStudio.Threading.JoinableTask.WeakSelf" /> property.
             </summary>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)">
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> class.
             </summary>
             <param name="owner">The instance that began the async operation.</param>
             <param name="synchronouslyBlocking">A value indicating whether the launching thread will synchronously block for this job's completion.</param>
+            <param name="parentToken">An optional token that identifies one or more <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> instances, typically in other processes, that serve as 'parents' to this one.</param>
             <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
             <param name="initialDelegate">The entry method's info for diagnostics.</param>
         </member>
@@ -3997,6 +4049,23 @@
             </summary>
             <returns>A task whose result is the result of the asynchronous operation.</returns>
         </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.GetSerializableToken">
+            <summary>
+            Gets the full token that should be serialized when this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> owns the context to be shared.
+            </summary>
+            <returns>The token; or <see langword="null" /> when this task is already completed.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.GetTokenizedParent">
+            <summary>
+            Looks up the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> that serves as this instance's parent due to the token provided when this was created.
+            </summary>
+            <returns>A task; or <see langword="null" /> if no parent token was provided at construction time or no match was found (possibly due to the parent having already completed).</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.MaybeBlockMainThread">
+            <summary>
+            Gets a very likely value whether the main thread is blocked by this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.
+            </summary>
+        </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.CreateTaskCompletionSource">
             <summary>
             Instantiate a <see cref="T:Microsoft.VisualStudio.Threading.TaskCompletionSourceWithoutInlining`1" /> that can track the ultimate result of <see cref="F:Microsoft.VisualStudio.Threading.JoinableTask.initialDelegate" />.
@@ -4048,6 +4117,37 @@
             Adds the specified flags to the <see cref="F:Microsoft.VisualStudio.Threading.JoinableTask.state" /> field.
             </summary>
         </member>
+        <member name="P:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken.ParentToken">
+            <summary>
+            Gets the original token provided by the remote parent task.
+            </summary>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken.TaskId">
+            <summary>
+            Gets the unique ID that identifies the owning <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> in the <see cref="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.serializedTasks" /> dictionary.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken.ToString">
+            <summary>
+            Serializes this token as a string.
+            </summary>
+            <returns>A string that identifies the owner <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> and retains information about its parents, if any. May be <see langword="null" /> if the owning task has already completed.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken.From(System.String,Microsoft.VisualStudio.Threading.JoinableTask)">
+            <summary>
+            Creates a <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken" /> when a parent token is provided.
+            </summary>
+            <param name="parentToken">The parent token, if any.</param>
+            <param name="owner">The owning task.</param>
+            <returns>The token, if any is required.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken.New(Microsoft.VisualStudio.Threading.JoinableTask)">
+            <summary>
+            Creates a <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask.SerializableToken" /> for a given <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> if it has not yet completed.
+            </summary>
+            <param name="owner">The owning task.</param>
+            <returns>A token, if the task has not yet completed; otherwise <see langword="null" />.</returns>
+        </member>
         <member name="T:Microsoft.VisualStudio.Threading.JoinableTaskCollection">
             <summary>
             A collection of incomplete <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> objects.
@@ -4082,9 +4182,9 @@
             </summary>
             <param name="context">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskContext" /> instance to which this collection applies.</param>
             <param name="refCountAddedJobs">
-            <c>true</c> if JoinableTask instances added to the collection multiple times should remain in the collection until they are
+            <see langword="true" /> if JoinableTask instances added to the collection multiple times should remain in the collection until they are
             either removed the same number of times or until they are completed;
-            <c>false</c> causes the first Remove call for a JoinableTask to remove it from this collection regardless
+            <see langword="false" /> causes the first Remove call for a JoinableTask to remove it from this collection regardless
             how many times it had been added.</param>
         </member>
         <member name="P:Microsoft.VisualStudio.Threading.JoinableTaskCollection.Context">
@@ -4251,6 +4351,14 @@
             </summary>
             <returns>The hang report contribution. Null values should be ignored.</returns>
         </member>
+        <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.TaskIdHexLength">
+            <summary>
+            The expected length of the serialized task ID.
+            </summary>
+            <remarks>
+            This value is the length required to hex-encode a 64-bit integer. We use <see cref="T:System.UInt64" /> for task IDs, so this is appropriate.
+            </remarks>
+        </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.syncContextLock">
             <summary>
             A "global" lock that allows the graph of interconnected sync context and JoinableSet instances
@@ -4298,6 +4406,29 @@
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.mainThreadManagedThreadId">
             <summary>
             The ManagedThreadID for the main thread.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.serializedTasks">
+            <summary>
+            A dictionary of incomplete <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> objects for which serializable identifiers have been requested.
+            </summary>
+            <remarks>
+            Only access this while locking <see cref="P:Microsoft.VisualStudio.Threading.JoinableTaskContext.SyncContextLock" />.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.contextId">
+            <summary>
+            A unique instance ID that is used when creating IDs for JoinableTasks that come from this instance.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.nextTaskId">
+            <summary>
+            The next unique ID to assign to a <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> for which a token is required.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.mainThreadBlockingJoinableTaskCount">
+            <summary>
+            The count of <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />s blocking the main thread.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.nonJoinableFactory">
@@ -4351,6 +4482,11 @@
             only relevant if an ambient joinable task is present, this property may serve to skip that for
             performance reasons.
             </remarks>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Threading.JoinableTaskContext.IsMainThreadBlockedByAnyJoinableTask">
+            <summary>
+            Gets a value indicating whether the main thread is blocked by any joinable task.
+            </summary>
         </member>
         <member name="P:Microsoft.VisualStudio.Threading.JoinableTaskContext.UnderlyingSynchronizationContext">
             <summary>
@@ -4436,6 +4572,18 @@
             </summary>
             <returns>A new joinable task collection.</returns>
         </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Capture">
+            <summary>
+            Captures the caller's context and serializes it as a string
+            that is suitable for application via a subsequent call to <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task},System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />.
+            </summary>
+            <returns>A string that represent the current context, or <see langword="null" /> if there is none.</returns>
+            <remarks>
+            To optimize calling patterns, this method returns <see langword="null" /> even when inside a <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> context
+            when this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskContext" /> was initialized without a <see cref="T:System.Threading.SynchronizationContext" />, which means no main thread exists
+            and thus there is no need to capture and reapply tokens.
+            </remarks>
+        </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Dispose">
             <inheritdoc />
         </member>
@@ -4463,6 +4611,57 @@
             </summary>
             <param name="node">The instance to notify.</param>
             <returns>A value to dispose of to cancel registration.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.IncrementMainThreadBlockingCount">
+            <summary>
+            Increment the count of <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />s blocking the main thread.
+            </summary>
+            <remarks>
+            This method should only be called on the main thread.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.DecrementMainThreadBlockingCount">
+            <summary>
+            Decrement the count of <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />s blocking the main thread.
+            </summary>
+            <remarks>
+            This method should only be called on the main thread.
+            </remarks>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.AssignUniqueIdentifier(Microsoft.VisualStudio.Threading.JoinableTask)">
+            <summary>
+            Reserves a unique ID for the given <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> and records the association in the <see cref="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.serializedTasks" /> table.
+            </summary>
+            <param name="joinableTask">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> to associate with the new ID.</param>
+            <returns>
+            An ID assignment that is unique for this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskContext" />.
+            It <em>must</em> be passed to <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.RemoveSerializableIdentifier(System.UInt64)" /> when the task completes to avoid a memory leak.
+            </returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Lookup(System.String)">
+            <summary>
+            Applies the result of a call to <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Capture" /> to the caller's context.
+            </summary>
+            <param name="parentToken">The result of a prior <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Capture" /> call.</param>
+            <returns>The task referenced by the parent token if it came from our context and is still running; otherwise <see langword="null" />.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.ConstructFullToken(System.UInt64,System.String)">
+            <summary>
+            Assembles a new token based on a parent token and the unique ID for some <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.
+            </summary>
+            <param name="taskId">The value previously obtained from <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.AssignUniqueIdentifier(Microsoft.VisualStudio.Threading.JoinableTask)" />.</param>
+            <param name="parentToken">The parent token the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> was created with, if any.</param>
+            <returns>A token that may be serialized to recreate the dependency chain for this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> and its remote parents.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.RemoveSerializableIdentifier(System.UInt64)">
+            <summary>
+            Removes an association between a <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> and a unique ID that was generated for it
+            from the <see cref="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.serializedTasks" /> table.
+            </summary>
+            <param name="taskId">The value previously obtained from <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.AssignUniqueIdentifier(Microsoft.VisualStudio.Threading.JoinableTask)" />.</param>
+            <remarks>
+            This method must be called when a <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> is completed to avoid a memory leak.
+            </remarks>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.OnHangDetected(System.TimeSpan,System.Int32,System.Guid)">
             <summary>
@@ -4493,7 +4692,21 @@
             <summary>
             Disposes managed and unmanaged resources held by this instance.
             </summary>
-            <param name="disposing"><c>true</c> if <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Dispose" /> was called; <c>false</c> if the object is being finalized.</param>
+            <param name="disposing"><see langword="true" /> if <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.Dispose" /> was called; <see langword="false" /> if the object is being finalized.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.FindOurTaskId(System.ReadOnlySpan{System.Char})">
+            <summary>
+            Searches a parent token for a task ID that belongs to this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskContext" /> instance.
+            </summary>
+            <param name="parentToken">A parent token.</param>
+            <returns>The 0-based index into the string where the context of the local task ID begins, if found; otherwise <c>-1</c>.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.GetOurTaskId(System.ReadOnlySpan{System.Char})">
+            <summary>
+            Gets the task ID that came from this <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskContext" /> that is carried in a given a parent token.
+            </summary>
+            <param name="parentToken">A parent token.</param>
+            <returns>The characters that formulate the task ID that originally came from this instance, if found; otherwise an empty span.</returns>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.JoinableTaskContext.RevertRelevance">
             <summary>
@@ -4563,7 +4776,7 @@
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskContext.HangNotificationRegistration.node">
             <summary>
-            The node to receive notifications. May be <c>null</c> if <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.HangNotificationRegistration.Dispose" /> has already been called.
+            The node to receive notifications. May be <see langword="null" /> if <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.HangNotificationRegistration.Dispose" /> has already been called.
             </summary>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskContext.HangNotificationRegistration.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskContextNode)">
@@ -5131,7 +5344,7 @@
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskFactory.jobCollection">
             <summary>
-            The collection to add all created tasks to. May be <c>null</c>.
+            The collection to add all created tasks to. May be <see langword="null" />.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskFactory.hangDetectionTimeout">
@@ -5254,56 +5467,13 @@
              </remarks>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run(System.Func{System.Threading.Tasks.Task})">
-            <summary>
-            Runs the specified asynchronous method to completion while synchronously blocking the calling thread.
-            </summary>
-            <param name="asyncMethod">The asynchronous method to execute.</param>
-            <remarks>
-            <para>Any exception thrown by the delegate is rethrown in its original type to the caller of this method.</para>
-            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
-            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
-            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
-            <example>
-            <code>
-            // On threadpool or Main thread, this method will block
-            // the calling thread until all async operations in the
-            // delegate complete.
-            joinableTaskFactory.Run(async delegate {
-                // still on the threadpool or Main thread as before.
-                await OperationAsync();
-                // still on the threadpool or Main thread as before.
-                await Task.Run(async delegate {
-                     // Now we're on a threadpool thread.
-                     await Task.Yield();
-                     // still on a threadpool thread.
-                });
-                // Now back on the Main thread (or threadpool thread if that's where we started).
-            });
-            </code>
-            </example>
-            </remarks>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run``1(System.Func{System.Threading.Tasks.Task{``0}},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run(System.Func{System.Threading.Tasks.Task},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
-            <summary>
-            Runs the specified asynchronous method to completion while synchronously blocking the calling thread.
-            </summary>
-            <param name="asyncMethod">The asynchronous method to execute.</param>
-            <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run``1(System.Func{System.Threading.Tasks.Task{``0}},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run``1(System.Func{System.Threading.Tasks.Task{``0}})">
-            <summary>
-            Runs the specified asynchronous method to completion while synchronously blocking the calling thread.
-            </summary>
-            <typeparam name="T">The type of value returned by the asynchronous operation.</typeparam>
-            <param name="asyncMethod">The asynchronous method to execute.</param>
-            <returns>The result of the Task returned by <paramref name="asyncMethod" />.</returns>
-            <remarks>
-            <para>Any exception thrown by the delegate is rethrown in its original type to the caller of this method.</para>
-            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
-            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
-            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
-            <para>See the <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run(System.Func{System.Threading.Tasks.Task})" /> overload documentation for an example.</para>
-            </remarks>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run``1(System.Func{System.Threading.Tasks.Task{``0}},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.Run``1(System.Func{System.Threading.Tasks.Task{``0}},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
             <summary>
@@ -5318,75 +5488,43 @@
             <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
             as an ordinary async method execution would. For example, if the caller was on the main thread, execution
             resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
+            <example>
+            <code><![CDATA[
+            // On threadpool or Main thread, this method will block
+            // the calling thread until all async operations in the
+            // delegate complete.
+            joinableTaskFactory.Run(async delegate {
+                // still on the threadpool or Main thread as before.
+                await OperationAsync();
+                // still on the threadpool or Main thread as before.
+                await Task.Run(async delegate {
+                     // Now we're on a threadpool thread.
+                     await Task.Yield();
+                     // still on a threadpool thread.
+                });
+                // Now back on the Main thread (or threadpool thread if that's where we started).
+            });
+            ]]></code>
+            </example>
             </remarks>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task})">
-            <summary>
-            Invokes an async delegate on the caller's thread, and yields back to the caller when the async method yields.
-            The async delegate is invoked in such a way as to mitigate deadlocks in the event that the async method
-            requires the main thread while the main thread is blocked waiting for the async method's completion.
-            </summary>
-            <param name="asyncMethod">The method that, when executed, will begin the async operation.</param>
-            <returns>An object that tracks the completion of the async operation, and allows for later synchronous blocking of the main thread for completion if necessary.</returns>
-            <remarks>
-            <para>Exceptions thrown by the delegate are captured by the returned <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.</para>
-            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
-            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
-            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
-            </remarks>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
-            <summary>
-            Invokes an async delegate on the caller's thread, and yields back to the caller when the async method yields.
-            The async delegate is invoked in such a way as to mitigate deadlocks in the event that the async method
-            requires the main thread while the main thread is blocked waiting for the async method's completion.
-            </summary>
-            <param name="asyncMethod">The method that, when executed, will begin the async operation.</param>
-            <returns>An object that tracks the completion of the async operation, and allows for later synchronous blocking of the main thread for completion if necessary.</returns>
-            <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
-            <remarks>
-            <para>Exceptions thrown by the delegate are captured by the returned <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.</para>
-            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
-            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
-            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
-            </remarks>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task},System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task},System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}})">
-            <summary>
-            Invokes an async delegate on the caller's thread, and yields back to the caller when the async method yields.
-            The async delegate is invoked in such a way as to mitigate deadlocks in the event that the async method
-            requires the main thread while the main thread is blocked waiting for the async method's completion.
-            </summary>
-            <typeparam name="T">The type of value returned by the asynchronous operation.</typeparam>
-            <param name="asyncMethod">The method that, when executed, will begin the async operation.</param>
-            <returns>
-            An object that tracks the completion of the async operation, and allows for later synchronous blocking of the main thread for completion if necessary.
-            </returns>
-            <remarks>
-            <para>Exceptions thrown by the delegate are captured by the returned <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.</para>
-            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
-            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
-            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
-            </remarks>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
-            <summary>
-            Invokes an async delegate on the caller's thread, and yields back to the caller when the async method yields.
-            The async delegate is invoked in such a way as to mitigate deadlocks in the event that the async method
-            requires the main thread while the main thread is blocked waiting for the async method's completion.
-            </summary>
-            <typeparam name="T">The type of value returned by the asynchronous operation.</typeparam>
-            <param name="asyncMethod">The method that, when executed, will begin the async operation.</param>
-            <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
-            <returns>
-            An object that tracks the completion of the async operation, and allows for later synchronous blocking of the main thread for completion if necessary.
-            </returns>
-            <remarks>
-            <para>Exceptions thrown by the delegate are captured by the returned <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.</para>
-            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
-            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
-            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
-            </remarks>
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
+            <inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)" />
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RequestSwitchToMainThread(System.Action)">
             <summary>
@@ -5431,7 +5569,7 @@
             <param name="joinableTask">The task whose request to transition to the main thread has completed.</param>
             <param name="canceled">A value indicating whether the transition was cancelled before it was fulfilled.</param>
             <remarks>
-            This event is usually raised on the main thread, but can be on another thread when <paramref name="canceled" /> is <c>true</c>.
+            This event is usually raised on the main thread, but can be on another thread when <paramref name="canceled" /> is <see langword="true" />.
             </remarks>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.WaitSynchronously(System.Threading.Tasks.Task)">
@@ -5484,16 +5622,38 @@
             calling the Run method.
             </remarks>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task},System.Boolean,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)">
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync(System.Func{System.Threading.Tasks.Task},System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)">
             <summary>
             Wraps the invocation of an async method such that it may
             execute asynchronously, but may potentially be
             synchronously completed (waited on) in the future.
             </summary>
             <param name="asyncMethod">The asynchronous method to execute.</param>
-            <param name="synchronouslyBlocking">A value indicating whether the launching thread will synchronously block for this job's completion.</param>
-            <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
+            <param name="synchronouslyBlocking"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='synchronouslyBlocking']" /></param>
+            <param name="parentToken"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='parentToken']" /></param>
+            <param name="creationOptions"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='creationOptions']" /></param>
             <param name="entrypointOverride">The entry method's info for diagnostics.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.RunAsync``1(System.Func{System.Threading.Tasks.Task{``0}},System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions)">
+            <summary>
+            Invokes an async delegate on the caller's thread, and yields back to the caller when the async method yields.
+            The async delegate is invoked in such a way as to mitigate deadlocks in the event that the async method
+            requires the main thread while the main thread is blocked waiting for the async method's completion.
+            </summary>
+            <typeparam name="T">The type of value returned by the asynchronous operation.</typeparam>
+            <param name="asyncMethod">The method that, when executed, will begin the async operation.</param>
+            <param name="synchronouslyBlocking">A value indicating whether the caller is synchronously blocking.</param>
+            <param name="parentToken">An optional token that identifies one or more <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" /> instances, typically in other processes, that serve as 'parents' to this one.</param>
+            <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
+            <returns>
+            An object that tracks the completion of the async operation, and allows for later synchronous blocking of the main thread for completion if necessary.
+            </returns>
+            <remarks>
+            <para>Exceptions thrown by the delegate are captured by the returned <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask" />.</para>
+            <para>When the delegate resumes from a yielding await, the default behavior is to resume in its original context
+            as an ordinary async method execution would. For example, if the caller was on the main thread, execution
+            resumes after an await on the main thread; but if it started on a threadpool thread it resumes on a threadpool thread.</para>
+            </remarks>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaitable">
             <summary>
@@ -5504,6 +5664,18 @@
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaitable" /> struct.
             </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaitable.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,Microsoft.VisualStudio.Threading.JoinableTask,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaitable" /> struct.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaitable.NoThrowAwaitable">
+            <summary>
+            Returns an awaitable for the specified <see cref="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.SwitchToMainThreadAsync(System.Threading.CancellationToken)" />
+            operation that will not throw an exception if cancellation is requested.
+            </summary>
+            <returns>An awaitable.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaitable.GetAwaiter">
             <summary>
@@ -5532,7 +5704,7 @@
             would not touch it.
             </remarks>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaiter.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,Microsoft.VisualStudio.Threading.JoinableTask,System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaiter.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,Microsoft.VisualStudio.Threading.JoinableTask,System.Boolean,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory.MainThreadAwaiter" /> struct.
             </summary>
@@ -5607,7 +5779,7 @@
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.JoinableTaskFactory.SingleExecuteProtector.invokeDelegate">
             <summary>
-            The delegate to invoke.  <c>null</c> if it has already been invoked.
+            The delegate to invoke.  <see langword="null" /> if it has already been invoked.
             </summary>
             <value>May be of type <see cref="T:System.Action" /> or <see cref="T:System.Threading.SendOrPostCallback" />.</value>
         </member>
@@ -5681,6 +5853,13 @@
             Invokes <see cref="M:Microsoft.VisualStudio.Threading.JoinableTask.ExecutionQueue.OnExecuting(System.Object,System.EventArgs)" /> handler.
             </summary>
         </member>
+        <member name="T:Microsoft.VisualStudio.Threading.JoinableTaskInternals">
+            <summary>
+            A helper class for integration with Visual Studio.
+            APIs in this file are intended for Microsoft internal use only
+            and are subject to change without notice.
+            </summary>
+        </member>
         <member name="T:Microsoft.VisualStudio.Threading.JoinableTask`1">
             <summary>
             Tracks asynchronous operations and provides the ability to Join those operations to avoid
@@ -5691,14 +5870,15 @@
             For more complete comments please see the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskContext" />.
             </remarks>
         </member>
-        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask`1.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)">
+        <member name="M:Microsoft.VisualStudio.Threading.JoinableTask`1.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)">
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.JoinableTask`1" /> class.
             </summary>
-            <param name="owner">The instance that began the async operation.</param>
-            <param name="synchronouslyBlocking">A value indicating whether the launching thread will synchronously block for this job's completion.</param>
-            <param name="creationOptions">The <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions" /> used to customize the task's behavior.</param>
-            <param name="initialDelegate">The entry method's info for diagnostics.</param>
+            <param name="owner"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='owner']" /></param>
+            <param name="synchronouslyBlocking"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='synchronouslyBlocking']" /></param>
+            <param name="parentToken"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='parentToken']" /></param>
+            <param name="creationOptions"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='creationOptions']" /></param>
+            <param name="initialDelegate"><inheritdoc cref="M:Microsoft.VisualStudio.Threading.JoinableTask.#ctor(Microsoft.VisualStudio.Threading.JoinableTaskFactory,System.Boolean,System.String,Microsoft.VisualStudio.Threading.JoinableTaskCreationOptions,System.Delegate)" path="/param[@name='initialDelegate']" /></param>
         </member>
         <member name="P:Microsoft.VisualStudio.Threading.JoinableTask`1.Task">
             <summary>
@@ -5801,7 +5981,7 @@
             Checks for reference equality between the specified value and an element of this collection.
             </summary>
             <param name="value">The value to check for.</param>
-            <returns><c>true</c> if a match is found; <c>false</c> otherwise.</returns>
+            <returns><see langword="true" /> if a match is found; <see langword="false" /> otherwise.</returns>
             <remarks>
             This method is intended to hide the Linq Contains extension method to avoid
             the boxing of this struct and its Enumerator.
@@ -5827,39 +6007,6 @@
             <param name="baseValue">The collection's prior contents.</param>
             <param name="value">The value to remove from the collection.</param>
             <returns>The new value to store as the collection.</returns>
-        </member>
-        <member name="T:Microsoft.VisualStudio.Threading.NativeMethods">
-            <summary>
-            P/Invoke methods.
-            </summary>
-        </member>
-        <member name="F:Microsoft.VisualStudio.Threading.NativeMethods.REG_NOTIFY_THREAD_AGNOSTIC">
-            <summary>
-            Indicates that the lifetime of the registration must not be tied to the lifetime of the thread issuing the RegNotifyChangeKeyValue call.
-            Note: This flag value is only supported in Windows 8 and later.
-            </summary>
-        </member>
-        <member name="M:Microsoft.VisualStudio.Threading.NativeMethods.WaitForMultipleObjects(System.UInt32,System.IntPtr[],System.Boolean,System.UInt32)">
-            <summary>
-            Really truly non pumping wait.
-            Raw IntPtrs have to be used, because the marshaller does not support arrays of SafeHandle, only
-            single SafeHandles.
-            </summary>
-            <param name="handleCount">The number of handles in the <paramref name="waitHandles" /> array.</param>
-            <param name="waitHandles">The handles to wait for.</param>
-            <param name="waitAll">A flag indicating whether all handles must be signaled before returning.</param>
-            <param name="millisecondsTimeout">A timeout that will cause this method to return.</param>
-        </member>
-        <member name="M:Microsoft.VisualStudio.Threading.NativeMethods.RegNotifyChangeKeyValue(Microsoft.Win32.SafeHandles.SafeRegistryHandle,System.Boolean,Microsoft.VisualStudio.Threading.RegistryChangeNotificationFilters,Microsoft.Win32.SafeHandles.SafeWaitHandle,System.Boolean)">
-            <summary>
-            Registers to receive notification of changes to a registry key.
-            </summary>
-            <param name="hKey">The handle to the registry key to watch.</param>
-            <param name="watchSubtree"><c>true</c> to watch the keys descendent keys as well; <c>false</c> to watch only this key without descendents.</param>
-            <param name="notifyFilter">The types of changes to watch for.</param>
-            <param name="hEvent">A handle to the event to set when a change occurs.</param>
-            <param name="asynchronous">If this parameter is TRUE, the function returns immediately and reports changes by signaling the specified event. If this parameter is FALSE, the function does not return until a change has occurred.</param>
-            <returns>A win32 error code. ERROR_SUCCESS (0) if successful.</returns>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.NoMessagePumpSyncContext">
             <summary>
@@ -5933,7 +6080,7 @@
             <param name="sticky">
             A value indicating whether to set this instance as <see cref="P:System.Threading.SynchronizationContext.Current" /> when invoking delegates.
             This has the effect that async methods that are invoked on this <see cref="T:System.Threading.SynchronizationContext" />
-            will execute their continuations on this <see cref="T:System.Threading.SynchronizationContext" /> as well unless they use <see cref="M:System.Threading.Tasks.Task.ConfigureAwait(System.Boolean)" /> with <c>false</c> as the argument.
+            will execute their continuations on this <see cref="T:System.Threading.SynchronizationContext" /> as well unless they use <see cref="M:System.Threading.Tasks.Task.ConfigureAwait(System.Boolean)" /> with <see langword="false" /> as the argument.
             </param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.NonConcurrentSynchronizationContext.#ctor(Microsoft.VisualStudio.Threading.NonConcurrentSynchronizationContext)">
@@ -6098,6 +6245,53 @@
             </summary>
             <param name="value">The value representing the updated progress.</param>
         </member>
+        <member name="T:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1">
+            <summary>
+            A collection optimized for usually small number of elements, and items are rarely removed.
+            Note: this implementation is not thread-safe. It must be protected to prevent race conditions.
+            </summary>
+            <typeparam name="T">The type of elements to be stored.</typeparam>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.value">
+            <summary>
+            The single value or array of values stored by this collection.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.Add(`0)">
+            <summary>
+            Adds an element to the collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.Remove(`0)">
+            <summary>
+            Removes an element from the collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.EnumerateAndClear">
+            <summary>
+            Gets the result out of the current list, and reset it to empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.ToArray">
+            <summary>
+            Make a thread safe copy of the content of this list.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.Enumerable.count">
+            <summary>
+            The number of items.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.RarelyRemoveItemSet`1.Enumerable.GetEnumerator">
+            <summary>
+            Returns an enumerator for a current snapshot of the collection.
+            </summary>
+        </member>
         <member name="T:Microsoft.VisualStudio.Threading.ReentrantSemaphore">
             <summary>
             A <see cref="T:Microsoft.VisualStudio.Threading.JoinableTaskFactory" />-aware semaphore that allows reentrancy without consuming another slot in the semaphore.
@@ -6244,7 +6438,7 @@
             <summary>
             Disposes managed and unmanaged resources held by this instance.
             </summary>
-            <param name="disposing"><c>true</c> if <see cref="M:Microsoft.VisualStudio.Threading.ReentrantSemaphore.Dispose" /> was called; <c>false</c> if the object is being finalized.</param>
+            <param name="disposing"><see langword="true" /> if <see cref="M:Microsoft.VisualStudio.Threading.ReentrantSemaphore.Dispose" /> was called; <see langword="false" /> if the object is being finalized.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.ReentrantSemaphore.ThrowIfFaulted">
             <summary>
@@ -6437,27 +6631,23 @@
         <member name="F:Microsoft.VisualStudio.Threading.RegistryChangeNotificationFilters.Subkey">
             <summary>
             Notify the caller if a subkey is added or deleted.
-            Corresponds to Win32 value REG_NOTIFY_CHANGE_NAME.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.RegistryChangeNotificationFilters.Attributes">
             <summary>
             Notify the caller of changes to the attributes of the key,
             such as the security descriptor information.
-            Corresponds to Win32 value REG_NOTIFY_CHANGE_ATTRIBUTES.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.RegistryChangeNotificationFilters.Value">
             <summary>
             Notify the caller of changes to a value of the key. This can
             include adding or deleting a value, or changing an existing value.
-            Corresponds to Win32 value REG_NOTIFY_CHANGE_LAST_SET.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.RegistryChangeNotificationFilters.Security">
             <summary>
             Notify the caller of changes to the security descriptor of the key.
-            Corresponds to Win32 value REG_NOTIFY_CHANGE_SECURITY.
             </summary>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.SemaphoreFaultedException">
@@ -6738,7 +6928,7 @@
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.TaskCompletionSourceWithoutInlining`1" /> class.
             </summary>
             <param name="allowInliningContinuations">
-            <c>true</c> to allow continuations to be inlined; otherwise <c>false</c>.
+            <see langword="true" /> to allow continuations to be inlined; otherwise <see langword="false" />.
             </param>
             <param name="options">
             TaskCreationOptions to pass on to the base constructor.
@@ -6762,7 +6952,7 @@
             if wanted by the caller and supported by the platform.
             </summary>
             <param name="options">The base options supplied by the caller.</param>
-            <param name="allowInliningContinuations"><c>true</c> to allow inlining continuations.</param>
+            <param name="allowInliningContinuations"><see langword="true" /> to allow inlining continuations.</param>
             <returns>The possibly modified flags.</returns>
         </member>
         <member name="T:Microsoft.VisualStudio.Threading.ThreadingEventSource">
@@ -6915,8 +7105,8 @@
             <param name="hotLocation">The field that may be manipulated by multiple threads.</param>
             <param name="applyChange">A function that receives the unchanged value and returns the changed value.</param>
             <returns>
-            <c>true</c> if the location's value is changed by applying the result of the <paramref name="applyChange" /> function;
-            <c>false</c> if the location's value remained the same because the last invocation of <paramref name="applyChange" /> returned the existing value.
+            <see langword="true" /> if the location's value is changed by applying the result of the <paramref name="applyChange" /> function;
+            <see langword="false" /> if the location's value remained the same because the last invocation of <paramref name="applyChange" /> returned the existing value.
             </returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.ThreadingTools.ApplyChangeOptimistically``2(``0@,``1,System.Func{``0,``1,``0})">
@@ -6935,8 +7125,8 @@
             <param name="applyChangeArgument">An argument to pass to <paramref name="applyChange" />.</param>
             <param name="applyChange">A function that receives both the unchanged value and <paramref name="applyChangeArgument" />, then returns the changed value.</param>
             <returns>
-            <c>true</c> if the location's value is changed by applying the result of the <paramref name="applyChange" /> function;
-            <c>false</c> if the location's value remained the same because the last invocation of <paramref name="applyChange" /> returned the existing value.
+            <see langword="true" /> if the location's value is changed by applying the result of the <paramref name="applyChange" /> function;
+            <see langword="false" /> if the location's value remained the same because the last invocation of <paramref name="applyChange" /> returned the existing value.
             </returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.ThreadingTools.WithCancellation``1(System.Threading.Tasks.Task{``0},System.Threading.CancellationToken)">
@@ -7069,12 +7259,12 @@
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.TrueTask">
             <summary>
-            A completed task with a <c>true</c> result.
+            A completed task with a <see langword="true" /> result.
             </summary>
         </member>
         <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.FalseTask">
             <summary>
-            A completed task with a <c>false</c> result.
+            A completed task with a <see langword="false" /> result.
             </summary>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.WaitWithoutInlining(System.Threading.Tasks.Task)">
@@ -7159,7 +7349,7 @@
             <typeparam name="T">The type of value returned by the task.</typeparam>
             <param name="taskToFollow">The task whose result should be returned by the following task.</param>
             <param name="ultimateCancellation">A token whose cancellation signals that the following task should be cancelled.</param>
-            <param name="taskThatFollows">The TaskCompletionSource whose task is to follow.  Leave at <c>null</c> for a new task to be created.</param>
+            <param name="taskThatFollows">The TaskCompletionSource whose task is to follow.  Leave at <see langword="null" /> for a new task to be created.</param>
             <returns>The following task.</returns>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowAwaitable(System.Threading.Tasks.Task,System.Boolean)">
@@ -7168,8 +7358,45 @@
             faults or is canceled.
             </summary>
             <param name="task">The task whose completion should signal the completion of the returned awaitable.</param>
-            <param name="captureContext">if set to <c>true</c> the continuation will be scheduled on the caller's context; <c>false</c> to always execute the continuation on the threadpool.</param>
+            <param name="captureContext">if set to <see langword="true" /> the continuation will be scheduled on the caller's context; <see langword="false" /> to always execute the continuation on the threadpool.</param>
             <returns>An awaitable.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowAwaitable(System.Threading.Tasks.ValueTask,System.Boolean)">
+            <summary>
+            Returns an awaitable for the specified task that will never throw, even if the source task
+            faults or is canceled.
+            </summary>
+            <param name="task">The task whose completion should signal the completion of the returned awaitable.</param>
+            <param name="captureContext">if set to <see langword="true" /> the continuation will be scheduled on the caller's context; <see langword="false" /> to always execute the continuation on the threadpool.</param>
+            <returns>An awaitable.</returns>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowAwaitable``1(System.Threading.Tasks.ValueTask{``0},System.Boolean)">
+             <summary>
+             Returns an awaitable for the specified task that will never throw, even if the source task
+             faults or is canceled.
+             </summary>
+             <remarks>
+             The awaitable returned by this method does not provide access to the result of a successfully-completed
+             <see cref="T:System.Threading.Tasks.ValueTask`1" />. To await without throwing and use the resulting value, the following
+             pattern may be used:
+            
+             <code>
+             var methodValueTask = MethodAsync().Preserve();
+             await methodValueTask.NoThrowAwaitable(true);
+             if (methodValueTask.IsCompletedSuccessfully)
+             {
+               var result = methodValueTask.Result;
+             }
+             else
+             {
+               var exception = methodValueTask.AsTask().Exception.InnerException;
+             }
+             </code>
+             </remarks>
+             <param name="task">The task whose completion should signal the completion of the returned awaitable.</param>
+             <param name="captureContext">if set to <see langword="true" /> the continuation will be scheduled on the caller's context; <see langword="false" /> to always execute the continuation on the threadpool.</param>
+             <returns>An awaitable.</returns>
+             <typeparam name="TResult">The type of the result.</typeparam>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.Forget(System.Threading.Tasks.Task)">
             <summary>
@@ -7197,7 +7424,7 @@
             Invokes asynchronous event handlers, returning a task that completes when all event handlers have been invoked.
             Each handler is fully executed (including continuations) before the next handler in the list is invoked.
             </summary>
-            <param name="handlers">The event handlers.  May be <c>null</c>.</param>
+            <param name="handlers">The event handlers.  May be <see langword="null" />.</param>
             <param name="sender">The event source.</param>
             <param name="args">The event argument.</param>
             <returns>The task that completes when all handlers have completed.</returns>
@@ -7209,7 +7436,7 @@
             Each handler is fully executed (including continuations) before the next handler in the list is invoked.
             </summary>
             <typeparam name="TEventArgs">The type of argument passed to each handler.</typeparam>
-            <param name="handlers">The event handlers.  May be <c>null</c>.</param>
+            <param name="handlers">The event handlers.  May be <see langword="null" />.</param>
             <param name="sender">The event source.</param>
             <param name="args">The event argument.</param>
             <returns>The task that completes when all handlers have completed.  The task is faulted if any handlers throw an exception.</returns>
@@ -7236,15 +7463,15 @@
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.ToTask(System.Threading.WaitHandle,System.Int32,System.Threading.CancellationToken)">
             <summary>
-            Creates a TPL Task that returns <c>true</c> when a <see cref="T:System.Threading.WaitHandle" /> is signaled or returns <c>false</c> if a timeout occurs first.
+            Creates a TPL Task that returns <see langword="true" /> when a <see cref="T:System.Threading.WaitHandle" /> is signaled or returns <see langword="false" /> if a timeout occurs first.
             </summary>
             <param name="handle">The handle whose signal triggers the task to be completed.  Do not use a <see cref="T:System.Threading.Mutex" /> here.</param>
-            <param name="timeout">The timeout (in milliseconds) after which the task will return <c>false</c> if the handle is not signaled by that time.</param>
+            <param name="timeout">The timeout (in milliseconds) after which the task will return <see langword="false" /> if the handle is not signaled by that time.</param>
             <param name="cancellationToken">A token whose cancellation will cause the returned Task to immediately complete in a canceled state.</param>
             <returns>
             A Task that completes when the handle is signaled or times out, or when the caller's cancellation token is canceled.
-            If the task completes because the handle is signaled, the task's result is <c>true</c>.
-            If the task completes because the handle is not signaled prior to the timeout, the task's result is <c>false</c>.
+            If the task completes because the handle is signaled, the task's result is <see langword="true" />.
+            If the task completes because the handle is not signaled prior to the timeout, the task's result is <see langword="false" />.
             </returns>
             <remarks>
             The completion of the returned task is asynchronous with respect to the code that actually signals the wait handle.
@@ -7258,8 +7485,8 @@
             <param name="task">The task whose completion should be applied to another.</param>
             <param name="tcs">The task that should receive the completion status.</param>
             <param name="inlineSubsequentCompletion">
-            <c>true</c> to complete the supplied <paramref name="tcs" /> as efficiently as possible (inline with the completion of <paramref name="task" />);
-            <c>false</c> to complete the <paramref name="tcs" /> asynchronously.
+            <see langword="true" /> to complete the supplied <paramref name="tcs" /> as efficiently as possible (inline with the completion of <paramref name="task" />);
+            <see langword="false" /> to complete the <paramref name="tcs" /> asynchronously.
             Note if <paramref name="task" /> is completed when this method is invoked, then <paramref name="tcs" /> is always completed synchronously.
             </param>
         </member>
@@ -7354,7 +7581,7 @@
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowTaskAwaiter" /> struct.
             </summary>
             <param name="task">The task.</param>
-            <param name="captureContext">if set to <c>true</c> [capture context].</param>
+            <param name="captureContext">if set to <see langword="true" /> [capture context].</param>
         </member>
         <member name="P:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowTaskAwaiter.IsCompleted">
             <summary>
@@ -7375,6 +7602,154 @@
             <param name="continuation">The action.</param>
         </member>
         <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowTaskAwaiter.GetResult">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable">
+            <summary>
+            An awaitable that wraps a task and never throws an exception when waited on.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable.task">
+            <summary>
+            The task.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable.captureContext">
+            <summary>
+            A value indicating whether the continuation should be scheduled on the current sync context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable.#ctor(System.Threading.Tasks.ValueTask,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable" /> struct.
+            </summary>
+            <param name="task">The task.</param>
+            <param name="captureContext">Whether the continuation should be scheduled on the current sync context.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable.GetAwaiter">
+            <summary>
+            Gets the awaiter.
+            </summary>
+            <returns>The awaiter.</returns>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter">
+            <summary>
+            An awaiter that wraps a task and never throws an exception when waited on.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.task">
+            <summary>
+            The task.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.captureContext">
+            <summary>
+            A value indicating whether the continuation should be scheduled on the current sync context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.#ctor(System.Threading.Tasks.ValueTask,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter" /> struct.
+            </summary>
+            <param name="task">The task.</param>
+            <param name="captureContext">if set to <see langword="true" /> [capture context].</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.IsCompleted">
+            <summary>
+            Gets a value indicating whether the task has completed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.OnCompleted(System.Action)">
+            <summary>
+            Schedules a delegate for execution at the conclusion of a task's execution.
+            </summary>
+            <param name="continuation">The action.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.UnsafeOnCompleted(System.Action)">
+            <summary>
+            Schedules a delegate for execution at the conclusion of a task's execution
+            without capturing the ExecutionContext.
+            </summary>
+            <param name="continuation">The action.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter.GetResult">
+            <summary>
+            Does nothing.
+            </summary>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable`1">
+            <summary>
+            An awaitable that wraps a <see cref="T:System.Threading.Tasks.ValueTask`1" /> and never throws an exception when waited on.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable`1.task">
+            <summary>
+            The task.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable`1.captureContext">
+            <summary>
+            A value indicating whether the continuation should be scheduled on the current sync context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable`1.#ctor(System.Threading.Tasks.ValueTask{`0},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable`1" /> struct.
+            </summary>
+            <param name="task">The task.</param>
+            <param name="captureContext">Whether the continuation should be scheduled on the current sync context.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaitable`1.GetAwaiter">
+            <summary>
+            Gets the awaiter.
+            </summary>
+            <returns>The awaiter.</returns>
+        </member>
+        <member name="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1">
+            <summary>
+            An awaiter that wraps a task and never throws an exception when waited on.
+            </summary>
+            <typeparam name="TResult">The type of the result.</typeparam>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.task">
+            <summary>
+            The task.
+            </summary>
+        </member>
+        <member name="F:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.captureContext">
+            <summary>
+            A value indicating whether the continuation should be scheduled on the current sync context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.#ctor(System.Threading.Tasks.ValueTask{`0},System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1" /> struct.
+            </summary>
+            <param name="task">The task.</param>
+            <param name="captureContext">if set to <see langword="true" /> [capture context].</param>
+        </member>
+        <member name="P:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.IsCompleted">
+            <summary>
+            Gets a value indicating whether the task has completed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.OnCompleted(System.Action)">
+            <summary>
+            Schedules a delegate for execution at the conclusion of a task's execution.
+            </summary>
+            <param name="continuation">The action.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.UnsafeOnCompleted(System.Action)">
+            <summary>
+            Schedules a delegate for execution at the conclusion of a task's execution
+            without capturing the ExecutionContext.
+            </summary>
+            <param name="continuation">The action.</param>
+        </member>
+        <member name="M:Microsoft.VisualStudio.Threading.TplExtensions.NoThrowValueTaskAwaiter`1.GetResult">
             <summary>
             Does nothing.
             </summary>
@@ -7481,7 +7856,7 @@
             <summary>
             Initializes a new instance of the <see cref="T:Microsoft.VisualStudio.Threading.WeakKeyDictionary`2" /> class.
             </summary>
-            <param name="keyComparer">The key comparer to use. A <c>null</c> value indicates the default comparer will be used.</param>
+            <param name="keyComparer">The key comparer to use. A <see langword="null" /> value indicates the default comparer will be used.</param>
             <param name="capacity">The initial capacity of the dictionary. Growth beyond this capacity will first induce a scavenge operation.</param>
         </member>
         <member name="P:Microsoft.VisualStudio.Threading.WeakKeyDictionary`2.Count">
@@ -7672,11 +8047,84 @@
             Compares the weak references for equality.
             </summary>
         </member>
-        <member name="M:System.Diagnostics.RoslynDebug.Assert(System.Boolean)">
-            <inheritdoc cref="M:System.Diagnostics.Debug.Assert(System.Boolean)" />
+        <member name="T:Windows.Win32.PInvoke">
+            <content>
+            Contains extern methods from "ADVAPI32.dll".
+            </content>
+            <content>
+            Contains extern methods from "KERNEL32.dll".
+            </content>
         </member>
-        <member name="M:System.Diagnostics.RoslynDebug.Assert(System.Boolean,System.String)">
-            <inheritdoc cref="M:System.Diagnostics.Debug.Assert(System.Boolean,System.String)" />
+        <member name="M:Windows.Win32.PInvoke.RegCloseKey(Windows.Win32.System.Registry.HKEY)">
+            <summary>Closes a handle to the specified registry key.</summary>
+            <param name="hKey">
+            <para>A handle to the open key to be closed. The handle must have been opened by the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeytransacteda">RegCreateKeyTransacted</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeytransacteda">RegOpenKeyTransacted</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regconnectregistrya">RegConnectRegistry</a> function.</para>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regclosekey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <returns>
+            <para>If the function succeeds, the return value is ERROR_SUCCESS. If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regclosekey">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:Windows.Win32.PInvoke.RegNotifyChangeKeyValue(System.Runtime.InteropServices.SafeHandle,Windows.Win32.Foundation.BOOL,Windows.Win32.System.Registry.REG_NOTIFY_FILTER,System.Runtime.InteropServices.SafeHandle,Windows.Win32.Foundation.BOOL)">
+            <inheritdoc cref="M:Windows.Win32.PInvoke.RegNotifyChangeKeyValue(Windows.Win32.System.Registry.HKEY,Windows.Win32.Foundation.BOOL,Windows.Win32.System.Registry.REG_NOTIFY_FILTER,Windows.Win32.Foundation.HANDLE,Windows.Win32.Foundation.BOOL)" />
+        </member>
+        <member name="M:Windows.Win32.PInvoke.RegNotifyChangeKeyValue(Windows.Win32.System.Registry.HKEY,Windows.Win32.Foundation.BOOL,Windows.Win32.System.Registry.REG_NOTIFY_FILTER,Windows.Win32.Foundation.HANDLE,Windows.Win32.Foundation.BOOL)">
+            <summary>Notifies the caller about changes to the attributes or contents of a specified registry key.</summary>
+            <param name="hKey">
+            <para>A handle to an open registry key. This handle is returned by the <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regcreatekeyexa">RegCreateKeyEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winreg/nf-winreg-regopenkeyexa">RegOpenKeyEx</a> function. It can also be one of the following <a href="https://docs.microsoft.com/windows/desktop/SysInfo/predefined-keys">predefined keys</a>:</para>
+            <para><b>HKEY_CLASSES_ROOT</b> <b>HKEY_CURRENT_CONFIG</b> <b>HKEY_CURRENT_USER</b> <b>HKEY_LOCAL_MACHINE</b> <b>HKEY_USERS</b> This parameter must be a local handle. If <b>RegNotifyChangeKeyValue</b> is called with a remote handle, it returns ERROR_INVALID_HANDLE. The key must have been opened with the KEY_NOTIFY access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SysInfo/registry-key-security-and-access-rights">Registry Key Security and Access Rights</a>.</para>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regnotifychangekeyvalue#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="bWatchSubtree">If this parameter is TRUE, the function reports changes in the specified key and its subkeys. If the parameter is <b>FALSE</b>, the function reports changes only in the specified key.</param>
+            <param name="dwNotifyFilter"></param>
+            <param name="hEvent">A handle to an event. If the <i>fAsynchronous</i> parameter is <b>TRUE</b>, the function returns immediately and changes are reported by signaling this event. If <i>fAsynchronous</i> is <b>FALSE</b>, <i>hEvent</i> is ignored.</param>
+            <param name="fAsynchronous">
+            <para>If this parameter is <b>TRUE</b>, the function returns immediately and reports changes by signaling the specified event. If this parameter is <b>FALSE</b>, the function does not return until a change has occurred.</para>
+            <para>If <i>hEvent</i> does not specify a valid event, the <i>fAsynchronous</i> parameter cannot be <b>TRUE</b>.</para>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regnotifychangekeyvalue#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <returns>
+            <para>If the function succeeds, the return value is ERROR_SUCCESS. If the function fails, the return value is a nonzero error code defined in Winerror.h. You can use the <a href="/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function with the FORMAT_MESSAGE_FROM_SYSTEM flag to get a generic description of the error.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//winreg/nf-winreg-regnotifychangekeyvalue">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:Windows.Win32.PInvoke.CloseHandle(Windows.Win32.Foundation.HANDLE)">
+            <summary>Closes an open object handle.</summary>
+            <param name="hObject">A valid handle to an open object.</param>
+            <returns>
+            <para>If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the application is running under a debugger,  the function will throw an exception if it receives either a  handle value that is not valid  or a pseudo-handle value. This can happen if you close a handle twice, or if you  call <b>CloseHandle</b> on a handle returned by the <a href="/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function instead of calling the <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a> function.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//handleapi/nf-handleapi-closehandle">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:Windows.Win32.PInvoke.WaitForMultipleObjects(System.ReadOnlySpan{Windows.Win32.Foundation.HANDLE},Windows.Win32.Foundation.BOOL,System.UInt32)">
+            <inheritdoc cref="M:Windows.Win32.PInvoke.WaitForMultipleObjects(System.UInt32,Windows.Win32.Foundation.HANDLE*,Windows.Win32.Foundation.BOOL,System.UInt32)" />
+        </member>
+        <member name="M:Windows.Win32.PInvoke.WaitForMultipleObjects(System.UInt32,Windows.Win32.Foundation.HANDLE*,Windows.Win32.Foundation.BOOL,System.UInt32)">
+            <summary>Waits until one or all of the specified objects are in the signaled state or the time-out interval elapses.</summary>
+            <param name="nCount">The number of object handles in the array pointed to by <i>lpHandles</i>. The maximum number of object handles is <b>MAXIMUM_WAIT_OBJECTS</b>. This parameter cannot be zero.</param>
+            <param name="lpHandles">
+            <para>An array of object handles. For a list of the object types whose handles can be specified, see the following Remarks section. The array can contain handles to objects of different types. It may not contain multiple copies of the same handle. If one of these handles is closed while the wait is still pending, the function's behavior is undefined. The handles must have the <b>SYNCHRONIZE</b> access right. For more information, see <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/standard-access-rights">Standard Access Rights</a>.</para>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-waitformultipleobjects#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="bWaitAll">If this parameter is <b>TRUE</b>, the function returns when the state of all objects in the <i>lpHandles</i> array is signaled. If <b>FALSE</b>, the function returns when the state of any one of the objects is set to signaled. In the latter case, the return value indicates the object whose state caused the function to return.</param>
+            <param name="dwMilliseconds">
+            <para>The time-out interval, in milliseconds. If a nonzero value is specified, the function waits until the specified objects are signaled or the interval elapses. If <i>dwMilliseconds</i> is zero, the function does not enter a wait state if the specified objects are not signaled; it always returns immediately. If <i>dwMilliseconds</i> is <b>INFINITE</b>, the function will return only when the specified objects are signaled. <b>Windows XP, Windows Server 2003, Windows Vista, Windows 7, Windows Server 2008 and Windows Server 2008 R2:  </b>The <i>dwMilliseconds</i> value does include time spent in low-power states. For example, the timeout does keep counting down while the computer is asleep. <b>Windows 8, Windows Server 2012, Windows 8.1, Windows Server 2012 R2, Windows 10 and Windows Server 2016:  </b>The <i>dwMilliseconds</i> value does not include time spent in low-power states. For example, the timeout does not keep counting down while the computer is asleep.</para>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-waitformultipleobjects#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <returns>
+            <para>If the function succeeds, the return value indicates the event that caused the function to return. It can be one of the following values. (Note that <b>WAIT_OBJECT_0</b> is defined as 0 and <b>WAIT_ABANDONED_0</b> is defined as 0x00000080L.) </para>
+            <para>This doc was truncated.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-waitformultipleobjects">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
         </member>
     </members>
-<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><DigestValue>QhbaMIZzDk5Zx4priQXkP/cXqsn1L9XWCWp3o1qKFpA=</DigestValue></Reference></SignedInfo><SignatureValue>M+2JOg1CM0KVdrFLhayMItBQHPQBjoYrHMJQYAz7MILoo/WJw1QkbLMz1plNGugoqVQfOsta0jlllCsIXVxMxm/Tw3dszNNIaaUkBivb8feSkOOn6xb6lQxZ+KC+lGzFfzNv0kKJ8HFlTQoVIGOV7FHrqc6jHbFVDKLkCnqkYimrQFvoQkz35rXiiBoITH6xP6r1vq8dKzSPefzkUVJo7/iItv5NEdcCUQqgIEMIvIowXgoqutJHgGHo/Q+IMY8QMPO5LYqM5tOkvJIU+vfpyduRXEGYcgWW7LBDCoF1MEvIvcZ3Oe+IzAFvMrGN9y4TojBxvcpYH0sdBHeH/mC+Aw==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>0OTPj7P1+wTbr+Qf9COrqA8I9DSTqNSq1UKju4IEV3HJJck61i+MTEoYyKLtiLG2Jxeu8F81QKuTpuKHvi380gzs43G+prNNIAaNDkGqsENQYo8iezbw3/NCNX1vTi++irdFqXNs6xoc3B3W+7qT678b0jTVL8St7IMO2E7d9eNdL6RKfMnwRJf4XfGcwL+OwwoCeY9c5tvebNUVWRzaejKIkBVThApuAMCtpdvIvmBEdSTuCKZUx+OLr81/aEZyR2jL1s2RKaMz8uIzTtgw6m3DbOM4ewFjIRNT1hVQPghyPxJ+ZwErwry5rkf7fKuG3PF0fECGSUEqftlOptpXTQ==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>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</X509Certificate><X509Certificate>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</X509Certificate><X509Certificate>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</X509Certificate></X509Data></KeyInfo><Object Id="ts-countersig"><X509Data><X509Certificate>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</X509Certificate><X509Certificate>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</X509Certificate></X509Data><CounterSignature ts-format="cms-timestamp-message" xmlns="http://schemas.microsoft.com/xmldsig/timestamp/2003">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</CounterSignature></Object></Signature></doc>
+<Signature xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /><SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256" /><DigestValue>6yp06CB5PKIroIbAL0ZdB87EnSu0+LiWuKgj/Brtsa4=</DigestValue></Reference></SignedInfo><SignatureValue>KbKNVFpz9TVsyWQmfvRpsYkT7jyt2TJn2S5do0Is7SZdRFSk574LACE49mswr3ykvEBOTsBIwh0fmZSx/6c3v0OssVPWkS5vaqyKWVU4ONdFlM8DFcS+i7QE34UxnSc5Ku15M3cwakR2uEjJE4mkSqzn5NbmE7bv9Z/Bpi6JrQZYqYPQeWbsmcZbscnZAyCa/GRmzPPtnkR7tAg3lC7qRpcO+iUu0Xn7iiPtBttt5zplCtftKmSJfDP4xgxFdz1hxg16o0Tc1Pe1GQHRmPMfn+wIEpEad9jloTrV0toLIksfOZ1Ajm8CtudXR0M3F5Lx9lU9wUWgmNJwG2nJCBpRuA==</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>3QiojSOiARVrryVJn+lnTiamZiMGLORuwCQ+VG3C+rbAvhATw269+qRRqNW7FKed50chWJ53KDIPBStHfIy5cNJYHsQw6+4InH9szgRVqn7/50i8MyRTT+VtNwxf9daGddq0hahpZvjuOnEY0wxQaTEQmWRnXWZUQY4r28tHiNVYEw9U7wHXwWEHvNn4ZlkJGEf5VpgCvr1v9fmzu4x2sV0zQsSyAVtOxfDwY1HMBcccn23tphweIdS+FNDn2vh1/2kREO0qmGc+fbFzNskjn72MiI56kjvNDRgWs+Q78yBvPCdPgTYTrto5eg33Ko2ELNR/zzEkCCuhO5Vw10qV8w==</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>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</X509Certificate><X509Certificate>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</X509Certificate><X509Certificate>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</X509Certificate></X509Data></KeyInfo><Object Id="ts-countersig"><X509Data><X509Certificate>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</X509Certificate><X509Certificate>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</X509Certificate></X509Data><CounterSignature ts-format="cms-timestamp-message" xmlns="http://schemas.microsoft.com/xmldsig/timestamp/2003">MIAGCSqGSIb3DQEHAqCAMIIW0gIBAzEPMA0GCWCGSAFlAwQCAQUAMIIBUQYLKoZIhvcNAQkQAQSgggFABIIBPDCCATgCAQEGCisGAQQBhFkKAwEwMTANBglghkgBZQMEAgEFAAQg7yNulXXKFA2n4/riLzA8BHvted6HP4SZCxuFq3dVu2ECBmSLiQftxhgTMjAyMzA2MjAwMzA2MDQuMzk4WjAEgAIB9KCB0KSBzTCByjELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1pY3Jvc29mdCBDb3Jwb3JhdGlvbjElMCMGA1UECxMcTWljcm9zb2Z0IEFtZXJpY2EgT3BlcmF0aW9uczEmMCQGA1UECxMdVGhhbGVzIFRTUyBFU046RUFDRS1FMzE2LUM5MUQxJTAjBgNVBAMTHE1pY3Jvc29mdCBUaW1lLVN0YW1wIFNlcnZpY2WgghFUMIIHDDCCBPSgAwIBAgITMwAAAcOLb9NIvw6RXQABAAABwzANBgkqhkiG9w0BAQsFADB8MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSYwJAYDVQQDEx1NaWNyb3NvZnQgVGltZS1TdGFtcCBQQ0EgMjAxMDAeFw0yMjExMDQxOTAxMjlaFw0yNDAyMDIxOTAxMjlaMIHKMQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSUwIwYDVQQLExxNaWNyb3NvZnQgQW1lcmljYSBPcGVyYXRpb25zMSYwJAYDVQQLEx1UaGFsZXMgVFNTIEVTTjpFQUNFLUUzMTYtQzkxRDElMCMGA1UEAxMcTWljcm9zb2Z0IFRpbWUtU3RhbXAgU2VydmljZTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBALvrvOrN0f6vopKLPNGg+NmJttTQzmbZXTUcTBVMZuKPZFVpEodnPIzgsSV8FdihaHQk8aRkLPY8uZ1CPi6v27dB1rUmDzDz7XreNtIM8DNRLEdupG6cJQR8RWOIZN8twB/tWCn/W4bz7O5D212x+4HWnIrXgfhexaDkbfXtA/3bAXhvNBmQBdsui1gI+gtpjKpWn15MG308kGp7l+uWLvsTKcidXwERKbke+uq3j66pRNCmmng9J6joBq05EmXgjAzx+jrSdNI1zMGyA8h+5eH2EXiLE38zeRn91Goq7I3mvihcttpVPHpZyF46Hssd6XHrB/quWq2NXOhz33kp5HjKJP4MZwez9TI7eyPRCPbYULTL8v9UlJixtdqwUfw34XhP1SaXJv02HqFddTX0EJ5f4wWz20kQadBxqkyHFg6WOjIEnQaEBE9Q76ROD1+LJ3TRnNcBsoOOaR+tmTH1Bfwsxme4let+0bZ0BVw808aEhBJHVzHVgyRvo48aAtepUZNcRZ35AOLqJmuJirKO6rxOndu/iussyElkO047rWCyiZ0szb34jYrsr/9McQgEkgEbzkN7/XHoLzP6Z7lPXOrPuIJit/uY4XL51hkKiRNLaWB5pN25pgS9YB5vU4wSc+Zv/K7xzN0cNzlIVeP8JgC99ipj0eVG2+MMORzRormNAgMBAAGjggE2MIIBMjAdBgNVHQ4EFgQUHBi+zdjXbwGivE3C68TE7GvGgdYwHwYDVR0jBBgwFoAUn6cVXQBeYl2D9OXSZacbUzUZ6XIwXwYDVR0fBFgwVjBUoFKgUIZOaHR0cDovL3d3dy5taWNyb3NvZnQuY29tL3BraW9wcy9jcmwvTWljcm9zb2Z0JTIwVGltZS1TdGFtcCUyMFBDQSUyMDIwMTAoMSkuY3JsMGwGCCsGAQUFBwEBBGAwXjBcBggrBgEFBQcwAoZQaHR0cDovL3d3dy5taWNyb3NvZnQuY29tL3BraW9wcy9jZXJ0cy9NaWNyb3NvZnQlMjBUaW1lLVN0YW1wJTIwUENBJTIwMjAxMCgxKS5jcnQwDAYDVR0TAQH/BAIwADATBgNVHSUEDDAKBggrBgEFBQcDCDANBgkqhkiG9w0BAQsFAAOCAgEA3fKmWxwanQRUQ8RhsA6JZZ0cndFplJ46qD/uUAh+LzDwbeLph1YSbsnkZAxC5E1mblqit1Nc9h5xmrW5xE3B1JcsJR/tyO0e31NMymMNjywPlWsAnK57CAoBN9uNhLBAv2dGFO+NDSf8W7s6xrUxLVCIkL69gAjycobD6LXvCLU3+LjVuDG6NUD9LY3ASgoBHsyAuA2FDNAWAlgpnmZjcAJcX6U5YjhRCgfVGkqh0rOdXB/CWNIKi9y8CPS2H4xDu+/vh2P5zKlwjIvYoVCqCKdk34383ZuTYOVfssPPsF5dvUXFuEOArx57TXysU/aENye2AUEBB1iT4PEzUfcOAfNhc5qw3fLC+hE7xrseYRXMJhfkNq0+TGvHWFEnQkoP4oaBGFBiWZ2S/Z8g6dbJ35UlV+xaS8gC8ww5RwVtQiYWFX3yUaKs9Q+JEaKKkQTUWjBTD4p4MsMGxIITIXiSjaHWuwBoKvtRx9Wn0ZRPvamFvRSjHs8XkJn/IHLgLoa/SAF8mhfQxdDyeX+LoczkryAtQZCbcxeqKeOVGGiO1fvV/HXMF22SZyCAB9XI1TvChAocSiJKZOEIMtD6HIFMGhlqpi1kbtYUNViVp0F77wWHmAxlm4/z7UpcsL+pvJroy3qXzLyXFNuSlpJUj9hbjcemjlX3o3vqYG8CECFUNZ0wggdxMIIFWaADAgECAhMzAAAAFcXna54Cm0mZAAAAAAAVMA0GCSqGSIb3DQEBCwUAMIGIMQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMTIwMAYDVQQDEylNaWNyb3NvZnQgUm9vdCBDZXJ0aWZpY2F0ZSBBdXRob3JpdHkgMjAxMDAeFw0yMTA5MzAxODIyMjVaFw0zMDA5MzAxODMyMjVaMHwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xJjAkBgNVBAMTHU1pY3Jvc29mdCBUaW1lLVN0YW1wIFBDQSAyMDEwMIICIjANBgkqhkiG9w0BAQEFAAOCAg8AMIICCgKCAgEA5OGmTOe0ciELeaLL1yR5vQ7VgtP97pwHB9KpbE51yMo1V/YBf2xK4OK9uT4XYDP/XE/HZveVU3Fa4n5KWv64NmeFRiMMtY0Tz3cywBAY6GB9alKDRLemjkZrBxTzxXb1hlDcwUTIcVxRMTegCjhuje3XD9gmU3w5YQJ6xKr9cmmvHaus9ja+NSZk2pg7uhp7M62AW36MEBydUv626GIl3GoPz130/o5Tz9bshVZN7928jaTjkY+yOSxRnOlwaQ3KNi1wjjHINSi947SHJMPgyY9+tVSP3PoFVZhtaDuaRr3tpK56KTesy+uDRedGbsoy1cCGMFxPLOJiss254o2I5JasAUq7vnGpF1tnYN74kpEeHT39IM9zfUGaRnXNxF803RKJ1v2lIH1+/NmeRd+2ci/bfV+AutuqfjbsNkz2K26oElHovwUDo9Fzpk03dJQcNIIP8BDyt0cY7afomXw/TNuvXsLz1dhzPUNOwTM5TI4CvEJoLhDqhFFG4tG9ahhaYQFzymeiXtcodgLiMxhy16cg8ML6EgrXY28MyTZki1ugpoMhXV8wdJGUlNi5UPkLiWHzNgY1GIRH29wb0f2y1BzFa/ZcUlFdEtsluq9QBXpsxREdcu+N+VLEhReTwDwV2xo3xwgVGD94q0W29R6HXtqPnhZyacaue7e3PmriLq0CAwEAAaOCAd0wggHZMBIGCSsGAQQBgjcVAQQFAgMBAAEwIwYJKwYBBAGCNxUCBBYEFCqnUv5kxJq+gpE8RjUpzxD/LwTuMB0GA1UdDgQWBBSfpxVdAF5iXYP05dJlpxtTNRnpcjBcBgNVHSAEVTBTMFEGDCsGAQQBgjdMg30BATBBMD8GCCsGAQUFBwIBFjNodHRwOi8vd3d3Lm1pY3Jvc29mdC5jb20vcGtpb3BzL0RvY3MvUmVwb3NpdG9yeS5odG0wEwYDVR0lBAwwCgYIKwYBBQUHAwgwGQYJKwYBBAGCNxQCBAweCgBTAHUAYgBDAEEwCwYDVR0PBAQDAgGGMA8GA1UdEwEB/wQFMAMBAf8wHwYDVR0jBBgwFoAU1fZWy4/oolxiaNE9lJBb186aGMQwVgYDVR0fBE8wTTBLoEmgR4ZFaHR0cDovL2NybC5taWNyb3NvZnQuY29tL3BraS9jcmwvcHJvZHVjdHMvTWljUm9vQ2VyQXV0XzIwMTAtMDYtMjMuY3JsMFoGCCsGAQUFBwEBBE4wTDBKBggrBgEFBQcwAoY+aHR0cDovL3d3dy5taWNyb3NvZnQuY29tL3BraS9jZXJ0cy9NaWNSb29DZXJBdXRfMjAxMC0wNi0yMy5jcnQwDQYJKoZIhvcNAQELBQADggIBAJ1VffwqreEsH2cBMSRb4Z5yS/ypb+pcFLY+TkdkeLEGk5c9MTO1OdfCcTY/2mRsfNB1OW27DzHkwo/7bNGhlBgi7ulmZzpTTd2YurYeeNg2LpypglYAA7AFvonoaeC6Ce5732pvvinLbtg/SHUB2RjebYIM9W0jVOR4U3UkV7ndn/OOPcbzaN9l9qRWqveVtihVJ9AkvUCgvxm2EhIRXT0n4ECWOKz3+SmJw7wXsFSFQrP8DJ6LGYnn8AtqgcKBGUIZUnWKNsIdw2FzLixre24/LAl4FOmRsqlb30mjdAy87JGA0j3mSj5mO0+7hvoyGtmW9I/2kQH2zsZ0/fZMcm8Qq3UwxTSwethQ/gpY3UA8x1RtnWN0SCyxTkctwRQEcb9k+SS+c23Kjgm9swFXSVRk2XPXfx5bRAGOWhmRaw2fpCjcZxkoJLo4S5pu+yFUa2pFEUep8beuyOiJXk+d0tBMdrVXVAmxaQFEfnyhYWxz/gq77EFmPWn9y8FBSX5+k77L+DvktxW/tM4+pTFRhLy/AsGConsXHRWJjXD+57XQKBqJC4822rpM+Zv/Cuk0+CQ1ZyvgDbjmjJnW4SLq8CdCPSWU5nR0W2rRnj7tfqAxM328y+l7vzhwRNGQ8cirOoo6CGJ/2XBjU02N7oJtpQUQwXEGahC0HVUzWLOhcGbyoYICyzCCAjQCAQEwgfihgdCkgc0wgcoxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xJTAjBgNVBAsTHE1pY3Jvc29mdCBBbWVyaWNhIE9wZXJhdGlvbnMxJjAkBgNVBAsTHVRoYWxlcyBUU1MgRVNOOkVBQ0UtRTMxNi1DOTFEMSUwIwYDVQQDExxNaWNyb3NvZnQgVGltZS1TdGFtcCBTZXJ2aWNloiMKAQEwBwYFKw4DAhoDFQDxHS/j7PodN3vki13Rs7mO7S7uzqCBgzCBgKR+MHwxCzAJBgNVBAYTAlVTMRMwEQYDVQQIEwpXYXNoaW5ndG9uMRAwDgYDVQQHEwdSZWRtb25kMR4wHAYDVQQKExVNaWNyb3NvZnQgQ29ycG9yYXRpb24xJjAkBgNVBAMTHU1pY3Jvc29mdCBUaW1lLVN0YW1wIFBDQSAyMDEwMA0GCSqGSIb3DQEBBQUAAgUA6DtNdzAiGA8yMDIzMDYyMDA1NTYwN1oYDzIwMjMwNjIxMDU1NjA3WjB0MDoGCisGAQQBhFkKBAExLDAqMAoCBQDoO013AgEAMAcCAQACAgIYMAcCAQACAhHlMAoCBQDoPJ73AgEAMDYGCisGAQQBhFkKBAIxKDAmMAwGCisGAQQBhFkKAwKgCjAIAgEAAgMHoSChCjAIAgEAAgMBhqAwDQYJKoZIhvcNAQEFBQADgYEAhMYgvGVS1P9YCyaNkUrSeSPy4zKBKl45VciHsgcBGWMAAeHABQ5EOPKAg1JgysjHYG9vzup2gy/GaCfZmr0om9VXHSeKSlR50iGGMEwGcJ5NQDTIG4B+mxx/HzW7/pclpSgPulLOQESOQ0nr8wHszO8+eKMNF4rCMR+xN5qRZWkxggQNMIIECQIBATCBkzB8MQswCQYDVQQGEwJVUzETMBEGA1UECBMKV2FzaGluZ3RvbjEQMA4GA1UEBxMHUmVkbW9uZDEeMBwGA1UEChMVTWljcm9zb2Z0IENvcnBvcmF0aW9uMSYwJAYDVQQDEx1NaWNyb3NvZnQgVGltZS1TdGFtcCBQQ0EgMjAxMAITMwAAAcOLb9NIvw6RXQABAAABwzANBglghkgBZQMEAgEFAKCCAUowGgYJKoZIhvcNAQkDMQ0GCyqGSIb3DQEJEAEEMC8GCSqGSIb3DQEJBDEiBCAenR4lxESfIuVZxB2pNpV62X2NOAUn3WXE5qSV3Y+I4TCB+gYLKoZIhvcNAQkQAi8xgeowgecwgeQwgb0EINL7U5tvkknq4dSogJMKyUwC8U3yaLZT3A2dmUp+/CpJMIGYMIGApH4wfDELMAkGA1UEBhMCVVMxEzARBgNVBAgTCldhc2hpbmd0b24xEDAOBgNVBAcTB1JlZG1vbmQxHjAcBgNVBAoTFU1pY3Jvc29mdCBDb3Jwb3JhdGlvbjEmMCQGA1UEAxMdTWljcm9zb2Z0IFRpbWUtU3RhbXAgUENBIDIwMTACEzMAAAHDi2/TSL8OkV0AAQAAAcMwIgQgTIBFGjzHtkb2xzqW3De/kwWkypRUUWrgpw+/fx1hxUwwDQYJKoZIhvcNAQELBQAEggIAQy0bDFC9cf0R4/TtmZYWtGki+x6Q3QW7ee/7cIHf5Vdb4ewrBLyGgLLD+WQgF0mA9hbzolH13Iaj861W6HjVguyC/Mnl6UNJA2Ay7kwtYP7BofmWQnIWUJEoCN1JqZwJFrnTwSmeHnusLDaKv5owJLy/9OAW2W9DZh2bGhCvDLlm5pUIq8u7YqN4EBqlaSIaMnw4Y7eEG1adElEzut4tsHSX+sHMAkMelETB2qU4g8ug439oHhrqMlRTDRPWKFJqaus18ySMLDzkc6N0QPLSERwHE6LaJFM1XXH19m4HRqiG2kSHcU6YvjqoZlADyUPN1VLwL+eGrGJzu4S70N8lMQB1mSkYZX7qtyEmbi/P/vUup+PGsUPmu+R0TH2HrJ7911J+mhQeMwb65knbCQipIicK4JlTVk3wbGXtnp5oRBa9PEqNueuJC96RHVNFjjmCsR3fGEIbnCXnCIzN4ZnZzDiNc17aCf7OT0eMnGSOa87G2imL9v9GNbEq6HU9n+LSUOSqoQ92nq3yh9qdjYztL584u40o4Ky60S4D5pOk22gmCsL3409aylrJjSxcIaRidUKTO0z/yBJvBXKgDO2gsTc84YCAAEt9PXaur4Y2faV8ANPmLirA3IBvUGyQMr2iyu+c85z4WiQHZsrFMwzNviFRqGUOz4x3nHZMULETHbMAAAAA</CounterSignature></Object></Signature></doc>

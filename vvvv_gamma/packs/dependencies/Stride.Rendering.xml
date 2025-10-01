@@ -142,9 +142,9 @@
         <member name="M:Stride.Extensions.SimpleExtensions.IsSimple(Stride.Rendering.MeshDraw)">
             <summary>
             Determines whether the specified mesh draw data is simple.
-            A <see cref="!:MeshDrawData"/> is simple if:
-            * It contains only one <see cref="!:VertexBufferBindingData"/>, which must be simple.
-            * It contains either no <see cref="!:IndexBufferBindingData"/>, or a simple one.
+            A <see cref="T:Stride.Rendering.MeshDraw"/> is simple if:
+            * It contains only one <see cref="T:Stride.Graphics.VertexBufferBinding"/>, which must be simple.
+            * It contains either no <see cref="T:Stride.Graphics.VertexBufferBinding"/>, or a simple one.
             * StartLocation is 0.
             * DrawCount is IndexBuffer.Count if there is an index buffer, otherwise VertexBuffers[0].Count.
             </summary>
@@ -533,7 +533,7 @@
         </member>
         <member name="M:Stride.Rendering.ComputeEffect.ComputeEffectShader.UpdateParameters">
             <summary>
-            Updates the effect <see cref="!:ComputeEffectShader.Parameters" /> from properties defined in this instance. See remarks.
+            Updates the effect <see cref="P:Stride.Rendering.DrawEffect.Parameters" /> from properties defined in this instance. See remarks.
             </summary>
         </member>
         <member name="T:Stride.Rendering.ComputeEffect.GGXPrefiltering.RadiancePrefilteringGGX">
@@ -1688,8 +1688,10 @@
             </summary>
             <remarks>
             To improve performance of this gaussian blur is using:
-            - a separable 1D horizontal and vertical blur
-            - linear filtering to reduce the number of taps
+            <list type="bullet">
+            <item>a separable 1D horizontal and vertical blur</item>
+            <item>linear filtering to reduce the number of taps</item>
+            </list>
             </remarks>
         </member>
         <member name="M:Stride.Rendering.Images.GaussianBlur.#ctor">
@@ -1835,9 +1837,29 @@
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.SetViewport(System.Nullable{Stride.Graphics.Viewport})">
             <summary>
-            Sets the viewport to use .
+            Binds a single viewport to the rasterizer stage.
             </summary>
-            <param name="viewport">The viewport.</param>
+            <param name="value">The viewport.</param>
+        </member>
+        <member name="M:Stride.Rendering.Images.ImageEffect.SetViewports(System.ReadOnlySpan{Stride.Graphics.Viewport})">
+            <summary>
+            Binds a set of viewports to the rasterizer stage.
+            </summary>
+            <param name="values">The set of viewports to bind.</param>
+            <remarks>Only <see cref="F:Stride.Graphics.CommandList.MaxViewportAndScissorRectangleCount"/> scissors can be used simultaneously</remarks>
+        </member>
+        <member name="M:Stride.Rendering.Images.ImageEffect.SetScissorRectangle(System.Nullable{Stride.Core.Mathematics.Rectangle})">
+            <summary>
+            Binds a single scissor rectangle to the rasterizer stage.
+            </summary>
+            <param name="value">The scissor rectangle.</param>
+        </member>
+        <member name="M:Stride.Rendering.Images.ImageEffect.SetScissorRectangles(System.ReadOnlySpan{Stride.Core.Mathematics.Rectangle})">
+            <summary>
+            Binds a set of scissor rectangles to the rasterizer stage.
+            </summary>
+            <param name="values">The set of scissor rectangles to bind.</param>
+            <remarks>Only <see cref="F:Stride.Graphics.CommandList.MaxViewportAndScissorRectangleCount"/> viewports can be used simultaneously</remarks>
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.SetRenderTargets(Stride.Rendering.RenderDrawContext)">
             <summary>
@@ -2004,7 +2026,7 @@
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffectShader.UpdateParameters">
             <summary>
-            Updates the effect <see cref="!:ImageEffectShader.Parameters" /> from properties defined in this instance. See remarks.
+            Updates the effect <see cref="P:Stride.Rendering.DrawEffect.Parameters" /> from properties defined in this instance. See remarks.
             </summary>
             <exception cref="T:System.InvalidOperationException">Expecting less than 10 textures in input</exception>
             <remarks>By default, all the input textures will be remapped to <see cref="F:Stride.Rendering.TexturingKeys.Texture0" />...etc.</remarks>
@@ -2117,6 +2139,12 @@
             Gets or sets the sampler used to sample the input texture. Default is <see cref="F:Stride.Graphics.SamplerStateFactory.LinearClamp"/>
             </summary>
             <value>The sampler.</value>
+        </member>
+        <member name="M:Stride.Rendering.Images.ImageScaler.SetDefaultParameters">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stride.Rendering.Images.ImageScaler.UpdateParameters">
+            <inheritdoc/>
         </member>
         <member name="T:Stride.Rendering.Images.ImageScalerShaderKeys">
             <summary>
@@ -2566,7 +2594,11 @@
             Gets the outline effect.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Rendering.Images.PostProcessingEffects.Fog" -->
+        <member name="P:Stride.Rendering.Images.PostProcessingEffects.Fog">
+            <summary>
+            Gets the fog effect.
+            </summary>
+        </member>
         <member name="P:Stride.Rendering.Images.PostProcessingEffects.AmbientOcclusion">
             <summary>
             Gets the ambient occlusion effect.
@@ -2642,9 +2674,12 @@
             Gets or sets the harmonic order to use during the filtering.
             </summary>
         </member>
+        <member name="M:Stride.Rendering.Images.SphericalHarmonics.SphericalHarmonicsRendererEffect.UpdateParameters">
+            <inheritdoc/>
+        </member>
         <member name="T:Stride.Rendering.ConstantBufferOffsetReference">
             <summary>
-            Handle used to query what's the actual offset of a given variable in a constant buffer, through <see cref="!:ResourceGroupLayout.GetConstantBufferOffset"/>.
+            Handle used to query what's the actual offset of a given variable in a constant buffer, through <see cref="M:Stride.Rendering.RenderSystemResourceGroupLayout.GetConstantBufferOffset(Stride.Rendering.ConstantBufferOffsetReference)"/>.
             </summary>
         </member>
         <member name="T:Stride.Rendering.DrawEffect">
@@ -2713,7 +2748,7 @@
         </member>
         <member name="T:Stride.Rendering.EffectDescriptorSetReference">
             <summary>
-            Handle used to query what's the actual offset of a given variable in a constant buffer, through <see cref="!:ResourceGroupLayout.GetConstantBufferOffset"/>.
+            Handle used to query what's the actual offset of a given variable in a constant buffer, through <see cref="M:Stride.Rendering.RenderSystemResourceGroupLayout.GetConstantBufferOffset(Stride.Rendering.ConstantBufferOffsetReference)"/>.
             </summary>
         </member>
         <member name="T:Stride.Rendering.EffectPermutationSlot">
@@ -2806,7 +2841,7 @@
         </member>
         <member name="T:Stride.Rendering.FrameResourceGroupLayout">
             <summary>
-            Implementation of <see cref="!:ResourceGroupLayout"/> specifically for PerFrame cbuffer of <see cref="T:Stride.Rendering.RenderSystem"/>.
+            Implementation of <see cref="T:Stride.Rendering.RenderSystemResourceGroupLayout"/> specifically for PerFrame cbuffer of <see cref="T:Stride.Rendering.RenderSystem"/>.
             </summary>
         </member>
         <member name="T:Stride.Rendering.FrontToBackSortMode">
@@ -2896,38 +2931,87 @@
             output.
             </remarks>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.RenderMode" -->
+        <member name="T:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.RenderMode">
+            <summary>
+            Changes the render mode of the post-process for debugging purposes.
+            </summary>
+        </member>
         <member name="F:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.RenderMode.Default">
+            <summary>
+            Renders the scene as usual.
+            </summary>
             <userdoc>
             Renders the scene as usual.
             </userdoc>
         </member>
         <member name="F:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.RenderMode.ShowScatteringObjects">
+            <summary>
+            Shows all scattering objects in white and all other objects in black.
+            </summary>
             <userdoc>
             Shows all scattering objects in white and all other objects in black.
             </userdoc>
         </member>
         <member name="F:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.RenderMode.ShowMaterialIndex">
+            <summary>
+            Shows the material index of scattering objects as a color.
+            </summary>
             <userdoc>
             Shows the material index of scattering objects as a color.
             </userdoc>
         </member>
         <member name="F:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.RenderMode.ShowScatteringWidth">
+            <summary>
+            Shows the width of the scattering kernel as a brightness value (High values will be wrapped around).
+            Use this to debug if each material gets its own scattering width and doesn't fluctuate.
+            </summary>
             <userdoc>
             Shows the width of the scattering kernel as a brightness value (High values will be wrapped around).
             Use this to debug if each material gets its own scattering width and doesn't fluctuate.
             </userdoc>
         </member>
         <member name="P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.FollowSurface">
+            <summary>
+            If active, the the light won't scatter across large depth differences.
+            The depth falloff can be configured using "Depth falloff strength".
+            Attention: Enabling this increases the performance hit of the effect.
+            </summary>
             <userdoc>
             If active, the the light won't scatter across large depth differences.
             The depth falloff can be configured using "Depth falloff strength".
             Attention: Enabling this increases the performance hit of the effect.
             </userdoc>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.NumberOfPasses" -->
-        <!-- Badly formed XML comment ignored for member "P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.JitterKernelSize" -->
-        <!-- Badly formed XML comment ignored for member "P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.ActiveRenderMode" -->
+        <member name="P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.NumberOfPasses">
+            <summary>
+            Specifies the number of times the blur should be executed.
+            The higher the number of passes, the smoother the final result (less noise &amp; banding).
+            </summary>
+            <userdoc>
+            Specifies the number of times the blur should be executed.
+            The higher the number of passes, the smoother the final result (less noise &amp; banding).
+            </userdoc>
+        </member>
+        <member name="P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.JitterKernelSize">
+            <summary>
+            This reduces the banding artifacts caused by undersampling (visible on closeups) by introducing a bit of noise.
+            This might create a less mathematically correct falloff, since it messes with the sample offsets.
+            But the difference is barely noticeable.
+            </summary>
+            <userdoc>
+            This reduces the banding artifacts caused by undersampling (visible on closeups) by introducing a bit of noise.
+            This might create a less mathematically correct falloff, since it messes with the sample offsets.
+            But the difference is barely noticeable.
+            </userdoc>
+        </member>
+        <member name="P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.ActiveRenderMode">
+            <summary>
+            Changes the render mode of the post-process for debugging purposes.
+            </summary>
+            <userdoc>
+            Changes the render mode of the post-process for debugging purposes.
+            </userdoc>
+        </member>
         <member name="P:Stride.Rendering.SubsurfaceScattering.SubsurfaceScatteringBlur.Id">
             <inheritdoc/>
         </member>
@@ -3845,7 +3929,17 @@
             Use this parameter to shift the boundary between lit and unlit areas in order to mitigate shadow mapping artifacts.
             </userdoc>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Rendering.Materials.MaterialHairLightAttenuationFunctionDirectional.SelectedNormalMode" -->
+        <member name="P:Stride.Rendering.Materials.MaterialHairLightAttenuationFunctionDirectional.SelectedNormalMode">
+            <summary>
+            The normals to use for the light attenuation computation.
+            </summary>
+            <userdoc>
+            Defines the types of normals to use for computing the directional attenuation.
+            Mesh normals: Use the mesh normals.
+            Normal map normals: Use the normal map values (falls back to mesh normals if no normal map is present).
+            Mesh &amp; normal map normals: Use the normal map and mesh normals. This can fix artifacts on edges between lit and unlit areas (falls back to mesh normals if no normal map is present).
+            </userdoc>
+        </member>
         <member name="T:Stride.Rendering.Materials.MaterialHairLightAttenuationFunctionNone">
             <summary>
             Applies no light attenuation.
@@ -3991,7 +4085,15 @@
             You can use this parameter to control the strength of the secondary specular highlight.
             </userdoc>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Rendering.Materials.MaterialSpecularHairModelFeature.SpecularShiftRatio" -->
+        <member name="P:Stride.Rendering.Materials.MaterialSpecularHairModelFeature.SpecularShiftRatio">
+            <summary>
+            Controls the offset between the primary and secondary reflections.
+            </summary>
+            <userdoc>
+            This is the ratio between the angle of the orientation of the primary and secondary specular highlights.
+            The theoretical value is 1.5, but you can change it for more artistic control. With this parameter you can change the position of the secondary highlight.
+            </userdoc>
+        </member>
         <member name="P:Stride.Rendering.Materials.MaterialSpecularHairModelFeature.ScalesAngle">
             <summary>
             Controls the shift of the primary and secondary specular reflections.
@@ -5088,7 +5190,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.Materials.MaterialRenderFeature.PrepareEffectPermutations(Stride.Rendering.RenderDrawContext)">
-            <param name="context"></param>
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.Materials.MaterialRenderFeature.Prepare(Stride.Rendering.RenderDrawContext)">
@@ -5308,7 +5409,7 @@
         </member>
         <member name="T:Stride.Rendering.Materials.MaterialStreamType">
             <summary>
-            Type of a stream used by <see cref="!:MaterialStreamAttribute"/>
+            Type of a stream used by <see cref="T:Stride.Rendering.Materials.MaterialBlendLayerContext"/>
             </summary>
         </member>
         <member name="T:Stride.Rendering.Materials.MaterialTessellationBaseFeature">
@@ -6629,26 +6730,26 @@
         </member>
         <member name="F:Stride.Rendering.Lights.RenderLight.Position">
             <summary>
-            Gets the light position in World-Space (computed by the <see cref="!:LightProcessor"/>) (readonly field). See remarks.
+            Gets the light position in World-Space (computed by the `LightProcessor`) (readonly field). See remarks.
             </summary>
             <value>The position.</value>
             <remarks>This property should only be used inside a renderer and not from a script as it is updated after scripts</remarks>
         </member>
         <member name="F:Stride.Rendering.Lights.RenderLight.Direction">
             <summary>
-            Gets the light direction in World-Space (computed by the <see cref="!:LightProcessor"/>) (readonly field).
+            Gets the light direction in World-Space (computed by the `LightProcessor`) (readonly field).
             </summary>
             <value>The direction.</value>
             <remarks>This property should only be used inside a renderer and not from a script as it is updated after scripts</remarks>
         </member>
         <member name="F:Stride.Rendering.Lights.RenderLight.BoundingBox">
             <summary>
-            The bounding box of this light in WS after the <see cref="!:LightProcessor"/> has been applied (readonly field).
+            The bounding box of this light in WS after the `LightProcessor` has been applied (readonly field).
             </summary>
         </member>
         <member name="F:Stride.Rendering.Lights.RenderLight.BoundingBoxExt">
             <summary>
-            The bounding box extents of this light in WS after the <see cref="!:LightProcessor"/> has been applied (readonly field).
+            The bounding box extents of this light in WS after the `LightProcessor` has been applied (readonly field).
             </summary>
         </member>
         <member name="F:Stride.Rendering.Lights.RenderLight.HasBoundingBox">
@@ -6664,7 +6765,7 @@
         </member>
         <member name="T:Stride.Rendering.Lights.RenderLightCollection">
             <summary>
-            A list of <see cref="!:LightComponent"/> for a specified <see cref="T:Stride.Rendering.RenderGroupMask"/>.
+            A list of <see cref="T:Stride.Rendering.Lights.RenderLight"/> for a specified <see cref="T:Stride.Rendering.RenderGroupMask"/>.
             </summary>
         </member>
         <member name="M:Stride.Rendering.Lights.RenderLightCollection.#ctor">
@@ -7084,7 +7185,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.MeshRenderFeature.PrepareEffectPermutationsImpl(Stride.Rendering.RenderDrawContext)">
-            <param name="context"></param>
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.MeshRenderFeature.Prepare(Stride.Rendering.RenderDrawContext)">
@@ -7895,7 +7995,7 @@
         </member>
         <member name="T:Stride.Rendering.RenderDrawContext">
             <summary>
-            Rendering context used during <see cref="!:IGraphicsRenderer.Draw"/>.
+            Rendering context used during <see cref="M:Stride.Rendering.IGraphicsRendererBase.Draw(Stride.Rendering.RenderDrawContext)"/>.
             </summary>
         </member>
         <member name="P:Stride.Rendering.RenderDrawContext.RenderContext">
@@ -8694,7 +8794,6 @@
             <param name="context"></param>
         </member>
         <member name="M:Stride.Rendering.RootEffectRenderFeature.PrepareEffectPermutations(Stride.Rendering.RenderDrawContext)">
-            <param name="context"></param>
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.RootEffectRenderFeature.InvalidateEffectPermutation(Stride.Rendering.RenderObject,Stride.Rendering.RenderEffect)">
@@ -9050,6 +9149,11 @@
             Handles rendering of shadow map casters.
             </summary>
         </member>
+        <member name="P:Stride.Rendering.Shadows.ShadowMapRenderer.ShadowMapRenderStages">
+            <summary>
+            TODO
+            </summary>
+        </member>
         <member name="T:Stride.Rendering.Shadows.ShadowMapRenderView">
             <summary>
             A view used to render a shadow map to a <see cref="T:Stride.Rendering.Shadows.LightShadowMapTexture"/>
@@ -9113,7 +9217,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.SkinningRenderFeature.PrepareEffectPermutations(Stride.Rendering.RenderDrawContext)">
-            <param name="context"></param>
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.SkinningRenderFeature.Extract">
@@ -9326,7 +9429,6 @@
             <inheritdoc/>
         </member>
         <member name="M:Stride.Rendering.TransformRenderFeature.Prepare(Stride.Rendering.RenderDrawContext)">
-            <param name="context"></param>
             <inheritdoc/>
         </member>
         <member name="T:Stride.Rendering.TransformTRS">
@@ -9361,7 +9463,7 @@
         </member>
         <member name="T:Stride.Rendering.ViewResourceGroupLayout">
             <summary>
-            Implementation of <see cref="!:ResourceGroupLayout"/> specifically for PerView cbuffer of <see cref="T:Stride.Rendering.RenderSystem"/>.
+            Implementation of <see cref="T:Stride.Rendering.RenderSystemResourceGroupLayout"/> specifically for PerView cbuffer of <see cref="T:Stride.Rendering.RenderSystem"/>.
             </summary>
         </member>
         <member name="T:Stride.Rendering.VisibilityGroup">
@@ -9819,7 +9921,7 @@
         </member>
         <member name="F:Stride.Streaming.StreamingTexture.textureToSync">
             <summary>
-            The texture to synchronize. Created and prepared in a background to be swaped with the streamed texture. See <see cref="M:Stride.Streaming.StreamingTexture.FlushSync"/>.
+            The texture to synchronize. Created and prepared in a background to be swapped with the streamed texture.
             </summary>
         </member>
         <member name="F:Stride.Streaming.StreamingTexture.description">

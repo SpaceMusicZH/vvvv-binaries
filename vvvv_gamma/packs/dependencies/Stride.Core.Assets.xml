@@ -1759,7 +1759,7 @@
             <param name="newAsset">The new asset that will be used in the cloned <see cref="T:Stride.Core.Assets.AssetItem"/>. If this parameter
             is null, it clones the original asset. otherwise, the specified asset is used as-is in the new <see cref="T:Stride.Core.Assets.AssetItem"/>
             (no clone on newAsset is performed)</param>
-            <param name="flags">Flags used with <see cref="M:Stride.Core.Assets.AssetCloner.Clone(System.Collections.Generic.Dictionary{System.Guid,System.Guid}@)"/>.</param>
+            <param name="flags">Flags used with <see cref="M:Stride.Core.Assets.AssetCloner.Clone(System.Object,Stride.Core.Assets.AssetClonerFlags)"/>.</param>
             <returns>A clone of this instance.</returns>
         </member>
         <member name="M:Stride.Core.Assets.AssetItem.Clone(System.Boolean,Stride.Core.IO.UFile,Stride.Core.Assets.Asset,Stride.Core.Assets.AssetClonerFlags)">
@@ -1772,7 +1772,7 @@
             <param name="newAsset">The new asset that will be used in the cloned <see cref="T:Stride.Core.Assets.AssetItem" />. If this parameter
             is null, it clones the original asset. otherwise, the specified asset is used as-is in the new <see cref="T:Stride.Core.Assets.AssetItem" />
             (no clone on newAsset is performed)</param>
-            <param name="flags">Flags used with <see cref="M:Stride.Core.Assets.AssetCloner.Clone(System.Collections.Generic.Dictionary{System.Guid,System.Guid}@)"/>.</param>
+            <param name="flags">Flags used with <see cref="M:Stride.Core.Assets.AssetCloner.Clone(System.Object,Stride.Core.Assets.AssetClonerFlags)"/>.</param>
             <returns>A clone of this instance.</returns>
         </member>
         <member name="P:Stride.Core.Assets.AssetItem.FullPath">
@@ -2270,11 +2270,6 @@
             Description of an asset bundle.
             </summary>
         </member>
-        <member name="M:Stride.Core.Assets.Bundle.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.Assets.Bundle"/> class.
-            </summary>
-        </member>
         <member name="P:Stride.Core.Assets.Bundle.Name">
             <summary>
             Gets or sets the name of this bundle.
@@ -2409,8 +2404,8 @@
             </summary>
             <param name="assetItem">The asset on which is based the relative path.</param>
             <param name="relativePath">The path relative to the asset path that must be converted to an absolute path.</param>
-            <returns>The absolute path on the disk of the <see cref="!:relativePath"/> argument.</returns>
-            <exception cref="T:System.ArgumentException">The <see cref="!:relativePath"/> argument is a null or empty <see cref="T:Stride.Core.IO.UFile"/>.</exception>
+            <returns>The absolute path on the disk of the <paramref name="relativePath"/> argument.</returns>
+            <exception cref="T:System.ArgumentException">The <paramref name="relativePath"/> argument is a null or empty <see cref="T:Stride.Core.IO.UFile"/>.</exception>
         </member>
         <member name="M:Stride.Core.Assets.Compiler.AssetCompilerBase.EnsureSourcesExist(Stride.Core.Assets.Compiler.AssetCompilerResult,Stride.Core.Assets.AssetItem)">
             <summary>
@@ -4356,7 +4351,7 @@
         </member>
         <member name="T:Stride.Core.Assets.PackageReferenceBase">
             <summary>
-            Common class used by both <see cref="!:PackageReference"/> and <see cref="T:Stride.Core.Assets.PackageDependency"/>.
+            Common class used by <see cref="T:Stride.Core.Assets.PackageDependency"/>.
             </summary>
         </member>
         <member name="P:Stride.Core.Assets.PackageReferenceBase.RootAssets">
@@ -4961,11 +4956,6 @@
             An <see cref="T:Stride.Core.Assets.AssetSelector"/> using tags stored in <see cref="P:Stride.Core.Assets.Asset.Tags"/>
             </summary>
         </member>
-        <member name="M:Stride.Core.Assets.Selectors.TagSelector.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.Assets.Selectors.TagSelector"/> class.
-            </summary>
-        </member>
         <member name="P:Stride.Core.Assets.Selectors.TagSelector.Tags">
             <summary>
             Gets the tags that will be used to select an asset.
@@ -5112,11 +5102,6 @@
         <member name="T:Stride.Core.Assets.SolutionPlatform">
             <summary>
             Defines a solution platform.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.Assets.SolutionPlatform.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.Assets.SolutionPlatform"/> class.
             </summary>
         </member>
         <member name="P:Stride.Core.Assets.SolutionPlatform.PlatformsPart">
@@ -5355,6 +5340,50 @@
             <summary>
             Gets or sets whether this source file is optional for the compilation of the asset.
             </summary>
+        </member>
+        <member name="T:Stride.Core.Assets.SupportedProgrammingLanguage">
+            <summary>
+            Represents a programming language supported by the system.
+            </summary>
+            <param name="Name">The name of the programming language.</param>
+            <param name="Extension">The associated project file extension.</param>
+        </member>
+        <member name="M:Stride.Core.Assets.SupportedProgrammingLanguage.#ctor(System.String,System.String)">
+            <summary>
+            Represents a programming language supported by the system.
+            </summary>
+            <param name="Name">The name of the programming language.</param>
+            <param name="Extension">The associated project file extension.</param>
+        </member>
+        <member name="P:Stride.Core.Assets.SupportedProgrammingLanguage.Name">
+            <summary>The name of the programming language.</summary>
+        </member>
+        <member name="P:Stride.Core.Assets.SupportedProgrammingLanguage.Extension">
+            <summary>The associated project file extension.</summary>
+        </member>
+        <member name="T:Stride.Core.Assets.SupportedProgrammingLanguages">
+            <summary>
+            Provides a list of programming languages supported by the system.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.Assets.SupportedProgrammingLanguages.Languages">
+            <summary>
+            Gets the list of supported programming languages.
+            </summary>
+            <value>
+            A list of <see cref="T:Stride.Core.Assets.SupportedProgrammingLanguage"/> objects.
+            </value>
+            <remarks>
+            Use this list to check for supported programming languages when needed.
+            The list is initialized with common programming languages and their respective project file extensions.
+            </remarks>
+        </member>
+        <member name="M:Stride.Core.Assets.SupportedProgrammingLanguages.IsProjectExtensionSupported(System.String)">
+            <summary>
+            Determines if a given project file extension is supported.
+            </summary>
+            <param name="extension">The project file extension to check.</param>
+            <returns>True if the extension is supported, otherwise false.</returns>
         </member>
         <member name="T:Stride.Core.Assets.TagCollection">
             <summary>
@@ -5980,7 +6009,7 @@
             <summary>
             Gets the <see cref="T:Stride.Core.Reflection.MemberPath"/> that will be checked against when visiting.
             </summary>
-            <seealso cref="!:AssetVisitorBase.CurrentPath"/>
+            <seealso cref="P:Stride.Core.Reflection.DataVisitorBase.CurrentPath"/>
         </member>
         <member name="M:Stride.Core.Assets.Visitors.AssetMemberVisitorBase.VisitArrayItem(System.Array,Stride.Core.Reflection.ArrayDescriptor,System.Int32,System.Object,Stride.Core.Reflection.ITypeDescriptor)">
             <inheritdoc/>
@@ -6002,7 +6031,7 @@
         </member>
         <member name="M:Stride.Core.Assets.Visitors.AssetMemberVisitorBase.VisitAssetMember(System.Object,Stride.Core.Reflection.ITypeDescriptor)">
             <summary>
-            Called when <see cref="!:AssetVisitorBase.CurrentPath"/> matches the <see cref="P:Stride.Core.Assets.Visitors.AssetMemberVisitorBase.MemberPath"/> given when creating this instance.
+            Called when <see cref="P:Stride.Core.Reflection.DataVisitorBase.CurrentPath"/> matches the <see cref="P:Stride.Core.Assets.Visitors.AssetMemberVisitorBase.MemberPath"/> given when creating this instance.
             </summary>
             <param name="value"></param>
             <param name="descriptor"></param>
@@ -6446,7 +6475,14 @@
             </summary>
             <param name="objectContext"></param>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Stride.Core.Yaml.CollectionWithIdsSerializerBase.TransformForSerialization(Stride.Core.Reflection.ITypeDescriptor,System.Object)" -->
+        <member name="M:Stride.Core.Yaml.CollectionWithIdsSerializerBase.TransformForSerialization(Stride.Core.Reflection.ITypeDescriptor,System.Object)">
+            <summary>
+            Transforms the given collection or dictionary into a dictionary of (ids, items) or a dictionary of (ids &amp; keys, items).
+            </summary>
+            <param name="descriptor">The type descriptor of the collection.</param>
+            <param name="collection">The collection for which to create the mapping dictionary.</param>
+            <returns>A dictionary mapping the id to the element of the initial collection.</returns>
+        </member>
         <member name="M:Stride.Core.Yaml.CollectionWithIdsSerializerBase.CreatEmptyContainer(Stride.Core.Reflection.ITypeDescriptor)">
             <summary>
             Creates an empty dictionary that can store the mapping of ids to items of the collection.

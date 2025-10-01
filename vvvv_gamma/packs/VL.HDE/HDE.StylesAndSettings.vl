@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="QJQ0tnl56B9MNMEaY2eCRr" LanguageVersion="2023.5.3-0372-g138ee93e9e" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="QJQ0tnl56B9MNMEaY2eCRr" LanguageVersion="2023.5.3-0409-gb527fd1eef" Version="0.128">
   <NugetDependency Id="DUL4Hk2EJbTOQo43zqKY8P" Location="VL.CoreLib" Version="2021.4.0-0394-g605995049f" />
   <Patch Id="KBdlqgQEEFoPIM6aNQmdmA">
     <Canvas Id="Vx6LzjaoIkwOJALCFL64rl" DefaultCategory="HDE" CanvasType="FullCategory">
@@ -1104,23 +1104,11 @@
                   <Pin Id="McgojekqexDLsr3JTFf4SJ" Name="Settings" Kind="OutputPin" />
                 </Node>
                 <Node Bounds="334,468,103,126" Id="UObsUV9O0b1MAx2mHVXwQL">
-                  <p:NodeReference LastCategoryFullName="Reactive" LastDependency="VL.CoreLib.vl">
+                  <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                     <Choice Kind="StatefulRegion" Name="Region (Stateful)" Fixed="true" />
-                    <CategoryReference Kind="Category" Name="Reactive" NeedsToBeDirectParent="true" />
-                    <Choice Kind="ProcessAppFlag" Name="ForEach" />
+                    <Choice Kind="ProcessAppFlag" Name="ForEach (Channel)" />
                   </p:NodeReference>
-                  <Pin Id="JtiDhPIBee1Lwrzgu8jIc3" Name="Node Context" Kind="InputPin" IsHidden="true" />
-                  <Pin Id="OwXJGMmOeJqQBlUmghXVWi" Name="Messages" Kind="InputPin" />
-                  <Pin Id="KkzDEF0w8f7MiOof4cL0Tj" Name="Reset" Kind="InputPin" />
-                  <Pin Id="IieZ8qm71XgM4UjVQtaL0i" Name="Result" Kind="OutputPin" />
                   <Patch Id="SbSWFiIjNPNOnUh0r5uApb" ManuallySortedPins="true">
-                    <Patch Id="H2Gqef1PwhWLsUwJDLEAYY" Name="Create" ManuallySortedPins="true" />
-                    <Patch Id="ObM3RrJ7o33QCD8Eaaiz2H" Name="Update" ManuallySortedPins="true">
-                      <Pin Id="PjKlTvYKROIM835FY3syaZ" Name="Input 1" Kind="InputPin" />
-                      <Pin Id="N3W2gnJ90TUPbqfVGnZt50" Name="Output" Kind="OutputPin" />
-                    </Patch>
-                    <ControlPoint Id="RvZSRK4a4wUPXe4K2odBTS" Bounds="338,476" />
-                    <ControlPoint Id="SYhABBma7wFOhpWmHi72GS" Bounds="338,587" />
                     <Node Bounds="365,525,60,26" Id="I3c3nfhDoyuPHgqwfJCFGW">
                       <p:NodeReference LastCategoryFullName="HDE.Styles.VVVVTheme" LastDependency="HDE.StylesAndSettings.vl">
                         <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
@@ -1130,7 +1118,13 @@
                       <Pin Id="PmmTRSb7O4qQQhThqm9BPO" Name="Input" Kind="StateInputPin" />
                       <Pin Id="VD4TmqqCC5eO4AK4VapJ4t" Name="Output" Kind="StateOutputPin" />
                     </Node>
+                    <Patch Id="H2Gqef1PwhWLsUwJDLEAYY" Name="Create" ManuallySortedPins="true" />
+                    <Patch Id="ObM3RrJ7o33QCD8Eaaiz2H" Name="Update" ManuallySortedPins="true" />
                   </Patch>
+                  <ControlPoint Id="CzPvlL9BJMMPCNchloYhQF" Bounds="358,474" Alignment="Top" />
+                  <Pin Id="JtiDhPIBee1Lwrzgu8jIc3" Name="Node Context" Kind="InputPin" IsHidden="true" />
+                  <Pin Id="EmtrEX4nKRcK9tZayukAyz" Name="At Least Run Once" Kind="InputPin" />
+                  <Pin Id="TfC2RKvMVSCM9ljbDgtQsP" Name="Force Push" Kind="InputPin" IsHidden="true" />
                 </Node>
                 <Node Bounds="638,369,60,19" Id="ShLmkNUOjW8Mu1kTB2Nd6E">
                   <p:NodeReference LastCategoryFullName="Color.RGBA" LastDependency="VL.CoreLib.vl">
@@ -1250,14 +1244,10 @@
               <Link Id="SSn0NL5ySAhNqw68sAw3bA" Ids="LkDZNMFI5EdL5RTDWQhNYS,JKPLwlBm2TaL3zLNzVQhmm" />
               <Link Id="JE1YY17CSc4OPfKzQTUgAE" Ids="TXw2x59CJVpOupNZUIyXFr,DPo2mJIqsQkPPftCkkssOu" />
               <Link Id="AbS65itOmRsLqElsbtHDXA" Ids="CnTH4sWTq5CMLnKfP2Ccyo,PfdC6SPkjC2OqMfCqcEBo9" IsHidden="true" />
-              <Patch Id="JUCEAL9L5Z8N5rijR0mhsH" Name="Create" ParticipatingElements="AVccrPxfdHnPlzzhQLcggH,PPoHG9GwTC9LEatdFrEyJC" />
+              <Patch Id="JUCEAL9L5Z8N5rijR0mhsH" Name="Create" ParticipatingElements="AVccrPxfdHnPlzzhQLcggH" />
               <Link Id="NoFPcz8UMP7MSHzmHRC4cl" Ids="DPo2mJIqsQkPPftCkkssOu,CnTH4sWTq5CMLnKfP2Ccyo" />
               <Link Id="AVccrPxfdHnPlzzhQLcggH" Ids="McgojekqexDLsr3JTFf4SJ,JVflyzPiFj7LAsRnqz4yDo" />
-              <Link Id="MnBjKsxlKPVPFglpKqjGli" Ids="PjKlTvYKROIM835FY3syaZ,RvZSRK4a4wUPXe4K2odBTS" IsHidden="true" />
-              <Link Id="CTQBmJhpeNGOUuKhhcgnWP" Ids="SYhABBma7wFOhpWmHi72GS,N3W2gnJ90TUPbqfVGnZt50" IsHidden="true" />
-              <Link Id="PPoHG9GwTC9LEatdFrEyJC" Ids="AoU1aaj2leqOiqs6qCkxl0,OwXJGMmOeJqQBlUmghXVWi" />
               <Link Id="IAZk70bzkvBOXPfEoR5VC0" Ids="SWeWhlwApEQNNsMEuV4GWg,PmmTRSb7O4qQQhThqm9BPO" />
-              <Link Id="FkWjMzEAlFdOWC5TGqhGcv" Ids="RvZSRK4a4wUPXe4K2odBTS,SYhABBma7wFOhpWmHi72GS" />
               <Link Id="EhjkffwLYaOMTTEkOFilLn" Ids="Ey7IlXQMyrSMeOqEi2TNEx,F4dDuVy64PTPz6QMcnnQWS" />
               <Link Id="QInxArjywDSPLJgtMAfF2n" Ids="BYtMNwm1uTALGD3R69ib1B,ByEIrgm4afAOanaUYYTukT" />
               <Link Id="OFFqS9YGtSKOBsL0cbFEzI" Ids="J2gvKRvIz5iLr6Hf9P7xwD,COs0qISaA7sMFXLgXHk0bl" />
@@ -1275,6 +1265,7 @@
               <Link Id="NCzGu6wr3KaN71JL1IY8T5" Ids="Q5h0WZ9KcxaNGIxHe2VxVg,ScarTVdcz9tNrd24OqF3xp" />
               <Link Id="An3TJoMB2lJN5TCzJjGCCz" Ids="SGeRQhdCE2KOaty4VP99Hv,O4VdghQlo3cM7ley5sSSxC" />
               <Link Id="ODR30oLC4JUNZMQwEwZC3L" Ids="DHfQHOkIWMIMAGxq0ZTZjW,BwK0kqwIg23ND9AW9knAWP" />
+              <Link Id="Q8W8SRZBn87LV9zXJcRZpU" Ids="AoU1aaj2leqOiqs6qCkxl0,CzPvlL9BJMMPCNchloYhQF" />
             </Patch>
           </Node>
         </Canvas>
@@ -1304,10 +1295,10 @@
             </Node>
             <Link Id="SDyjFCI2SbfNlZPKNuhFWF" Ids="FQW4Ult7510PNt5g8cACiO,NNgxnKfqQWNP0jpamxc9nV" />
             <Node Bounds="124,194,73,26" Id="Iywsp3OOY2EQTsJP6YQP7k">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="NNgxnKfqQWNP0jpamxc9nV" Name="Input" Kind="StateInputPin" />
               <Pin Id="I2ryZIbc8RrMg3Kjz0H3lv" Name="Output" Kind="StateOutputPin" />
@@ -1345,10 +1336,10 @@
               <Pin Id="C1bK3LVpt2cMEjYsVjkbui" Name="Tooltip Scaling" Kind="OutputPin" />
             </Node>
             <Node Bounds="686,203,73,26" Id="KIzXoMsoWWZQSfZmdIqVSF">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="BFyW6QmKot5NaWmFMgvRDS" Name="Input" Kind="StateInputPin" />
               <Pin Id="IMzzuI5zfLqNYv8H1c7pi1" Name="Output" Kind="StateOutputPin" />
@@ -1387,10 +1378,10 @@
               <Pin Id="So6QVd1T3pgPXE2u9fIiCs" Name="Tooltip Show Advanced Timings" Kind="OutputPin" />
             </Node>
             <Node Bounds="127,363,73,26" Id="NeHikXCr7WjOO6SxxZUDDQ">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="V4b9xX5d9TyPHfvjQVBza3" Name="Input" Kind="StateInputPin" />
               <Pin Id="R9ASMYil3GAQFkaUFksfhp" Name="Output" Kind="StateOutputPin" />
@@ -1429,10 +1420,10 @@
               <Pin Id="H3l2Klzmg5aOlmHY5iji8j" Name="Tooltip Show Documentation" Kind="OutputPin" />
             </Node>
             <Node Bounds="680,375,73,26" Id="IPTgOt8U4aZLhrPCdPS90x">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="JsOkPNyzP3PLHz2JKYKjKj" Name="Input" Kind="StateInputPin" />
               <Pin Id="CQZxysud4kyNocHW51E7cC" Name="Output" Kind="StateOutputPin" />
@@ -1471,10 +1462,10 @@
               <Pin Id="Bhj6rdxECZeO4vBC1niVfg" Name="Tooltip Show Local ID" Kind="OutputPin" />
             </Node>
             <Node Bounds="129,545,73,26" Id="DncQKVERUmyLPhOZB64dvp">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="H86H8deDiZKLh4WN4L2eL3" Name="Input" Kind="StateInputPin" />
               <Pin Id="NYRJ1P6lJkaNSMVGv5YOq3" Name="Output" Kind="StateOutputPin" />
@@ -1513,10 +1504,10 @@
               <Pin Id="JRMXaWKatayLPrBOLSuGSR" Name="Tooltip Show More Info" Kind="OutputPin" />
             </Node>
             <Node Bounds="691,554,73,26" Id="GRuhYV71nsWO2WOUX2B8Lk">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="GE98PY7B02DNm9yBaWs4pm" Name="Input" Kind="StateInputPin" />
               <Pin Id="DyEjvlYQJrdMschDnHr7cp" Name="Output" Kind="StateOutputPin" />
@@ -1555,10 +1546,10 @@
               <Pin Id="Afb66w5e425MeD5c2aGbcJ" Name="Tooltip Show Objects" Kind="OutputPin" />
             </Node>
             <Node Bounds="132,718,73,26" Id="NGcyEg9XPUZQVpJDJyURNG">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="E9n7KKRo8wrMyTHuwyU7uE" Name="Input" Kind="StateInputPin" />
               <Pin Id="KlYtyS7SwPEMsvdpFPPbxa" Name="Output" Kind="StateOutputPin" />
@@ -1597,10 +1588,10 @@
               <Pin Id="MlfvR1Fhpd5Lhe3qORPaAm" Name="Tooltip Show Operation" Kind="OutputPin" />
             </Node>
             <Node Bounds="692,721,73,26" Id="Beh8VPOExFtO65T6nXWv68">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="Qb3kPR9r9mNPOWOZuBLVqQ" Name="Input" Kind="StateInputPin" />
               <Pin Id="Qa63NW8fZQ0PnEP0myZNS4" Name="Output" Kind="StateOutputPin" />
@@ -1639,10 +1630,10 @@
               <Pin Id="ItHQ2kxKy4tO7NQTlWgzG4" Name="Tooltip Show Symbol Source" Kind="OutputPin" />
             </Node>
             <Node Bounds="138,894,73,26" Id="HiZZlWeF9ClLErCL3IFuzx">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="JsKuXrbuxDmNBvLwaL35zs" Name="Input" Kind="StateInputPin" />
               <Pin Id="QE6urheELC9M9oh5LtmK08" Name="Output" Kind="StateOutputPin" />
@@ -1681,10 +1672,10 @@
               <Pin Id="TQ7rFOy8jrZMDBNkHu56S0" Name="Tooltip Show Timings" Kind="OutputPin" />
             </Node>
             <Node Bounds="700,908,73,26" Id="Pjs7oJfnbsVOadpjBaY5iO">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="Uf5l3Eu5YpmMWwkXav9Ow8" Name="Input" Kind="StateInputPin" />
               <Pin Id="FysULxRpQXKNTIOOhN6UQ1" Name="Output" Kind="StateOutputPin" />
@@ -1723,10 +1714,10 @@
               <Pin Id="Js8WMfDtJycPBEmewGfdJ7" Name="Tooltip Std Delay In Milli Seconds" Kind="OutputPin" />
             </Node>
             <Node Bounds="137,1066,73,26" Id="PgBmsfVCjSDNz5CHqEX23p">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="EIgWL5xgFzrMKkwTFdYeVs" Name="Input" Kind="StateInputPin" />
               <Pin Id="JY6WavSjrQNPoDmnfXpt0q" Name="Output" Kind="StateOutputPin" />
@@ -1774,10 +1765,10 @@
               <Pin Id="MtkUtpECQwaMX3oxg6bMvl" Name="Show Help On Startup" Kind="OutputPin" />
             </Node>
             <Node Bounds="708,1073,73,26" Id="E8jYHXT7jrbLmyDg8DeHt1">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="Ldhip7apzuiLZcoWfXbPXA" Name="Input" Kind="StateInputPin" />
               <Pin Id="EHFCHRpUM77NTsIAcJ9346" Name="Output" Kind="StateOutputPin" />
@@ -1865,10 +1856,10 @@
               <Pin Id="AwxRa8CWNZVL5B5rXmGOUI" Name="New Document If None Loaded" Kind="OutputPin" />
             </Node>
             <Node Bounds="706,1262,73,26" Id="L3z8NJEl7NDP5GEfETtLpV">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="CywKr3QirgGLma1G3GVMJk" Name="Input" Kind="StateInputPin" />
               <Pin Id="S3hF0S4HALTNd6nSswDJya" Name="Output" Kind="StateOutputPin" />
@@ -1908,10 +1899,10 @@
               <Pin Id="KGK9D5IYVIrNiKvuVqCQM7" Name="Node Show Warning If Experimental" Kind="OutputPin" />
             </Node>
             <Node Bounds="161,1252,73,26" Id="N5EieEAhqfeLYfFRSqeLE4">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="MffCaRoLG4cMJAvkZsjXpm" Name="Input" Kind="StateInputPin" />
               <Pin Id="VfMhKQDx9fmNqgntobIBiv" Name="Output" Kind="StateOutputPin" />
@@ -1953,10 +1944,10 @@
               <Pin Id="AApHm6x27VnPVk1bG0K5HG" Name="Learn Is Default Tab" Kind="OutputPin" />
             </Node>
             <Node Bounds="1018,1070,73,26" Id="EJ0iUTi8SIvNL4nbjQpasW">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="VDH1yEc9sBGPmqfu1vRreY" Name="Input" Kind="StateInputPin" />
               <Pin Id="DQ2gC1zWCHqPxB0IphUoAj" Name="Output" Kind="StateOutputPin" />
@@ -1995,10 +1986,10 @@
               <Pin Id="MAdraPwdEYoN0cTfZWfYI4" Name="Log Buffer Length" Kind="OutputPin" />
             </Node>
             <Node Bounds="1059,1261,73,26" Id="N3VcrFnig66Lb8L5JFKlrt">
-              <p:NodeReference LastCategoryFullName="Reactive.Subjects.BehaviorSubject" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Value" />
-                <CategoryReference Kind="ClassType" Name="BehaviorSubject" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="CPTWruL3mfyQTtZRKhPIIe" Name="Input" Kind="StateInputPin" />
               <Pin Id="P9PelbNH0tSN6LIBuTzYxf" Name="Output" Kind="StateOutputPin" />
@@ -2013,6 +2004,93 @@
             <Pin Id="QjDwJbgKt5uP9cAo0LCCT8" Name="Log Buffer Length" Kind="OutputPin" Bounds="935,1018" />
             <Link Id="CmuJbH0TCJLMUVPsqUalgr" Ids="MAdraPwdEYoN0cTfZWfYI4,CPTWruL3mfyQTtZRKhPIIe" />
             <Link Id="Ed12P5vtuimPRa1h1Bqd94" Ids="MAdraPwdEYoN0cTfZWfYI4,IscnKjnZfObLMGrIkxaSC5" />
+          </Patch>
+        </Node>
+        <!--
+
+    ************************ SeverityThreshold ************************
+
+-->
+        <Node Name="SeverityThreshold" Bounds="1334,1188,274,129" Id="RGi2xLLt1RsNdZvlQ9Umaa">
+          <p:NodeReference>
+            <Choice Kind="OperationDefinition" Name="Operation" />
+            <FullNameCategoryReference ID="Primitive" />
+          </p:NodeReference>
+          <p:HideCategory p:Type="Boolean">false</p:HideCategory>
+          <Patch Id="Ryez6NuUjVDMuUPwwUTBma">
+            <Node Bounds="1346,1211,114,26" Id="K6b1gtfSeGYQDJdNeug6me">
+              <p:NodeReference LastCategoryFullName="HDE.Settings.Settings" LastDependency="HDE.StylesAndSettings.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <Choice Kind="OperationCallFlag" Name="LogSeverityThreshold" />
+              </p:NodeReference>
+              <Pin Id="EPs8N4M0sFFNC7OV37ET4s" Name="Input" Kind="InputPin" />
+              <Pin Id="UaLgajAlGRSPAMbj8uWfF7" Name="Output" Kind="OutputPin" IsHidden="true" />
+              <Pin Id="Rw2vYGjoyDVLkNyQturD5q" Name="Log Severity Threshold" Kind="OutputPin" />
+            </Node>
+            <Node Bounds="1347,1257,73,26" Id="QVeqP5gr62GOu1Pj8x5xUD">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
+                <Choice Kind="OperationCallFlag" Name="Value" />
+              </p:NodeReference>
+              <Pin Id="LBTdNvOlYFgMwya6x01St4" Name="Input" Kind="StateInputPin" />
+              <Pin Id="MgNqD9Ip1IwN3PSdNYSYgu" Name="Output" Kind="StateOutputPin" />
+              <Pin Id="RaXN13yvFfmM4C6tSQS8kX" Name="Value" Kind="OutputPin" />
+            </Node>
+            <ControlPoint Id="JGWcdQspz86MD82pzqj91A" Bounds="1417,1300" />
+            <Link Id="EBQwT4ijTmCMrTS148dmvs" Ids="RaXN13yvFfmM4C6tSQS8kX,JGWcdQspz86MD82pzqj91A" />
+            <Link Id="Tq8AmGuyDdrQX5STRN0B4A" Ids="JGWcdQspz86MD82pzqj91A,OoSrTqHkBQRNSLCqo5mS9i" IsHidden="true" />
+            <Pin Id="OoSrTqHkBQRNSLCqo5mS9i" Name="Value" Kind="OutputPin" Bounds="193,291" />
+            <Link Id="DdxUNzLkqE5MGa8Z0yKvpV" Ids="Rw2vYGjoyDVLkNyQturD5q,LBTdNvOlYFgMwya6x01St4" />
+            <ControlPoint Id="Fcl9uVOt3fULf7R8Jb6IQL" Bounds="1481,1299" />
+            <Link Id="UsoX6wZjiBHOlNDIn6F2kk" Ids="Rw2vYGjoyDVLkNyQturD5q,Fcl9uVOt3fULf7R8Jb6IQL" />
+            <Pin Id="UVzKoRFe3RMORmuZ8NdmAF" Name="Log Severity Threshold" Kind="OutputPin" Bounds="1488,1299" />
+            <Link Id="PG6bigW8gueOv1Iwy1LYqZ" Ids="Fcl9uVOt3fULf7R8Jb6IQL,UVzKoRFe3RMORmuZ8NdmAF" IsHidden="true" />
+          </Patch>
+        </Node>
+        <!--
+
+    ************************ LogViewState ************************
+
+-->
+        <Node Name="LogViewState" Bounds="1642,1168,148,153" Id="NZWQwq8jDLkNZO7kpI8V9k">
+          <p:NodeReference>
+            <Choice Kind="OperationDefinition" Name="Operation" />
+            <FullNameCategoryReference ID="Primitive" />
+          </p:NodeReference>
+          <p:HideCategory p:Type="Boolean">false</p:HideCategory>
+          <Patch Id="FTAMiEF0SqlNXIbG4GkKaW">
+            <ControlPoint Id="RWTSpbcG5xWP6LCES2x5vK" Bounds="1656,1304" />
+            <Link Id="KqfiDxSrd3TQHS1rWggefQ" Ids="RWTSpbcG5xWP6LCES2x5vK,PVmEFvSTEibPiAJsRc5sRw" IsHidden="true" />
+            <Pin Id="PVmEFvSTEibPiAJsRc5sRw" Name="Value" Kind="OutputPin" Bounds="193,291" />
+            <ControlPoint Id="KOWHyFFHqhkOUFHfrNQeQ1" Bounds="1706,1304" />
+            <Pin Id="MbX2NzQ1RojM7MSyRwfJWh" Name="LogViewState" Kind="OutputPin" Bounds="1488,1299" />
+            <Link Id="CiFpkzQtHF9PETgOuer2KV" Ids="KOWHyFFHqhkOUFHfrNQeQ1,MbX2NzQ1RojM7MSyRwfJWh" IsHidden="true" />
+            <Node Bounds="1662,1191,77,26" Id="Njq2tTJ3fttL1ic7lSGJ2R">
+              <p:NodeReference LastCategoryFullName="HDE.Settings.Settings" LastDependency="HDE.StylesAndSettings.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="ClassType" Name="Settings" NeedsToBeDirectParent="true">
+                  <p:OuterCategoryReference Kind="Category" Name="Settings" NeedsToBeDirectParent="true" />
+                </CategoryReference>
+                <Choice Kind="OperationCallFlag" Name="LogViewState" />
+              </p:NodeReference>
+              <Pin Id="GVi2whHueUWQHPWqRimctH" Name="Input" Kind="StateInputPin" />
+              <Pin Id="EdBN4DubJMNMQA1fm7gQHL" Name="Output" Kind="OutputPin" IsHidden="true" />
+              <Pin Id="Mt7HSdc1B00PUu2seWtM38" Name="Log View State" Kind="OutputPin" />
+            </Node>
+            <Link Id="TdKiqmaSkUOPa99b65zi9e" Ids="Mt7HSdc1B00PUu2seWtM38,KOWHyFFHqhkOUFHfrNQeQ1" />
+            <Node Bounds="1661,1246,73,26" Id="Jxsh6Zzf4qmLyhG5SOOKHF">
+              <p:NodeReference LastCategoryFullName="Reactive.Channel" LastDependency="VL.CoreLib.vl">
+                <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+                <CategoryReference Kind="MutableInterfaceType" Name="Channel" NeedsToBeDirectParent="true" />
+                <Choice Kind="OperationCallFlag" Name="Value" />
+              </p:NodeReference>
+              <Pin Id="UESVW7EjSmJNLgQFShbfYp" Name="Input" Kind="StateInputPin" />
+              <Pin Id="LXUizqR9sxTOHQ5vZJthR1" Name="Output" Kind="StateOutputPin" />
+              <Pin Id="AZ6FFDQkLYQNVyrVxruezm" Name="Value" Kind="OutputPin" />
+            </Node>
+            <Link Id="HLqdlUa7XklObA1GxB7IMX" Ids="Mt7HSdc1B00PUu2seWtM38,UESVW7EjSmJNLgQFShbfYp" />
+            <Link Id="NxcUZQqwfWWLWTwviRi3KK" Ids="AZ6FFDQkLYQNVyrVxruezm,RWTSpbcG5xWP6LCES2x5vK" />
           </Patch>
         </Node>
       </Canvas>

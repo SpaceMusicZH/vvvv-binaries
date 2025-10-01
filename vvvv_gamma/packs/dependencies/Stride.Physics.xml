@@ -1866,6 +1866,32 @@
             </summary>
             <remarks>This orientation has no impact in the physics simulation</remarks>
         </member>
+        <member name="T:Stride.Physics.EFlags">
+            <summary>
+            Flags that control how ray tests are performed
+            </summary>
+        </member>
+        <member name="F:Stride.Physics.EFlags.FilterBackfaces">
+            <summary>
+            Do not return a hit when a ray traverses a back-facing triangle
+            </summary>
+        </member>
+        <member name="F:Stride.Physics.EFlags.KeepUnflippedNormal">
+            <summary>
+            Prevents returned face normal getting flipped when a ray hits a back-facing triangle
+            </summary>
+        </member>
+        <member name="F:Stride.Physics.EFlags.UseSubSimplexConvexCastRaytest">
+            <summary>
+            Uses an approximate but faster ray versus convex intersection algorithm
+            SubSimplexConvexCastRaytest is the default, even if kF_None is set.
+            </summary>
+        </member>
+        <member name="F:Stride.Physics.EFlags.DisableHeightfieldAccelerator">
+            <summary>
+            Don't use the heightfield raycast accelerator. See https://github.com/bulletphysics/bullet3/pull/2062
+            </summary>
+        </member>
         <member name="P:Stride.Physics.PhysicsSkinnedComponentBase.NodeName">
             <summary>
             Gets or sets the link (usually a bone).
@@ -2313,12 +2339,25 @@
         </member>
         <member name="F:Stride.Physics.PhysicsSettings.MaxSubSteps">
             <userdoc>
-            The maximum number of simulations the the physics engine can run in a frame to compensate for slowdown
+            The maximum number of simulations the physics engine can run in a frame to compensate for slowdown
             </userdoc>
         </member>
         <member name="F:Stride.Physics.PhysicsSettings.FixedTimeStep">
             <userdoc>
             The length in seconds of a physics simulation frame. The default is 0.016667 (one sixtieth of a second)
+            </userdoc>
+        </member>
+        <member name="F:Stride.Physics.PhysicsSettings.MaxTickDuration">
+            <userdoc>
+            Amount of time in seconds allotted to update the physics simulation when the update rate is lower than <see cref="F:Stride.Physics.PhysicsSettings.FixedTimeStep"/>.
+            When the whole game takes longer than <see cref="F:Stride.Physics.PhysicsSettings.FixedTimeStep"/> to display one frame, the simulation has to tick multiple times to catch up.
+            Those additional ticks may themselves make the current frame take longer, leading to a negative feedback loop for your game's performances.
+            This variable will 'slow down' the simulation instead.
+            </userdoc>
+        </member>
+        <member name="F:Stride.Physics.PhysicsSettings.Gravity">
+            <userdoc>
+            Default gravity vector for physics simulation.
             </userdoc>
         </member>
         <member name="F:Stride.Physics.RigidBodyTypes.Static">
@@ -2609,7 +2648,7 @@
             <param name="constraint">The constraint.</param>
             <exception cref="T:System.Exception">Cannot perform this action when the physics engine is set to CollisionsOnly</exception>
         </member>
-        <member name="M:Stride.Physics.Simulation.Raycast(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean)">
+        <member name="M:Stride.Physics.Simulation.Raycast(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean,Stride.Physics.EFlags)">
             <summary>
             Raycasts and returns the closest hit
             </summary>
@@ -2618,9 +2657,10 @@
             <param name="filterGroup">The collision group of this raycast</param>
             <param name="filterFlags">The collision group that this raycast can collide with</param>
             <param name="hitTriggers">Whether this test should collide with <see cref="T:Stride.Physics.PhysicsTriggerComponentBase"/></param>
+            <param name="eFlags">Flags that control how this ray test is performed</param>
             <returns>The result of this test</returns>
         </member>
-        <member name="M:Stride.Physics.Simulation.Raycast(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,Stride.Physics.HitResult@,Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean)">
+        <member name="M:Stride.Physics.Simulation.Raycast(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,Stride.Physics.HitResult@,Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean,Stride.Physics.EFlags)">
             <summary>
             Raycasts, returns true when it hit something
             </summary>
@@ -2630,9 +2670,10 @@
             <param name="filterGroup">The collision group of this raycast</param>
             <param name="filterFlags">The collision group that this raycast can collide with</param>
             <param name="hitTriggers">Whether this test should collide with <see cref="T:Stride.Physics.PhysicsTriggerComponentBase"/></param>
+            <param name="eFlags">Flags that control how this ray test is performed</param>
             <returns>True if the test collided with an object in the simulation</returns>
         </member>
-        <member name="M:Stride.Physics.Simulation.RaycastPenetrating(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,System.Collections.Generic.ICollection{Stride.Physics.HitResult},Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean)">
+        <member name="M:Stride.Physics.Simulation.RaycastPenetrating(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3,System.Collections.Generic.ICollection{Stride.Physics.HitResult},Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean,Stride.Physics.EFlags)">
             <summary>
             Raycasts penetrating any shape the ray encounters.
             Filtering by CollisionGroup
@@ -2643,6 +2684,7 @@
             <param name="filterGroup">The collision group of this raycast</param>
             <param name="filterFlags">The collision group that this raycast can collide with</param>
             <param name="hitTriggers">Whether this test should collide with <see cref="T:Stride.Physics.PhysicsTriggerComponentBase"/></param>
+            <param name="eFlags">Flags that control how this ray test is performed</param>
         </member>
         <member name="M:Stride.Physics.Simulation.ShapeSweep(Stride.Physics.ColliderShape,Stride.Core.Mathematics.Matrix,Stride.Core.Mathematics.Matrix,Stride.Physics.CollisionFilterGroups,Stride.Physics.CollisionFilterGroupFlags,System.Boolean)">
             <summary>
@@ -2688,6 +2730,14 @@
             It's important that frame DeltaTime is always less than MaxSubSteps*FixedTimeStep, otherwise you are losing time.
             </summary>
         </member>
+        <member name="P:Stride.Physics.Simulation.MaxTickDuration">
+            <userdoc>
+            Amount of time in seconds allotted to update the physics simulation when the update rate is lower than <see cref="P:Stride.Physics.Simulation.FixedTimeStep"/>.
+            When the whole game takes longer than <see cref="P:Stride.Physics.Simulation.FixedTimeStep"/> to display one frame, the simulation has to tick multiple times to catch up.
+            Those additional ticks may themselves make the current frame take longer, leading to a negative feedback loop for your game's performances.
+            This variable will 'slow down' the simulation instead.
+            </userdoc>
+        </member>
         <member name="P:Stride.Physics.Simulation.FixedTimeStep">
             <summary>
             By decreasing the size of fixedTimeStep, you are increasing the “resolution” of the simulation.
@@ -2696,14 +2746,26 @@
         </member>
         <member name="E:Stride.Physics.Simulation.SimulationBegin">
             <summary>
-            Called right before the physics simulation.
+            Called before the physics simulation.
             This event might not be fired by the main thread.
             </summary>
         </member>
         <member name="E:Stride.Physics.Simulation.SimulationEnd">
             <summary>
-            Called right after the physics simulation.
+            Called after the physics simulation.
             This event might not be fired by the main thread.
+            </summary>
+        </member>
+        <member name="E:Stride.Physics.Simulation.PreTick">
+            <summary>
+            Called right before processing a tick of the physics simulation,
+            this may never occur before many updates, or occur multiple times between updates depending on this <see cref="T:Stride.Physics.Simulation"/> properties
+            </summary>
+        </member>
+        <member name="E:Stride.Physics.Simulation.PostTick">
+            <summary>
+            Called right after processing a tick of the physics simulation,
+            this may never occur before many updates, or occur multiple times between updates depending on this <see cref="T:Stride.Physics.Simulation"/> properties
             </summary>
         </member>
         <member name="F:Stride.Physics.Simulation.StrideReusableRayResultCallback.hitNoContactResponseObjects">

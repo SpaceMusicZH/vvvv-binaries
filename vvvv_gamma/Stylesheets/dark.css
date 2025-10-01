@@ -10,6 +10,9 @@ Supported attributes:
 - font-style
 */
 
+/*window title bar, use 000000 for dark and FFFFFF for light */
+.window-title-bar { fill: #000000 }
+
 /*elements*/ 
 .quad { fill: #333333 }
 .patch { fill: #141414; }
@@ -124,7 +127,7 @@ Supported attributes:
 
 /* operations */
 .create { fill: #FDFDFD; }
-.update { fill: #7F7F7F; }
+.update { fill: #828282; }
 .dispose { fill: #600404; }
 .operation0 { fill: #588CE4; }
 .operation1 { fill: #70AD83; }
@@ -153,6 +156,7 @@ Supported attributes:
 .control-font { fill: #DCDCDC; }
 .link-font { fill: #5085FF; text-decoration-line: underline; }
 .swatch-font { fill: #777777; }
+.null-font { font-style: italic; }
 
 /*
 .region-font { fill: #000000; }
@@ -180,7 +184,7 @@ Supported attributes:
 .critical - makes stroke red, but stronger red as error
 */
 
-.hint { stroke: #33404F; }
+.hint { stroke: #33708f; }
 .warning { stroke: #FFB200; stroke-opacity: 0.7; }
 .error { stroke: #B40000; stroke-opacity: 1; }
 .runtimeerror { stroke: #9800AF; stroke-opacity: 1; stroke-width: 2px; }
@@ -190,7 +194,7 @@ Supported attributes:
 .not-executed-link { stroke: #000000; stroke-opacity: 0.45; }
 
 /* Deep the opacity as low as region background, otherwise unfocused regions will look darker than when focused. */
-.unused { fill-opacity: 0.3; stroke-opacity: 0.3; }
+.unused { fill-opacity: 0.3; stroke-opacity: 0.25; }
 .generic { fill-opacity: 0; stroke-opacity: 1; }
 .accepted { fill-opacity: 0.5; stroke: #00B512; stroke-opacity: 1; stroke-width: 2px; }
 .force-accepted { stroke-opacity: 1; stroke-width: 2px }

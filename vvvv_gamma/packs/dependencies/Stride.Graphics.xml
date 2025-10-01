@@ -237,92 +237,92 @@
             Blend option. A blend option identifies the data source and an optional pre-blend operation.
             </summary>
             <remarks>
-            Blend options are specified in a <see cref="!:BlendState"/>. 
+            Blend options are specified in a <see cref="T:Stride.Graphics.BlendStateDescription"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.Blend.Zero">
             <summary>
-            The data source is the color black (0, 0, 0, 0). No pre-blend operation. 
+            The data source is the color black (0, 0, 0, 0). No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.One">
             <summary>
-            The data source is the color white (1, 1, 1, 1). No pre-blend operation. 
+            The data source is the color white (1, 1, 1, 1). No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.SourceColor">
             <summary>
-            The data source is color data (RGB) from a pixel shader. No pre-blend operation. 
+            The data source is color data (RGB) from a pixel shader. No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseSourceColor">
             <summary>
-            The data source is color data (RGB) from a pixel shader. The pre-blend operation inverts the data, generating 1 - RGB. 
+            The data source is color data (RGB) from a pixel shader. The pre-blend operation inverts the data, generating 1 - RGB.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.SourceAlpha">
             <summary>
-            The data source is alpha data (A) from a pixel shader. No pre-blend operation. 
+            The data source is alpha data (A) from a pixel shader. No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseSourceAlpha">
             <summary>
-            The data source is alpha data (A) from a pixel shader. The pre-blend operation inverts the data, generating 1 - A. 
+            The data source is alpha data (A) from a pixel shader. The pre-blend operation inverts the data, generating 1 - A.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.DestinationAlpha">
             <summary>
-            The data source is alpha data from a rendertarget. No pre-blend operation. 
+            The data source is alpha data from a rendertarget. No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseDestinationAlpha">
             <summary>
-            The data source is alpha data from a rendertarget. The pre-blend operation inverts the data, generating 1 - A. 
+            The data source is alpha data from a rendertarget. The pre-blend operation inverts the data, generating 1 - A.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.DestinationColor">
             <summary>
-            The data source is color data from a rendertarget. No pre-blend operation. 
+            The data source is color data from a rendertarget. No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseDestinationColor">
             <summary>
-            The data source is color data from a rendertarget. The pre-blend operation inverts the data, generating 1 - RGB. 
+            The data source is color data from a rendertarget. The pre-blend operation inverts the data, generating 1 - RGB.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.SourceAlphaSaturate">
             <summary>
-            The data source is alpha data from a pixel shader. The pre-blend operation clamps the data to 1 or less. 
+            The data source is alpha data from a pixel shader. The pre-blend operation clamps the data to 1 or less.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.BlendFactor">
             <summary>
-            The data source is the blend factor set with <see cref="!:GraphicsDevice.BlendStates"/>. No pre-blend operation. 
+            The data source is the blend factor set with <see cref="!:GraphicsDevice.BlendStates"/>. No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseBlendFactor">
             <summary>
-            The data source is the blend factor set with <see cref="!:GraphicsDevice.SetBlendState"/>. The pre-blend operation inverts the blend factor, generating 1 - blend_factor. 
+            The data source is the blend factor set with <see cref="!:GraphicsDevice.SetBlendState"/>. The pre-blend operation inverts the blend factor, generating 1 - blend_factor.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.SecondarySourceColor">
             <summary>
-            The data sources are both color data output by a pixel shader. There is no pre-blend operation. This options supports dual-source color blending. 
+            The data sources are both color data output by a pixel shader. There is no pre-blend operation. This options supports dual-source color blending.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseSecondarySourceColor">
             <summary>
-            The data sources are both color data output by a pixel shader. The pre-blend operation inverts the data, generating 1 - RGB. This options supports dual-source color blending. 
+            The data sources are both color data output by a pixel shader. The pre-blend operation inverts the data, generating 1 - RGB. This options supports dual-source color blending.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.SecondarySourceAlpha">
             <summary>
-            The data sources are alpha data output by a pixel shader. There is no pre-blend operation. This options supports dual-source color blending. 
+            The data sources are alpha data output by a pixel shader. There is no pre-blend operation. This options supports dual-source color blending.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseSecondarySourceAlpha">
             <summary>
-            The data sources are alpha data output by a pixel shader. The pre-blend operation inverts the data, generating 1 - A. This options supports dual-source color blending. 
+            The data sources are alpha data output by a pixel shader. The pre-blend operation inverts the data, generating 1 - A. This options supports dual-source color blending.
             </summary>
         </member>
         <member name="T:Stride.Graphics.BlendFunction">
@@ -330,7 +330,7 @@
             RGB or alpha blending operation.
             </summary>
             <remarks>
-            The runtime implements RGB blending and alpha blending separately. Therefore, blend state requires separate blend operations for RGB data and alpha data. These blend operations are specified in a <see cref="!:BlendState"/>.
+            The runtime implements RGB blending and alpha blending separately. Therefore, blend state requires separate blend operations for RGB data and alpha data. These blend operations are specified in a <see cref="T:Stride.Graphics.BlendStateDescription"/> and in a <see cref="T:Stride.Graphics.BlendStateRenderTargetDescription"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.BlendFunction.Add">
@@ -1045,10 +1045,17 @@
             <param name="usage">The usage of this resource.</param>
             <returns>A Raw buffer</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Stride.Graphics.Buffer.Structured" -->
+        <member name="T:Stride.Graphics.Buffer.Structured">
+            <summary>
+            Structured buffer helper methods.
+            </summary>
+            <remarks>
+            Example in HLSL: StructuredBuffer&lt;float4&gt; or RWStructuredBuffer&lt;float4&gt; for structured buffers supporting unordered access.
+            </remarks>
+        </member>
         <member name="M:Stride.Graphics.Buffer.Structured.New(Stride.Graphics.GraphicsDevice,System.Int32,System.Int32,System.Boolean)">
             <summary>
-            Creates a new Structured buffer accessible as a <see cref="!:ShaderResourceView" /> and optionaly as a <see cref="!:UnorderedAccessView" />.
+            Creates a new Structured buffer accessible as a <see cref="F:Stride.Shaders.EffectParameterClass.ShaderResourceView" /> and optionally as a <see cref="F:Stride.Shaders.EffectParameterClass.UnorderedAccessView" />.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="count">The number of element in this buffer.</param>
@@ -1058,7 +1065,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.Structured.New``1(Stride.Graphics.GraphicsDevice,System.Int32,System.Boolean)">
             <summary>
-            Creates a new Structured buffer accessible as a <see cref="!:ShaderResourceView" /> and optionaly as a <see cref="!:UnorderedAccessView" />.
+            Creates a new Structured buffer accessible as a <see cref="F:Stride.Shaders.EffectParameterClass.ShaderResourceView" /> and optionally as a <see cref="F:Stride.Shaders.EffectParameterClass.UnorderedAccessView" />.
             </summary>
             <typeparam name="T">Type of the element in the structured buffer</typeparam>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
@@ -1068,7 +1075,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.Structured.New``1(Stride.Graphics.GraphicsDevice,``0[],System.Boolean)">
             <summary>
-            Creates a new Structured buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            Creates a new Structured buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <typeparam name="T">Type of the Structured buffer to get the sizeof from</typeparam>
@@ -1078,7 +1085,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.Structured.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,System.Int32,System.Boolean)">
             <summary>
-            Creates a new Structured buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            Creates a new Structured buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="value">The value to initialize the Structured buffer.</param>
@@ -1086,10 +1093,17 @@
             <param name="isUnorderedAccess">if set to <c>true</c> this buffer supports unordered access (RW in HLSL).</param>
             <returns>A Structured buffer</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Stride.Graphics.Buffer.StructuredAppend" -->
+        <member name="T:Stride.Graphics.Buffer.StructuredAppend">
+            <summary>
+            StructuredAppend buffer helper methods.
+            </summary>
+            <remarks>
+            Example in HLSL: AppendStructuredBuffer&lt;float4&gt; or ConsumeStructuredBuffer&lt;float4&gt;.
+            </remarks>
+        </member>
         <member name="M:Stride.Graphics.Buffer.StructuredAppend.New(Stride.Graphics.GraphicsDevice,System.Int32,System.Int32)">
             <summary>
-            Creates a new StructuredAppend buffer accessible as a <see cref="!:ShaderResourceView" /> and as a <see cref="!:UnorderedAccessView" />.
+            Creates a new StructuredAppend buffer accessible as a <see cref="F:Stride.Shaders.EffectParameterClass.ShaderResourceView" /> and as a <see cref="F:Stride.Shaders.EffectParameterClass.UnorderedAccessView" />.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="count">The number of element in this buffer.</param>
@@ -1098,7 +1112,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredAppend.New``1(Stride.Graphics.GraphicsDevice,System.Int32)">
             <summary>
-            Creates a new StructuredAppend buffer accessible as a <see cref="!:ShaderResourceView" /> and optionaly as a <see cref="!:UnorderedAccessView" />.
+            Creates a new StructuredAppend buffer accessible as a <see cref="F:Stride.Shaders.EffectParameterClass.ShaderResourceView" /> and optionally as a <see cref="F:Stride.Shaders.EffectParameterClass.UnorderedAccessView" />.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <typeparam name="T">Type of the element in the structured buffer</typeparam>
@@ -1107,7 +1121,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredAppend.New``1(Stride.Graphics.GraphicsDevice,``0[])">
             <summary>
-            Creates a new StructuredAppend buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            Creates a new StructuredAppend buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <typeparam name="T">Type of the StructuredAppend buffer to get the sizeof from</typeparam>
@@ -1116,17 +1130,24 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredAppend.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,System.Int32)">
             <summary>
-            Creates a new StructuredAppend buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            Creates a new StructuredAppend buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="value">The value to initialize the StructuredAppend buffer.</param>
             <param name="elementSize">Size of the element.</param>
             <returns>A StructuredAppend buffer</returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "T:Stride.Graphics.Buffer.StructuredCounter" -->
+        <member name="T:Stride.Graphics.Buffer.StructuredCounter">
+            <summary>
+            StructuredCounter buffer helper methods.
+            </summary>
+            <remarks>
+            Example in HLSL: StructuredBuffer&lt;float4&gt; or RWStructuredBuffer&lt;float4&gt; for structured buffers supporting unordered access.
+            </remarks>
+        </member>
         <member name="M:Stride.Graphics.Buffer.StructuredCounter.New(Stride.Graphics.GraphicsDevice,System.Int32,System.Int32)">
             <summary>
-            Creates a new StructuredCounter buffer accessible as a <see cref="!:ShaderResourceView" /> and as a <see cref="!:UnorderedAccessView" />.
+            Creates a new StructuredCounter buffer accessible as a <see cref="F:Stride.Shaders.EffectParameterClass.ShaderResourceView" /> and as a <see cref="F:Stride.Shaders.EffectParameterClass.UnorderedAccessView" />.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="count">The number of element in this buffer.</param>
@@ -1135,7 +1156,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredCounter.New``1(Stride.Graphics.GraphicsDevice,System.Int32)">
             <summary>
-            Creates a new StructuredCounter buffer accessible as a <see cref="!:ShaderResourceView" /> and optionaly as a <see cref="!:UnorderedAccessView" />.
+            Creates a new StructuredCounter buffer accessible as a <see cref="F:Stride.Shaders.EffectParameterClass.ShaderResourceView" /> and optionally as a <see cref="F:Stride.Shaders.EffectParameterClass.UnorderedAccessView" />.
             </summary>
             <typeparam name="T">Type of the element in the structured buffer</typeparam>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
@@ -1144,7 +1165,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredCounter.New``1(Stride.Graphics.GraphicsDevice,``0[])">
             <summary>
-            Creates a new StructuredCounter buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            Creates a new StructuredCounter buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
             </summary>
             <typeparam name="T">Type of the StructuredCounter buffer to get the sizeof from</typeparam>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
@@ -1153,7 +1174,7 @@
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredCounter.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,System.Int32)">
             <summary>
-            Creates a new StructuredCounter buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            Creates a new StructuredCounter buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
             </summary>
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="value">The value to initialize the StructuredCounter buffer.</param>
@@ -1498,7 +1519,7 @@
             Identify which components of each pixel of a render target are writable during blending.
             </summary>
             <remarks>
-            These flags can be combined with a bitwise OR and is used in <see cref="!:BlendState"/>.
+            These flags can be combined with a bitwise OR and is used in <see cref="T:Stride.Graphics.BlendStateDescription"/> and <see cref="T:Stride.Graphics.BlendStateRenderTargetDescription"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.ColorWriteChannels.None">
@@ -2431,7 +2452,9 @@
         </member>
         <member name="T:Stride.Graphics.DeviceCreationFlags">
             <summary>
-            <p>Describes parameters that are used to create a device.</p>
+            <para>
+            Describes parameters that are used to create a device.
+            </para>
             </summary>
         </member>
         <member name="F:Stride.Graphics.DeviceCreationFlags.Debug">
@@ -2444,7 +2467,17 @@
             Required for Direct2D interoperability with Direct3D resource.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "F:Stride.Graphics.DeviceCreationFlags.VideoSupport" -->
+        <member name="F:Stride.Graphics.DeviceCreationFlags.VideoSupport">
+            <summary>
+            <para>Forces the creation of the Direct3D device to fail if the display driver is not implemented to the WDDM for Windows Developer Preview (WDDM 1.2). When the display driver is not implemented to WDDM 1.2, only a Direct3D device that is created with feature level 9.1, 9.2, or 9.3 supports video; therefore, if this flag is set, the runtime creates the Direct3D device only for feature level 9.1, 9.2, or 9.3. We recommend not to specify this flag for applications that want to favor Direct3D capability over video. If feature level 10 and higher is available, the runtime will use that feature level regardless of video support.</para>
+            <para>If this flag is set, device creation on the Basic Render Device (BRD) will succeed regardless of the BRD's missing support for video decode. This is because the Media Foundation video stack operates in software mode on BRD. In this situation, if you force the video stack to create the Direct3D device twice (create the device once with this flag, next discover BRD, then again create the device without the flag), you actually degrade performance.
+            </para>
+            <para>
+            If you attempt to create a Direct3D device with driver type <strong><see cref="F:SharpDX.Direct3D.DriverType.Null"/></strong>, <strong><see cref="F:SharpDX.Direct3D.DriverType.Reference"/></strong>, or <strong><see cref="F:SharpDX.Direct3D.DriverType.Software"/></strong>, device creation fails at any feature level because none of the associated drivers provide video capability. If you attempt to create a Direct3D device with driver type <strong><see cref="F:SharpDX.Direct3D.DriverType.Warp"/></strong>, device creation succeeds to allow software fallback for video.
+            </para> 
+            <strong>Direct 3D 11:??</strong> - This value is not supported until Direct3D 11.1. 
+            </summary>
+        </member>
         <member name="F:Stride.Graphics.DeviceCreationFlags.None">
             <summary>
             None.
@@ -2877,7 +2910,7 @@
         </member>
         <member name="F:Stride.Graphics.GraphicsDeviceFeatures.HasResourceRenaming">
             <summary>
-            Boolean indicating if the graphics API supports resource renaming (with either <see cref="F:Stride.Graphics.MapMode.WriteDiscard"/> or <see cref="M:Stride.Graphics.CommandList.UpdateSubresource(Stride.Graphics.GraphicsResource,System.Int32,Stride.Graphics.DataBox)"/> with full size).
+            Boolean indicating if the graphics API supports resource renaming (with either <see cref="F:Stride.Graphics.MapMode.WriteDiscard"/> `CommandList.UpdateSubresource` with full size).
             </summary>
         </member>
         <member name="P:Stride.Graphics.GraphicsDeviceFeatures.Item(Stride.Graphics.PixelFormat)">
@@ -3286,6 +3319,15 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Stride.Graphics.SwapChainGraphicsPresenter.ToSupportedFlipModelFormat(Stride.Graphics.PixelFormat)">
+            <summary>
+            Flip model does not support certain format, this method ensures it is in a supported format.
+            https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-flip-model
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            Will throw if the given format does not have a direct analog supported by the flip model
+            </exception>
+        </member>
         <member name="T:Stride.Graphics.Texture">
             <summary>
             Class used for all Textures (1D, 2D, 3D, DepthStencil, RenderTargets...etc.)
@@ -3676,7 +3718,7 @@
             <param name="arraySlice">The array slice index. This value must be set to 0 for Texture 3D.</param>
             <param name="mipSlice">The mip slice index.</param>
             <param name="doNotWait">if set to <c>true</c> this method will return immediately if the resource is still being used by the GPU for writing. Default is false</param>
-            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <see cref="!:doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
+            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <paramref name="doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
             <remarks>
             This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
             This method creates internally a stagging resource if this texture is not already a stagging resouce, copies to it and map it to memory. Use method with explicit staging resource
@@ -3693,7 +3735,7 @@
             <param name="arraySlice">The array slice index. This value must be set to 0 for Texture 3D.</param>
             <param name="mipSlice">The mip slice index.</param>
             <param name="doNotWait">if set to <c>true</c> this method will return immediately if the resource is still being used by the GPU for writing. Default is false</param>
-            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <see cref="!:doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
+            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <paramref name="doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
             <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
             <remarks>
             This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
@@ -3724,7 +3766,7 @@
             <param name="arraySlice">The array slice index. This value must be set to 0 for Texture 3D.</param>
             <param name="mipSlice">The mip slice index.</param>
             <param name="doNotWait">if set to <c>true</c> this method will return immediately if the resource is still being used by the GPU for writing. Default is false</param>
-            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <see cref="!:doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
+            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <paramref name="doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
             <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
             <remarks>
             This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
@@ -4525,7 +4567,7 @@
         </member>
         <member name="M:Stride.Graphics.Font.FontSystem.#ctor">
             <summary>
-            Create a new instance of <see cref="T:Stride.Graphics.Font.FontSystem" /> base on the provided <see cref="P:Stride.Graphics.Font.FontSystem.GraphicsDevice" />.
+            Create a new instance of <see cref="T:Stride.Graphics.Font.FontSystem" /> base on the provided <see cref="T:Stride.Graphics.GraphicsDevice" />.
             </summary>
         </member>
         <member name="M:Stride.Graphics.Font.FontSystem.Load(Stride.Graphics.GraphicsDevice,Stride.Core.IO.IDatabaseFileProviderService)">
@@ -5272,7 +5314,14 @@
             True if the index buffer is a 32 bit index buffer.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Stride.Graphics.GeometricPrimitives.GeometricPrimitive`1.#ctor(Stride.Graphics.GraphicsDevice,Stride.Graphics.GeometricMeshData{`0})" -->
+        <member name="M:Stride.Graphics.GeometricPrimitives.GeometricPrimitive`1.#ctor(Stride.Graphics.GraphicsDevice,Stride.Graphics.GeometricMeshData{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive`1"/> class.
+            </summary>
+            <param name="graphicsDevice">The graphics device.</param>
+            <param name="geometryMesh">The geometry mesh.</param>
+            <exception cref="T:System.InvalidOperationException">Cannot generate more than 65535 indices on feature level HW &lt;&#61; 9.3</exception>
+        </member>
         <member name="M:Stride.Graphics.GeometricPrimitives.GeometricPrimitive`1.Draw(Stride.Graphics.GraphicsContext,Stride.Rendering.EffectInstance)">
             <summary>
             Draws this <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive" />.
@@ -5703,29 +5752,6 @@
         <member name="P:Stride.Graphics.GraphicsResourceLink.ReferenceCount">
             <summary>
             The number of active reference to this resource.
-            </summary>
-        </member>
-        <member name="T:Stride.Graphics.GraphicsResourceMap">
-            <summary>
-            Structured returned by <see cref="!:GraphicsDeviceContext.Map"/>.
-            </summary>
-        </member>
-        <member name="F:Stride.Graphics.GraphicsResourceMap.DataPointer">
-            <summary>
-            Pointer to the data of the <see cref="T:Stride.Graphics.GraphicsResource"/> being mapped into the CPU memory.
-            </summary>
-            <remarks>
-            If <see cref="T:Stride.Graphics.GraphicsProfile"/> is set to low, data are aligned to 4 bytes else alignment is 16 bytes.
-            </remarks>
-        </member>
-        <member name="F:Stride.Graphics.GraphicsResourceMap.RowPitch">
-            <summary>
-            The row pitch, or width, or physical size (in bytes) of the data.
-            </summary>
-        </member>
-        <member name="F:Stride.Graphics.GraphicsResourceMap.DepthPitch">
-            <summary>
-            The depth pitch, or width, or physical size (in bytes)of the data.
             </summary>
         </member>
         <member name="T:Stride.Graphics.GraphicsResourceRecyclePolicyDelegate">
@@ -6696,6 +6722,13 @@
             </summary>
             <param name="title">Title of the window, see Text property.</param>
         </member>
+        <member name="M:Stride.Graphics.SDL.Window.#ctor(System.String,System.IntPtr)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Graphics.SDL.Window"/> class with <paramref name="title"/> as the title of the Window.
+            </summary>
+            <param name="title">Title of the window, see Text property.</param>
+            <param name="parent">Parent window handle</param>
+        </member>
         <member name="M:Stride.Graphics.SDL.Window.SendToBack">
             <summary>
             Move window to back.
@@ -6800,10 +6833,14 @@
         </member>
         <member name="P:Stride.Graphics.SDL.Window.Handle">
             <summary>
-            Platform specific handle for Window:
-            - On Windows: the HWND of the window
-            - On Unix: the Window ID (XID). Note that on Unix, the value is 32-bit (See X11/X.h for the typedef of XID).
+            Platform specific handle for Window.
             </summary>
+            <remarks>
+            <list type="bullet">
+            <item>On Windows: the HWND of the window</item>
+            <item>On Unix: the Window ID (XID). Note that on Unix, the value is 32-bit (See X11/X.h for the typedef of XID).</item>
+            </list>
+            </remarks>
         </member>
         <member name="P:Stride.Graphics.SDL.Window.Display">
             <summary>
@@ -7841,7 +7878,7 @@
             <dd> <p>Texture width (in texels). The  range is from 1 to <see cref="F:SharpDX.Direct3D11.Resource.MaximumTexture1DSize"/> (16384). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is valid for all textures: <see cref="!:Texture1D"/>, <see cref="!:Texture2D"/>, <see cref="!:Texture3D"/> and <see cref="!:TextureCube"/>.
+            This field is valid for all textures: <see cref="F:Stride.Graphics.TextureDimension.Texture1D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture3D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.TextureDescription.Height">
@@ -7849,7 +7886,7 @@
             <dd> <p>Texture height (in texels). The  range is from 1 to <see cref="F:SharpDX.Direct3D11.Resource.MaximumTexture3DSize"/> (2048). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture2D"/>, <see cref="!:Texture3D"/> and <see cref="!:TextureCube"/>.
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture3D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.TextureDescription.Depth">
@@ -7857,7 +7894,7 @@
             <dd> <p>Texture depth (in texels). The  range is from 1 to <see cref="F:SharpDX.Direct3D11.Resource.MaximumTexture3DSize"/> (2048). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture3D"/>.
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture3D"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.TextureDescription.ArraySize">
@@ -7865,10 +7902,10 @@
             <dd> <p>Number of textures in the array. The  range is from 1 to <see cref="F:SharpDX.Direct3D11.Resource.MaximumTexture1DArraySize"/> (2048). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture1D"/>, <see cref="!:Texture2D"/> and <see cref="!:TextureCube"/>
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture1D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>
             </remarks>
             <remarks>
-            This field is only valid for textures: <see cref="!:Texture1D"/>, <see cref="!:Texture2D"/> and <see cref="!:TextureCube"/>.
+            This field is only valid for textures: <see cref="F:Stride.Graphics.TextureDimension.Texture1D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.TextureDescription.MipLevels">
@@ -8351,6 +8388,38 @@
         <member name="F:Stride.Graphics.UIBatch.UIImageDrawInfo.VertexShift">
             <summary>
             X = Left, Y = Top, Z = Right, W = Bottom
+            </summary>
+        </member>
+        <member name="T:Stride.Graphics.Vertex2DPositionTexture">
+            <summary>
+            Describes a custom vertex format structure that contains position and UV information.
+            </summary>
+        </member>
+        <member name="M:Stride.Graphics.Vertex2DPositionTexture.#ctor(Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2)">
+            <summary>
+            Initializes a new <see cref="T:Stride.Graphics.Vertex2DPositionTexture"/> instance.
+            </summary>
+            <param name="position">The position of this vertex.</param>
+            <param name="textureCoordinate">UV texture coordinates.</param>
+        </member>
+        <member name="F:Stride.Graphics.Vertex2DPositionTexture.Position">
+            <summary>
+            XY position.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.Vertex2DPositionTexture.TextureCoordinate">
+            <summary>
+            UV texture coordinates.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.Vertex2DPositionTexture.Size">
+            <summary>
+            Defines structure byte size.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.Vertex2DPositionTexture.Layout">
+            <summary>
+            The vertex layout of this struct.
             </summary>
         </member>
         <member name="T:Stride.Graphics.VertexBufferBinding">

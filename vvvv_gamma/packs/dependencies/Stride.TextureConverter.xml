@@ -2152,19 +2152,21 @@
         <member name="T:Stride.ConsoleProgram">
             <summary>
             Reusable, reflection based helper for parsing commandline options.
-            Greetings to Shawn Hargreaves, original code http://blogs.msdn.com/b/shawnhar/archive/2012/04/20/a-reusable-reflection-based-command-line-parser.aspx
-            This is a modified version of command line parser that adds:
-            - .NET 2.0 compatible
-            - Allow inheritance to simplify declaration
-            - Print exe banner, using AssemblyTitle and AssemblyCopyright.
-            - Better padding of options, add descriptor and value text overrides.
-            - Add support for - and / starting options.
-            - Remove usage of ":" to separate option from parsed option
-            - Add "&lt;options&gt;" to the Usage when options are defined
-            - Add Console Color handling
             </summary>
             <remarks>
-            This single file is intended to be directly included in the project that needs to handle command line without requiring any SharpDX assembly dependencies.
+            <para>Greetings to Shawn Hargreaves, original code http://blogs.msdn.com/b/shawnhar/archive/2012/04/20/a-reusable-reflection-based-command-line-parser.aspx</para>
+            <para>This is a modified version of command line parser that adds:</para>
+            <list type="bullet">
+            <item>.NET 2.0 compatible</item>item>
+            <item>Allow inheritance to simplify declaration</item>
+            <item>Print exe banner, using AssemblyTitle and AssemblyCopyright.</item>
+            <item>Better padding of options, add descriptor and value text overrides.</item>
+            <item>Add support for - and / starting options.</item>
+            <item>Remove usage of ":" to separate option from parsed option</item>
+            <item>Add "&lt;options&gt;" to the Usage when options are defined</item>
+            <item>Add Console Color handling</item>
+            </list>
+            <para>This single file is intended to be directly included in the project that needs to handle command line without requiring any SharpDX assembly dependencies.</para>
             </remarks>
         </member>
         <member name="M:Stride.ConsoleProgram.GetAssemblyTitle">
@@ -10762,7 +10764,7 @@
         </member>
         <member name="M:FreeImageAPI.MemoryArray`1.#ctor(System.IntPtr,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.MemoryArray`1"/> class. 
+            Initializes a new instance of the <see cref="T:FreeImageAPI.MemoryArray`1"/> class.
             </summary>
             <param name="baseAddress">Address of the memory block.</param>
             <param name="length">Length of the array.</param>
@@ -10775,7 +10777,7 @@
         </member>
         <member name="M:FreeImageAPI.MemoryArray`1.#ctor(System.Void*,System.Int32)">
             <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.MemoryArray`1"/> class. 
+            Initializes a new instance of the <see cref="T:FreeImageAPI.MemoryArray`1"/> class.
             </summary>
             <param name="baseAddress">Address of the memory block.</param>
             <param name="length">Length of the array.</param>
@@ -10999,14 +11001,6 @@
             Serves as a hash function for a particular type.
             </summary>
             <returns>A hash code for the current <see cref="T:FreeImageAPI.MemoryArray`1"/>.</returns>
-        </member>
-        <member name="M:FreeImageAPI.MemoryArray`1.CopyMemory(System.Byte*,System.Byte*,System.Int32)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">Pointer to the starting address of the copy destination.</param>
-            <param name="src">Pointer to the starting address of the block of memory to be copied.</param>
-            <param name="len">Size of the block of memory to copy, in bytes.</param>
         </member>
         <member name="T:FreeImageAPI.Palette">
             <summary>
@@ -14596,7 +14590,7 @@
             background color, the newly created image should initially be filled with.
             <para/>
             Basically, this function internally relies on function <see cref="M:FreeImageAPI.FreeImage.AllocateT(FreeImageAPI.FREE_IMAGE_TYPE,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)"/>, followed by a
-            call to <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/>. This is why both parameters 
+            call to <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/>. This is why both parameters
             <paramref name="color"/> and <paramref name="options"/> behave the same as it is
             documented for function <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/>. So, please refer to the
             documentation of <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/> to learn more about parameters color and options.
@@ -14662,7 +14656,7 @@
             background color, the newly created image should initially be filled with.
             <para/>
             Basically, this function internally relies on function <see cref="M:FreeImageAPI.FreeImage.AllocateT(FreeImageAPI.FREE_IMAGE_TYPE,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32)"/>, followed by a
-            call to <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/>. This is why both parameters 
+            call to <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/>. This is why both parameters
             <paramref name="color"/> and <paramref name="options"/> behave the same as it is
             documented for function <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/>. So, please refer to the
             documentation of <see cref="M:FreeImageAPI.FreeImage.FillBackground``1(FreeImageAPI.FIBITMAP,``0,FreeImageAPI.FREE_IMAGE_COLOR_OPTIONS)"/> to learn more about parameters color and options.
@@ -14766,7 +14760,7 @@
             <param name="pitch">Defines the total width of a scanline in the raw bitmap,
             including padding bytes.</param>
             <param name="bpp">The bit depth (bits per pixel) of the raw bitmap.</param>
-            <param name="redMask">The bit mask describing the bits used to store a single 
+            <param name="redMask">The bit mask describing the bits used to store a single
             pixel's red component in the raw bitmap. This is only applied to 16-bpp raw bitmaps.</param>
             <param name="greenMask">The bit mask describing the bits used to store a single
             pixel's green component in the raw bitmap. This is only applied to 16-bpp raw bitmaps.</param>
@@ -14787,7 +14781,7 @@
             <param name="pitch">Defines the total width of a scanline in the raw bitmap,
             including padding bytes.</param>
             <param name="bpp">The bit depth (bits per pixel) of the raw bitmap.</param>
-            <param name="redMask">The bit mask describing the bits used to store a single 
+            <param name="redMask">The bit mask describing the bits used to store a single
             pixel's red component in the raw bitmap. This is only applied to 16-bpp raw bitmaps.</param>
             <param name="greenMask">The bit mask describing the bits used to store a single
             pixel's green component in the raw bitmap. This is only applied to 16-bpp raw bitmaps.</param>
@@ -15343,7 +15337,7 @@
             Load flags can be provided by the flags parameter.
             </summary>
             <param name="filename">The complete name of the file to load.</param>
-            <param name="format">Format of the image. If the format is unknown use 
+            <param name="format">Format of the image. If the format is unknown use
             <see cref="F:FreeImageAPI.FREE_IMAGE_FORMAT.FIF_UNKNOWN"/>.
             In case a suitable format was found by LoadEx it will be returned in format.</param>
             <param name="flags">Flags to enable or disable plugin-features.</param>
@@ -15370,7 +15364,7 @@
             Load flags can be provided by the flags parameter.
             </summary>
             <param name="stream">The stream to load the bitmap from.</param>
-            <param name="format">Format of the image. If the format is unknown use 
+            <param name="format">Format of the image. If the format is unknown use
             <see cref="F:FreeImageAPI.FREE_IMAGE_FORMAT.FIF_UNKNOWN"/></param>.
             <param name="flags">Flags to enable or disable plugin-features.</param>
             <returns>Handle to a FreeImage multi-paged bitmap.</returns>
@@ -15764,7 +15758,7 @@
             </summary>
             <param name="dib">Handle to a FreeImage bitmap.</param>
             <param name="conversion">The desired output format.</param>
-            <param name="ditherMethod">Dither algorithm when converting 
+            <param name="ditherMethod">Dither algorithm when converting
             with <see cref="F:FreeImageAPI.FREE_IMAGE_COLOR_DEPTH.FICD_01_BPP_DITHER"/>.</param>
             <returns>Handle to a FreeImage bitmap.</returns>
             <exception cref="T:System.ArgumentNullException">
@@ -16207,182 +16201,6 @@
             <param name="length">Specifies the number of bytes to be compared.</param>
             <returns>true, if all bytes compare as equal, false otherwise.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.MoveMemory(System.Void*,System.Void*,System.Int64)">
-            <summary>
-            Moves a block of memory from one location to another.
-            </summary>
-            <param name="dst">A pointer to the starting address of the move destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to be moved.</param>
-            <param name="size">The size of the block of memory to move, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.MoveMemory(System.IntPtr,System.IntPtr,System.UInt32)">
-            <summary>
-            Moves a block of memory from one location to another.
-            </summary>
-            <param name="dst">A pointer to the starting address of the move destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to be moved.</param>
-            <param name="size">The size of the block of memory to move, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.MoveMemory(System.IntPtr,System.IntPtr,System.Int64)">
-            <summary>
-            Moves a block of memory from one location to another.
-            </summary>
-            <param name="dst">A pointer to the starting address of the move destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to be moved.</param>
-            <param name="size">The size of the block of memory to move, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Byte*,System.Byte*,System.Int32)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-            <remarks>
-            <b>CopyMemory</b> runs faster than <see cref="M:FreeImageAPI.FreeImage.MoveMemory(System.Void*,System.Void*,System.UInt32)"/>.
-            However, if both blocks overlap the result is undefined.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Byte*,System.Byte*,System.Int64)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-            <remarks>
-            <b>CopyMemory</b> runs faster than <see cref="M:FreeImageAPI.FreeImage.MoveMemory(System.Void*,System.Void*,System.Int64)"/>.
-            However, if both blocks overlap the result is undefined.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Void*,System.Void*,System.Int64)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-            <remarks>
-            <b>CopyMemory</b> runs faster than <see cref="M:FreeImageAPI.FreeImage.MoveMemory(System.Void*,System.Void*,System.Int64)"/>.
-            However, if both blocks overlap the result is undefined.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Void*,System.Void*,System.Int32)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-            <remarks>
-            <b>CopyMemory</b> runs faster than <see cref="M:FreeImageAPI.FreeImage.MoveMemory(System.Void*,System.Void*,System.UInt32)"/>.
-            However, if both blocks overlap the result is undefined.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.IntPtr,System.IntPtr,System.Int32)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-            <remarks>
-            <b>CopyMemory</b> runs faster than <see cref="M:FreeImageAPI.FreeImage.MoveMemory(System.IntPtr,System.IntPtr,System.UInt32)"/>.
-            However, if both blocks overlap the result is undefined.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.IntPtr,System.IntPtr,System.Int64)">
-            <summary>
-            Copies a block of memory from one location to another.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-            <remarks>
-            <b>CopyMemory</b> runs faster than <see cref="M:FreeImageAPI.FreeImage.MoveMemory(System.IntPtr,System.IntPtr,System.Int64)"/>.
-            However, if both blocks overlap the result is undefined.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Array,System.Void*,System.Int32)">
-            <summary>
-            Copies a block of memory into an array.
-            </summary>
-            <param name="dest">An array used as the destination of the copy process.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Array,System.Void*,System.Int64)">
-            <summary>
-            Copies a block of memory into an array.
-            </summary>
-            <param name="dest">An array used as the destination of the copy process.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Array,System.IntPtr,System.Int32)">
-            <summary>
-            Copies a block of memory into an array.
-            </summary>
-            <param name="dest">An array used as the destination of the copy process.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Array,System.IntPtr,System.Int64)">
-            <summary>
-            Copies a block of memory into an array.
-            </summary>
-            <param name="dest">An array used as the destination of the copy process.</param>
-            <param name="src">A pointer to the starting address of the block of memory to copy.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Void*,System.Array,System.Int32)">
-            <summary>
-            Copies the content of an array to a memory location.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">An array used as the source of the copy process.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Void*,System.Array,System.Int64)">
-            <summary>
-            Copies the content of an array to a memory location.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">An array used as the source of the copy process.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.IntPtr,System.Array,System.Int32)">
-            <summary>
-            Copies the content of an array to a memory location.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">An array used as the source of the copy process.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.IntPtr,System.Array,System.Int64)">
-            <summary>
-            Copies the content of an array to a memory location.
-            </summary>
-            <param name="dest">A pointer to the starting address of the copied block's destination.</param>
-            <param name="src">An array used as the source of the copy process.</param>
-            <param name="len">The size of the block of memory to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Array,System.Array,System.Int32)">
-            <summary>
-            Copies the content of one array into another array.
-            </summary>
-            <param name="dest">An array used as the destination of the copy process.</param>
-            <param name="src">An array used as the source of the copy process.</param>
-            <param name="len">The size of the content to copy, in bytes.</param>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CopyMemory(System.Array,System.Array,System.Int64)">
-            <summary>
-            Copies the content of one array into another array.
-            </summary>
-            <param name="dest">An array used as the destination of the copy process.</param>
-            <param name="src">An array used as the source of the copy process.</param>
-            <param name="len">The size of the content to copy, in bytes.</param>
-        </member>
         <member name="M:FreeImageAPI.FreeImage.GetDC(System.IntPtr)">
             <summary>
             Retrieves a handle to a display device context (DC) for the client area of a specified window
@@ -16471,14 +16289,6 @@
             <param name="uUsage">Specifies the format of the bmiColors member of the
             BITMAPINFO structure - (use 0).</param>
             <returns>0 on failure.</returns>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.MoveMemory(System.Void*,System.Void*,System.UInt32)">
-            <summary>
-            Moves a block of memory from one location to another.
-            </summary>
-            <param name="dst">Pointer to the starting address of the move destination.</param>
-            <param name="src">Pointer to the starting address of the block of memory to be moved.</param>
-            <param name="size">Size of the block of memory to move, in bytes.</param>
         </member>
         <member name="M:FreeImageAPI.FreeImage.RtlCompareMemory(System.Void*,System.Void*,System.UInt32)">
             <summary>

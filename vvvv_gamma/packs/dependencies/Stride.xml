@@ -15,7 +15,9 @@
             </summary>
             <remarks>
             Impact on compilation on other components:
-            - Shaders are compiled in debug mode with debug information.
+            <list type="bullet">
+            <item>Shaders are compiled in debug mode with debug information.</item>
+            </list>
             </remarks>
         </member>
         <member name="F:Stride.CompilationMode.Release">
@@ -24,7 +26,9 @@
             </summary>
             <remarks>
             Impact on compilation on other components:
-            - Shaders are compiled in optimization level 1 with debug information.
+            <list type="bullet">
+            <item>Shaders are compiled in optimization level 1 with debug information.</item>
+            </list>
             </remarks>
         </member>
         <member name="F:Stride.CompilationMode.AppStore">
@@ -33,7 +37,9 @@
             </summary>
             <remarks>
             Impact on compilation on other components:
-            - Shaders are compiled in optimization level 2 with <c>no debug</c> information.
+            <list type="bullet">
+            <item>Shaders are compiled in optimization level 2 with <c>no debug</c> information.</item>
+            </list>
             </remarks>
         </member>
         <member name="F:Stride.CompilationMode.Testing">
@@ -42,7 +48,9 @@
             </summary>
             <remarks>
             Impact on compilation on other components:
-            - Shaders are compiled in debug mode with debug information.
+            <list type="bullet">
+            <item>Shaders are compiled in debug mode with debug information.</item>
+            </list>
             </remarks>
         </member>
         <member name="T:Stride.Rendering.AssemblyEffectKeysAttribute">
@@ -1156,7 +1164,7 @@
             </summary>
             <param name="arrayOrZSliceIndex">For 3D image, the parameter is the Z slice, otherwise it is an index into the texture array.</param>
             <param name="mipmap">The mipmap.</param>
-            <returns>A <see cref="F:Stride.Graphics.Image.pixelBufferArray"/>.</returns>
+            <returns>A <see cref="T:Stride.Graphics.PixelBuffer"/>.</returns>
             <exception cref="T:System.ArgumentException">If arrayOrZSliceIndex or mipmap are out of range.</exception>
         </member>
         <member name="M:Stride.Graphics.Image.GetPixelBuffer(System.Int32,System.Int32,System.Int32)">
@@ -1166,7 +1174,7 @@
             <param name="arrayIndex">Index into the texture array. Must be set to 0 for 3D images.</param>
             <param name="zIndex">Z index for 3D image. Must be set to 0 for all 1D/2D images.</param>
             <param name="mipmap">The mipmap.</param>
-            <returns>A <see cref="F:Stride.Graphics.Image.pixelBufferArray"/>.</returns>
+            <returns>A <see cref="T:Stride.Graphics.PixelBuffer"/>.</returns>
             <exception cref="T:System.ArgumentException">If arrayIndex, zIndex or mipmap are out of range.</exception>
         </member>
         <member name="M:Stride.Graphics.Image.Register(Stride.Graphics.ImageFileType,Stride.Graphics.Image.ImageLoadDelegate,Stride.Graphics.Image.ImageSaveDelegate)">
@@ -1327,22 +1335,22 @@
             <summary>
             Loads an image from an unmanaged memory pointer.
             </summary>
-            <param name="dataBuffer">Pointer to an unmanaged memory. If <see cref="!:makeACopy"/> is false, this buffer must be allocated with <see cref="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)"/>.</param>
+            <param name="dataBuffer">Pointer to an unmanaged memory. If <paramref name="makeACopy"/> is false, this buffer must be allocated with <see cref="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)"/>.</param>
             <param name="makeACopy">True to copy the content of the buffer to a new allocated buffer, false otherwise.</param>
             <param name="loadAsSRGB">Indicate if the image should be loaded as an sRGB texture</param>
             <returns>An new image.</returns>
-            <remarks>If <see cref="!:makeACopy"/> is set to false, the returned image is now the holder of the unmanaged pointer and will release it on Dispose. </remarks>
+            <remarks>If <paramref name="makeACopy"/> is set to false, the returned image is now the holder of the unmanaged pointer and will release it on Dispose. </remarks>
         </member>
         <member name="M:Stride.Graphics.Image.Load(System.IntPtr,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Loads an image from an unmanaged memory pointer.
             </summary>
-            <param name="dataPointer">Pointer to an unmanaged memory. If <see cref="!:makeACopy"/> is false, this buffer must be allocated with <see cref="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)"/>.</param>
+            <param name="dataPointer">Pointer to an unmanaged memory. If <paramref name="makeACopy"/> is false, this buffer must be allocated with <see cref="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)"/>.</param>
             <param name="dataSize">Size of the unmanaged buffer.</param>
             <param name="makeACopy">True to copy the content of the buffer to a new allocated buffer, false otherwise.</param>
             <param name="loadAsSRGB">Indicate if the image should be loaded as an sRGB texture</param>
             <returns>An new image.</returns>
-            <remarks>If <see cref="!:makeACopy"/> is set to false, the returned image is now the holder of the unmanaged pointer and will release it on Dispose. </remarks>
+            <remarks>If <paramref name="makeACopy"/> is set to false, the returned image is now the holder of the unmanaged pointer and will release it on Dispose. </remarks>
         </member>
         <member name="M:Stride.Graphics.Image.Load(System.Byte[],System.Boolean)">
             <summary>
@@ -1431,7 +1439,7 @@
         </member>
         <member name="M:Stride.Graphics.Image.SetupImageArray(System.IntPtr,System.Int32,System.Int32,Stride.Graphics.ImageDescription,Stride.Graphics.Image.PitchFlags,Stride.Graphics.PixelBuffer[])">
             <summary>
-            Allocates PixelBuffers 
+            Allocates PixelBuffers
             </summary>
             <param name="buffer"></param>
             <param name="pixelSize"></param>
@@ -1454,7 +1462,7 @@
             <dd> <p>Texture width (in texels). The  range is from 1 to <see cref="!:SharpDX.Direct3D11.Resource.MaximumTexture1DSize"/> (16384). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is valid for all textures: <see cref="!:Texture1D"/>, <see cref="!:Texture2D"/>, <see cref="!:Texture3D"/> and <see cref="!:TextureCube"/>.
+            This field is valid for all textures: <see cref="F:Stride.Graphics.TextureDimension.Texture1D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture3D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.ImageDescription.Height">
@@ -1462,7 +1470,7 @@
             <dd> <p>Texture height (in texels). The  range is from 1 to <see cref="!:SharpDX.Direct3D11.Resource.MaximumTexture3DSize"/> (2048). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture2D"/>, <see cref="!:Texture3D"/> and <see cref="!:TextureCube"/>.
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture3D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.ImageDescription.Depth">
@@ -1470,7 +1478,7 @@
             <dd> <p>Texture depth (in texels). The  range is from 1 to <see cref="!:SharpDX.Direct3D11.Resource.MaximumTexture3DSize"/> (2048). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture3D"/>.
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture3D"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.ImageDescription.ArraySize">
@@ -1478,10 +1486,10 @@
             <dd> <p>Number of textures in the array. The  range is from 1 to <see cref="!:SharpDX.Direct3D11.Resource.MaximumTexture1DArraySize"/> (2048). However, the range is actually constrained by the feature level at which you create the rendering device. For more information about restrictions, see Remarks.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture1D"/>, <see cref="!:Texture2D"/> and <see cref="!:TextureCube"/>
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture1D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>
             </remarks>
             <remarks>
-            This field is only valid for textures: <see cref="!:Texture1D"/>, <see cref="!:Texture2D"/> and <see cref="!:TextureCube"/>.
+            This field is only valid for textures: <see cref="F:Stride.Graphics.TextureDimension.Texture1D"/>, <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/> and <see cref="F:Stride.Graphics.TextureDimension.TextureCube"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.ImageDescription.MipLevels">
@@ -1814,7 +1822,7 @@
             <returns>Scanline pixels from the buffer</returns>
             <exception cref="T:System.ArgumentException">If the sizeof(T) is an invalid size</exception>
             <remarks>
-            This method is working on a row basis. The <see cref="!:yOffset"/> is specifying the first row to get 
+            This method is working on a row basis. The <paramref name="yOffset"/> is specifying the first row to get 
             the pixels from.
             </remarks>
         </member>
@@ -1828,7 +1836,7 @@
             <returns>Scanline pixels from the buffer</returns>
             <exception cref="T:System.ArgumentException">If the sizeof(T) is an invalid size</exception>
             <remarks>
-            This method is working on a row basis. The <see cref="!:yOffset"/> is specifying the first row to get 
+            This method is working on a row basis. The <paramref name="yOffset"/> is specifying the first row to get 
             the pixels from.
             </remarks>
         </member>
@@ -1839,11 +1847,11 @@
             <typeparam name="T">Type of the pixel data</typeparam>
             <param name="pixels">An allocated scanline pixel buffer</param>
             <param name="yOffset">The y line offset.</param>
-            <param name="pixelIndex">Offset into the destination <see cref="!:pixels"/> buffer.</param>
-            <param name="pixelCount">Number of pixels to write into the destination <see cref="!:pixels"/> buffer.</param>
+            <param name="pixelIndex">Offset into the destination <paramref name="pixels"/> buffer.</param>
+            <param name="pixelCount">Number of pixels to write into the destination <paramref name="pixels"/> buffer.</param>
             <exception cref="T:System.ArgumentException">If the sizeof(T) is an invalid size</exception>
             <remarks>
-            This method is working on a row basis. The <see cref="!:yOffset"/> is specifying the first row to get 
+            This method is working on a row basis. The <paramref name="yOffset"/> is specifying the first row to get 
             the pixels from.
             </remarks>
         </member>
@@ -1856,7 +1864,7 @@
             <param name="yOffset">The y line offset.</param>
             <exception cref="T:System.ArgumentException">If the sizeof(T) is an invalid size</exception>
             <remarks>
-            This method is working on a row basis. The <see cref="!:yOffset"/> is specifying the first row to get 
+            This method is working on a row basis. The <paramref name="yOffset"/> is specifying the first row to get 
             the pixels from.
             </remarks>
         </member>
@@ -1867,11 +1875,11 @@
             <typeparam name="T">Type of the pixel data</typeparam>
             <param name="sourcePixels">Source pixel buffer</param>
             <param name="yOffset">The y line offset.</param>
-            <param name="pixelIndex">Offset into the source <see cref="!:sourcePixels"/> buffer.</param>
-            <param name="pixelCount">Number of pixels to write into the source <see cref="!:sourcePixels"/> buffer.</param>
+            <param name="pixelIndex">Offset into the source <paramref name="sourcePixels"/> buffer.</param>
+            <param name="pixelCount">Number of pixels to write into the source <paramref name="sourcePixels"/> buffer.</param>
             <exception cref="T:System.ArgumentException">If the sizeof(T) is an invalid size</exception>
             <remarks>
-            This method is working on a row basis. The <see cref="!:yOffset"/> is specifying the first row to get 
+            This method is working on a row basis. The <paramref name="yOffset"/> is specifying the first row to get 
             the pixels from.
             </remarks>
         </member>

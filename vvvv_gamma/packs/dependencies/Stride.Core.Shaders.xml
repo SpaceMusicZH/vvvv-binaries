@@ -5896,12 +5896,17 @@
         </member>
         <member name="T:Stride.Core.Shaders.Convertor.HlslToGlslConvertor">
             <summary>
-            HLSL to GLSL conversion requires several steps:
-            - Replace input/output structure access by varying variables.
-            - Replace common types such as float4 =&gt; vec4.
-            - Change main signature.
-            - Convert return statements into GLSL out assignments.
+            A converter for transforming HLSL into GLSL.
             </summary>
+            <remarks>
+            HLSL to GLSL conversion requires several steps:
+            <list type="bullet">
+            <item>Replace input/output structure access by varying variables.</item>
+            <item>Replace common types such as float4 =&gt; vec4.</item>
+            <item>Change main signature.</item>
+            <item>Convert return statements into GLSL out assignments.</item>
+            </list>
+            </remarks>
         </member>
         <member name="M:Stride.Core.Shaders.Convertor.HlslToGlslConvertor.#ctor(Stride.Core.Shaders.Convertor.GlslShaderPlatform,System.Int32,System.String,Stride.Core.Shaders.Convertor.PipelineStage,Stride.Core.Shaders.Convertor.ShaderModel,System.Boolean)">
             <summary>

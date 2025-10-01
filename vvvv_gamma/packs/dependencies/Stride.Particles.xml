@@ -736,7 +736,15 @@
             Adds the required control group field to the parent emitter's pool
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Stride.Particles.Initializers.ParticleInitializer.Initialize(Stride.Particles.ParticlePool,System.Int32,System.Int32,System.Int32)" -->
+        <member name="M:Stride.Particles.Initializers.ParticleInitializer.Initialize(Stride.Particles.ParticlePool,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Override Initialize if your module acts as an Initializer and change its type to Initializer
+            </summary>
+            <param name="pool">Particle pool to target</param>
+            <param name="startIdx">Starting index (included from the array)</param>
+            <param name="endIdx">End index (excluded from the array)</param>
+            <param name="maxCapacity">Max pool capacity (loops after this point) so that it's possible for (endIdx &lt; startIdx)</param>
+        </member>
         <member name="T:Stride.Particles.Initializers.SpawnOrderConst">
             <summary>
             Spawn order can be additionally subdivided in groups
@@ -764,7 +772,7 @@
         </member>
         <member name="M:Stride.Particles.Materials.ParticleMaterial.PrepareVertexLayout(Stride.Particles.ParticlePoolFieldsList)">
             <summary>
-            Prepares the material for drawing the current frame with the current <see cref="T:Stride.Particles.VertexLayouts.ParticleVertexBuilder"/> and <see cref="!:ParticleSorter"/>
+            Prepares the material for drawing the current frame with the current <see cref="T:Stride.Particles.VertexLayouts.ParticleVertexBuilder"/> and <see cref="T:Stride.Particles.Sorters.ParticleList"/>
             </summary>
             <param name="fieldsList">A container for the <see cref="T:Stride.Particles.ParticlePool"/> which can poll if a certain field exists as an attribute</param>
         </member>
@@ -924,7 +932,7 @@
             (base texture coordinates may differ depending on the actual shape)
             </summary>
             <param name="bufferState">The particle buffer state which is used to build the assigned vertex buffer</param>
-            <param name="sorter"><see cref="!:ParticleSorter"/> to use to iterate over all particles drawn this frame</param>
+            <param name="sorter"><see cref="T:Stride.Particles.Sorters.ParticleList"/> to use to iterate over all particles drawn this frame</param>
             <param name="texCoordsDescription">Attribute description of the texture coordinates in the current vertex layout</param>
         </member>
         <member name="T:Stride.Particles.Materials.UVBuilderFlipbook">
@@ -1244,7 +1252,7 @@
         </member>
         <member name="F:Stride.Particles.ParticleEmitter.Initializers">
             <summary>
-            List of <see cref="T:Stride.Particles.Initializers.ParticleInitializer"/> within thie <see cref="T:Stride.Particles.ParticleEmitter"/>. Adjust <see cref="F:Stride.Particles.ParticleEmitter.requiredFields"/> automatically
+            List of <see cref="T:Stride.Particles.Initializers.ParticleInitializer"/> within this <see cref="T:Stride.Particles.ParticleEmitter"/>. Adjusts the required fields automatically.
             </summary>
             <userdoc>
             Initializers set initial values for fields of particles which just spawned. Have no effect on already-spawned particles.
@@ -1252,7 +1260,7 @@
         </member>
         <member name="F:Stride.Particles.ParticleEmitter.Updaters">
             <summary>
-            List of <see cref="T:Stride.Particles.Modules.ParticleUpdater"/> within thie <see cref="T:Stride.Particles.ParticleEmitter"/>. Adjust <see cref="F:Stride.Particles.ParticleEmitter.requiredFields"/> automatically
+            List of <see cref="T:Stride.Particles.Modules.ParticleUpdater"/> within this <see cref="T:Stride.Particles.ParticleEmitter"/>. Adjusts the required fields automatically.
             </summary>
             <userdoc>
             Updaters change the fields of all living particles every frame, like position, velocity, color, size etc.
@@ -1555,7 +1563,13 @@
             In case of stack list the <see cref="P:Stride.Particles.ParticlePool.NextFreeIndex"/> equals the number of living particles in the pool.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Particles.ParticlePool.ParticleSize" -->
+        <member name="P:Stride.Particles.ParticlePool.ParticleSize">
+            <summary>
+            Returns the size of a single <see cref="T:Stride.Particles.Particle"/>.
+            If PARTICLES_SOA is defined, the size of the <see cref="T:Stride.Particles.Particle"/> is the sum of all field strides.
+            Otherwise, the size of the <see cref="T:Stride.Particles.Particle"/> is the pool's stride.
+            </summary>
+        </member>
         <member name="P:Stride.Particles.ParticlePool.AvailableParticles">
             <summary>
             Gets how many more particles can be spawned

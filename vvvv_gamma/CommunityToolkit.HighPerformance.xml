@@ -165,11 +165,6 @@
             <param name="initialCapacity">The minimum capacity with which to initialize the underlying buffer.</param>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="initialCapacity"/> is not valid.</exception>
         </member>
-        <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.Finalize">
-            <summary>
-            Finalizes an instance of the <see cref="T:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1"/> class.
-            </summary>
-        </member>
         <member name="P:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.System#Buffers#IMemoryOwner{T}#Memory">
             <inheritdoc/>
         </member>
@@ -200,6 +195,25 @@
         <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.GetSpan(System.Int32)">
             <inheritdoc/>
         </member>
+        <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.DangerousGetArray">
+            <summary>
+            Gets an <see cref="T:System.ArraySegment`1"/> instance wrapping the underlying <typeparamref name="T"/> array in use.
+            </summary>
+            <returns>An <see cref="T:System.ArraySegment`1"/> instance wrapping the underlying <typeparamref name="T"/> array in use.</returns>
+            <exception cref="T:System.ObjectDisposedException">Thrown when the buffer in use has already been disposed.</exception>
+            <remarks>
+            This method is meant to be used when working with APIs that only accept an array as input, and should be used with caution.
+            In particular, the returned array is rented from an array pool, and it is responsibility of the caller to ensure that it's
+            not used after the current <see cref="T:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1"/> instance is disposed. Doing so is considered undefined
+            behavior, as the same array might be in use within another <see cref="T:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1"/> instance.
+            </remarks>
+        </member>
+        <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.ToString">
+            <inheritdoc/>
+        </member>
         <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.CheckBufferAndEnsureCapacity(System.Int32)">
             <summary>
             Ensures that <see cref="F:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.array"/> has enough free space to contain a given number of new items.
@@ -211,12 +225,6 @@
             Resizes <see cref="F:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.array"/> to ensure it can fit the specified number of new items.
             </summary>
             <param name="sizeHint">The minimum number of items to ensure space for in <see cref="F:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.array"/>.</param>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.Dispose">
-            <inheritdoc/>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.ToString">
-            <inheritdoc/>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Buffers.ArrayPoolBufferWriter`1.ThrowArgumentOutOfRangeExceptionForNegativeCount">
             <summary>
@@ -633,11 +641,6 @@
             <param name="length">The length of the array to use.</param>
             <param name="pool">The <see cref="T:System.Buffers.ArrayPool`1"/> instance currently in use.</param>
             <param name="array">The input <typeparamref name="T"/> array to use.</param>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.Buffers.MemoryOwner`1.Finalize">
-            <summary>
-            Finalizes an instance of the <see cref="T:CommunityToolkit.HighPerformance.Buffers.MemoryOwner`1"/> class.
-            </summary>
         </member>
         <member name="P:CommunityToolkit.HighPerformance.Buffers.MemoryOwner`1.Empty">
             <summary>
@@ -1204,24 +1207,21 @@
             </summary>
             <typeparam name="T">The type of items to enumerate.</typeparam>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.span">
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.reference">
             <summary>
-            The <see cref="T:System.ReadOnlySpan`1"/> instance pointing to the first item in the target memory area.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1"/> instance.
             </summary>
-            <remarks>The <see cref="P:System.ReadOnlySpan`1.Length"/> field maps to the total available length.</remarks>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.length">
+            <summary>
+            The length of the current sequence.
+            </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.step">
             <summary>
             The distance between items in the sequence to enumerate.
             </summary>
             <remarks>The distance refers to <typeparamref name="T"/> items, not byte offset.</remarks>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.#ctor(System.ReadOnlySpan{`0},System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1"/> struct.
-            </summary>
-            <param name="span">The <see cref="T:System.ReadOnlySpan`1"/> instance pointing to the first item in the target memory area.</param>
-            <param name="step">The distance between items in the sequence to enumerate.</param>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.#ctor(`0@,System.Int32,System.Int32)">
             <summary>
@@ -1315,8 +1315,11 @@
             A custom enumerator type to traverse items within a <see cref="T:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1"/> instance.
             </summary>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.span">
-            <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.span"/>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.reference">
+            <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.reference"/>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.length">
+            <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.length"/>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.step">
             <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.step"/>
@@ -1326,11 +1329,12 @@
             The current position in the sequence.
             </summary>
         </member>
-        <member name="M:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.#ctor(System.ReadOnlySpan{`0},System.Int32)">
+        <member name="M:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.#ctor(`0@,System.Int32,System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator"/> struct.
             </summary>
-            <param name="span">The <see cref="T:System.ReadOnlySpan`1"/> instance with the info on the items to traverse.</param>
+            <param name="reference">The <typeparamref name="T"/> reference to the first item of the sequence.</param>
+            <param name="length">The length of the sequence.</param>
             <param name="step">The distance between items in the sequence to enumerate.</param>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Enumerables.ReadOnlyRefEnumerable`1.Enumerator.MoveNext">
@@ -1398,9 +1402,14 @@
             An item from a source <see cref="T:System.Span`1"/> instance.
             </summary>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlySpanEnumerable`1.Item.span">
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlySpanEnumerable`1.Item.reference">
             <summary>
-            The source <see cref="T:System.ReadOnlySpan`1"/> instance.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.ReadOnlySpanEnumerable`1.Item"/> instance.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.ReadOnlySpanEnumerable`1.Item.index">
+            <summary>
+            The index of the current <see cref="T:CommunityToolkit.HighPerformance.Enumerables.ReadOnlySpanEnumerable`1.Item"/> instance.
             </summary>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Enumerables.ReadOnlySpanEnumerable`1.Item.#ctor(`0@,System.Int32)">
@@ -1476,11 +1485,15 @@
             </summary>
             <typeparam name="T">The type of items to enumerate.</typeparam>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Span">
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Reference">
             <summary>
-            The <see cref="T:System.Span`1"/> instance pointing to the first item in the target memory area.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1"/> instance.
             </summary>
-            <remarks>The <see cref="P:System.Span`1.Length"/> field maps to the total available length.</remarks>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.length">
+            <summary>
+            The length of the current sequence.
+            </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Step">
             <summary>
@@ -1608,8 +1621,11 @@
             A custom enumerator type to traverse items within a <see cref="T:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1"/> instance.
             </summary>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.span">
-            <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Span"/>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.reference">
+            <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Reference"/>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.length">
+            <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.length"/>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.step">
             <inheritdoc cref="F:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Step"/>
@@ -1619,11 +1635,12 @@
             The current position in the sequence.
             </summary>
         </member>
-        <member name="M:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.#ctor(System.Span{`0},System.Int32)">
+        <member name="M:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.#ctor(`0@,System.Int32,System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator"/> struct.
             </summary>
-            <param name="span">The <see cref="T:System.Span`1"/> instance with the info on the items to traverse.</param>
+            <param name="reference">The <typeparamref name="T"/> reference to the first item of the sequence.</param>
+            <param name="length">The length of the sequence.</param>
             <param name="step">The distance between items in the sequence to enumerate.</param>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Enumerables.RefEnumerable`1.Enumerator.MoveNext">
@@ -1691,9 +1708,14 @@
             An item from a source <see cref="T:System.Span`1"/> instance.
             </summary>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Enumerables.SpanEnumerable`1.Item.span">
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.SpanEnumerable`1.Item.reference">
             <summary>
-            The source <see cref="T:System.Span`1"/> instance.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.Enumerables.SpanEnumerable`1.Item"/> instance.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Enumerables.SpanEnumerable`1.Item.index">
+            <summary>
+            The index of the current <see cref="T:CommunityToolkit.HighPerformance.Enumerables.SpanEnumerable`1.Item"/> instance.
             </summary>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Enumerables.SpanEnumerable`1.Item.#ctor(`0@,System.Int32)">
@@ -2299,7 +2321,7 @@
             <typeparam name="T">The type of value to write.</typeparam>
             <param name="writer">The target <see cref="T:System.Buffers.IBufferWriter`1"/> instance to write to.</param>
             <param name="value">The input value to write to <paramref name="writer"/>.</param>
-            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="writer"/> reaches the end.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="writer"/> reaches the end.</exception>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.IBufferWriterExtensions.Write``1(System.Buffers.IBufferWriter{``0},``0)">
             <summary>
@@ -2308,7 +2330,7 @@
             <typeparam name="T">The type of value to write.</typeparam>
             <param name="writer">The target <see cref="T:System.Buffers.IBufferWriter`1"/> instance to write to.</param>
             <param name="value">The input value to write to <paramref name="writer"/>.</param>
-            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="writer"/> reaches the end.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="writer"/> reaches the end.</exception>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.IBufferWriterExtensions.Write``1(System.Buffers.IBufferWriter{System.Byte},System.ReadOnlySpan{``0})">
             <summary>
@@ -2317,7 +2339,7 @@
             <typeparam name="T">The type of value to write.</typeparam>
             <param name="writer">The target <see cref="T:System.Buffers.IBufferWriter`1"/> instance to write to.</param>
             <param name="span">The input <see cref="T:System.ReadOnlySpan`1"/> to write to <paramref name="writer"/>.</param>
-            <exception cref="T:System.ArgumentOutOfRangeException">Thrown if <paramref name="writer"/> reaches the end.</exception>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="writer"/> reaches the end.</exception>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.IBufferWriterExtensions.ThrowArgumentExceptionForEndOfBuffer">
             <summary>
@@ -2463,13 +2485,6 @@
             <param name="value">The <see cref="T:System.Nullable`1"/>.</param>
             <returns>A reference to the value of the input <see cref="T:System.Nullable`1"/> instance, or a <see langword="null"/> <typeparamref name="T"/> reference.</returns>
             <remarks>The returned reference can be tested for <see langword="null"/> using <see cref="M:System.Runtime.CompilerServices.Unsafe.IsNullRef``1(``0@)"/>.</remarks>
-        </member>
-        <member name="T:CommunityToolkit.HighPerformance.NullableExtensions.RawNullableData`1">
-            <summary>
-            Mapping type that reflects the internal layout of the <see cref="T:System.Nullable`1"/> type.
-            See https://github.com/dotnet/runtime/blob/master/src/libraries/System.Private.CoreLib/src/System/Nullable.cs.
-            </summary>
-            <typeparam name="T">The value type wrapped by the current instance.</typeparam>
         </member>
         <member name="T:CommunityToolkit.HighPerformance.ReadOnlyMemoryExtensions">
             <summary>
@@ -3030,7 +3045,7 @@
         </member>
         <member name="F:CommunityToolkit.HighPerformance.SpinLockExtensions.Lock.spinLock">
             <summary>
-            The <see cref="T:CommunityToolkit.HighPerformance.Ref`1"/> instance pointing to the target <see cref="T:System.Threading.SpinLock"/> value to use.
+            The reference to the target <see cref="T:System.Threading.SpinLock"/> value to use.
             </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.SpinLockExtensions.Lock.lockTaken">
@@ -3094,7 +3109,7 @@
             <typeparam name="T">The type of value to read.</typeparam>
             <param name="stream">The source <see cref="T:System.IO.Stream"/> instance to read from.</param>
             <returns>The <typeparamref name="T"/> value read from <paramref name="stream"/>.</returns>
-            <exception cref="T:System.InvalidOperationException">Thrown if <paramref name="stream"/> reaches the end.</exception>
+            <exception cref="T:System.IO.EndOfStreamException">Thrown if <paramref name="stream"/> reaches the end.</exception>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.StreamExtensions.Write``1(System.IO.Stream,``0@)">
             <summary>
@@ -3103,11 +3118,6 @@
             <typeparam name="T">The type of value to write.</typeparam>
             <param name="stream">The target <see cref="T:System.IO.Stream"/> instance to write to.</param>
             <param name="value">The input value to write to <paramref name="stream"/>.</param>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.StreamExtensions.ThrowInvalidOperationExceptionForEndOfStream">
-            <summary>
-            Throws an <see cref="T:System.InvalidOperationException"/> when <see cref="M:CommunityToolkit.HighPerformance.StreamExtensions.Read``1(System.IO.Stream)"/> fails.
-            </summary>
         </member>
         <member name="T:CommunityToolkit.HighPerformance.StringExtensions">
             <summary>
@@ -3452,7 +3462,7 @@
             hashing the same <see cref="T:System.ReadOnlySpan`1"/> collection multiple times in the same process will always
             result in the same hash code, while the same collection being hashed again from another process
             (or another instance of the same process) is not guaranteed to result in the same final value.
-            For more info, see <see href="https://docs.microsoft.com/en-us/dotnet/api/system.object.gethashcode#remarks"/>.
+            For more info, see <see href="https://learn.microsoft.com/en-us/dotnet/api/system.object.gethashcode#remarks"/>.
             </remarks>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Helpers.HashCode`1.Combine(System.ReadOnlySpan{`0})">
@@ -4433,7 +4443,7 @@
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Memory2D`1.offset">
             <summary>
-            The initial offset within <see cref="F:CommunityToolkit.HighPerformance.Memory2D`1.instance"/>.
+            The initial byte offset within <see cref="F:CommunityToolkit.HighPerformance.Memory2D`1.instance"/>.
             </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Memory2D`1.height">
@@ -4667,11 +4677,12 @@
             <param name="column">The target column to map within the current instance.</param>
             <param name="height">The height to map within the current instance.</param>
             <param name="width">The width to map within the current instance.</param>
-            <exception cref="T:System.ArgumentException">
+            <exception cref="T:System.ArgumentOutOfRangeException">
             Thrown when either <paramref name="height"/>, <paramref name="width"/> or <paramref name="height"/>
             are negative or not within the bounds that are valid for the current instance.
             </exception>
             <returns>A new <see cref="T:CommunityToolkit.HighPerformance.Memory2D`1"/> instance representing a slice of the current one.</returns>
+            <remarks>See additional remarks in the <see cref="M:CommunityToolkit.HighPerformance.Span2D`1.Slice(System.Int32,System.Int32,System.Int32,System.Int32)"/> docs.</remarks>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Memory2D`1.CopyTo(System.Memory{`0})">
             <summary>
@@ -4761,7 +4772,7 @@
         </member>
         <member name="F:CommunityToolkit.HighPerformance.ReadOnlyMemory2D`1.offset">
             <summary>
-            The initial offset within <see cref="F:CommunityToolkit.HighPerformance.ReadOnlyMemory2D`1.instance"/>.
+            The initial byte offset within <see cref="F:CommunityToolkit.HighPerformance.ReadOnlyMemory2D`1.instance"/>.
             </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.ReadOnlyMemory2D`1.height">
@@ -5005,11 +5016,12 @@
             <param name="column">The target column to map within the current instance.</param>
             <param name="height">The height to map within the current instance.</param>
             <param name="width">The width to map within the current instance.</param>
-            <exception cref="T:System.ArgumentException">
+            <exception cref="T:System.ArgumentOutOfRangeException">
             Thrown when either <paramref name="height"/>, <paramref name="width"/> or <paramref name="height"/>
             are negative or not within the bounds that are valid for the current instance.
             </exception>
             <returns>A new <see cref="T:CommunityToolkit.HighPerformance.ReadOnlyMemory2D`1"/> instance representing a slice of the current one.</returns>
+            <remarks>See additional remarks in the <see cref="M:CommunityToolkit.HighPerformance.Span2D`1.Slice(System.Int32,System.Int32,System.Int32,System.Int32)"/> docs.</remarks>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.ReadOnlyMemory2D`1.CopyTo(System.Memory{`0})">
             <summary>
@@ -5098,9 +5110,14 @@
             <typeparam name="T">The type of items in the current <see cref="T:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1"/> instance.</typeparam>
             <inheritdoc/>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.span">
+        <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.reference">
             <summary>
-            The <see cref="T:System.ReadOnlySpan`1"/> instance pointing to the first item in the target memory area.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1"/> instance.
+            </summary>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.height">
+            <summary>
+            The height of the specified 2D region.
             </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.width">
@@ -5360,11 +5377,12 @@
             <param name="column">The target column to map within the current instance.</param>
             <param name="height">The height to map within the current instance.</param>
             <param name="width">The width to map within the current instance.</param>
-            <exception cref="T:System.ArgumentException">
+            <exception cref="T:System.ArgumentOutOfRangeException">
             Thrown when either <paramref name="height"/>, <paramref name="width"/> or <paramref name="height"/>
             are negative or not within the bounds that are valid for the current instance.
             </exception>
             <returns>A new <see cref="T:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1"/> instance representing a slice of the current one.</returns>
+            <remarks>See additional remarks in the <see cref="M:CommunityToolkit.HighPerformance.Span2D`1.Slice(System.Int32,System.Int32,System.Int32,System.Int32)"/> docs.</remarks>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.GetRowSpan(System.Int32)">
             <summary>
@@ -5453,11 +5471,15 @@
             Provides an enumerator for the elements of a <see cref="T:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1"/> instance.
             </summary>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.Enumerator.span">
+        <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.Enumerator.reference">
             <summary>
-            The <see cref="T:System.ReadOnlySpan`1"/> instance pointing to the first item in the target memory area.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1"/> instance.
             </summary>
-            <remarks>Just like in <see cref="T:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1"/>, the length is the height of the 2D region.</remarks>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.Enumerator.height">
+            <summary>
+            The height of the specified 2D region.
+            </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.ReadOnlySpan2D`1.Enumerator.width">
             <summary>
@@ -5508,14 +5530,15 @@
             <typeparam name="T">The type of items in the current <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> instance.</typeparam>
             <inheritdoc/>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Span2D`1.span">
+        <member name="F:CommunityToolkit.HighPerformance.Span2D`1.reference">
             <summary>
-            The <see cref="T:System.Span`1"/> instance pointing to the first item in the target memory area.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> instance.
             </summary>
-            <remarks>
-            The <see cref="P:System.Span`1.Length"/> field maps to the height of the 2D region.
-            This is done to save 4 bytes in the layout of the <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> type.
-            </remarks>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Span2D`1.height">
+            <summary>
+            The height of the specified 2D region.
+            </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Span2D`1.width">
             <summary>
@@ -5807,11 +5830,34 @@
             <param name="column">The target column to map within the current instance.</param>
             <param name="height">The height to map within the current instance.</param>
             <param name="width">The width to map within the current instance.</param>
-            <exception cref="T:System.ArgumentException">
+            <exception cref="T:System.ArgumentOutOfRangeException">
             Thrown when either <paramref name="height"/>, <paramref name="width"/> or <paramref name="height"/>
             are negative or not within the bounds that are valid for the current instance.
             </exception>
             <returns>A new <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> instance representing a slice of the current one.</returns>
+            <remarks>
+            <para>
+            Contrary to <see cref="M:System.Span`1.Slice(System.Int32,System.Int32)"/>, this method will throw an <see cref="T:System.ArgumentOutOfRangeException"/>
+            if attempting to perform a slice operation that would result in either axes being 0. That is, trying to call
+            <see cref="M:CommunityToolkit.HighPerformance.Span2D`1.Slice(System.Int32,System.Int32,System.Int32,System.Int32)"/> as eg. <c>Slice(row: 1, column: 0, height: 0, width: 2)</c> on an instance
+            that has 1 row and 2 columns will throw, rather than returning a new <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> instance with 0 rows and
+            2 columns. For contrast, trying to eg. call <c>Slice(start: 1, length: 0)</c> on a <see cref="T:System.Span`1"/> instance of
+            length 1 would return a span of length 0, with the internal reference being set to right past the end of the memory.
+            </para>
+            <para>
+            This is by design, and it is due to the internal memory layout that <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> has. That is, in the case
+            of <see cref="T:System.Span`1"/>, the only edge case scenario would be to obtain a new span of size 0, referencing the very end
+            of the backing object (eg. an array or a <see cref="T:System.String"/> instance). In that case, the GC can correctly track things.
+            With <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/>, on the other hand, it would be possible to slice an instance with a sizeof 0 in either axis,
+            but with the computed starting reference pointing well past the end of the internal memory area. Such a behavior would not
+            be valid if the reference was pointing to a managed object, and it would cause memory corruptions (ie. "GC holes").
+            </para>
+            <para>
+            If you specifically need to be able to obtain empty values from slicing past the valid range, consider performing the range
+            validation yourself (ie. through some helper method), and then only invoking <see cref="M:CommunityToolkit.HighPerformance.Span2D`1.Slice(System.Int32,System.Int32,System.Int32,System.Int32)"/> once the
+            parameters are in the accepted range. Otherwise, consider returning another return explicitly, such as <see cref="P:CommunityToolkit.HighPerformance.Span2D`1.Empty"/>.
+            </para>
+            </remarks>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Span2D`1.GetRowSpan(System.Int32)">
             <summary>
@@ -5894,11 +5940,15 @@
             Provides an enumerator for the elements of a <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> instance.
             </summary>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Span2D`1.Enumerator.span">
+        <member name="F:CommunityToolkit.HighPerformance.Span2D`1.Enumerator.reference">
             <summary>
-            The <see cref="T:System.Span`1"/> instance pointing to the first item in the target memory area.
+            The <typeparamref name="T"/> reference for the <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/> instance.
             </summary>
-            <remarks>Just like in <see cref="T:CommunityToolkit.HighPerformance.Span2D`1"/>, the length is the height of the 2D region.</remarks>
+        </member>
+        <member name="F:CommunityToolkit.HighPerformance.Span2D`1.Enumerator.height">
+            <summary>
+            The height of the specified 2D region.
+            </summary>
         </member>
         <member name="F:CommunityToolkit.HighPerformance.Span2D`1.Enumerator.width">
             <summary>
@@ -5943,9 +5993,9 @@
             </summary>
             <typeparam name="T">The type of value to reference.</typeparam>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1.span">
+        <member name="F:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1.value">
             <summary>
-            The 1-length <see cref="T:System.ReadOnlySpan`1"/> instance used to track the target <typeparamref name="T"/> value.
+            The reference to the target <typeparamref name="T"/> value.
             </summary>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1.#ctor(`0@)">
@@ -5953,12 +6003,6 @@
             Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1"/> struct.
             </summary>
             <param name="value">The readonly reference to the target <typeparamref name="T"/> value.</param>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1.#ctor(System.ReadOnlySpan{`0})">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1"/> struct.
-            </summary>
-            <param name="span">The <see cref="T:System.ReadOnlySpan`1"/> instance to track the target <typeparamref name="T"/> reference.</param>
         </member>
         <member name="P:CommunityToolkit.HighPerformance.NullableReadOnlyRef`1.Null">
             <summary>
@@ -6012,9 +6056,9 @@
             </summary>
             <typeparam name="T">The type of value to reference.</typeparam>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.NullableRef`1.Span">
+        <member name="F:CommunityToolkit.HighPerformance.NullableRef`1.value">
             <summary>
-            The 1-length <see cref="T:System.Span`1"/> instance used to track the target <typeparamref name="T"/> value.
+            The reference to the target <typeparamref name="T"/> value.
             </summary>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.NullableRef`1.#ctor(`0@)">
@@ -6022,12 +6066,6 @@
             Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.NullableRef`1"/> struct.
             </summary>
             <param name="value">The reference to the target <typeparamref name="T"/> value.</param>
-        </member>
-        <member name="M:CommunityToolkit.HighPerformance.NullableRef`1.#ctor(System.Span{`0})">
-            <summary>
-            Initializes a new instance of the <see cref="T:CommunityToolkit.HighPerformance.NullableRef`1"/> struct.
-            </summary>
-            <param name="span">The <see cref="T:System.Span`1"/> instance to track the target <typeparamref name="T"/> reference.</param>
         </member>
         <member name="P:CommunityToolkit.HighPerformance.NullableRef`1.Null">
             <summary>
@@ -6069,9 +6107,9 @@
             </summary>
             <typeparam name="T">The type of value to reference.</typeparam>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.ReadOnlyRef`1.Span">
+        <member name="F:CommunityToolkit.HighPerformance.ReadOnlyRef`1.value">
             <summary>
-            The 1-length <see cref="T:System.ReadOnlySpan`1"/> instance used to track the target <typeparamref name="T"/> value.
+            The reference to the target <typeparamref name="T"/> value.
             </summary>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.ReadOnlyRef`1.#ctor(`0@)">
@@ -6109,9 +6147,9 @@
             </summary>
             <typeparam name="T">The type of value to reference.</typeparam>
         </member>
-        <member name="F:CommunityToolkit.HighPerformance.Ref`1.Span">
+        <member name="F:CommunityToolkit.HighPerformance.Ref`1.value">
             <summary>
-            The 1-length <see cref="T:System.Span`1"/> instance used to track the target <typeparamref name="T"/> value.
+            The reference to the target <typeparamref name="T"/> value.
             </summary>
         </member>
         <member name="M:CommunityToolkit.HighPerformance.Ref`1.#ctor(`0@)">

@@ -156,6 +156,16 @@
             Used by <see cref="T:VL.Core.Viewer.Styles"/> class to compute final stylesheet. Usual values are either "dark.css" or "light.css".
             </summary>
         </member>
+        <member name="M:VL.UI.Core.SettingsHelper.GetSettingKey(VL.Lib.Reactive.IChannel)">
+            <summary>
+            The key used in settings.xml
+            </summary>
+        </member>
+        <member name="M:VL.UI.Core.SettingsHelper.GetConfigurationKey(VL.Lib.Reactive.IChannel)">
+            <summary>
+            The key used in appsettings.json
+            </summary>
+        </member>
         <member name="T:VL.Core.Viewer.Constants">
             <summary>
             UI constants.
@@ -254,7 +264,7 @@
             In order to exit the move loop the continuation needs to return null.
             </summary>
         </member>
-        <member name="M:VL.Core.Viewer.Handler.OnClick(System.Func{VL.Core.Viewer.VMouseEventArgs,VL.Core.Viewer.IMouseEventHandler})">
+        <member name="M:VL.Core.Viewer.Handler.OnClick(System.Func{VL.Core.Viewer.VMouseEventArgs,VL.Core.Viewer.IMouseEventHandler},System.Boolean)">
             <summary>
             Creates a handler which will call the given continuation once a mouse click was observed.
             </summary>
@@ -264,7 +274,7 @@
             Creates a handler which will call the given continuation once a mouse double click was observed.
             </summary>
         </member>
-        <member name="M:VL.Core.Viewer.Handler.OnDragStart(System.Func{VL.Core.Viewer.VMouseEventArgs,VL.Core.Viewer.IMouseEventHandler})">
+        <member name="M:VL.Core.Viewer.Handler.OnDragStart(VL.Core.Viewer.Handler.MouseDraggerDelegate)">
             <summary>
             Creates a handler which will call the given continuation once the start of a mouse drag was observed.
             </summary>
@@ -436,6 +446,11 @@
         <member name="P:VL.Core.Viewer.GraphicalEditor.IText.TextMode">
             <summary>
             Works in connection with Size. For Modes Wordwrap, EndEllipsis and PathEllipsis Size.Width is taken into account
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.IText.IsClipped">
+            <summary>
+            True for TextModes PathEllipsis, EndClip and EndEllipsis, when text is being clipped 
             </summary>
         </member>
         <member name="P:VL.Core.Viewer.GraphicalEditor.IText.CaptionExtents">

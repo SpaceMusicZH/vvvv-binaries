@@ -2228,6 +2228,9 @@
             <param name="type">The type.</param>
             <returns>The type of the implem or the same type as input if there is no default implementation</returns>
         </member>
+        <member name="M:Stride.Core.Yaml.Serialization.DefaultObjectFactory.Create(System.Type)">
+            <inheritdoc/>
+        </member>
         <member name="T:Stride.Core.Yaml.Serialization.DocumentLoadingState">
             <summary>
             Manages the state of a <see cref="T:Stride.Core.Yaml.Serialization.YamlDocument" /> while it is loading.
@@ -2326,7 +2329,7 @@
         </member>
         <member name="M:Stride.Core.Yaml.Serialization.IObjectFactory.Create(System.Type)">
             <summary>
-            Creates an instance of the specified type. Returns null if instance cannot be created.
+            Creates an instance of the specified type. Throws with an appropriate exception if the type cannot be created.
             </summary>
         </member>
         <member name="T:Stride.Core.Yaml.Serialization.IObjectSerializerBackend">

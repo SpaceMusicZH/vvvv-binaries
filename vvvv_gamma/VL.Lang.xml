@@ -427,7 +427,7 @@
         </member>
         <member name="P:VL.Lang.Packages.PackageInfo.DependencyResolver">
             <summary>
-            A resolver using a package specific *.deps.json file, for example FOO/lib/net6.0/FOO.deps.json
+            A resolver using a package specific *.deps.json file, for example FOO/lib/net8.0/FOO.deps.json
             Only used by source packages.
             </summary>
         </member>
@@ -446,111 +446,14 @@
             Abstraction over various package repository layouts (<see cref="T:VL.Lang.Packages.DirectoryPackageRepository"/>, <see cref="T:VL.Lang.Packages.DepsJsonPackageRepository"/> and <see cref="T:VL.Lang.Packages.CombinedPackageRepository"/>).
             </summary>
         </member>
-        <member name="P:VL.Lang.Platforms.DynamicProcessPlugin.GetOperation.IsDefaultFragment">
+        <member name="P:VL.Lang.Platforms.DynamicProcessDefinition.GetOperation.IsDefaultFragment">
             <summary>
             Mark the first getter as the default fragment so it gets assigned to the default moment if not assigned otherwise.
             </summary>
         </member>
-        <member name="T:VL.Lang.Platforms.INodePlugin">
+        <member name="T:VL.Lang.Platforms.IntrinsicNodeDefinition">
             <summary>
-            A node plugin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.Name">
-            <summary>
-            The name of the node.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.Category">
-            <summary>
-            The category of the node.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.Kind">
-            <summary>
-            What kind of node definition. Usual choices are AdaptiveRegion, OperationStatefulRegion, ProcessStatefulRegion etc.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.ShowCategory">
-            <summary>
-            Whether or not to show the category inside the UI.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.IsDefaultFragment">
-            <summary>
-            Whether or not this fragment shall be put on the default moment if not assigned otherwise.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.Inputs">
-            <summary>
-            The inputs of the node.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.INodePlugin.Outputs">
-            <summary>
-            The outputs of the node.
-            </summary>
-        </member>
-        <member name="T:VL.Lang.Platforms.IPluginWithMessages">
-            <summary>
-            Gives the plugin the ability to generate messages which will get shown in the patch editor.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Platforms.IPluginWithMessages.GetMessages(VL.Lang.Symbols.INodeSymbol)">
-            <summary>
-            The plugin related messages which will be collected and shown to the user.
-            </summary>
-        </member>
-        <member name="T:VL.Lang.Platforms.IRegionPlugin">
-            <summary>
-            A region plugin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IRegionPlugin.ApplicationKinds">
-            <summary>
-            The possible options of how this plugin can be applied.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IRegionPlugin.IsSynchronous">
-            <summary>
-            Whether or not the patches inside this region are known to execute synchronously.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IRegionPlugin.ExecutesOnlyOnce">
-            <summary>
-            Whether or not the patches inside this region are known to execute at most once (like if, switch, etc.).
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IRegionPlugin.IsAtomic">
-            <summary>
-            Used by flood fill algorithm. If true all the pins and border control points of this node will be flooded, otherwise the flood fill stops.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.IRegionPlugin.SupportedBorderControlPoints">
-            <summary>
-            The supported border control points of the region.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Platforms.IRegionPlugin.GetPatchDescription(VL.Model.INode)">
-            <summary>
-            The patch description. Only master/sub is supported for now.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Platforms.IRegionPlugin.IsCached(VL.Lang.Symbols.IBorderControlPointSymbol)">
-            <summary>
-            Wether or not the control point is cached in a field so many moments can access it.
-            </summary>
-            <param name="cp">The control point.</param>
-            <returns>True if multiple moments can access the control point.</returns>
-        </member>
-        <member name="T:VL.Lang.Platforms.NodePluginBase">
-            <summary>
-            Simple base class for plugins.
-            </summary>
-        </member>
-        <member name="T:VL.Lang.Platforms.NodePluginHost">
-            <summary>
-            The host which mediates between the plugin and the internal representation of a node definition.
+            Base class for built-in nodes as well as nodes based on node factories
             </summary>
         </member>
         <member name="P:VL.Lang.Platforms.Roslyn.AssemblySymbolSource.ImportedTypes">
@@ -575,6 +478,28 @@
             If you feed the directory path of the executable, file paths of ioboxes will be stored relative to the final executable location. This way no assets have to be copied. The executable will combine the Application bpath with relative path to the original assts.
             </summary>
         </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.PatchCompilerExtensions.GetExpression(VL.Lang.Platforms.Roslyn.PatchCompiler,VL.Lang.Symbols.IDataHubSymbol)">
+            <summary>
+            Gets the latest computed expression for the given symbol.
+            </summary>
+            <param name="compiler">The compiler.</param>
+            <param name="symbol">The hub or slot for which to retrieve the latest computest expression for.</param>
+            <returns>The expression or null if the hub or slot wasn't touched yet.</returns>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.PatchCompilerExtensions.Bind(VL.Lang.Platforms.Roslyn.PatchCompiler,VL.Lang.Symbols.IDataHubSymbol,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
+            <summary>
+            Binds the expression to the data hub.
+            </summary>
+            /// <param name="compiler">The compiler.</param>
+            <param name="symbol">The data hub or slot for which the expression will be used for later <see cref="M:VL.Lang.Platforms.Roslyn.PatchCompilerExtensions.GetExpression(VL.Lang.Platforms.Roslyn.PatchCompiler,VL.Lang.Symbols.IDataHubSymbol)"/> calls.</param>
+            <param name="expression">The expression to bind.</param>
+        </member>
+        <member name="M:VL.Lang.Platforms.Roslyn.PatchCompilerExtensions.SaveBindings(VL.Lang.Platforms.Roslyn.PatchCompiler)">
+            <summary>
+            Saves the current state of the computed expressions and slot assignments. The state can be restored by disposing the returned disposable.
+            </summary>
+            <param name="compiler">The compiler.</param>
+        </member>
         <member name="M:VL.Lang.Platforms.Roslyn.PatchState.UpdateInstance(System.Collections.Generic.Dictionary{VL.Lang.Platforms.Roslyn.Slot,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax},System.Collections.Generic.ICollection{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax},System.Boolean,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
             State that;
             if (isImmutable)
@@ -583,130 +508,11 @@
               state.foo = foo;
               that = state;
         </member>
-        <member name="T:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler">
-            <summary>
-            Defines a set of methods used for generating the target code of a plugin.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.NodeContext">
-            <summary>
-            The context to use when creating new instances of VL types.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.CurrentState">
-            <summary>
-            The reference to the current instance (if any).
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.This">
-            <summary>
-            The instance type (if any, e.g. Particle&lt;T&gt;) and the expression denoting to this (__self when emitting hotswap friendly code)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.BoundExpressions">
-            <summary>
-            The currently computed expressions for each data hub.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.WriteFieldsImmediately">
-            <summary>
-            Wether or not slots get written immediately. This flag is only true for mutable classes.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.CollectValuesOnStack">
-            <summary>
-            Whether or not values on the call stack should be collected in case of an exception.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.GetTypeExpression(VL.Lang.Symbols.ITypeSymbol)">
-            <summary>
-            Gets the type expression for the given VL type symbol.
-            </summary>
-            <param name="typeSymbol">The VL type symbol.</param>
-            <returns>The type expression.</returns>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.GetTypeExpression(System.Type)">
-            <summary>
-            Gets the type expression for the given CLR type symbol.
-            </summary>
-            <param name="clrType">The CLR type symbol.</param>
-            <returns>The type expression.</returns>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Compile(System.Collections.Generic.List{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax},VL.Lang.Symbols.IPatchSymbol,VL.Lang.Platforms.Roslyn.PatchState,System.Boolean,System.Boolean)">
-            <summary>
-            Compiles the given patch and adds all generated statements to the given list. Computed expressions will be remembered in the current scope.
-            </summary>
-            <param name="statements">Where the generated statements will be added.</param>
-            <param name="patch">The patch to compile.</param>
-            <param name="state">The state used for pad reads.</param>
-            <param name="writeFieldsImmediately"></param>
-            <param name="manageStateOnStack"></param>
-            <returns>The generated statements.</returns>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.GenerateLocalName(VL.Lang.Symbols.INamedSymbol)">
-            <summary>
-            Creates a unique local variable name.
-            </summary>
-            <param name="symbol">The named symbol for which to generate a unique local name.</param>
-            <returns>The unqiue local variable name.</returns>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Default(VL.Lang.Symbols.ITypeSymbol,System.Collections.Generic.ICollection{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax})">
-            <summary>
-            Returns the default value expression of the given type.
-            </summary>
-            <param name="type">The type for which a default value is required.</param>
-            <param name="statements"></param>
-            <returns>The default value expression of the given type.</returns>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler.Default(System.Type)">
-            <summary>
-            Returns the default value expression of the given type.
-            </summary>
-            <param name="type">The type for which a default value is required.</param>
-            <returns>The default value expression of the given type.</returns>
-        </member>
-        <member name="T:VL.Lang.Platforms.Roslyn.IEmittingPlugin">
-            <summary>
-            Gives the plugin the ability to emit target code at the end of the compile phase.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.IEmittingPlugin.Emit(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IPatchSymbol,VL.Lang.Symbols.INodeSymbol,System.Collections.Generic.List{Microsoft.CodeAnalysis.CSharp.Syntax.StatementSyntax},VL.Lang.Symbols.IBorderControlPointSymbol)">
-            <summary>
-            Called by backend in order to generate the target code for this plugin.
-            </summary>
-            <param name="compiler">The patch compiler to be used to compile the internal patches.</param>
-            <param name="patch">The current patch which is getting compiled.</param>
-            <param name="node">The node application representing this plugin.</param>
-            <param name="syntaxNodes">Add your statements here.</param> 
-            <param name="cp">The border control point being accessed (if any). This parameter is set if the plugin allows access to its border control points from different moments.</param>
-        </member>
         <member name="F:VL.Lang.Platforms.Roslyn.Slot.Initializer">
             <summary>
             Slots for liftings are created on the fly but cached per id. Since they access local variables (for e.g. the one held by <see cref="P:VL.Lang.Platforms.Roslyn.PatchCompiler.NodeContext"/>)
             we need to trigger those initializers for each constructor separately.
             </summary>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.GetExpression(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol)">
-            <summary>
-            Gets the latest computed expression for the given symbol.
-            </summary>
-            <param name="compiler">The compiler.</param>
-            <param name="symbol">The hub or slot for which to retrieve the latest computest expression for.</param>
-            <returns>The expression or null if the hub or slot wasn't touched yet.</returns>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.Bind(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax)">
-            <summary>
-            Binds the expression to the data hub.
-            </summary>
-            /// <param name="compiler">The compiler.</param>
-            <param name="symbol">The data hub or slot for which the expression will be used for later <see cref="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.GetExpression(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler,VL.Lang.Symbols.IDataHubSymbol)"/> calls.</param>
-            <param name="expression">The expression to bind.</param>
-        </member>
-        <member name="M:VL.Lang.Platforms.Roslyn.ExpressionExtensions.SaveBindings(VL.Lang.Platforms.Roslyn.IRoslynPatchCompiler)">
-            <summary>
-            Saves the current state of the computed expressions and slot assignments. The state can be restored by disposing the returned disposable.
-            </summary>
-            <param name="compiler">The compiler.</param>
         </member>
         <member name="F:VL.Lang.Platforms.Roslyn.TargetTypeKind.AbstractClass">
             <summary>
@@ -1263,21 +1069,29 @@
             Whether or not a value is stored in the data hub which differs from its default value.
             </summary>
         </member>
-        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.DataChannel">
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.IsConnected">
             <summary>
-            Allows to read from and write to the data hub.
+            Whether or not the data hub is connected.
             </summary>
         </member>
-        <member name="M:VL.Lang.PublicAPI.ILiveDataHub.Commit">
+        <member name="M:VL.Lang.PublicAPI.ILiveDataHub.CreateDataChannel">
             <summary>
-            Commits the stored value in the <see cref="P:VL.Lang.PublicAPI.ILiveDataHub.DataChannel"/> to the solution.
-            Note that in the current implementation values get written back to the solution automatically 
-            after half a second since the last interacion.
+            Allows to read from and write to the data hub. The returned channel must be disposed.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.FragmentName">
+            <summary>
+            The name of the fragment this pin is a part of.
             </summary>
         </member>
         <member name="M:VL.Lang.PublicAPI.ILiveDataHub.Reset">
             <summary>
             Resets the value stored in the hub back to its default.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveDataHub.AssociatedProperty">
+            <summary>
+            Gets the property if this datahub is a representative of a property
             </summary>
         </member>
         <member name="T:VL.Lang.PublicAPI.ILiveElement">
@@ -1337,6 +1151,11 @@
             live pins, that all push their data when it becomes available. Inputs push before outputs.
             </summary>
         </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.Fragments">
+            <summary>
+            The fragments of the process node. For atomic nodes this property will hold one nameless fragment.
+            </summary>
+        </member>
         <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.TimingStream">
             <summary>
             Timings per fragment. 
@@ -1350,6 +1169,87 @@
         <member name="P:VL.Lang.PublicAPI.ILiveNodeApplication.IsApplication">
             <summary>
             A node is either a node application or a node defintion
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.Name">
+            <summary>
+            Name of the property
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.IsReadable">
+            <summary>
+            Retrieves if a getter is present for the property ("Foo" or "GetFoo")
+            No symbols needed to answer this question
+            This has to align with the behavior of IVLPropertyInfo.GetValue()
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.IsWritable">
+            <summary>
+            Retrieves if a setter is present for the property ("SetFoo")
+            No symbols needed to answer this question
+            This has to align with the behavior of IVLPropertyInfo.WithValue()
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.LatestVLPropertyInfo">
+            <summary>
+            The current compiled state of the property. Note: this might be behind. 
+            It will only adapt after compilation.
+            It allows to peek into the property of a living object.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.IsExposed">
+            <summary>
+            Will read, add or remove the ExposedAttribute
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.Label">
+            <summary>
+            Will read, add, modify or remove LabelAttribute. Setting an empty string results in removal.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.Description">
+            <summary>
+            Will read, add, modify or remove DescriptionAttribute. Setting an empty string results in removal.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.WidgetType">
+            <summary>
+            Will read, add, modify or remove WidgetAttribute. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.Order">
+            <summary>
+            Will read, add, modify or remove OrderAttribute. 
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.Tags">
+            <summary>
+            Allows to set serval tags.
+            This will result in adding several TagAttribute attributes to the model.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.CustomMetaData">
+            <summary>
+            Allows to attach custom meta data. These are string key value pairs. 
+            This will result in adding several CustomMetaDataAttribute attributes to the model.
+            </summary>
+        </member>
+        <member name="P:VL.Lang.PublicAPI.ILiveProperty.AllowsTaggedValues">
+            <summary>
+            Use this in property inspector to decide whether or not to show default and custom tagged values
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ILiveProperty.GetTaggedValue``1(System.String)">
+            <summary>
+            Retrieves if a tagged value exists on the model.
+            For standard keys see TaggedValueAttribute.
+            </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.ILiveProperty.SetTaggedValue``1(System.String,VL.Core.Optional{``0})">
+            <summary>
+            Define if a certain tagged value exists. 
+            For standard keys see TaggedValueAttribute.
+            The attribute will get added, updated or removed from the model.
             </summary>
         </member>
         <member name="P:VL.Lang.PublicAPI.INodeInfo.Name">
@@ -1375,26 +1275,6 @@
         <member name="P:VL.Lang.PublicAPI.INodeInfo.PackageOfNodeDefinition">
             <summary>
             retrieves the package that contians the node definition of this node (application)
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.Session.VersionString">
-            <summary>
-            The full version string. e.g. "2019.1.0" or "2019.1.0-0063-g2b0be431ff" for preview
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.Session.IsPreview">
-            <summary>
-            If set the user document root folder will be suffixed with "-preview".
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.Session.IsStandalone">
-            <summary>
-            Gets a value indicating whether this instance is vvvv gamma standalone.
-            </summary>
-        </member>
-        <member name="P:VL.Lang.PublicAPI.Session.NewVersionUrl">
-            <summary>
-            Empty if there is no newer version available, otherwise link to release page
             </summary>
         </member>
         <member name="F:VL.Lang.Symbols.BuildItem.UserReferencedItems">
@@ -1948,6 +1828,11 @@
             If there's no patch description a dummy will be returned.
             </summary>
         </member>
+        <member name="T:VL.Lang.Symbols.PrimitiveTypeAssignmentHelpers">
+            <summary>
+            Contains utility methods to test whether primitve types are assignment compatible.
+            </summary>
+        </member>
         <member name="T:VL.Lang.Symbols.Layer">
             <summary>
             A layer holds all the symbol sources plus additional information how that source was found.
@@ -2008,11 +1893,6 @@
         <member name="M:VL.Lang.Symbols.Scope.GetSymbols``1(System.String,System.Boolean,System.Boolean,System.Func{System.String,System.Boolean})">
             <summary>
             Retrieves symbols of given type and name.
-            </summary>
-        </member>
-        <member name="M:VL.Lang.Symbols.SymbolExtensions.GetDefaultValue(VL.Lang.Symbols.IDataHubSymbol,System.Boolean)">
-            <summary>
-            Gets the default value of the pin, the constant value of the pad or the default value of the hub's type.
             </summary>
         </member>
         <member name="T:VL.Lang.Symbols.SymbolRendering">
@@ -2095,16 +1975,6 @@
             </summary>
             <param name="node">The node to check.</param>
         </member>
-        <member name="M:VL.Lang.Symbols.TypeExtensions.IsAssignableTo(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.IConcreteTypeSymbol)">
-            <summary>
-            doesn't care about implicit conversion. 
-            beware: type parameter constraints don't get checked. both types must be valid types. 
-            to be tested. 
-            </summary>
-            <param name="sourceType"></param>
-            <param name="sinkType"></param>
-            <returns></returns>
-        </member>
         <member name="M:VL.Lang.Symbols.TypeExtensions.Explode(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.ISymbol)">
             <summary>
             to be tested
@@ -2125,9 +1995,9 @@
             Whether or not the constraint is of the form T to <see cref="T:VL.Core.Optional`1"/> and on a user link or user type annotation
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasImplicitConversion(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.IConcreteTypeSymbol,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},System.Collections.Generic.IEnumerable{VL.Lang.Symbols.TypeConstraint},VL.Lang.Symbols.ISymbolSourceProvider)">
+        <member name="M:VL.Lang.Symbols.UnificationHelpers.HasMonadicConversion(VL.Lang.Symbols.IConcreteTypeSymbol,VL.Lang.Symbols.IConcreteTypeSymbol,System.Collections.Generic.List{VL.Lang.Symbols.TypeConstraint},System.Collections.Generic.IEnumerable{VL.Lang.Symbols.TypeConstraint},VL.Lang.Symbols.ISymbolSourceProvider)">
             <summary>
-            Returns true and injects a new constraint of the form TSource = TSink if the sink is <see cref="T:VL.Core.Optional`1"/>
+            Returns true and injects a new constraint of the form TSource : TSink if the sink is <see cref="T:VL.Core.Optional`1"/>
             </summary>
         </member>
         <member name="M:VL.Lang.Symbols.TypeUnification.NormalizeTypeParameters">
@@ -2536,6 +2406,16 @@
         <member name="P:VL.Model.DataHub.IsSynchronous">
             <summary>
             Whether or not data is only available in one specific moment. Pads and state outputs of process nodes will return false here.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Pad.IsConstant">
+            <summary>
+            When true the system will create a backing static field in the target code to store the value.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Pad.IsIOBox">
+            <summary>
+            Used by UI only. Determines whether the slot field is visible or not.
             </summary>
         </member>
         <member name="P:VL.Model.Node.IsOperationForward">
@@ -3045,9 +2925,14 @@
             This class helps to deal with the various cases which can go wrong during the deserialization of such a value.
             </summary>
         </member>
-        <member name="M:VL.Model.CompileTimeValue.From(System.Object,VL.Core.UniqueId,System.Type)">
+        <member name="M:VL.Model.CompileTimeValue.From(System.Object,System.Boolean,VL.Core.UniqueId,System.Type)">
             <summary>
             Serializes the value and (if successful) wraps it in a compile time value. The document id is important to deal with file paths.
+            </summary>
+        </member>
+        <member name="M:VL.Model.CompileTimeValue.Default(VL.Lang.Symbols.IConcreteTypeSymbol)">
+            <summary>
+            The immutable default value of the type (if any). Works only for primitive types.
             </summary>
         </member>
         <member name="P:VL.Model.CompileTimeValue.SerializedValue">
@@ -3065,7 +2950,7 @@
             for higher level stuff see the extension methods in Commands.cs
             </summary>
         </member>
-        <member name="M:VL.Model.ModelExtensions.HasCustomValue(VL.Model.Pin)">
+        <member name="M:VL.Model.ModelExtensions.HasCustomValue(VL.Model.DataHub)">
             <summary>
             Whether or not the value of this pin is modified.
             </summary>
@@ -3401,7 +3286,7 @@
             Wether or not the patch is being debugged. If true the backend will generate tracing code.
             </summary>
         </member>
-        <member name="M:VL.Model.ModelInterfaceExtensions.GetClrValue(VL.Model.CompileTimeValue,VL.Lang.Symbols.ITypeSymbol)">
+        <member name="M:VL.Model.ModelInterfaceExtensions.GetClrValue(VL.Model.CompileTimeValue,VL.Lang.Symbols.ITypeSymbol,VL.Core.UniqueId)">
             <summary>
             The CLR value or null if the type can't be resolved.
             </summary>
@@ -3480,9 +3365,9 @@
             <param name="document">The document to export.</param>
             <returns>The exporter or null of the build tools are not installed.</returns>
         </member>
-        <member name="M:VL.Model.VLSession.IsReadonlyOrPackageFile(VL.Model.Document)">
+        <member name="M:VL.Model.VLSession.ShouldBeSaved(VL.Model.Document)">
             <summary>
-            Checks whether this document is read-only or part of an installed package. Used to avoid saving files from installed packages.
+            Checks whether this document needs saving.
             </summary>
         </member>
         <member name="M:VL.Model.VLSession.IsPackageFile(VL.Model.Document)">
@@ -3495,6 +3380,11 @@
             Tracks the specified canvas for undo/redo.
             </summary>
             <param name="canvas">The canvas to track.</param>
+        </member>
+        <member name="T:VL.Model.ValueTracker">
+            <summary>
+            Keeps track of all compile time values in the system.
+            </summary>
         </member>
         <member name="T:VL.Lib.Primitive.AbstractLoopRegion">
             <summary>

@@ -946,7 +946,11 @@
             Represents a Url to an asset.
             </summary>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Core.Serialization.IUrlReference.Url" -->
+        <member name="P:Stride.Core.Serialization.IUrlReference.Url">
+            <summary>
+            Gets the Url of the referenced asset.
+            </summary>
+        </member>
         <member name="P:Stride.Core.Serialization.IUrlReference.IsEmpty">
             <summary>
             Gets whether the is <c>null</c> or empty.
@@ -990,7 +994,7 @@
         </member>
         <member name="T:Stride.Core.Serialization.UrlReference`1">
             <summary>
-            Represents a Url to an asset of type <see cref="!:T"/>.
+            Represents a Url to an asset of type <typeparamref name="T"/>.
             </summary>
             <typeparam name="T">The type off asset.</typeparam>
         </member>
@@ -1023,7 +1027,11 @@
             <param name="url"></param>
             <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
         </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Core.Serialization.UrlReferenceBase.Url" -->
+        <member name="P:Stride.Core.Serialization.UrlReferenceBase.Url">
+            <summary>
+            Gets the Url of the referenced asset.
+            </summary>
+        </member>
         <member name="P:Stride.Core.Serialization.UrlReferenceBase.IsEmpty">
             <summary>
             Gets whether the url is <c>null</c> or empty.
@@ -1342,17 +1350,17 @@
         </member>
         <member name="M:Stride.Core.Storage.Blob.GetContentStream">
             <summary>
-            Gets a <see cref="T:Stride.Core.IO.NativeStream"/> over the <see cref="P:Stride.Core.Storage.Blob.Content"/>.
+            Gets a <see cref="T:System.IO.Stream"/> over the <see cref="P:Stride.Core.Storage.Blob.Content"/>.
             </summary>
             It will keeps a reference to the <see cref="T:Stride.Core.Storage.Blob"/> until disposed.
-            <returns>A <see cref="T:Stride.Core.IO.NativeStream"/> over the <see cref="P:Stride.Core.Storage.Blob.Content"/>.</returns>
+            <returns>A <see cref="T:System.IO.Stream"/> over the <see cref="P:Stride.Core.Storage.Blob.Content"/>.</returns>
         </member>
         <member name="M:Stride.Core.Storage.Blob.Destroy">
             <inheritdoc/>
         </member>
         <member name="T:Stride.Core.Storage.BlobStream">
             <summary>
-            A read-only <see cref="T:Stride.Core.IO.NativeMemoryStream"/> that will properly keep references on its underlying <see cref="T:Stride.Core.Storage.Blob"/>.
+            A read-only <see cref="!:NativeMemoryStream"/> that will properly keep references on its underlying <see cref="T:Stride.Core.Storage.Blob"/>.
             </summary>
         </member>
         <member name="M:Stride.Core.Storage.BlobStream.WriteByte(System.Byte)">
@@ -1466,14 +1474,14 @@
         </member>
         <member name="M:Stride.Core.Storage.IOdbBackend.OpenStream(Stride.Core.Storage.ObjectId,Stride.Core.IO.VirtualFileMode,Stride.Core.IO.VirtualFileAccess,Stride.Core.IO.VirtualFileShare)">
             <summary>
-            Opens a <see cref="T:Stride.Core.IO.NativeStream" /> of the object with the specified <see cref="T:Stride.Core.Storage.ObjectId" />.
+            Opens a <see cref="T:System.IO.Stream" /> of the object with the specified <see cref="T:Stride.Core.Storage.ObjectId" />.
             </summary>
             <param name="objectId">The <see cref="T:Stride.Core.Storage.ObjectId" />.</param>
             <param name="mode">The mode.</param>
             <param name="access">The access.</param>
             <param name="share">The process share mode.</param>
             <returns>
-            A <see cref="T:Stride.Core.IO.NativeStream" /> opened from the specified <see cref="T:Stride.Core.Storage.ObjectId" />.
+            A <see cref="T:System.IO.Stream" /> opened from the specified <see cref="T:Stride.Core.Storage.ObjectId" />.
             </returns>
         </member>
         <member name="M:Stride.Core.Storage.IOdbBackend.GetSize(Stride.Core.Storage.ObjectId)">
@@ -1502,7 +1510,7 @@
         </member>
         <member name="M:Stride.Core.Storage.IOdbBackend.Exists(Stride.Core.Storage.ObjectId)">
             <summary>
-            Determines weither the object with the specified <see cref="T:Stride.Core.Storage.ObjectId"/> exists.
+            Determines if the object with the specified <see cref="T:Stride.Core.Storage.ObjectId"/> exists.
             </summary>
             <param name="objectId">The <see cref="T:Stride.Core.Storage.ObjectId"/> to check existence for.</param>
             <returns><c>true</c> if an object with the specified <see cref="T:Stride.Core.Storage.ObjectId"/> exists; otherwise, <c>false</c>.</returns>
@@ -1559,7 +1567,7 @@
         </member>
         <member name="M:Stride.Core.Storage.ObjectDatabase.UnloadBundle(System.String)">
             <summary>
-            Loads the specified bundle.
+            Unloads the specified bundle.
             </summary>
             <param name="bundleName">Name of the bundle.</param>
         </member>
@@ -1605,7 +1613,7 @@
             </summary>
             <param name="objectId">The <see cref="T:Stride.Core.Storage.ObjectId"/>.</param>
             <param name="checkCache">if set to <c>true</c> [check cache for existing blobs].</param>
-            <returns>A <see cref="T:Stride.Core.IO.NativeStream"/> of the requested data.</returns>
+            <returns>A <see cref="T:System.IO.Stream"/> of the requested data.</returns>
         </member>
         <member name="M:Stride.Core.Storage.ObjectDatabase.CreateStream">
             <summary>

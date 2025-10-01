@@ -881,7 +881,7 @@
             <para>
             An instance <see cref="T:Stride.Audio.AudioEmitterSoundController"/> is not valid anymore if any of those situations arrives:
             <list type="bullet">
-             <item><description>The underlying <see cref="F:Stride.Audio.AudioEmitterSoundController.sound"/> is disposed.</description></item>
+             <item><description>The underlying <see cref="T:Stride.Audio.Sound"/> is disposed.</description></item>
              <item><description>The <see cref="T:Stride.Engine.AudioEmitterComponent"/> is detached from its entity.</description></item>
              <item><description>The entity to which it is attached is removed from the Entity System.</description></item>
             </list>
@@ -899,7 +899,7 @@
             </summary>
             <param name="parent">The parent AudioEmitterComponent to which the controller is associated.</param>
             <param name="sound">The underlying SoundBase to be controlled</param>
-            <remarks>A <see cref="F:Stride.Audio.AudioEmitterSoundController.sound"/> can be associated to several controllers.</remarks>
+            <remarks>A <see cref="T:Stride.Audio.Sound"/> can be associated to several controllers.</remarks>
         </member>
         <member name="M:Stride.Audio.AudioEmitterSoundController.CreateSoundInstance(Stride.Engine.AudioListenerComponent,System.Boolean)">
             <summary>
@@ -942,8 +942,8 @@
             </summary>
             <remarks>
             The processor updates only <see cref="T:Stride.Audio.AudioListener"/> associated to <see cref="T:Stride.Engine.AudioListenerComponent"/>s 
-            The processor is subscribing to the <see cref="F:Stride.Audio.AudioListenerProcessor.audioSystem"/> <see cref="T:Stride.Engine.AudioListenerComponent"/> collection events to be informed of required <see cref="T:Stride.Audio.AudioEmitter"/> updates.
-            When a <see cref="T:Stride.Engine.AudioListenerComponent"/> is added to the <see cref="F:Stride.Audio.AudioListenerProcessor.audioSystem"/>, the processor set the associated <see cref="T:Stride.Audio.AudioEmitter"/>.
+            The processor is subscribing to the <see cref="T:Stride.Audio.AudioSystem"/> <see cref="T:Stride.Engine.AudioListenerComponent"/> collection events to be informed of required <see cref="T:Stride.Audio.AudioEmitter"/> updates.
+            When a <see cref="T:Stride.Engine.AudioListenerComponent"/> is added to the <see cref="T:Stride.Audio.AudioSystem"/>, the processor set the associated <see cref="T:Stride.Audio.AudioEmitter"/>.
             When a <see cref="T:Stride.Engine.AudioListenerComponent"/> is removed from the entity system, 
             the processor set the <see cref="T:Stride.Audio.AudioEmitter"/> reference of the <see cref="T:Stride.Audio.AudioSystem"/> to null 
             but do not remove the <see cref="T:Stride.Engine.AudioListenerComponent"/> from its collection.
@@ -1034,6 +1034,11 @@
             </summary>
             <userdoc>The list of the animation associated to the entity.</userdoc>
         </member>
+        <member name="P:Stride.Engine.AnimationComponent.PlayingAnimations">
+            <summary>
+            Gets list of active animations. Use this to customize startup animations.
+            </summary>
+        </member>
         <member name="M:Stride.Engine.AnimationComponent.Play(System.String)">
             <summary>
             Plays right away the animation with the specified name, instantly removing all other blended animations.
@@ -1076,19 +1081,18 @@
             <param name="fadeTimeSpan">The fade time span.</param>
             <exception cref="T:System.ArgumentException">name</exception>
         </member>
-        <member name="P:Stride.Engine.AnimationComponent.PlayingAnimations">
-            <summary>
-            Gets list of active animations. Use this to customize startup animations.
-            </summary>
-        </member>
         <member name="M:Stride.Engine.AnimationComponent.Ended(Stride.Animations.PlayingAnimation)">
             <summary>
             Returns an awaitable object that will be completed when the animation is removed from the PlayingAnimation list.
-            This happens when:
-            - RepeatMode is PlayOnce and animation reached end
-            - Animation faded out completely (due to blend to 0.0 or crossfade out)
-            - Animation was manually removed from AnimationComponent.PlayingAnimations
             </summary>
+            <remarks>
+            This happens when:
+            <list type="bullet">
+            <item>RepeatMode is PlayOnce and animation reached end</item>
+            <item>Animation faded out completely (due to blend to 0.0 or crossfade out)</item>
+            <item>Animation was manually removed from AnimationComponent.PlayingAnimations</item>
+            </list>
+            </remarks>
             <returns></returns>
         </member>
         <member name="T:Stride.Engine.AsyncScript">
@@ -1128,6 +1132,11 @@
             <summary>
             Dictionary associating each SoundBase to a single soundController.
             The controller a valid as long as the corresponding SoundBase is present in the dictionary.
+            </summary>
+        </member>
+        <member name="F:Stride.Engine.AudioEmitterComponent.SoundMultiplicities">
+            <summary>
+            Number of keys in Sounds pointing to each sound
             </summary>
         </member>
         <member name="T:Stride.Engine.AudioEmitterComponent.ControllerCollectionChangedEventArgs">
@@ -1222,7 +1231,7 @@
             <remarks>
             <para>Associate this component to an <see cref="T:Stride.Engine.Entity"/> to simulate a physical listener listening to the <see cref="T:Stride.Engine.AudioEmitterComponent"/>s of the scene,
             placed at the entity's center and oriented along the entity's Oz (forward) and Oy (up) vectors.</para>
-            <para>Use the AudioSytem's <see cref="M:Stride.Audio.AudioSystem.AddListener(Stride.Engine.AudioListenerComponent)"/> and <see cref="M:Stride.Audio.AudioSystem.RemoveListener(Stride.Engine.AudioListenerComponent)"/> functions 
+            <para>Use the AudioSystem's `AudioSystem.AddListener` and `AudioSystem.RemoveListener` functions
             to activate/deactivate the listeners that are actually listening at a given time.</para>
             <para>The entity needs to be added to the Entity System so that the associated AudioListenerComponent can be processed.</para></remarks>
         </member>
@@ -2355,8 +2364,11 @@
         <member name="M:Stride.Engine.EntityTransformExtensions.RemoveChild(Stride.Engine.Entity,Stride.Engine.Entity)">
             <summary>
             Removes a child Entity to the transform component of a parent Entity. Note that the child entity is still in the <see cref="T:Stride.Engine.SceneInstance"/>.
-            In order to remove it from the scene instance, you should call <see cref="M:Stride.Engine.SceneInstance.Remove(Stride.Engine.Scene)"/>
+            In order to remove it from the scene instance, you should call `Remove(myEntity)` in <see cref="P:Stride.Engine.Scene.Entities"/>.
             </summary>
+            <remarks>
+            Alternatively, you can remove an entity from the scene by setting `myEntity.Scene = null`.
+            </remarks>
             <param name="parentEntity">The parent Entity.</param>
             <param name="childEntity">The child Entity.</param>
             <exception cref="T:System.NullReferenceException"><paramref name="childEntity"/> is <c>null</c></exception>
@@ -3858,9 +3870,6 @@
             </summary>
             <param name="registry">The service registry.</param>
         </member>
-        <member name="M:Stride.Profiling.GameProfilingSystem.Update(Stride.Games.GameTime)">
-            <inheritdoc/>
-        </member>
         <member name="M:Stride.Profiling.GameProfilingSystem.Destroy">
             <inheritdoc/>
         </member>
@@ -4043,7 +4052,7 @@
         </member>
         <member name="F:Stride.Rendering.Compositing.GraphicsCompositor.Current">
             <summary>
-            A property key to get the current graphics compositor from the <see cref="!:RenderContext.Tags"/>.
+            A property key to get the current <see cref="T:Stride.Rendering.Compositing.GraphicsCompositor"/> from the <see cref="!:RenderContext.Tags"/>.
             </summary>
         </member>
         <member name="P:Stride.Rendering.Compositing.GraphicsCompositor.RenderSystem">
@@ -4210,6 +4219,16 @@
             <summary>
             Resolves camera to <see cref="P:Stride.Rendering.Compositing.SceneExternalCameraRenderer.ExternalCamera"/> rather than the default behavior.
             </summary>
+        </member>
+        <member name="P:Stride.Rendering.Compositing.VRDeviceDescription.ResolutionScale">
+            <summary>
+            Scales the render resolution,
+            note that this compounds with the user-specified resolution multiplier
+            </summary>
+            <userdoc>
+            Scales the render resolution,
+            note that this compounds with the user-specified resolution multiplier
+            </userdoc>
         </member>
         <member name="F:Stride.Rendering.Compositing.VRRendererSettings.CopyMirror">
             <summary>
@@ -4765,7 +4784,7 @@
         </member>
         <member name="M:Stride.Updater.UpdateEngine.Run(System.Object,Stride.Updater.CompiledUpdate,System.IntPtr,Stride.Updater.UpdateObjectData[])">
             <summary>
-            Updates the specified <see cref="!:target"/> object with new data.
+            Updates the specified <paramref name="target"/> object with new data.
             </summary>
             <param name="target">The object to update.</param>
             <param name="compiledUpdate">The precompiled list of update operations, generated by <see cref="M:Stride.Updater.UpdateEngine.Compile(System.Type,System.Collections.Generic.List{Stride.Updater.UpdateMemberInfo})"/>.</param>

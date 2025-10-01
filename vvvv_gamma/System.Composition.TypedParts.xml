@@ -153,6 +153,42 @@
             <param name="conventions">Conventions represented by a <see cref="T:System.Composition.Convention.AttributedModelProvider"/>, or null.</param>
             <returns>A configuration object allowing configuration to continue.</returns>
         </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport``1(``0)">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <typeparam name="TExport">The type of the contract of the instance.</typeparam>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport``1(``0,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <typeparam name="TExport">The type of the contract of the instance.</typeparam>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <param name="contractName">Optionally, a name that discriminates this contract from others with the same type.</param>
+            <param name="metadata">Optionally, a non-empty collection of named constraints that apply to the contract.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport(System.Type,System.Object)">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <param name="contractType">The type of the contract of the instance.</param>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
+        <member name="M:System.Composition.Hosting.ContainerConfiguration.WithExport(System.Type,System.Object,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Add a single instance to the container.
+            </summary>
+            <param name="contractType">The type of the contract of the instance.</param>
+            <param name="exportedInstance">The instance to add to the container.</param>
+            <param name="contractName">Optionally, a name that discriminates this contract from others with the same type.</param>
+            <param name="metadata">Optionally, a non-empty collection of named constraints that apply to the contract.</param>
+            <returns>A configuration object allowing configuration to continue.</returns>
+        </member>
         <member name="T:System.Composition.TypedParts.ActivationFeatures.ActivationFeature">
             <summary>
             Allows modification of the activators generated for typed parts.
@@ -227,7 +263,7 @@
         <member name="P:System.SR.OnImportsSatisfiedFeature_AttributeError">
             <summary>The method {0}.{1} has the OnImportsSatisfied attribute applied, but is not a public or internal parameterless instance method returning void.</summary>
         </member>
-        <member name="P:System.SR.TypeInspector_ArgumentMissmatch">
+        <member name="P:System.SR.TypeInspector_ArgumentMismatch">
             <summary>Exported contract '{0}' of open generic part '{1}' does not match the generic arguments of the class.</summary>
         </member>
         <member name="P:System.SR.TypeInspector_ContractNotAssignable">

@@ -1319,7 +1319,7 @@
             Constructor.
             </summary>
             <param name="context">The operation context which is echoed back
-            from the operation which triggerred the event.</param>
+            from the operation which triggered the event.</param>
             <param name="wmiObject">The newly arrived WmiObject.</param>
         </member>
         <member name="P:System.Management.ObjectReadyEventArgs.NewObject">
@@ -2401,17 +2401,17 @@
             <summary>
             <para>Initializes a new instance of the <see cref='T:System.Management.ManagementException'/>
             class with a specified error message.</para>
-            <param name='message'>The message that describes the error.</param>
             </summary>
+            <param name='message'>The message that describes the error.</param>
         </member>
         <member name="M:System.Management.ManagementException.#ctor(System.String,System.Exception)">
             <summary>
             <para>Initializes a empty new instance of the <see cref='T:System.Management.ManagementException'/> class </para>
+            </summary>
             <param name='message'>The message that describes the error.</param>
             <param name='innerException'>The exception that is the cause of the current exception. If the innerException
             parameter is not a null reference (Nothing in Visual Basic), the current exception is raised in a catch
             block that handles the inner exception.</param>
-            </summary>
         </member>
         <member name="M:System.Management.ManagementException.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
             <summary>
@@ -5457,7 +5457,7 @@
                  Converts the given object to another type.  The most common types to convert
                  are to and from a string object.  The default implementation will make a call
                  to ToString on the object if the object is valid and if the destination
-                 type is string.  If this cannot convert to the desitnation type, this will
+                 type is string.  If this cannot convert to the destination type, this will
                  throw a NotSupportedException.
             </summary>
             <param name='context'>An ITypeDescriptorContext that provides a format context.</param>
@@ -6194,7 +6194,7 @@
         </member>
         <member name="M:System.Management.RelatedObjectQuery.#ctor(System.String)">
              <summary>
-             <para>Initializes a new instance of the <see cref='T:System.Management.RelatedObjectQuery'/>class. If the specified string can be succesfully parsed as
+             <para>Initializes a new instance of the <see cref='T:System.Management.RelatedObjectQuery'/>class. If the specified string can be successfully parsed as
                 a WQL query, it is considered to be the query string; otherwise, it is assumed to be the path of the source
                 object for the query. In this case, the query is assumed to be an instance query. </para>
              </summary>
@@ -6486,7 +6486,7 @@
         </member>
         <member name="M:System.Management.RelationshipQuery.#ctor(System.String)">
              <summary>
-             <para>Initializes a new instance of the <see cref='T:System.Management.RelationshipQuery'/>class. If the specified string can be succesfully parsed as
+             <para>Initializes a new instance of the <see cref='T:System.Management.RelationshipQuery'/>class. If the specified string can be successfully parsed as
                 a WQL query, it is considered to be the query string; otherwise, it is assumed to be the path of the source
                 object for the query. In this case, the query is assumed to be an instances query. </para>
              </summary>
@@ -7249,7 +7249,7 @@
                  Converts the given object to another type.  The most common types to convert
                  are to and from a string object.  The default implementation will make a call
                  to ToString on the object if the object is valid and if the destination
-                 type is string.  If this cannot convert to the desitnation type, this will
+                 type is string.  If this cannot convert to the destination type, this will
                  throw a NotSupportedException.
             </summary>
             <param name='context'>An ITypeDescriptorContext that provides a format context.</param>
@@ -7527,7 +7527,7 @@
                  Converts the given object to another type.  The most common types to convert
                  are to and from a string object.  The default implementation will make a call
                  to ToString on the object if the object is valid and if the destination
-                 type is string.  If this cannot convert to the desitnation type, this will
+                 type is string.  If this cannot convert to the destination type, this will
                  throw a NotSupportedException.
             </summary>
             <param name='context'>An ITypeDescriptorContext that provides a format context.</param>
@@ -8245,7 +8245,7 @@
             </overload>
             <summary>
             <para>Adds a new <see cref='T:System.Management.PropertyData'/> with the specified value. The value cannot
-               be null and must be convertable to a CIM type.</para>
+               be null and must be convertible to a CIM type.</para>
             </summary>
             <param name='propertyName'>The name of the new property.</param>
             <param name='propertyValue'>The value of the property (cannot be null).</param>
@@ -8724,7 +8724,7 @@
             <summary>
             This function will solve the naming collisions that might occur
             due to the collision between the local objects of the generated
-            class and the properties/methos of the original WMI Class.
+            class and the properties/methods of the original WMI Class.
             </summary>
         </member>
         <member name="M:System.Management.ManagementClassGenerator.ResolveCollision(System.String,System.Boolean)">
@@ -8745,7 +8745,7 @@
             the namespace used to generate the class and the classname.
             </summary>
         </member>
-        <member name="M:System.Management.ManagementClassGenerator.GeneratePublicReadOnlyProperty(System.String,System.String,System.Object,System.Boolean,System.Boolean,System.String)">
+        <member name="M:System.Management.ManagementClassGenerator.GeneratePublicReadOnlyProperty(System.String,System.String,System.String,System.Boolean,System.Boolean,System.String)">
             <summary>
             This function generates the code for the read only property.
             The generated code will be of the form
@@ -8765,7 +8765,7 @@
         <member name="M:System.Management.ManagementClassGenerator.GenerateSystemPropertiesClass">
             <summary>
             Function for generating the helper class "ManagementSystemProperties" which is
-            used for seperating the system properties from the other properties. This is used
+            used for separating the system properties from the other properties. This is used
             just to make the drop down list in the editor to look good.
             </summary>
         </member>
@@ -8819,14 +8819,14 @@
         </member>
         <member name="M:System.Management.ManagementClassGenerator.GenerateConstructorWithKeys">
              <summary>
-            This function create the constuctor which accepts the key values.
+            This function create the constructor which accepts the key values.
             public cons(UInt32 key_Key1, String key_Key2) :this(null,&lt;ClassName&gt;.ConstructPath(&lt;key1,key2&gt;),null) {
              }
             </summary>
         </member>
         <member name="M:System.Management.ManagementClassGenerator.GenerateConstructorWithScopeKeys">
              <summary>
-            This function create the constuctor which accepts a scope and key values.
+            This function create the constructor which accepts a scope and key values.
             public cons(ManagementScope scope,UInt32 key_Key1, String key_Key2) :this(scope,&lt;ClassName&gt;.ConstructPath(&lt;key1,key2&gt;),null) {
              }
             </summary>
@@ -9101,7 +9101,7 @@
         <member name="M:System.Management.ManagementClassGenerator.ConvertCIMType(System.Management.CimType,System.Boolean)">
             <summary>
             This function will convert the given CIMTYPE to an acceptable .NET type.
-            Since CLS doen't support lotz of the basic types, we are using .NET helper
+            Since CLS doesn't support lotz of the basic types, we are using .NET helper
             classes here. We safely assume that there won't be any problem using them
             since .NET has to be there for the System.Management.Dll to work.
             </summary>
@@ -9127,7 +9127,7 @@
         </member>
         <member name="M:System.Management.ManagementClassGenerator.ConvertValuesToName(System.String)">
             <summary>
-            Function to convert a given ValueMap or BitMap name to propert enum name
+            Function to convert a given ValueMap or BitMap name to property enum name
             </summary>
         </member>
         <member name="M:System.Management.ManagementClassGenerator.ResolveEnumNameValues(System.Collections.ArrayList,System.Collections.ArrayList@)">
@@ -9188,7 +9188,7 @@
         </member>
         <member name="M:System.Management.ManagementClassGenerator.ConvertToNumericValueAndAddToArray(System.Management.CimType,System.String,System.Collections.ArrayList,System.String@)">
             <summary>
-            Converts a numberic value to appropriate type and adds it to array
+            Converts a numeric value to appropriate type and adds it to array
             </summary>
         </member>
         <member name="M:System.Management.ManagementClassGenerator.AddClassComments(System.CodeDom.CodeTypeDeclaration)">
@@ -9555,7 +9555,7 @@
         <member name="P:System.SR.CommentSystemPropertiesClass">
             <summary>Embedded class to represent WMI system Properties.</summary>
         </member>
-        <member name="P:System.SR.CommentTimeSpanConvertionFunction">
+        <member name="P:System.SR.CommentTimeSpanConversionFunction">
             <summary>Time interval functions  ToTimeSpan and ToDmtfTimeInterval are added to the class to convert DMTF Time Interval to  System.TimeSpan and vice-versa.</summary>
         </member>
         <member name="P:System.SR.CommentToDateTime">
