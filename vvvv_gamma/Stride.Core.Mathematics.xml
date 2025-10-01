@@ -1313,7 +1313,7 @@
         </member>
         <member name="M:Stride.Core.Mathematics.CollisionHelper.RayIntersectsBox(Stride.Core.Mathematics.Ray@,Stride.Core.Mathematics.BoundingBox@,Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Determines whether there is an intersection between a <see cref="T:Stride.Core.Mathematics.Ray"/> and a <see cref="T:Stride.Core.Mathematics.Plane"/>.
+            Determines whether there is an intersection between a <see cref="T:Stride.Core.Mathematics.Ray"/> and a <see cref="T:Stride.Core.Mathematics.BoundingBox"/>.
             </summary>
             <param name="ray">The ray to test.</param>
             <param name="box">The box to test.</param>
@@ -4778,6 +4778,18 @@
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 1].</exception>
         </member>
+        <member name="M:Stride.Core.Mathematics.Double2.op_Implicit(System.Numerics.Vector2)~Stride.Core.Mathematics.Double2">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Double2.op_Explicit(Stride.Core.Mathematics.Double2)~System.Numerics.Vector2">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
         <member name="M:Stride.Core.Mathematics.Double2.Length">
             <summary>
             Calculates the length of the vector.
@@ -5673,6 +5685,18 @@
             <param name="index">The index of the component to access. Use 0 for the X component, 1 for the Y component, and 2 for the Z component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 2].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Double3.op_Implicit(System.Numerics.Vector3)~Stride.Core.Mathematics.Double3">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Double3.op_Explicit(Stride.Core.Mathematics.Double3)~System.Numerics.Vector3">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Double3.Length">
             <summary>
@@ -6724,6 +6748,18 @@
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 3].</exception>
         </member>
+        <member name="M:Stride.Core.Mathematics.Double4.op_Implicit(System.Numerics.Vector4)~Stride.Core.Mathematics.Double4">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Double4.op_Explicit(Stride.Core.Mathematics.Double4)~System.Numerics.Vector4">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
         <member name="M:Stride.Core.Mathematics.Double4.Length">
             <summary>
             Calculates the length of the vector.
@@ -7417,7 +7453,7 @@
         <member name="T:Stride.Core.Mathematics.GuillotinePacker">
             <summary>
             Implementation of a "Guillotine" packer.
-            More information at http://clb.demon.fi/files/RectangleBinPack.pdf.
+            More information at https://github.com/juj/RectangleBinPack/blob/master/RectangleBinPack.pdf.
             </summary>
         </member>
         <member name="T:Stride.Core.Mathematics.GuillotinePacker.InsertRectangleCallback">
@@ -7733,6 +7769,14 @@
             <returns>
             <c>true</c> if <paramref name="left" /> has a different value than <paramref name="right" />; otherwise, <c>false</c>.</returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.Half2.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
         <member name="M:Stride.Core.Mathematics.Half2.GetHashCode">
             <summary>
             Returns the hash code for this instance.
@@ -7892,6 +7936,14 @@
             <param name="right">The second value to compare.</param>
             <returns>
             <c>true</c> if <paramref name="left" /> has a different value than <paramref name="right" />; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Half3.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Half3.GetHashCode">
             <summary>
@@ -8066,6 +8118,14 @@
             <param name="right">The second value to compare.</param>
             <returns>
             <c>true</c> if <paramref name="left" /> has a different value than <paramref name="right" />; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Half4.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Half4.GetHashCode">
             <summary>
@@ -8259,6 +8319,18 @@
             <param name="index">The index of the component to access. Use 0 for the X component and 1 for the Y component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 1].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int2.op_Explicit(System.Numerics.Vector2)~Stride.Core.Mathematics.Int2">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int2.op_Explicit(Stride.Core.Mathematics.Int2)~System.Numerics.Vector2">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Int2.Length">
             <summary>
@@ -8738,6 +8810,18 @@
             <param name="index">The index of the component to access. Use 0 for the X component, 1 for the Y component, and 2 for the Z component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 2].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int3.op_Explicit(System.Numerics.Vector3)~Stride.Core.Mathematics.Int3">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int3.op_Explicit(Stride.Core.Mathematics.Int3)~System.Numerics.Vector3">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Int3.Length">
             <summary>
@@ -9251,6 +9335,18 @@
             <param name = "index">The index of the component to access. Use 0 for the X component, 1 for the Y component, 2 for the Z component, and 3 for the W component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref = "T:System.ArgumentOutOfRangeException">Thrown when the <paramref name = "index" /> is out of the range [0, 3].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int4.op_Explicit(System.Numerics.Vector4)~Stride.Core.Mathematics.Int4">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Int4.op_Explicit(Stride.Core.Mathematics.Int4)~System.Numerics.Vector4">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Int4.Length">
             <summary>
@@ -10016,6 +10112,32 @@
             <param name="divisor">The divisor.</param>
             <returns>A value between 0 and divisor. The result will have the same sign as divisor.</returns>
         </member>
+        <member name="M:Stride.Core.Mathematics.MathUtil.ExpDecay(System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Exponential damping. 
+            Alternative to 
+            <code>a = lerp(a, b, damping * dt)</code>
+            using the exponential function flipped around the Y axis: e^(-t)
+            </summary>
+            <param name="a">Initial value</param>
+            <param name="b">Plateau value</param>
+            <param name="lambda">Damping</param>
+            <param name="dt">Discrete time unit, delta time.</param>
+            <returns>A value interpolated from a to b depending on lambda and dt.</returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.MathUtil.ExpDecay(System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+            Exponential damping. 
+            Alternative to 
+            <code>a = lerp(a, b, damping * dt)</code>
+            using the exponential function flipped around the Y axis: e^(-t)
+            </summary>
+            <param name="a">Initial value</param>
+            <param name="b">Plateau value</param>
+            <param name="lambda">Damping</param>
+            <param name="dt">Discrete time unit, delta time.</param>
+            <returns>A value interpolated from a to b depending on lambda and dt.</returns>
+        </member>
         <member name="T:Stride.Core.Mathematics.Matrix">
             <summary>
             Represents a 4x4 mathematical matrix.
@@ -10255,6 +10377,18 @@
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 15].</exception>
         </member>
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Implicit(System.Numerics.Matrix4x4)~Stride.Core.Mathematics.Matrix">
+            <summary>
+            Casts from System.Numerics to Stride.Maths matrix
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Matrix.op_Implicit(Stride.Core.Mathematics.Matrix)~System.Numerics.Matrix4x4">
+            <summary>
+            Casts from Stride.Maths to System.Numerics matrix
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
         <member name="P:Stride.Core.Mathematics.Matrix.Item(System.Int32,System.Int32)">
             <summary>
             Gets or sets the component at the specified index.
@@ -10295,7 +10429,7 @@
             so that the first row is the most stable and the last row is the least stable.</para>
             <para>This operation is performed on the rows of the matrix rather than the columns.
             If you wish for this operation to be performed on the columns, first transpose the
-            input and than transpose the output.</para>
+            input and then transpose the output.</para>
             </remarks>
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.Orthonormalize">
@@ -10313,12 +10447,12 @@
             so that the first row is the most stable and the last row is the least stable.</para>
             <para>This operation is performed on the rows of the matrix rather than the columns.
             If you wish for this operation to be performed on the columns, first transpose the
-            input and than transpose the output.</para>
+            input and then transpose the output.</para>
             </remarks>
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.DecomposeQR(Stride.Core.Mathematics.Matrix@,Stride.Core.Mathematics.Matrix@)">
             <summary>
-            Decomposes a matrix into an orthonormalized matrix Q and a right traingular matrix R.
+            Decomposes a matrix into an orthonormalized matrix Q and a right triangular matrix R.
             </summary>
             <param name="Q">When the method completes, contains the orthonormalized matrix of the decomposition.</param>
             <param name="R">When the method completes, contains the right triangular matrix of the decomposition.</param>
@@ -10340,8 +10474,8 @@
             <remarks>
             This rotation matrix can be represented by <b>intrinsic</b> rotations in the order <paramref name="yaw"/>, <paramref name="pitch"/>, then <paramref name="roll"/>.
             <br/>
-            Therefore the <b>extrinsic</b> rotations to achieve this matrix is the reversed order of operations,
-            ie. Matrix.RotationZ(roll) * Matrix.RotationX(pitch) * Matrix.RotationY(yaw)
+            Therefore, the <b>extrinsic</b> rotations to achieve this matrix is the reversed order of operations,
+            i.e. Matrix.RotationZ(roll) * Matrix.RotationX(pitch) * Matrix.RotationY(yaw)
             </remarks>
         </member>
         <member name="M:Stride.Core.Mathematics.Matrix.DecomposeXYZ(Stride.Core.Mathematics.Vector3@)">
@@ -12724,6 +12858,7 @@
             <summary>
             Tests for equality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has the same value as <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -12732,6 +12867,7 @@
             <summary>
             Tests for inequality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has a different value than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -12780,23 +12916,44 @@
             A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
             </returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Quaternion.Equals(Stride.Core.Mathematics.Quaternion)">
+        <member name="M:Stride.Core.Mathematics.Quaternion.EqualsStrict(Stride.Core.Mathematics.Quaternion)">
             <summary>
-            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Quaternion"/> is equal to this instance.
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Quaternion"/> is exactly equal to this instance.
             </summary>
             <param name="other">The <see cref="T:Stride.Core.Mathematics.Quaternion"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Quaternion"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Quaternion"/> is exactly equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Quaternion.Equals(Stride.Core.Mathematics.Quaternion)">
+            <summary>
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Quaternion"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
+            </summary>
+            <param name="other">The <see cref="T:Stride.Core.Mathematics.Quaternion"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Quaternion"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Quaternion.Equals(System.Object)">
             <summary>
-            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            Determines whether the specified <see cref="T:System.Object"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
             </summary>
             <param name="value">The <see cref="T:System.Object"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:System.Object"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_Implicit(System.Numerics.Quaternion)~Stride.Core.Mathematics.Quaternion">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Quaternion.op_Implicit(Stride.Core.Mathematics.Quaternion)~System.Numerics.Quaternion">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="T:Stride.Core.Mathematics.RandomSeed">
             <summary>
@@ -14070,6 +14227,18 @@
             <returns>The value of the component at the specified index.</returns>
             <exception cref = "T:System.ArgumentOutOfRangeException">Thrown when the <paramref name = "index" /> is out of the range [0, 3].</exception>
         </member>
+        <member name="M:Stride.Core.Mathematics.UInt4.op_Explicit(System.Numerics.Vector4)~Stride.Core.Mathematics.UInt4">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.UInt4.op_Explicit(Stride.Core.Mathematics.UInt4)~System.Numerics.Vector4">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
         <member name="M:Stride.Core.Mathematics.UInt4.ToArray">
             <summary>
               Creates an array containing the elements of the vector.
@@ -14449,6 +14618,18 @@
             <param name="index">The index of the component to access. Use 0 for the X component and 1 for the Y component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 1].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector2.op_Implicit(System.Numerics.Vector2)~Stride.Core.Mathematics.Vector2">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector2.op_Implicit(Stride.Core.Mathematics.Vector2)~System.Numerics.Vector2">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector2.Length">
             <summary>
@@ -14964,8 +15145,8 @@
             <remarks>
             A coordinate transform performs the transformation with the assumption that the w component
             is one. The four dimensional vector obtained from the transformation operation has each
-            component in the vector divided by the w component. This forces the wcomponent to be one and
-            therefore makes the vector homogeneous. The homogeneous vector is often prefered when working
+            component in the vector divided by the w component. This forces the w component to be one and
+            therefore makes the vector homogeneous. The homogeneous vector is often preferred when working
             with coordinates as the w component can safely be ignored.
             </remarks>
         </member>
@@ -14979,8 +15160,8 @@
             <remarks>
             A coordinate transform performs the transformation with the assumption that the w component
             is one. The four dimensional vector obtained from the transformation operation has each
-            component in the vector divided by the w component. This forces the wcomponent to be one and
-            therefore makes the vector homogeneous. The homogeneous vector is often prefered when working
+            component in the vector divided by the w component. This forces the w component to be one and
+            therefore makes the vector homogeneous. The homogeneous vector is often preferred when working
             with coordinates as the w component can safely be ignored.
             </remarks>
         </member>
@@ -14988,7 +15169,7 @@
             <summary>
             Performs a coordinate transformation on an array of vectors using the given <see cref="T:Stride.Core.Mathematics.Matrix"/>.
             </summary>
-            <param name="source">The array of coordinate vectors to trasnform.</param>
+            <param name="source">The array of coordinate vectors to transform.</param>
             <param name="transform">The transformation <see cref="T:Stride.Core.Mathematics.Matrix"/>.</param>
             <param name="destination">The array for which the transformed vectors are stored.
             This array may be the same array as <paramref name="source"/>.</param>
@@ -14997,8 +15178,8 @@
             <remarks>
             A coordinate transform performs the transformation with the assumption that the w component
             is one. The four dimensional vector obtained from the transformation operation has each
-            component in the vector divided by the w component. This forces the wcomponent to be one and
-            therefore makes the vector homogeneous. The homogeneous vector is often prefered when working
+            component in the vector divided by the w component. This forces the w component to be one and
+            therefore makes the vector homogeneous. The homogeneous vector is often preferred when working
             with coordinates as the w component can safely be ignored.
             </remarks>
         </member>
@@ -15011,9 +15192,9 @@
             <param name="result">When the method completes, contains the transformed normal.</param>
             <remarks>
             A normal transform performs the transformation with the assumption that the w component
-            is zero. This causes the fourth row and fourth collumn of the matrix to be unused. The
+            is zero. This causes the fourth row and fourth column of the matrix to be unused. The
             end result is a vector that is not translated, but all other transformation properties
-            apply. This is often prefered for normal vectors as normals purely represent direction
+            apply. This is often preferred for normal vectors as normals purely represent direction
             rather than location because normal vectors should not be translated.
             </remarks>
         </member>
@@ -15026,9 +15207,9 @@
             <returns>The transformed normal.</returns>
             <remarks>
             A normal transform performs the transformation with the assumption that the w component
-            is zero. This causes the fourth row and fourth collumn of the matrix to be unused. The
+            is zero. This causes the fourth row and fourth column of the matrix to be unused. The
             end result is a vector that is not translated, but all other transformation properties
-            apply. This is often prefered for normal vectors as normals purely represent direction
+            apply. This is often preferred for normal vectors as normals purely represent direction
             rather than location because normal vectors should not be translated.
             </remarks>
         </member>
@@ -15044,9 +15225,9 @@
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when <paramref name="destination"/> is shorter in length than <paramref name="source"/>.</exception>
             <remarks>
             A normal transform performs the transformation with the assumption that the w component
-            is zero. This causes the fourth row and fourth collumn of the matrix to be unused. The
+            is zero. This causes the fourth row and fourth column of the matrix to be unused. The
             end result is a vector that is not translated, but all other transformation properties
-            apply. This is often prefered for normal vectors as normals purely represent direction
+            apply. This is often preferred for normal vectors as normals purely represent direction
             rather than location because normal vectors should not be translated.
             </remarks>
         </member>
@@ -15062,7 +15243,7 @@
             <summary>
             Assert a vector (return it unchanged).
             </summary>
-            <param name="value">The vector to assert (unchange).</param>
+            <param name="value">The vector to assert (unchanged).</param>
             <returns>The asserted (unchanged) vector.</returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector2.op_Subtraction(Stride.Core.Mathematics.Vector2,Stride.Core.Mathematics.Vector2)">
@@ -15132,6 +15313,7 @@
             <summary>
             Tests for equality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has the same value as <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -15140,6 +15322,7 @@
             <summary>
             Tests for inequality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has a different value than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -15202,22 +15385,31 @@
             A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             </returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector2.Equals(Stride.Core.Mathematics.Vector2)">
+        <member name="M:Stride.Core.Mathematics.Vector2.EqualsStrict(Stride.Core.Mathematics.Vector2)">
             <summary>
-            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector2"/> is equal to this instance.
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector2"/> is exactly equal to this instance.
             </summary>
             <param name="other">The <see cref="T:Stride.Core.Mathematics.Vector2"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector2"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector2"/> is exactly equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector2.Equals(Stride.Core.Mathematics.Vector2)">
+            <summary>
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector2"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
+            </summary>
+            <param name="other">The <see cref="T:Stride.Core.Mathematics.Vector2"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector2"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector2.Equals(System.Object)">
             <summary>
-            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            Determines whether the specified <see cref="T:System.Object"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
             </summary>
             <param name="value">The <see cref="T:System.Object"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:System.Object"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector2.Deconstruct(System.Single@,System.Single@)">
@@ -15319,6 +15511,18 @@
             <param name="index">The index of the component to access. Use 0 for the X component, 1 for the Y component, and 2 for the Z component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 2].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Implicit(System.Numerics.Vector3)~Stride.Core.Mathematics.Vector3">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector3.op_Implicit(Stride.Core.Mathematics.Vector3)~System.Numerics.Vector3">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector3.Length">
             <summary>
@@ -16144,6 +16348,7 @@
             <summary>
             Tests for equality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has the same value as <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -16152,6 +16357,7 @@
             <summary>
             Tests for inequality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has a different value than <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -16230,22 +16436,31 @@
             A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             </returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector3.Equals(Stride.Core.Mathematics.Vector3)">
+        <member name="M:Stride.Core.Mathematics.Vector3.EqualsStrict(Stride.Core.Mathematics.Vector3)">
             <summary>
-            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector3"/> is equal to this instance.
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector3"/> is exactly equal to this instance.
             </summary>
             <param name="other">The <see cref="T:Stride.Core.Mathematics.Vector3"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector3"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector3"/> is exactly equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector3.Equals(Stride.Core.Mathematics.Vector3)">
+            <summary>
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector3"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
+            </summary>
+            <param name="other">The <see cref="T:Stride.Core.Mathematics.Vector3"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector3"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector3.Equals(System.Object)">
             <summary>
-            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            Determines whether the specified <see cref="T:System.Object"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
             </summary>
             <param name="value">The <see cref="T:System.Object"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:System.Object"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector3.Deconstruct(System.Single@,System.Single@,System.Single@)">
@@ -16367,6 +16582,18 @@
             <param name="index">The index of the component to access. Use 0 for the X component, 1 for the Y component, 2 for the Z component, and 3 for the W component.</param>
             <returns>The value of the component at the specified index.</returns>
             <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the <paramref name="index"/> is out of the range [0, 3].</exception>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector4.op_Implicit(System.Numerics.Vector4)~Stride.Core.Mathematics.Vector4">
+            <summary>
+            Casts from System.Numerics to Stride.Maths vectors
+            </summary>
+            <param name="v">Value to cast</param>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector4.op_Implicit(Stride.Core.Mathematics.Vector4)~System.Numerics.Vector4">
+            <summary>
+            Casts from Stride.Maths to System.Numerics vectors
+            </summary>
+            <param name="v">Value to cast</param>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector4.Length">
             <summary>
@@ -16941,6 +17168,7 @@
             <summary>
             Tests for equality between two objects.
             </summary>
+            <remarks> Comparison is not strict, a difference of <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> will return as equal. </remarks>
             <param name="left">The first value to compare.</param>
             <param name="right">The second value to compare.</param>
             <returns><c>true</c> if <paramref name="left"/> has the same value as <paramref name="right"/>; otherwise, <c>false</c>.</returns>
@@ -17011,22 +17239,31 @@
             A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. 
             </returns>
         </member>
-        <member name="M:Stride.Core.Mathematics.Vector4.Equals(Stride.Core.Mathematics.Vector4)">
+        <member name="M:Stride.Core.Mathematics.Vector4.EqualsStrict(Stride.Core.Mathematics.Vector4)">
             <summary>
-            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector4"/> is equal to this instance.
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector4"/> is exactly equal to this instance.
             </summary>
             <param name="other">The <see cref="T:Stride.Core.Mathematics.Vector4"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector4"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector4"/> is exactly equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Stride.Core.Mathematics.Vector4.Equals(Stride.Core.Mathematics.Vector4)">
+            <summary>
+            Determines whether the specified <see cref="T:Stride.Core.Mathematics.Vector4"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
+            </summary>
+            <param name="other">The <see cref="T:Stride.Core.Mathematics.Vector4"/> to compare with this instance.</param>
+            <returns>
+            <c>true</c> if the specified <see cref="T:Stride.Core.Mathematics.Vector4"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector4.Equals(System.Object)">
             <summary>
-            Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            Determines whether the specified <see cref="T:System.Object"/> is within <see cref="F:Stride.Core.Mathematics.MathUtil.ZeroTolerance"/> for equality to this instance.
             </summary>
             <param name="value">The <see cref="T:System.Object"/> to compare with this instance.</param>
             <returns>
-            <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            <c>true</c> if the specified <see cref="T:System.Object"/> is equal or almost equal to this instance; otherwise, <c>false</c>.
             </returns>
         </member>
         <member name="M:Stride.Core.Mathematics.Vector4.Deconstruct(System.Single@,System.Single@,System.Single@,System.Single@)">

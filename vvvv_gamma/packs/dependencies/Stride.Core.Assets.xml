@@ -16,7 +16,7 @@
         </member>
         <member name="T:Stride.Core.Assets.Analysis.AssetBaseAnalysis">
             <summary>
-            An analysis to validate that all assets in a package have a valid <see cref="!:Asset.Base"/>.
+            An analysis to validate that all assets in a package have a valid <see cref="T:Stride.Core.Assets.Asset"/> base.
              In order to be valid, this analysis must be run after a <see cref="T:Stride.Core.Assets.Analysis.PackageAnalysis"/>
             </summary>
         </member>
@@ -2290,7 +2290,7 @@
         </member>
         <member name="P:Stride.Core.Assets.Bundle.OutputGroup">
             <summary>
-            Gets the output group (used in conjonction with <see cref="!:ProjectBuildProfile.OutputGroupDirectories"/> to control where file will be put).
+            Gets the output group (used in conjonction with `ProjectBuildProfile.OutputGroupDirectories` to control where file will be put).
             </summary>
             <value>
             The output group.
@@ -2500,7 +2500,7 @@
         </member>
         <member name="P:Stride.Core.Assets.Compiler.AssetCompilerResult.BuildSteps">
             <summary>
-            Gets or sets the build steps generated for the build engine. This can be null if <see cref="!:LoggerResult.HasErrors"/> is true.
+            Gets or sets the build steps generated for the build engine. This can be null if <see cref="P:Stride.Core.Diagnostics.Logger.HasErrors"/> is true.
             </summary>
             <value>The build step.</value>
         </member>
@@ -3161,6 +3161,15 @@
         <member name="M:Stride.Core.Assets.EmptyAssetUpgrader.UpgradeAsset(Stride.Core.Assets.AssetMigrationContext,Stride.Core.PackageVersion,Stride.Core.PackageVersion,System.Object,Stride.Core.Assets.PackageLoadingAssetFile,Stride.Core.Assets.OverrideUpgraderHint)">
             <inheritdoc/>
         </member>
+        <member name="P:Stride.Core.Assets.FileVersionManager.PeekAsyncRequestsLeft">
+            <summary>
+            Returns the amount of items scheduled left to process
+            </summary>
+            <remarks>
+            It may already be out of date as soon as it returns.
+            Do not rely on this to check for completion, use the callbacks instead.
+            </remarks>
+        </member>
         <member name="T:Stride.Core.Assets.IAssetComposite">
             <summary>
             An interface that defines the composition declared by an asset inheriting from another asset.
@@ -3461,7 +3470,7 @@
         </member>
         <member name="F:Stride.Core.Assets.OverrideUpgraderHint.Base">
             <summary>
-            The upgrader is performed on the base asset of an asset being upgraded (<see cref="!:Asset.Base"/> or <see cref="!:Asset.BaseParts"/>)
+            The upgrader is performed on the base asset of an asset being upgraded (<see cref="T:Stride.Core.Assets.AssetItem"/> or <see cref="T:Stride.Core.Assets.BasePart"/>)
             </summary>
         </member>
         <member name="T:Stride.Core.Assets.Package">
@@ -4588,6 +4597,11 @@
             Helper class to load/save a VisualStudio solution.
             </summary>
         </member>
+        <member name="P:Stride.Core.Assets.PackageSessionPublicHelper.NetMajorVersion">
+            <summary>
+            The current major .NET version that Stride will use.
+            </summary>
+        </member>
         <member name="M:Stride.Core.Assets.PackageSessionPublicHelper.FindAndSetMSBuildVersion">
             <summary>
             This method finds a compatible version of MSBuild.
@@ -4595,7 +4609,7 @@
         </member>
         <member name="T:Stride.Core.Assets.PackageSessionResult">
             <summary>
-            Result returned when loading a session using <see cref="!:PackageSession.Load(string,PackageSessionResult,System.Nullable&lt;System.Threading.CancellationToken&gt;,bool)"/>
+            Result returned when loading a session using <see cref="M:Stride.Core.Assets.PackageSession.Load(System.String,Stride.Core.Assets.PackageLoadParameters)"/>
             </summary>
         </member>
         <member name="P:Stride.Core.Assets.PackageSessionResult.Session">
@@ -5037,7 +5051,7 @@
             An implementation of <see cref="T:Stride.Core.Assets.Serializers.IAssetPartReference"/> that represents an asset part implementing <see cref="T:Stride.Core.IIdentifiable"/>.
             </summary>
             <remarks>
-            This type is the default type used when <see cref="!:AssetPartReferenceAttribute.ReferenceType"/> is undefined.
+            This type is the default type used when `AssetPartReferenceAttribute.ReferenceType` is undefined.
             </remarks>
         </member>
         <member name="P:Stride.Core.Assets.Serializers.IdentifiableAssetPartReference.Id">
@@ -5970,7 +5984,7 @@
         </member>
         <member name="T:Stride.Core.Assets.UnloadableObjectRemover">
             <summary>
-            Removes objects implementing <see cref="!:IYamlProxy"/> from the object.
+            Removes objects implementing 'IYamlProxy' from the object.
             </summary>
         </member>
         <member name="T:Stride.Core.Assets.UPathRelativeTo">

@@ -308,10 +308,10 @@
         <member name="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.QueryInterface(System.Guid@,System.Void*@)">
             <inheritdoc cref="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.QueryInterface(System.Guid*,System.Void**)"/>
         </member>
-        <member name="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Read(System.Span{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},Windows.Win32.System.Com.IErrorLog*,System.Span{Windows.Win32.System.Variant.VARIANT},System.Span{Windows.Win32.Foundation.HRESULT})">
+        <member name="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Read(System.ReadOnlySpan{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},Windows.Win32.System.Com.IErrorLog*,System.Span{Windows.Win32.System.Variant.VARIANT},System.ReadOnlySpan{Windows.Win32.Foundation.HRESULT})">
             <inheritdoc cref="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Read(System.UInt32,Windows.Win32.System.Com.StructuredStorage.PROPBAG2*,Windows.Win32.System.Com.IErrorLog*,Windows.Win32.System.Variant.VARIANT*,Windows.Win32.Foundation.HRESULT*)"/>
         </member>
-        <member name="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Write(System.Span{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},System.Span{Windows.Win32.System.Variant.VARIANT})">
+        <member name="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Write(System.ReadOnlySpan{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},System.ReadOnlySpan{Windows.Win32.System.Variant.VARIANT})">
             <inheritdoc cref="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Write(System.UInt32,Windows.Win32.System.Com.StructuredStorage.PROPBAG2*,Windows.Win32.System.Variant.VARIANT*)"/>
         </member>
         <member name="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.CountProperties(System.UInt32@)">
@@ -976,7 +976,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfo">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.System.Com.IDispatch.GetIDsOfNames(System.Guid@,System.Span{Windows.Win32.Foundation.PWSTR},System.UInt32,System.Span{System.Int32})">
+        <member name="M:Windows.Win32.System.Com.IDispatch.GetIDsOfNames(System.Guid@,System.ReadOnlySpan{Windows.Win32.Foundation.PWSTR},System.UInt32,System.Span{System.Int32})">
             <inheritdoc cref="M:Windows.Win32.System.Com.IDispatch.GetIDsOfNames(System.Guid*,Windows.Win32.Foundation.PWSTR*,System.UInt32,System.UInt32,System.Int32*)"/>
         </member>
         <member name="M:Windows.Win32.System.Com.IDispatch.GetIDsOfNames(System.Guid*,Windows.Win32.Foundation.PWSTR*,System.UInt32,System.UInt32,System.Int32*)">
@@ -1455,7 +1455,7 @@
             </returns>
             <remarks>The flags are associated with the act of inheritance, and not with the inherited interface.</remarks>
         </member>
-        <member name="M:Windows.Win32.System.Com.ITypeInfo.GetIDsOfNames(System.Span{Windows.Win32.Foundation.PWSTR},System.Span{System.Int32})">
+        <member name="M:Windows.Win32.System.Com.ITypeInfo.GetIDsOfNames(System.ReadOnlySpan{Windows.Win32.Foundation.PWSTR},System.Span{System.Int32})">
             <inheritdoc cref="M:Windows.Win32.System.Com.ITypeInfo.GetIDsOfNames(Windows.Win32.Foundation.PWSTR*,System.UInt32,System.Int32*)"/>
         </member>
         <member name="M:Windows.Win32.System.Com.ITypeInfo.GetIDsOfNames(Windows.Win32.Foundation.PWSTR*,System.UInt32,System.Int32*)">
@@ -1859,6 +1859,9 @@
         <member name="F:Windows.Win32.System.Com.SAFEARRAY.rgsabound">
             <summary>One bound for each dimension.</summary>
         </member>
+        <member name="M:Windows.Win32.System.Com.SAFEARRAY.SizeOf(System.Int32)">
+            <summary>Computes the amount of memory that must be allocated to store this struct, including the specified number of elements in the variable length inline array at the end.</summary>
+        </member>
         <member name="T:Windows.Win32.System.Com.SAFEARRAYBOUND">
             <summary>Represents the bounds of one dimension of the array.</summary>
             <remarks>
@@ -1870,25 +1873,6 @@
         </member>
         <member name="F:Windows.Win32.System.Com.SAFEARRAYBOUND.lLbound">
             <summary>The lower bound of the dimension.</summary>
-        </member>
-        <member name="P:Windows.Win32.System.Com.__SAFEARRAYBOUND_1.Length">
-            <summary>The length of the inline array.</summary>
-        </member>
-        <member name="M:Windows.Win32.System.Com.__SAFEARRAYBOUND_1.AsSpan">
-            <summary>
-            Gets this inline array as a span.
-            </summary>
-            <remarks>
-            ⚠ Important ⚠: When this struct is on the stack, do not let the returned span outlive the stack frame that defines it.
-            </remarks>
-        </member>
-        <member name="M:Windows.Win32.System.Com.__SAFEARRAYBOUND_1.AsReadOnlySpan">
-            <summary>
-            Gets this inline array as a span.
-            </summary>
-            <remarks>
-            ⚠ Important ⚠: When this struct is on the stack, do not let the returned span outlive the stack frame that defines it.
-            </remarks>
         </member>
         <member name="T:Windows.Win32.System.Com.STATSTG">
             <summary>Contains statistical data about an open storage, stream, or byte-array object.</summary>
@@ -2182,6 +2166,9 @@
         </member>
         <member name="F:Windows.Win32.System.Ole.ARRAYDESC.rgbounds">
             <summary>A variable-length array containing one element for each dimension.</summary>
+        </member>
+        <member name="M:Windows.Win32.System.Ole.ARRAYDESC.SizeOf(System.Int32)">
+            <summary>Computes the amount of memory that must be allocated to store this struct, including the specified number of elements in the variable length inline array at the end.</summary>
         </member>
         <member name="M:Windows.Win32.System.Ole.IRecordInfo.QueryInterface(System.Guid@,System.Void*@)">
             <inheritdoc cref="M:Windows.Win32.System.Ole.IRecordInfo.QueryInterface(System.Guid*,System.Void**)"/>
@@ -3050,7 +3037,7 @@
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFActivate.GetStringLength(System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFActivate.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFActivate.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFActivate.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFActivate.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFActivate.GetAllocatedString(System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -3411,7 +3398,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getstringlength#">Read more on docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFAttributes.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFAttributes.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFAttributes.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFAttributes.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
@@ -4537,7 +4524,7 @@
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.GetStringLength(System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.GetAllocatedString(System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -4886,7 +4873,7 @@
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.GetStringLength(System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.GetAllocatedString(System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -5153,7 +5140,7 @@
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.GetStringLength(System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.GetAllocatedString(System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -5308,7 +5295,7 @@
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFSample.GetStringLength(System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFSample.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFSample.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFSample.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFSample.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFSample.GetAllocatedString(System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -5812,7 +5799,7 @@
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.GetStringLength(System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.GetString(System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.GetString(System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.GetAllocatedString(System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -13545,7 +13532,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecinfo-getcontainerformat">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.GetPixelFormats(System.Span{System.Guid},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.GetPixelFormats(System.ReadOnlySpan{System.Guid},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)"/>
         </member>
         <!-- Badly formed XML comment ignored for member "M:Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)" -->
@@ -13861,7 +13848,7 @@
         <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.GetContainerFormat(System.Guid@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.GetContainerFormat(System.Guid*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.GetPixelFormats(System.Span{System.Guid},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.GetPixelFormats(System.ReadOnlySpan{System.Guid},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.GetColorManagementVersion(System.UInt32,System.Span{System.Char}@,System.UInt32@)">
@@ -14143,7 +14130,7 @@
         <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.GetContainerFormat(System.Guid@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.GetContainerFormat(System.Guid*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.GetPixelFormats(System.Span{System.Guid},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.GetPixelFormats(System.ReadOnlySpan{System.Guid},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.GetColorManagementVersion(System.UInt32,System.Span{System.Char}@,System.UInt32@)">
@@ -14414,7 +14401,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframeencode-setthumbnail#">Read more on docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.WritePixels(System.UInt32,System.UInt32,System.Span{System.Byte})">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.WritePixels(System.UInt32,System.UInt32,System.ReadOnlySpan{System.Byte})">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.WritePixels(System.UInt32,System.UInt32,System.UInt32,System.Byte*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.WritePixels(System.UInt32,System.UInt32,System.UInt32,System.Byte*)">
@@ -14785,7 +14772,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccolorcontext-gettype">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICColorContext.GetProfileBytes(System.Span{System.Byte},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICColorContext.GetProfileBytes(System.ReadOnlySpan{System.Byte},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICColorContext.GetProfileBytes(System.UInt32,System.Byte*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICColorContext.GetProfileBytes(System.UInt32,System.Byte*,System.UInt32*)">
@@ -15496,7 +15483,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsourcerect#">Read more on docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICImagingFactory.CreateBitmapFromMemory(System.UInt32,System.UInt32,System.Guid@,System.UInt32,System.Span{System.Byte},Windows.Win32.Graphics.Imaging.IWICBitmap**)">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICImagingFactory.CreateBitmapFromMemory(System.UInt32,System.UInt32,System.Guid@,System.UInt32,System.ReadOnlySpan{System.Byte},Windows.Win32.Graphics.Imaging.IWICBitmap**)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICImagingFactory.CreateBitmapFromMemory(System.UInt32,System.UInt32,System.Guid*,System.UInt32,System.UInt32,System.Byte*,Windows.Win32.Graphics.Imaging.IWICBitmap**)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICImagingFactory.CreateBitmapFromMemory(System.UInt32,System.UInt32,System.Guid*,System.UInt32,System.UInt32,System.Byte*,Windows.Win32.Graphics.Imaging.IWICBitmap**)">
@@ -15837,7 +15824,7 @@
             </returns>
             <remarks>If a transparent color is added to a palette, the palette is no longer predefined and is returned as <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteTypeCustom</a>. For palettes with less than 256 entries, the transparent entry is added to the end of the palette (that is, a 16-color palette becomes a 17-color palette). For palettes with 256 colors, the transparent palette entry will replace the last entry in the pre-defined palette.</remarks>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICPalette.InitializeCustom(System.Span{System.UInt32})">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICPalette.InitializeCustom(System.ReadOnlySpan{System.UInt32})">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICPalette.InitializeCustom(System.UInt32*,System.UInt32)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICPalette.InitializeCustom(System.UInt32*,System.UInt32)">
@@ -16022,7 +16009,7 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicstream-initializefromfilename#">Read more on docs.microsoft.com</see>.</para>
             </remarks>
         </member>
-        <member name="M:Windows.Win32.Graphics.Imaging.IWICStream.InitializeFromMemory(System.Span{System.Byte})">
+        <member name="M:Windows.Win32.Graphics.Imaging.IWICStream.InitializeFromMemory(System.ReadOnlySpan{System.Byte})">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICStream.InitializeFromMemory(System.Byte*,System.UInt32)"/>
         </member>
         <member name="M:Windows.Win32.Graphics.Imaging.IWICStream.InitializeFromMemory(System.Byte*,System.UInt32)">
@@ -16927,7 +16914,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapCodecInfo_Extensions.GetContainerFormat(Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.Interface,System.Guid@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.Interface.GetContainerFormat(System.Guid*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapCodecInfo_Extensions.GetPixelFormats(Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.Interface,System.Span{System.Guid},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapCodecInfo_Extensions.GetPixelFormats(Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.Interface,System.ReadOnlySpan{System.Guid},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.Interface.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapCodecInfo_Extensions.GetColorManagementVersion(Windows.Win32.Graphics.Imaging.IWICBitmapCodecInfo.Interface,System.UInt32,System.Span{System.Char}@,System.UInt32@)">
@@ -16987,7 +16974,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapDecoderInfo_Extensions.GetContainerFormat(Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.Interface,System.Guid@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.Interface.GetContainerFormat(System.Guid*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapDecoderInfo_Extensions.GetPixelFormats(Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.Interface,System.Span{System.Guid},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapDecoderInfo_Extensions.GetPixelFormats(Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.Interface,System.ReadOnlySpan{System.Guid},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.Interface.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapDecoderInfo_Extensions.GetColorManagementVersion(Windows.Win32.Graphics.Imaging.IWICBitmapDecoderInfo.Interface,System.UInt32,System.Span{System.Char}@,System.UInt32@)">
@@ -17065,7 +17052,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapEncoderInfo_Extensions.GetContainerFormat(Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.Interface,System.Guid@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.Interface.GetContainerFormat(System.Guid*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapEncoderInfo_Extensions.GetPixelFormats(Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.Interface,System.Span{System.Guid},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapEncoderInfo_Extensions.GetPixelFormats(Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.Interface,System.ReadOnlySpan{System.Guid},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.Interface.GetPixelFormats(System.UInt32,System.Guid*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapEncoderInfo_Extensions.GetColorManagementVersion(Windows.Win32.Graphics.Imaging.IWICBitmapEncoderInfo.Interface,System.UInt32,System.Span{System.Char}@,System.UInt32@)">
@@ -17131,7 +17118,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapFrameEncode_Extensions.SetPixelFormat(Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.Interface,System.Guid@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.Interface.SetPixelFormat(System.Guid*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapFrameEncode_Extensions.WritePixels(Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.Interface,System.UInt32,System.UInt32,System.Span{System.Byte})">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapFrameEncode_Extensions.WritePixels(Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.Interface,System.UInt32,System.UInt32,System.ReadOnlySpan{System.Byte})">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.Interface.WritePixels(System.UInt32,System.UInt32,System.UInt32,System.Byte*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICBitmapFrameEncode_Extensions.WriteSource(Windows.Win32.Graphics.Imaging.IWICBitmapFrameEncode.Interface,Windows.Win32.Graphics.Imaging.IWICBitmapSource*,Windows.Win32.Graphics.Imaging.WICRect@)">
@@ -17197,7 +17184,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICColorContext_Extensions.GetType(Windows.Win32.Graphics.Imaging.IWICColorContext.Interface,Windows.Win32.Graphics.Imaging.WICColorContextType@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICColorContext.Interface.GetType(Windows.Win32.Graphics.Imaging.WICColorContextType*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICColorContext_Extensions.GetProfileBytes(Windows.Win32.Graphics.Imaging.IWICColorContext.Interface,System.Span{System.Byte},System.UInt32@)">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICColorContext_Extensions.GetProfileBytes(Windows.Win32.Graphics.Imaging.IWICColorContext.Interface,System.ReadOnlySpan{System.Byte},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICColorContext.Interface.GetProfileBytes(System.UInt32,System.Byte*,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICColorContext_Extensions.GetExifColorSpace(Windows.Win32.Graphics.Imaging.IWICColorContext.Interface,System.UInt32@)">
@@ -17281,7 +17268,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICImagingFactory_Extensions.CreateBitmap(Windows.Win32.Graphics.Imaging.IWICImagingFactory.Interface,System.UInt32,System.UInt32,System.Guid@,Windows.Win32.Graphics.Imaging.WICBitmapCreateCacheOption,Windows.Win32.Graphics.Imaging.IWICBitmap**)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICImagingFactory.Interface.CreateBitmap(System.UInt32,System.UInt32,System.Guid*,Windows.Win32.Graphics.Imaging.WICBitmapCreateCacheOption,Windows.Win32.Graphics.Imaging.IWICBitmap**)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICImagingFactory_Extensions.CreateBitmapFromMemory(Windows.Win32.Graphics.Imaging.IWICImagingFactory.Interface,System.UInt32,System.UInt32,System.Guid@,System.UInt32,System.Span{System.Byte},Windows.Win32.Graphics.Imaging.IWICBitmap**)">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICImagingFactory_Extensions.CreateBitmapFromMemory(Windows.Win32.Graphics.Imaging.IWICImagingFactory.Interface,System.UInt32,System.UInt32,System.Guid@,System.UInt32,System.ReadOnlySpan{System.Byte},Windows.Win32.Graphics.Imaging.IWICBitmap**)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICImagingFactory.Interface.CreateBitmapFromMemory(System.UInt32,System.UInt32,System.Guid*,System.UInt32,System.UInt32,System.Byte*,Windows.Win32.Graphics.Imaging.IWICBitmap**)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICImagingFactory_Extensions.CreateBitmapFromHBITMAP(Windows.Win32.Graphics.Imaging.IWICImagingFactory.Interface,System.Runtime.InteropServices.SafeHandle,System.Runtime.InteropServices.SafeHandle,Windows.Win32.Graphics.Imaging.WICBitmapAlphaChannelOption,Windows.Win32.Graphics.Imaging.IWICBitmap**)">
@@ -17320,7 +17307,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICMetadataQueryWriter_Extensions.RemoveMetadataByName(Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter.Interface,System.String)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICMetadataQueryWriter.Interface.RemoveMetadataByName(Windows.Win32.Foundation.PCWSTR)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICPalette_Extensions.InitializeCustom(Windows.Win32.Graphics.Imaging.IWICPalette.Interface,System.Span{System.UInt32})">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICPalette_Extensions.InitializeCustom(Windows.Win32.Graphics.Imaging.IWICPalette.Interface,System.ReadOnlySpan{System.UInt32})">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICPalette.Interface.InitializeCustom(System.UInt32*,System.UInt32)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_Imaging_IWICPalette_Extensions.GetType(Windows.Win32.Graphics.Imaging.IWICPalette.Interface,Windows.Win32.Graphics.Imaging.WICBitmapPaletteType@)">
@@ -17347,7 +17334,7 @@
         <member name="M:Windows.Win32.Graphics_Imaging_IWICStream_Extensions.InitializeFromFilename(Windows.Win32.Graphics.Imaging.IWICStream.Interface,System.String,System.UInt32)">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICStream.Interface.InitializeFromFilename(Windows.Win32.Foundation.PCWSTR,System.UInt32)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_Imaging_IWICStream_Extensions.InitializeFromMemory(Windows.Win32.Graphics.Imaging.IWICStream.Interface,System.Span{System.Byte})">
+        <member name="M:Windows.Win32.Graphics_Imaging_IWICStream_Extensions.InitializeFromMemory(Windows.Win32.Graphics.Imaging.IWICStream.Interface,System.ReadOnlySpan{System.Byte})">
             <inheritdoc cref="M:Windows.Win32.Graphics.Imaging.IWICStream.Interface.InitializeFromMemory(System.Byte*,System.UInt32)"/>
         </member>
         <member name="P:Windows.Win32.IComIID.Guid">
@@ -17438,7 +17425,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFActivate_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFActivate.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFActivate.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFActivate_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFActivate.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFActivate_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFActivate.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFActivate.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFActivate_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFActivate.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -17522,7 +17509,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFAttributes_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFAttributes.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFAttributes.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFAttributes_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFAttributes.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFAttributes_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFAttributes.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFAttributes.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFAttributes_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFAttributes.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -17669,7 +17656,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaEvent_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFMediaEvent.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaEvent_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFMediaEvent.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaEvent_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFMediaEvent.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaEvent.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaEvent_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFMediaEvent.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -17780,7 +17767,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaType_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFMediaType.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaType_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFMediaType.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaType_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFMediaType.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFMediaType.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFMediaType_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFMediaType.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -17870,7 +17857,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFPresentationDescriptor_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFPresentationDescriptor_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFPresentationDescriptor_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFPresentationDescriptor_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFPresentationDescriptor.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -17954,7 +17941,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFSample_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFSample.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFSample.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFSample_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFSample.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFSample_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFSample.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFSample.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFSample_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFSample.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -18062,7 +18049,7 @@
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFStreamDescriptor_Extensions.GetStringLength(Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.Interface,System.Guid@,System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.Interface.GetStringLength(System.Guid*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.Media_MediaFoundation_IMFStreamDescriptor_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)">
+        <member name="M:Windows.Win32.Media_MediaFoundation_IMFStreamDescriptor_Extensions.GetString(Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.Interface,System.Guid@,System.Span{System.Char},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.Interface.GetString(System.Guid*,Windows.Win32.Foundation.PWSTR,System.UInt32,System.UInt32*)"/>
         </member>
         <member name="M:Windows.Win32.Media_MediaFoundation_IMFStreamDescriptor_Extensions.GetAllocatedString(Windows.Win32.Media.MediaFoundation.IMFStreamDescriptor.Interface,System.Guid@,Windows.Win32.Foundation.PWSTR@,System.UInt32@)">
@@ -20993,7 +20980,7 @@
         <member name="M:Windows.Win32.System_Com_ITypeInfo_Extensions.GetImplTypeFlags(Windows.Win32.System.Com.ITypeInfo.Interface,System.UInt32,Windows.Win32.System.Com.IMPLTYPEFLAGS@)">
             <inheritdoc cref="M:Windows.Win32.System.Com.ITypeInfo.Interface.GetImplTypeFlags(System.UInt32,Windows.Win32.System.Com.IMPLTYPEFLAGS*)"/>
         </member>
-        <member name="M:Windows.Win32.System_Com_ITypeInfo_Extensions.GetIDsOfNames(Windows.Win32.System.Com.ITypeInfo.Interface,System.Span{Windows.Win32.Foundation.PWSTR},System.Span{System.Int32})">
+        <member name="M:Windows.Win32.System_Com_ITypeInfo_Extensions.GetIDsOfNames(Windows.Win32.System.Com.ITypeInfo.Interface,System.ReadOnlySpan{Windows.Win32.Foundation.PWSTR},System.Span{System.Int32})">
             <inheritdoc cref="M:Windows.Win32.System.Com.ITypeInfo.Interface.GetIDsOfNames(Windows.Win32.Foundation.PWSTR*,System.UInt32,System.Int32*)"/>
         </member>
         <member name="M:Windows.Win32.System_Com_ITypeInfo_Extensions.Invoke(Windows.Win32.System.Com.ITypeInfo.Interface,System.Void*,System.Int32,Windows.Win32.System.Com.DISPATCH_FLAGS,Windows.Win32.System.Com.DISPPARAMS@,Windows.Win32.System.Variant.VARIANT@,Windows.Win32.System.Com.EXCEPINFO@,System.UInt32@)">
@@ -21050,10 +21037,10 @@
         <member name="M:Windows.Win32.System_Com_StructuredStorage_IEnumSTATSTG_Extensions.Next(Windows.Win32.System.Com.StructuredStorage.IEnumSTATSTG.Interface,System.Span{Windows.Win32.System.Com.STATSTG},System.UInt32*)">
             <inheritdoc cref="M:Windows.Win32.System.Com.StructuredStorage.IEnumSTATSTG.Interface.Next(System.UInt32,Windows.Win32.System.Com.STATSTG*,System.UInt32*)"/>
         </member>
-        <member name="M:Windows.Win32.System_Com_StructuredStorage_IPropertyBag2_Extensions.Read(Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface,System.Span{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},Windows.Win32.System.Com.IErrorLog*,System.Span{Windows.Win32.System.Variant.VARIANT},System.Span{Windows.Win32.Foundation.HRESULT})">
+        <member name="M:Windows.Win32.System_Com_StructuredStorage_IPropertyBag2_Extensions.Read(Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface,System.ReadOnlySpan{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},Windows.Win32.System.Com.IErrorLog*,System.Span{Windows.Win32.System.Variant.VARIANT},System.ReadOnlySpan{Windows.Win32.Foundation.HRESULT})">
             <inheritdoc cref="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface.Read(System.UInt32,Windows.Win32.System.Com.StructuredStorage.PROPBAG2*,Windows.Win32.System.Com.IErrorLog*,Windows.Win32.System.Variant.VARIANT*,Windows.Win32.Foundation.HRESULT*)"/>
         </member>
-        <member name="M:Windows.Win32.System_Com_StructuredStorage_IPropertyBag2_Extensions.Write(Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface,System.Span{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},System.Span{Windows.Win32.System.Variant.VARIANT})">
+        <member name="M:Windows.Win32.System_Com_StructuredStorage_IPropertyBag2_Extensions.Write(Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface,System.ReadOnlySpan{Windows.Win32.System.Com.StructuredStorage.PROPBAG2},System.ReadOnlySpan{Windows.Win32.System.Variant.VARIANT})">
             <inheritdoc cref="M:Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface.Write(System.UInt32,Windows.Win32.System.Com.StructuredStorage.PROPBAG2*,Windows.Win32.System.Variant.VARIANT*)"/>
         </member>
         <member name="M:Windows.Win32.System_Com_StructuredStorage_IPropertyBag2_Extensions.CountProperties(Windows.Win32.System.Com.StructuredStorage.IPropertyBag2.Interface,System.UInt32@)">

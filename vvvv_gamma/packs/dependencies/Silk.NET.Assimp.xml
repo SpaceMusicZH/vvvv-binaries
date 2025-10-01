@@ -5239,6 +5239,29 @@
         <member name="M:Silk.NET.Assimp.AssimpOverloads.GetMaterialTexture(Silk.NET.Assimp.Assimp,System.ReadOnlySpan{Silk.NET.Assimp.Material},Silk.NET.Assimp.TextureType,System.UInt32,System.Span{Silk.NET.Assimp.AssimpString},System.Span{Silk.NET.Assimp.TextureMapping},System.Span{System.UInt32},System.Span{System.Single},System.Span{Silk.NET.Assimp.TextureOp},System.Span{Silk.NET.Assimp.TextureMapMode},System.Span{System.UInt32})">
             <summary>To be documented.</summary>
         </member>
+        <member name="T:Silk.NET.Assimp.OpenFileCustomIOCallback">
+            <summary>
+            A delegate for use with <see cref="T:Silk.NET.Assimp.OpenFileCustomIOCallback"/> to open a <see cref="T:System.IO.Stream"/> representing the
+            requested file, or <c>null</c> if this was not possible.
+            </summary>
+            <param name="file">The file to open.</param>
+            <param name="access">The access mode.</param>
+            <param name="mode">The file open mode.</param>
+            <returns>The opened file, or null if not successful.</returns>
+        </member>
+        <member name="T:Silk.NET.Assimp.CustomFileIO">
+            <summary>
+            An adapter for using a <see cref="T:System.IO.Stream"/> through Assimp's <see cref="P:Silk.NET.Assimp.CustomFileIO.FileIO"/> interface.
+            </summary>
+        </member>
+        <member name="P:Silk.NET.Assimp.CustomFileIO.FileIO">
+            <summary>
+            Gets a reference to the <see cref="P:Silk.NET.Assimp.CustomFileIO.FileIO"/> to pass to native.
+            </summary>
+        </member>
+        <member name="M:Silk.NET.Assimp.CustomFileIO.Dispose">
+            <inheritdoc />
+        </member>
         <member name="T:Silk.NET.Assimp.ExcludeComponent">
             <summary>
             Enumerates components of the scene or mesh data that

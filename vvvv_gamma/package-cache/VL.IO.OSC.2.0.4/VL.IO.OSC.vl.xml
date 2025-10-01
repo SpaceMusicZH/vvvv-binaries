@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.IO.OSC.vl</name>
+    </assembly>
+    <members>
+        <member name="T:_VL_IO_OSC_.IO.OSC.OSCClient_C">
+            <summary>A UDP based OSC Client</summary>
+            <tags>opensoundcontrol,udp</tags>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSCClient_C.Update(System.String,System.Int32,VL.Lib.Collections.Spread{System.String},VL.Lib.Collections.Spread{System.Int32},System.Int32,System.Boolean,System.IObservable{VL.Lib.Collections.Spread{_VL_IO_OSC_.IO.OSC.OSCMessage_R}}@,System.Boolean@,System.Boolean@)">
+            <param name="Server_In">Send messages to a single target. Ignored in case optional &quot;Servers&quot; and &quot;Ports&quot; inputs are used.</param>
+            <param name="Port_In">Send messages to a single target. Ignored in case optional &quot;Servers&quot; and &quot;Ports&quot; inputs are used.</param>
+            <param name="Servers_In">Send messages to multiple targets. If used, the &quot;Server&quot; and &quot;Port&quot; inputs are ignored.</param>
+            <param name="Ports_In">Send messages to multiple targets. If used, the &quot;Server&quot; and &quot;Port&quot; inputs are ignored.</param>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSCClient_C.Dispose_">
+            <summary>interface operation summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="T:_VL_IO_OSC_.IO.OSC.OSCServer_P">
+            <summary>A UDP based OSC Server</summary>
+            <tags>opensoundcontrol,udp</tags>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSCServer_P.Dispose_">
+            <summary>interface operation summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="T:_VL_IO_OSC_.IO.OSC.OSCReceiver_Reactive_P`1">
+            <summary>Receives the arguments from the specified OSC address</summary>
+            <remarks>Connect to an OSCServer</remarks>
+        </member>
+        <member name="T:_VL_IO_OSC_.IO.OSC.OSCReceiver_Empty_P">
+            <summary>Receives messages without arguments from the specified OSC address</summary>
+            <remarks>Connect to an OSCServer</remarks>
+        </member>
+        <member name="T:_VL_IO_OSC_.IO.OSC.OSCReceiver_P`1">
+            <summary>Receives the arguments from the specified OSC address</summary>
+            <remarks>Connect to an OSCServer</remarks>
+        </member>
+        <member name="T:_VL_IO_OSC_.IO.OSC.OSC_C">
+            <summary>A UDP based OSC Server and Client</summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.Update(VL.Core.Optional{System.String},System.String,System.Int32,System.Boolean,System.String,System.Int32,System.Boolean,System.Boolean,VL.Core.Reactive.BindingType,System.Boolean@,System.Boolean@)">
+            <param name="Listening_IP_In">Local IP</param>
+            <param name="Listening_Port_In">Local Port</param>
+            <param name="Server_Enabled_In">Listen to incoming messages</param>
+            <param name="Server_In">Target Host or IP</param>
+            <param name="Server_Port_In">Target Port</param>
+            <param name="Receive_via_Client_In">Listen to messages a server sends back to the client</param>
+            <param name="Client_Enabled_In">Send messages to the target</param>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.Name_(System.String@)">
+            <summary>interface operation summary: A short name of the module. Shown in the browser in the top of row of the column header. (Or a corresponding icon)</summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.Description_(System.String@)">
+            <summary>interface operation summary: Describes what the user can expect from this module.</summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.SupportsType_(System.Type,System.Boolean@)">
+            <summary>interface operation summary: If a type of a channel is not supported by this module, the cell shouldn&apos;t show a checkobox.</summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.Nickname_(System.String@)">
+            <summary>
+            interface operation summary: A short name for the module, used in the editor.
+            Might stem from the name and some of the more prominent conifguration options.
+            Might be set by the user of the node.
+            </summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.ConfigHint_(System.String@)">
+            <summary>
+            interface operation summary: A thorough description of the configuration of this module.
+            For a short info see NickName.
+            </summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.NodeContext_(VL.Core.NodeContext@)">
+            <summary>interface operation summary: So that we can jump to the module node.</summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.InterfaceVersion_(System.Single@)">
+            <summary>interface operation summary: Interface version of this module. If not implemented it&apos;s probably 1.0</summary>
+        </member>
+        <member name="M:_VL_IO_OSC_.IO.OSC.OSC_C.Dispose_">
+            <summary>interface operation summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="M:_OSCModule_.IO.OSC.Modules.OSCModule_C.Description_(System.String@)">
+            <summary>interface operation summary: Describes what the user can expect from this module.</summary>
+        </member>
+        <member name="M:_OSCModule_.IO.OSC.Modules.OSCModule_C.Name_(System.String@)">
+            <summary>interface operation summary: A short name of the module. Shown in the browser in the top of row of the column header. (Or a corresponding icon)</summary>
+        </member>
+        <member name="M:_OSCModule_.IO.OSC.Modules.OSCModule_C.SupportsType_(System.Type,System.Boolean@)">
+            <summary>interface operation summary: If a type of a channel is not supported by this module, the cell shouldn&apos;t show a checkobox.</summary>
+        </member>
+        <member name="M:_OSCModule_.IO.OSC.Modules.OSCModule_C.Dispose_">
+            <summary>interface operation summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="M:_OSCModule_.IO.OSC.Modules.OSCBinding_Runtime_C.Dispose_">
+            <summary>interface operation summary: Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.</summary>
+        </member>
+        <member name="M:_OSCModule_.IO.OSC.Modules.Binding_P.Update(_OSCModule_.IO.OSC.Modules.OSCModule_C,System.String,System.String,System.String,VL.Core.Reactive.BindingType,_OSCModule_.IO.OSC.Modules.OSCBinding_Runtime_C@)">
+            <param name="OSC_Address_In">If empty an address will get derived from the channel path</param>
+        </member>
+    </members>
+</doc>

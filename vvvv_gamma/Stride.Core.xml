@@ -380,7 +380,8 @@
         </member>
         <member name="T:Stride.Core.Collections.FastList`1">
             <summary>
-            Similar to <see cref="T:System.Collections.Generic.List`1"/>, with direct access to underlying array.
+            <para>Similar to <see cref="T:System.Collections.Generic.List`1"/>, with direct access to underlying array.</para>
+            <para>It is recommended to use Spans instead: <see href="https://github.com/stride3d/stride/discussions/2298#discussioncomment-9779439"/></para>
             </summary>
             <typeparam name="T">The type of elements in the list.</typeparam>
         </member>
@@ -437,7 +438,7 @@
         </member>
         <member name="P:Stride.Core.Collections.FastTrackingCollectionChangedEventArgs.OldItem">
             <summary>
-            Gets the previous value. Only valid if <see cref="P:Stride.Core.Collections.FastTrackingCollectionChangedEventArgs.Action"/> is <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Add"/> and <see cref="!:"/>
+            Gets the previous value. Only valid if <see cref="P:Stride.Core.Collections.FastTrackingCollectionChangedEventArgs.Action"/> is <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Add"/> and <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Remove"/>
             </summary>
         </member>
         <member name="P:Stride.Core.Collections.FastTrackingCollectionChangedEventArgs.Key">
@@ -1337,7 +1338,7 @@
         </member>
         <member name="P:Stride.Core.Collections.TrackingCollectionChangedEventArgs.OldItem">
             <summary>
-            Gets the previous value. Only valid if <see cref="P:Stride.Core.Collections.TrackingCollectionChangedEventArgs.Action"/> is <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Add"/> and <see cref="!:"/>
+            Gets the previous value. Only valid if <see cref="P:Stride.Core.Collections.TrackingCollectionChangedEventArgs.Action"/> is <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Add"/> and <see cref="F:System.Collections.Specialized.NotifyCollectionChangedAction.Remove"/>
             </summary>
         </member>
         <member name="P:Stride.Core.Collections.TrackingCollectionChangedEventArgs.Key">
@@ -2121,7 +2122,7 @@
         </member>
         <member name="P:Stride.Core.Diagnostics.ExceptionInfo.TypeName">
             <summary>
-            Gets or sets the name of the exception type. Should correspond to the <see cref="!:Type.Name"/> property of the exception type.
+            Gets or sets the name of the exception type. Should correspond to the <see cref="P:System.Reflection.MemberInfo.Name"/> property of the exception type.
             </summary>
         </member>
         <member name="P:Stride.Core.Diagnostics.ExceptionInfo.InnerExceptions">
@@ -3273,7 +3274,7 @@
             A profiler state contains information of a portion of code being profiled. See remarks.
             </summary>
             <remarks>
-            This struct is not intended to be used directly but only through <see cref="!:Profiler.Begin()"/>.
+            This struct is not intended to be used directly but only through <see cref="M:Stride.Core.Diagnostics.Profiler.Begin(Stride.Core.Diagnostics.ProfilingKey)"/>.
             You can still attach some attributes to it while profiling a portion of code.
             </remarks>
         </member>
@@ -3990,7 +3991,6 @@
             <summary>
             Try to preload the library.
             This is useful when we want to have AnyCPU .NET and CPU-specific native code.
-            Only available on Windows for now.
             </summary>
             <param name="libraryName">Name of the library, without the extension.</param>
             <param name="owner">Type whose assembly location is related to the native library (we can't use GetCallingAssembly as it might be wrong due to optimizations).</param>
@@ -3998,13 +3998,13 @@
         </member>
         <member name="M:Stride.Core.NativeLibraryHelper.UnLoad(System.String)">
             <summary>
-            UnLoad a specific native dynamic library loaded previously by <see cref="!:LoadLibrary" />.
+            UnLoad a specific native dynamic library loaded previously by <see cref="M:Stride.Core.NativeLibraryHelper.PreloadLibrary(System.String,System.Type)" />.
             </summary>
             <param name="libraryName">Name of the library to unload.</param>
         </member>
         <member name="M:Stride.Core.NativeLibraryHelper.UnLoadAll">
             <summary>
-            UnLoad all native dynamic library loaded previously by <see cref="!:LoadLibrary"/>.
+            UnLoad all native dynamic library loaded previously by <see cref="M:Stride.Core.NativeLibraryHelper.PreloadLibrary(System.String,System.Type)"/>.
             </summary>
         </member>
         <member name="M:Stride.Core.NativeLibraryHelper.RegisterDependency(System.String)">

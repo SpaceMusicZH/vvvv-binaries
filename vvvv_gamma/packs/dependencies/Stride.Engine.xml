@@ -185,7 +185,7 @@
         </member>
         <member name="M:Stride.Animations.AnimationCurve.ShiftKeys(Stride.Animations.CompressedTimeSpan)">
             <summary>
-            Shifts all animation keys by the specified time, adding it to all <see cref="!:KeyFrameData.Time"/>
+            Shifts all animation keys by the specified time, adding it to all <see cref="F:Stride.Animations.KeyFrameData`1.Time" />
             </summary>
             <param name="shiftTimeSpan">The time span by which the keys should be shifted</param>
         </member>
@@ -876,7 +876,7 @@
             <remarks>
             <para>
             Instances of this class can not be directly created by the user, but need to queried from an <see cref="T:Stride.Engine.AudioEmitterComponent"/>
-            instance using the readonly <see cref="!:AudioEmitterComponent.Item(string)"/> indexer.
+            instance using the readonly <see cref="P:Stride.Engine.AudioEmitterComponent.Item(System.String)"/> indexer.
             </para>
             <para>
             An instance <see cref="T:Stride.Audio.AudioEmitterSoundController"/> is not valid anymore if any of those situations arrives:
@@ -1124,7 +1124,7 @@
             Use the <see cref="F:Stride.Engine.AudioEmitterComponent.Sounds"/> dictionary to associate or dissociate a <see cref="T:Stride.Audio.SoundBase"/> to the emitter component.
             Each SoundBase associated to the emitter component can be controlled (played, paused, stopped, ...) independently for the others.
             Once attached to the emitter component, a SoundBase is controlled using a <see cref="T:Stride.Audio.AudioEmitterSoundController"/>.
-            To get the AudioEmitterSoundController associated to a SoundBase use the readonly <see cref="!:AudioEmitterComponent.Item(string)"/> indexer.
+            To get the AudioEmitterSoundController associated to a SoundBase use the readonly <see cref="P:Stride.Engine.AudioEmitterComponent.Item(System.String)"/> indexer.
             </para>
             </remarks>
         </member>
@@ -1208,7 +1208,7 @@
         <member name="M:Stride.Engine.AudioEmitterComponent.AttachSound(Stride.Audio.SoundBase)">
             <summary>
             Attach a <see cref="T:Stride.Audio.SoundBase"/> to this emitter component.
-            Once attached a <see cref="T:Stride.Audio.AudioEmitterSoundController"/> can be queried using readonly <see cref="!:AudioEmitterComponent.Item(string)"/> indexer to control the attached SoundBase.
+            Once attached a <see cref="T:Stride.Audio.AudioEmitterSoundController"/> can be queried using readonly <see cref="P:Stride.Engine.AudioEmitterComponent.Item(System.String)"/> indexer to control the attached SoundBase.
             </summary>
             <param name="sound">The SoundBase to attach</param>
             <exception cref="T:System.ArgumentNullException">The provided <paramref name="sound"/> is null.</exception>
@@ -1485,7 +1485,7 @@
         </member>
         <member name="T:Stride.Engine.Design.EffectCompilationMode">
             <summary>
-            Defines how <see cref="!:EffectCompilerFactory.CreateEffectCompiler"/> tries to create compiler.
+            Defines how <see cref="M:Stride.Shaders.Compiler.EffectCompilerFactory.CreateEffectCompiler(Stride.Core.IO.IVirtualFileProvider,Stride.Rendering.EffectSystem,System.String,Stride.Engine.Design.EffectCompilationMode,System.Boolean,Stride.Shaders.Compiler.TaskSchedulerSelector,Stride.Core.IO.DatabaseFileProvider)"/> tries to create compiler.
             </summary>
         </member>
         <member name="F:Stride.Engine.Design.EffectCompilationMode.None">
@@ -1724,7 +1724,9 @@
         </member>
         <member name="T:Stride.Engine.Entity">
             <summary>
-            Game entity. It usually aggregates multiple EntityComponent
+            Represents a game entity that typically aggregates multiple <see cref="T:Stride.Engine.EntityComponent"/> instances.
+            For more information about entities, see <see href="https://doc.stride3d.net/latest/en/manual/game-studio/add-entities.html">Adding entities</see>
+            and <see href="https://doc.stride3d.net/latest/en/manual/game-studio/manage-entities.html">Managing entities</see>.
             </summary>
         </member>
         <member name="M:Stride.Engine.Entity.#ctor">
@@ -1745,7 +1747,7 @@
             <param name="name">The name to give to the entity</param>
             <param name="position">The initial position of the entity</param>
             <param name="rotation">The initial rotation of the entity</param>
-            <param name="rotation">The initial scale of the entity</param>
+            <param name="scale">The initial scale of the entity</param>
         </member>
         <member name="M:Stride.Engine.Entity.#ctor(System.String,System.Boolean)">
             <summary>
@@ -1785,10 +1787,10 @@
         </member>
         <member name="M:Stride.Engine.Entity.Add(Stride.Engine.EntityComponent)">
             <summary>
-            Adds the specified component using the <see cref="!:EntityComponent.DefaultKey" />.
+            Adds the specified component to the entity.
             </summary>
-            <param name="component">The component.</param>
-            <exception cref="T:System.ArgumentNullException">component</exception>
+            <param name="component">The component to add.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if the component is null.</exception>
         </member>
         <member name="M:Stride.Engine.Entity.Get``1">
             <summary>
@@ -2088,8 +2090,8 @@
         <member name="M:Stride.Engine.EntityManager.Remove(Stride.Engine.Entity)">
             <summary>
             Removes the entity from the <see cref="T:Stride.Engine.EntityManager" />.
-            It works weither entity has a parent or not.
-            In conjonction with <see cref="!:HierarchicalProcessor" />, it will remove child entities as well.
+            It works either entity has a parent or not.
+            In conjonction with <see cref="T:Stride.Engine.EntityProcessor" />, it will remove child entities as well.
             </summary>
             <param name="entity">The entity.</param>
         </member>
@@ -2436,16 +2438,16 @@
         </member>
         <member name="M:Stride.Engine.EntityTransformExtensions.WorldToLocal(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Quaternion@,Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Performs tranformation of the given transform in world space to local space.
+            Performs transformation of the given transform in world space to local space.
             </summary>
             <param name="transformComponent">The transform component.</param>
-            <param name="position">Input world space position tranformed to local space.</param>
-            <param name="rotation">Input world space rotation tranformed to local space.</param>
-            <param name="scale">Input world space scale tranformed to local space.</param>
+            <param name="position">Input world space position transformed to local space.</param>
+            <param name="rotation">Input world space rotation transformed to local space.</param>
+            <param name="scale">Input world space scale transformed to local space.</param>
         </member>
         <member name="M:Stride.Engine.EntityTransformExtensions.WorldToLocal(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Performs tranformation of the given point in world space to local space.
+            Performs transformation of the given point in world space to local space.
             </summary>
             <param name="transformComponent">The transform component.</param>
             <param name="point">World space point.</param>
@@ -2453,7 +2455,7 @@
         </member>
         <member name="M:Stride.Engine.EntityTransformExtensions.WorldToLocal(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3)">
             <summary>
-            Performs tranformation of the given point in world space to local space.
+            Performs transformation of the given point in world space to local space.
             </summary>
             <param name="transformComponent">The transform component.</param>
             <param name="point">World space point.</param>
@@ -2461,16 +2463,16 @@
         </member>
         <member name="M:Stride.Engine.EntityTransformExtensions.LocalToWorld(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Quaternion@,Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Performs tranformation of the given transform in local space to world space.
+            Performs transformation of the given transform in local space to world space.
             </summary>
             <param name="transformComponent">The transform component.</param>
-            <param name="position">Input local space position tranformed to world space.</param>
-            <param name="rotation">Input local space rotation tranformed to world space.</param>
-            <param name="scale">Input local space scale tranformed to world space.</param>
+            <param name="position">Input local space position transformed to world space.</param>
+            <param name="rotation">Input local space rotation transformed to world space.</param>
+            <param name="scale">Input local space scale transformed to world space.</param>
         </member>
         <member name="M:Stride.Engine.EntityTransformExtensions.LocalToWorld(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3@,Stride.Core.Mathematics.Vector3@)">
             <summary>
-            Performs tranformation of the given point in local space to world space.
+            Performs transformation of the given point in local space to world space.
             </summary>
             <param name="transformComponent">The transform component.</param>
             <param name="point">Local space point.</param>
@@ -2478,11 +2480,54 @@
         </member>
         <member name="M:Stride.Engine.EntityTransformExtensions.LocalToWorld(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3)">
             <summary>
-            Performs tranformation of the given point in local space to world space.
+            Performs transformation of the given point in local space to world space.
             </summary>
             <param name="transformComponent">The transform component.</param>
             <param name="point">Local space point.</param>
             <returns>World space point.</returns>
+        </member>
+        <member name="M:Stride.Engine.EntityTransformExtensions.SetWorld(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Quaternion)">
+            <summary>
+            Set this Transform's world position and rotation based on the given parameters.
+            </summary>
+            <remarks>
+            <para> This conversion is lossy, getting the world position back won't match this input position. </para>
+            <para>
+            This method relies on this object's matrix which may be out of date if any of its parents moved since the last frame.
+            If this is likely, you should call <see cref="M:Stride.Engine.TransformComponent.UpdateWorldMatrix"/> before calling this method.
+            </para>
+            </remarks>
+            <param name="transformComponent">The transform component.</param>
+            <param name="position">Input world space position.</param>
+            <param name="rotation">Input world space rotation.</param>
+        </member>
+        <member name="M:Stride.Engine.EntityTransformExtensions.SetWorld(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Vector3)">
+            <summary>
+            Set this Transform's world position and rotation based on the given parameters.
+            </summary>
+            <remarks>
+            <para> This conversion is lossy, getting the world position back won't match this input position. </para>
+            <para>
+            This method relies on this object's matrix which may be out of date if any of its parents moved since the last frame.
+            If this is likely, you should call <see cref="M:Stride.Engine.TransformComponent.UpdateWorldMatrix"/> before calling this method.
+            </para>
+            </remarks>
+            <param name="transformComponent">The transform component.</param>
+            <param name="position">Input world space position.</param>
+        </member>
+        <member name="M:Stride.Engine.EntityTransformExtensions.SetWorld(Stride.Engine.TransformComponent,Stride.Core.Mathematics.Quaternion)">
+            <summary>
+            Set this Transform's world position and rotation based on the given parameters.
+            </summary>
+            <remarks>
+            <para> This conversion is lossy, getting the world position back won't match this input position. </para>
+            <para>
+            This method relies on this object's matrix which may be out of date if any of its parents moved since the last frame.
+            If this is likely, you should call <see cref="M:Stride.Engine.TransformComponent.UpdateWorldMatrix"/> before calling this method.
+            </para>
+            </remarks>
+            <param name="transformComponent">The transform component.</param>
+            <param name="rotation">Input world space rotation.</param>
         </member>
         <member name="T:Stride.Engine.Events.EventKeyCounter">
             <summary>
@@ -2628,6 +2673,71 @@
             This also makes sure we fire events at proper required order/timing
             </summary>
         </member>
+        <member name="T:Stride.Engine.FlexibleProcessing.IComponent`2">
+            <summary>
+            Defines a Processor/component or system/component relationship, <see cref="T:Stride.Engine.EntityComponent"/> implementing this interface
+            will be sent to the <typeparamref name="TProcessor"/> defined. Enabling component addition and removal tracking as well as batching operations over components.
+            </summary>
+            <typeparam name="TProcessor">The system which collects those components and iterates over them</typeparam>
+            <typeparam name="TThis">The type name implementing this interface</typeparam>
+        </member>
+        <member name="M:Stride.Engine.FlexibleProcessing.IComponent`2.IProcessor.OnComponentAdded(`1)">
+            <summary> Occurs right after a component is added to the scene </summary>
+        </member>
+        <member name="M:Stride.Engine.FlexibleProcessing.IComponent`2.IProcessor.OnComponentRemoved(`1)">
+            <summary> Occurs right after a component is removed from the scene </summary>
+        </member>
+        <member name="T:Stride.Engine.FlexibleProcessing.IMarkedComponent">
+            <summary>
+            Dummy interface used to quickly filter out components that aren't marked for processing, do not use.
+            </summary>
+        </member>
+        <member name="P:Stride.Engine.FlexibleProcessing.IDrawProcessor.Order">
+            <summary>
+            The order of the processor, smaller values execute first
+            </summary>
+            <remarks> Only evaluated once after instantiation </remarks>
+        </member>
+        <member name="P:Stride.Engine.FlexibleProcessing.IProcessorBase.ExecutionMode">
+            <summary> The logic using this value expects it to be constant at runtime </summary>
+        </member>
+        <member name="M:Stride.Engine.FlexibleProcessing.IProcessorBase.SystemAdded(Stride.Core.IServiceRegistry)">
+            <summary> Occurs right after the first component handled by this processor is added to the scene, but before <see cref="M:Stride.Engine.FlexibleProcessing.IProcessorBase.OnComponentAdded(Stride.Engine.FlexibleProcessing.IMarkedComponent)"/> </summary>
+        </member>
+        <member name="M:Stride.Engine.FlexibleProcessing.IProcessorBase.SystemRemoved">
+            <summary> Occurs right after the last component handled by this processor is removed from the scene, after the call to <see cref="M:Stride.Engine.FlexibleProcessing.IProcessorBase.OnComponentRemoved(Stride.Engine.FlexibleProcessing.IMarkedComponent)"/> </summary>
+        </member>
+        <member name="M:Stride.Engine.FlexibleProcessing.IProcessorBase.OnComponentAdded(Stride.Engine.FlexibleProcessing.IMarkedComponent)">
+            <summary> Occurs right after a component is added to the scene </summary>
+        </member>
+        <member name="M:Stride.Engine.FlexibleProcessing.IProcessorBase.OnComponentRemoved(Stride.Engine.FlexibleProcessing.IMarkedComponent)">
+            <summary> Occurs right after a component is removed from the scene </summary>
+        </member>
+        <member name="P:Stride.Engine.FlexibleProcessing.IUpdateProcessor.Order">
+            <summary>
+            The order of the processor, smaller values execute first
+            </summary>
+            <remarks> Only evaluated once after instantiation </remarks>
+        </member>
+        <member name="F:Stride.Engine.FlexibleProcessing.ProcessorManager.processors">
+            <summary> Every processor created during runtime </summary>
+            <remarks>
+            Processor removed still have their slot filled in, with a null <see cref="P:Stride.Engine.FlexibleProcessing.ProcessorManager.ProcessorData.Instance"/> to remove insertion cost.
+            </remarks>
+        </member>
+        <member name="F:Stride.Engine.FlexibleProcessing.ProcessorManager.compTypeToProcessorIndices">
+            <summary> Takes the type of the component and returns an array of the processors which handle this component </summary>
+            <remarks> Value is an array of indices pointing into the <see cref="F:Stride.Engine.FlexibleProcessing.ProcessorManager.processors"/> array </remarks>
+        </member>
+        <member name="F:Stride.Engine.FlexibleProcessing.ProcessorManager.typeToIndex">
+            <summary> Takes the type of the processor and returns its position in the <see cref="F:Stride.Engine.FlexibleProcessing.ProcessorManager.processors"/> array </summary>
+        </member>
+        <member name="F:Stride.Engine.FlexibleProcessing.ProcessorManager.processorsToUpdate">
+            <summary> The list of <see cref="T:Stride.Engine.FlexibleProcessing.IUpdateProcessor"/> sorted by its <see cref="P:Stride.Engine.FlexibleProcessing.IUpdateProcessor.Order"/> </summary>
+        </member>
+        <member name="F:Stride.Engine.FlexibleProcessing.ProcessorManager.processorsToDraw">
+            <summary> The list of <see cref="T:Stride.Engine.FlexibleProcessing.IDrawProcessor"/> sorted by its <see cref="P:Stride.Engine.FlexibleProcessing.IDrawProcessor.Order"/> </summary>
+        </member>
         <member name="T:Stride.Engine.Game">
             <summary>
             Main Game class system.
@@ -2764,6 +2874,84 @@
             <value>The game.</value>
             <remarks>This value can be null</remarks>
         </member>
+        <member name="T:Stride.Engine.Gizmos.GizmoComponentAttribute">
+            <summary>
+            Specifies for which component the associated gizmo class is.
+            </summary>
+        </member>
+        <member name="M:Stride.Engine.Gizmos.GizmoComponentAttribute.#ctor(System.Type,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Engine.Gizmos.GizmoComponentAttribute"/> class.
+            </summary>
+            <param name="componentType">The type of component the related gizmo class is associated with.</param>
+            <param name="isMainGizmo">Indicates whether this gizmo is a main gizmo.</param>
+        </member>
+        <member name="P:Stride.Engine.Gizmos.GizmoComponentAttribute.ComponentType">
+            <summary>
+            Gets or sets the type of component the related gizmo class is associated with.
+            </summary>
+        </member>
+        <member name="P:Stride.Engine.Gizmos.GizmoComponentAttribute.IsMainGizmo">
+            <summary>
+            Gets or sets whether this gizmo is a main gizmo. An entity will display only one of its main gizmo, corresponding to the component
+            that has the highest priority set in its <see cref="T:Stride.Core.DisplayAttribute"/>.
+            </summary>
+            <remarks>
+            Main gizmos will be entirely disposed instead of disabled if disabled in the gizmo settings
+            </remarks>
+        </member>
+        <member name="T:Stride.Engine.Gizmos.IEntityGizmo">
+            <summary>
+            An interface creating and managing an editor gizmo for a particular <see cref="T:Stride.Engine.EntityComponent"/>
+            </summary>
+            <remarks>
+            The implementer must have a <see cref="T:Stride.Engine.Gizmos.GizmoComponentAttribute"/> attach and the constructor of said class 
+            must have exactly one argument of the type of component specified in the attribute.
+            </remarks>
+        </member>
+        <member name="P:Stride.Engine.Gizmos.IEntityGizmo.IsSelected">
+            <summary>
+            Gets or sets the selected state of the gizmo.
+            </summary>
+        </member>
+        <member name="M:Stride.Engine.Gizmos.IEntityGizmo.Update">
+            <summary>
+            Updates the gizmo state.
+            </summary>
+        </member>
+        <member name="F:Stride.Engine.Gizmos.IEntityGizmo.PickingRenderGroup">
+            <summary>
+            Render group used for scene picking, set your model to use this render group when you want mouse selection to work on your models
+            </summary>
+            <remarks>
+            Your <see cref="M:Stride.Engine.Gizmos.IGizmo.HandlesComponentId(Stride.Engine.OpaqueComponentId,Stride.Engine.Entity@)"/> takes care of confirming to the engine that the picked component is yours
+            </remarks>
+        </member>
+        <member name="T:Stride.Engine.Gizmos.IGizmo">
+            <summary>
+            The base interface for editor gizmos
+            </summary>
+        </member>
+        <member name="P:Stride.Engine.Gizmos.IGizmo.IsEnabled">
+            <summary>
+            Gets or sets the enabled state of the gizmo.
+            </summary>
+        </member>
+        <member name="P:Stride.Engine.Gizmos.IGizmo.SizeFactor">
+            <summary>
+            Gets or sets the size scale factor of the gizmo.
+            </summary>
+        </member>
+        <member name="M:Stride.Engine.Gizmos.IGizmo.HandlesComponentId(Stride.Engine.OpaqueComponentId,Stride.Engine.Entity@)">
+            <summary>
+            Used for picking gizmos on mouse down, returns true when that component was created by this gizmo
+            </summary>
+        </member>
+        <member name="M:Stride.Engine.Gizmos.IGizmo.Initialize(Stride.Core.IServiceRegistry,Stride.Engine.Scene)">
+            <summary>
+            Initialize the gizmo.
+            </summary>
+        </member>
         <member name="T:Stride.Engine.InputSystem">
             <summary>
             The input system updating the input manager exposed by <see cref="P:Stride.Engine.Game.Input"/>.
@@ -2833,7 +3021,7 @@
         </member>
         <member name="P:Stride.Engine.InstancingUserBuffer.BoundingBox">
             <summary>
-            The bounding box of the world matrices, updated automatically by the <see cref="!:InstancingProcessor"/>.
+            The bounding box of the world matrices, updated automatically by the <see cref="T:Stride.Engine.Processors.InstancingProcessor"/>.
             </summary>
         </member>
         <member name="P:Stride.Engine.ISceneRendererContext.Services">
@@ -3186,6 +3374,11 @@
             High-level layer that can be used on top of <see cref="T:Stride.Engine.Network.SimpleSocket"/> to send and receive objects using serialization.
             </summary>
         </member>
+        <member name="T:Stride.Engine.OpaqueComponentId">
+            <summary>
+            Contains the id of a component
+            </summary>
+        </member>
         <member name="T:Stride.Engine.Prefab">
             <summary>
             A prefab that contains entities.
@@ -3449,17 +3642,17 @@
         </member>
         <member name="F:Stride.Engine.SceneInstance.Current">
             <summary>
-            A property key to get the current scene from the <see cref="!:RenderContext.Tags"/>.
+            A property key to get the current scene from the <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="F:Stride.Engine.SceneInstance.CurrentRenderSystem">
             <summary>
-            A property key to get the current render system from the <see cref="!:RenderContext.Tags"/>.
+            A property key to get the current render system from the <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="F:Stride.Engine.SceneInstance.CurrentVisibilityGroup">
             <summary>
-            A property key to get the current visibility group from the <see cref="!:RenderContext.Tags"/>.
+            A property key to get the current visibility group from the <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="E:Stride.Engine.SceneInstance.RootSceneChanged">
@@ -3861,7 +4054,7 @@
         </member>
         <member name="P:Stride.Profiling.GameProfilingSystem.RenderTarget">
             <summary>
-            The render target where the profiling results should be rendered into. If null, the <see cref="!:Game.GraphicsDevice.Presenter.BackBuffer"/> is used.
+            The render target where the profiling results should be rendered into. If null, the <see cref="P:Stride.Graphics.GraphicsPresenter.BackBuffer"/> is used.
             </summary>
         </member>
         <member name="M:Stride.Profiling.GameProfilingSystem.#ctor(Stride.Core.IServiceRegistry)">
@@ -3938,7 +4131,7 @@
         </member>
         <member name="F:Stride.Rendering.CameraComponentRendererExtensions.Current">
             <summary>
-            Property key to access the current collection of <see cref="T:Stride.Engine.CameraComponent"/> from <see cref="!:RenderContext.Tags"/>.
+            Property key to access the current collection of <see cref="T:Stride.Engine.CameraComponent"/> from <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="T:Stride.Rendering.Compositing.EditorTopLevelCompositor">
@@ -4050,9 +4243,34 @@
             </summary>
             <param name="drawContext">The drawing context</param>
         </member>
+        <member name="T:Stride.Rendering.Compositing.GraphicsCompositor">
+            <summary>
+            The <c>GraphicsCompositor</c> class organizes how scenes are rendered in the Stride engine, providing extensive customization of the rendering pipeline.
+            </summary>
+            <remarks>
+            This class handles the initialization and destruction of the render system, manages the cameras used in the composition, and controls the render stages and features.
+            It provides entry points for the game compositor, a single view compositor, and a compositor used by the scene editor.
+            <para>
+            Key features of the <c>GraphicsCompositor</c> include:
+            </para>
+            <list type="bullet">
+              <item><description>Using one or multiple cameras</description></item>
+              <item><description>Filtering entities</description></item>
+              <item><description>Rendering to one or more render textures with different viewports</description></item>
+              <item><description>Setting HDR or LDR rendering</description></item>
+              <item><description>Applying post effects to a render target</description></item>
+              <item><description>Clearing a render target or only the depth buffer</description></item>
+              <item><description>Editable in the Game Studio and at runtime from scripts</description></item>
+            </list>
+            <para>
+            For more information, see the
+            <see href="https://doc.stride3d.net/latest/en/manual/graphics/graphics-compositor/index.html">Graphics Compositor</see> documentation.
+            </para>
+            </remarks>
+        </member>
         <member name="F:Stride.Rendering.Compositing.GraphicsCompositor.Current">
             <summary>
-            A property key to get the current <see cref="T:Stride.Rendering.Compositing.GraphicsCompositor"/> from the <see cref="!:RenderContext.Tags"/>.
+            A property key to get the current <see cref="T:Stride.Rendering.Compositing.GraphicsCompositor"/> from the <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="P:Stride.Rendering.Compositing.GraphicsCompositor.RenderSystem">
@@ -4160,7 +4378,7 @@
         </member>
         <member name="F:Stride.Rendering.Compositing.SceneCameraSlotCollection.Current">
             <summary>
-            Property key to access the current collection of <see cref="T:Stride.Engine.CameraComponent"/> from <see cref="!:RenderContext.Tags"/>.
+            Property key to access the current collection of <see cref="T:Stride.Engine.CameraComponent"/> from <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="T:Stride.Rendering.Compositing.SceneCameraSlotId">
@@ -4410,7 +4628,7 @@
         </member>
         <member name="T:Stride.Updater.ArrayUpdateResolver`1">
             <summary>
-            Resolver for <see cref="!:T[]"/> in property path.
+            Resolver for <see cref="T:System.Array"/> with elements of type <typeparamref name="T"/>.
             </summary>
             <typeparam name="T">The type of array items.</typeparam>
         </member>

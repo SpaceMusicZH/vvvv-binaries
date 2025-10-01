@@ -4,6 +4,11 @@
         <name>VL.ImGui</name>
     </assembly>
     <members>
+        <member name="P:VL.ImGui.Widgets.DragDropSource.Content">
+            <summary>
+            call SetDragDropPayload somewhere in here
+            </summary>
+        </member>
         <member name="T:VL.ImGui.Widgets.GetClipboardText">
             <summary>
             Retrieve text data from the clipboard
@@ -267,7 +272,7 @@
             Returns true if content is visible.
             </summary>
         </member>
-        <member name="P:VL.ImGui.Widgets.DragWidget`2.Format">
+        <member name="P:VL.ImGui.Widgets.DragWidgetBase`2.Format">
             <summary>
             Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: % .0f" -> Biscuit: 1; etc.
             </summary>
@@ -278,6 +283,50 @@
             </summary>
         </member>
         <member name="P:VL.ImGui.Widgets.InputFloat64.Format">
+            <summary>
+            Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: % .0f" -> Biscuit: 1; etc.
+            </summary>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTextCallbackData.EventChar">
+            <summary>
+            Character input.
+            </summary>
+            <remarks>
+            [CharFilter] Replace character with another one, or set to zero to drop. return 1 is equivalent to setting EventChar=0;
+            </remarks>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTextCallbackData.EventKey">
+            <summary>
+            Key pressed (Up/Down/TAB)
+            </summary>
+            <remarks>
+            [Completion,History]
+            </remarks>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTextCallbackData.Text">
+            <summary>
+            Text buffer
+            </summary>
+            <remarks>
+            [Resize] Can replace pointer / [Completion,History,Always]
+            </remarks>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTextCallbackData.CursorPos">
+            <remarks>
+            [Completion,History,Always]
+            </remarks>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTextCallbackData.SelectionStart">
+            <remarks>
+            [Completion,History,Always] == to SelectionEnd when no selection)
+            </remarks>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTextCallbackData.SelectionEnd">
+            <remarks>
+            [Completion,History,Always]
+            </remarks>
+        </member>
+        <member name="P:VL.ImGui.Widgets.InputTimeSpan.Format">
             <summary>
             Adjust format string to decorate the value with a prefix, a suffix, or adapt the editing and display precision e.g. "%.3f" -> 1.234; "%5.2f secs" -> 01.23 secs; "Biscuit: % .0f" -> Biscuit: 1; etc.
             </summary>
@@ -562,6 +611,11 @@
             Return true if the popup is open at the current BeginPopup() level of the popup stack. With AnyPopupId flag: return true if any popup is open at the current BeginPopup() level of the popup stack. With AnyPopupId + AnyPopupLevel flags: return true if any popup is open.
             </summary>
         </member>
+        <member name="T:VL.ImGui.Widgets.IsWindowDocked">
+            <summary>
+            Is current window docked into another window?
+            </summary>
+        </member>
         <member name="T:VL.ImGui.Widgets.IsKeyDown">
             <summary>
             Is key down?
@@ -802,7 +856,7 @@
             The captured state will be unset by all widgets except query widgets (determined by <see cref="P:VL.ImGui.Widget.HasItemState"/>).
             </summary>
         </member>
-        <member name="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle)">
+        <member name="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle,System.Boolean)">
             <summary>
             Applies the style on the ImGui context. Intended to be called by a using statement.
             </summary>
@@ -822,8 +876,9 @@
             <param name="Size">The size of the font in device independent hecto pixel (1 = 100 DIP).</param>
             <param name="Name">An optional name to use for this configuration.</param>
             <param name="GlyphRange">The glyph range.</param>
+            <param name="CustomGlyphRange">Custom glyph range. If set <see cref="P:VL.ImGui.FontConfig.GlyphRange"/> will be ignored. A valid range is 1..0xFFFF</param>
         </member>
-        <member name="M:VL.ImGui.FontConfig.#ctor(VL.Lib.Text.FontList,SixLabors.Fonts.FontStyle,System.Single,System.String,VL.ImGui.GlyphRange)">
+        <member name="M:VL.ImGui.FontConfig.#ctor(VL.Lib.Text.FontList,VL.Lib.Text.FontStyle,System.Single,System.String,VL.ImGui.GlyphRange,VL.Lib.Collections.Spread{VL.Lib.Mathematics.Range{System.Int32}})">
             <summary>
             Defines a font configuration.
             </summary>
@@ -832,6 +887,7 @@
             <param name="Size">The size of the font in device independent hecto pixel (1 = 100 DIP).</param>
             <param name="Name">An optional name to use for this configuration.</param>
             <param name="GlyphRange">The glyph range.</param>
+            <param name="CustomGlyphRange">Custom glyph range. If set <see cref="P:VL.ImGui.FontConfig.GlyphRange"/> will be ignored. A valid range is 1..0xFFFF</param>
         </member>
         <member name="P:VL.ImGui.FontConfig.FamilyName">
             <summary>The font family name.</summary>
@@ -848,12 +904,15 @@
         <member name="P:VL.ImGui.FontConfig.GlyphRange">
             <summary>The glyph range.</summary>
         </member>
+        <member name="P:VL.ImGui.FontConfig.CustomGlyphRange">
+            <summary>Custom glyph range. If set <see cref="P:VL.ImGui.FontConfig.GlyphRange"/> will be ignored. A valid range is 1..0xFFFF</summary>
+        </member>
         <member name="M:VL.ImGui.IStyle.Set(VL.ImGui.Context)">
             <summary>
             Sets the style on the curent ImGui context.
             </summary>
             <remarks>
-            Avoid calling this method directly. Instead use <see cref="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle)"/> which enforces a safe usage pattern.
+            Avoid calling this method directly. Instead use <see cref="!:Context.ApplyStyle(IStyle?)"/> which enforces a safe usage pattern.
             </remarks>
         </member>
         <member name="M:VL.ImGui.IStyle.Reset(VL.ImGui.Context)">
@@ -861,7 +920,7 @@
             Resets the style on the current ImGui context.
             </summary>
             <remarks>
-            Avoid calling this method directly. Instead use <see cref="M:VL.ImGui.Context.ApplyStyle(VL.ImGui.IStyle)"/> which enforces a safe usage pattern.
+            Avoid calling this method directly. Instead use <see cref="!:Context.ApplyStyle(IStyle?)"/> which enforces a safe usage pattern.
             </remarks>
         </member>
         <member name="M:VL.ImGui.StyleExtensions.Apply(VL.ImGui.IStyle)">

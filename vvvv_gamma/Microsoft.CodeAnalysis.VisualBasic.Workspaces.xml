@@ -30,30 +30,23 @@ Microsoft.CodeAnalysis.VisualBasic.Workspaces
  Note: the returned syntax node might be modified, which means its parent information might be missing.
  </summary>
 </member>
-<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictWalker._importedTypesAndNamespaces">
+<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictFinder._importedTypesAndNamespaces">
  <summary>
  A mapping containing the simple names And arity of all namespace members, mapped to the import that
  they're brought in by.
  </summary>
 </member>
-<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictWalker._importedMembers">
+<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictFinder._importedMembers">
  <summary>
  A mapping containing the simple names of all members, mapped to the import that they're brought in by.
  Members are imported in through modules in vb. This doesn't keep track of arity because methods can be
  called with type arguments.
  </summary>
 </member>
-<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictWalker._importedExtensionMethods">
+<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictFinder._importedExtensionMethods">
  <summary>
  A mapping containing the simple names of all extension methods, mapped to the import that they're
  brought in by. This doesn't keep track of arity because methods can be called with type arguments.
- </summary>
-</member>
-<member name="F:Microsoft.CodeAnalysis.VisualBasic.Editing.VisualBasicImportAdder.ConflictWalker._inAnonymousMethod">
- <summary>
- Track if we're in an anonymous method or not.  If so, because of how the language binds lambdas and
- overloads, we'll assume any method access we see inside (instance or otherwise) could end up conflicting
- with an extension method we might pull in.
  </summary>
 </member>
 <member name="M:Microsoft.CodeAnalysis.VisualBasic.Extensions.SemanticModelExtensions.GenerateNameForExpression(Microsoft.CodeAnalysis.SemanticModel,Microsoft.CodeAnalysis.VisualBasic.Syntax.ExpressionSyntax,System.Boolean,System.Threading.CancellationToken)">
@@ -607,15 +600,6 @@ Microsoft.CodeAnalysis.VisualBasic.Workspaces
 </member>
 <member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.Introduces_a_type_conversion_operation_that_does_not_throw_an_exception_If_an_attempted_conversion_fails_TryCast_returns_Nothing_which_your_program_can_test_for">
  <summary>Introduces a type conversion operation that does not throw an exception. If an attempted conversion fails, TryCast returns Nothing, which your program can test for.</summary>
-</member>
-<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.Node_does_not_descend_from_root">
- <summary>Node does not descend from root.</summary>
-</member>
-<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.Node_not_in_parent_s_child_list">
- <summary>Node not in parent's child list</summary>
-</member>
-<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.Trivia_is_not_associated_with_token">
- <summary>Trivia is not associated with token</summary>
 </member>
 <member name="P:Microsoft.CodeAnalysis.VisualBasic.VBWorkspaceResources.typeOrMember">
  <summary>&lt;typeOrMember&gt;</summary>

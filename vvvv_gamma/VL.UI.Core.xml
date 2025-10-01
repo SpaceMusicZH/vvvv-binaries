@@ -181,7 +181,12 @@
         </member>
         <member name="P:VL.Core.Viewer.VMouseEventArgs.Location">
             <summary>
-            Location in view Space, relative to the control (ie. where topleft 0/0 corresponds to the Controls 0/0)
+            Location in view Space in DIP, relative to the control (ie. where topleft 0/0 corresponds to the Controls 0/0)
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.VMouseEventArgs.WorldLocationSnapped">
+            <summary>
+            Location in canvas space, corrected for zoom and pan; Snapped
             </summary>
         </member>
         <member name="P:VL.Core.Viewer.VMouseEventArgs.WorldLocation">
@@ -432,6 +437,118 @@
             PathEllipsis: text is drawn as is, showing path-ellipsis for lines exceeding Size.Width and hard clipped at Size.Height
             </summary>
         </member>
+        <member name="T:VL.Core.Viewer.GraphicalEditor.AutoCompletionPosition">
+            <summary>
+            Defines where the auto-completion popup should be positioned
+            </summary>
+        </member>
+        <member name="F:VL.Core.Viewer.GraphicalEditor.AutoCompletionPosition.CursorPosition">
+            <summary>
+            Position at the current cursor/caret position
+            </summary>
+        </member>
+        <member name="F:VL.Core.Viewer.GraphicalEditor.AutoCompletionPosition.AnchorPosition">
+            <summary>
+            Position at the anchor position of the text element
+            </summary>
+        </member>
+        <member name="T:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion">
+            <summary>
+            Represents a single auto-completion suggestion with display text and insertion behavior
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.DisplayText">
+            <summary>
+            The text to display in the auto-completion popup
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.InsertText">
+            <summary>
+            The text to insert when this suggestion is selected. If null, DisplayText is used.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.CursorOffset">
+            <summary>
+            The cursor position relative to the start of the inserted text. 
+            If null, cursor is placed at the end of the inserted text.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.InsertRange">
+            <summary>
+            The range where insertion shall take place.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.#ctor(System.String,System.Nullable{System.Range})">
+            <summary>
+            Creates a simple suggestion with the same display and insert text
+            </summary>
+            <param name="text">Text to display and insert</param>
+            <param name="insertRange">Where the text should be inserted</param>
+        </member>
+        <member name="M:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.#ctor(System.String,System.String,System.Nullable{System.Int32},System.Nullable{System.Range})">
+            <summary>
+            Creates a suggestion with custom display text, insert text, and cursor position
+            </summary>
+            <param name="displayText">Text to display in the popup</param>
+            <param name="insertText">Text to insert when selected</param>
+            <param name="cursorOffset">Cursor position relative to start of inserted text</param>
+            <param name="insertRange">Where the text should be inserted</param>
+        </member>
+        <member name="M:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.GetInsertText">
+            <summary>
+            Gets the effective text to insert
+            </summary>
+        </member>
+        <member name="M:VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion.GetCursorPosition">
+            <summary>
+            Gets the effective cursor position after insertion
+            </summary>
+        </member>
+        <member name="T:VL.Core.Viewer.GraphicalEditor.AutoCompletionResult">
+            <summary>
+            Result of auto-completion callback providing suggestions and positioning
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.AutoCompletionResult.Suggestions">
+            <summary>
+            The list of suggestions to display
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.AutoCompletionResult.Position">
+            <summary>
+            Where to position the auto-completion popup
+            </summary>
+        </member>
+        <member name="M:VL.Core.Viewer.GraphicalEditor.AutoCompletionResult.FromStrings(System.Collections.Generic.IEnumerable{System.String},VL.Core.Viewer.GraphicalEditor.AutoCompletionPosition)">
+            <summary>
+            Creates a result with simple string suggestions
+            </summary>
+            <param name="suggestions">Simple string suggestions</param>
+            <param name="position">Popup position</param>
+        </member>
+        <member name="T:VL.Core.Viewer.GraphicalEditor.AutoCompletionSelectionMode">
+            <summary>
+            Defines when auto-completion entries get automatically selected
+            </summary>
+        </member>
+        <member name="F:VL.Core.Viewer.GraphicalEditor.AutoCompletionSelectionMode.AutoSelect">
+            <summary>
+            Always automatically select the first entry when suggestions appear
+            </summary>
+        </member>
+        <member name="F:VL.Core.Viewer.GraphicalEditor.AutoCompletionSelectionMode.ManualSelect">
+            <summary>
+            No automatic selection - user must manually navigate to select entries
+            </summary>
+        </member>
+        <member name="T:VL.Core.Viewer.GraphicalEditor.AutoCompletionCallback">
+            <summary>
+            Delegate for providing auto-completion suggestions
+            </summary>
+            <param name="host">The auto-completion host providing text context</param>
+            <param name="caretPosition">Current caret position</param>
+            <returns>Auto-completion result with suggestions and position, or null to hide completion</returns>
+        </member>
         <member name="P:VL.Core.Viewer.GraphicalEditor.IText.LineHeight">
             <summary>
             Returns the line height of the given font
@@ -468,6 +585,26 @@
             Returns the height of the text it would need if wrapped at the given width
             </summary>
             <returns></returns>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.IText.DrawAsRichText">
+            <summary>
+            Whether or not to draw text using RichTextKit instead of plain Skia draw functions
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.IText.AutoCompletionCallback">
+            <summary>
+            Gets or sets the auto-completion callback function
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.IText.AutoCompletionXOffset">
+            <summary>
+            Gets or sets the horizontal offset applied to the position of the auto-completion popup
+            </summary>
+        </member>
+        <member name="P:VL.Core.Viewer.GraphicalEditor.IText.AutoCompletionSelectionMode">
+            <summary>
+            Gets or sets the selection mode for auto-completion entries
+            </summary>
         </member>
         <member name="T:VL.Core.Viewer.Icons">
             <summary>

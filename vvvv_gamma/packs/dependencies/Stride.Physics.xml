@@ -1668,6 +1668,12 @@
             The scaling of the generated convex hull.
             </userdoc>
         </member>
+        <member name="P:Stride.Physics.ConvexHullColliderShapeDesc.Margin">
+            <userdoc>
+            The Margin of the generated convex hull.
+            Default = 0.04f
+            </userdoc>
+        </member>
         <member name="P:Stride.Physics.ConvexHullColliderShapeDesc.Decomposition">
             <userdoc>
             If this is not checked, the contained parameters are ignored and only a simple convex hull of the model will be generated.
@@ -1865,6 +1871,26 @@
             Sets or gets the orientation of the Entity attached to this character controller
             </summary>
             <remarks>This orientation has no impact in the physics simulation</remarks>
+        </member>
+        <member name="M:Stride.Physics.CharacterComponent.ComposeShape">
+            <summary>
+            Reconstruct of character controller to avoid possible UAF issues
+            Context: On ColliderShape changes, when ComposeShape is ran to rebuild ColliderShape properties, disposing the old ColliderShape can cause UAF
+            issues inside KinematicCharacter and inside Simulation discreteDynamicWorld due to old disposed references to the native object.
+            </summary>
+        </member>
+        <member name="M:Stride.Physics.CharacterComponent.OverrideKinematicCharacterValues(BulletSharp.KinematicCharacterController)">
+            <summary>
+            When we reconstruct our KinematicCharacter, we would want to preserve some physics properties. Try to have the
+            physics of the object try to match as close as possible.
+            </summary>
+            <param name="oldController"></param>
+        </member>
+        <member name="M:Stride.Physics.CharacterComponent.LogPhysicsFunctionError">
+            <summary>
+            Run specific error when physics functions are called on components that do not have proper setup.
+            Captures good tracing info for debugging purposes.
+            </summary>
         </member>
         <member name="T:Stride.Physics.EFlags">
             <summary>
@@ -2945,6 +2971,17 @@
             In the case of dynamic rigidbodies a velocity reset should be applied first.
             </summary>
             <param name="forceUpdateTransform">Ensure that the Transform.WorldMatrix we are reading from is up to date</param>
+        </member>
+        <member name="M:Stride.Engine.PhysicsComponent.ComposeShape">
+            <summary>
+            Made virtual for added behavior in CharacterComponent with UAF exception
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Stride.Engine.PhysicsComponent.ReAttach" -->
+        <member name="M:Stride.Engine.PhysicsComponent.OnAttach">
+            <summary>
+            Called whenever an entity with this component is added to scene.
+            </summary>
         </member>
         <member name="M:Stride.Engine.PhysicsComponent.ColliderShapeCollection.InsertItem(System.Int32,Stride.Physics.IInlineColliderShapeDesc)">
             <inheritdoc/>

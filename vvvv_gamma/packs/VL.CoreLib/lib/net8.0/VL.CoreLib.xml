@@ -3942,19 +3942,16 @@
             <summary>
             Runs the given patch and returns whether it has been successful or not
             </summary>
-            <typeparam name="TState"></typeparam>
         </member>
         <member name="T:VL.Lib.Control.TryCatchStateful`1">
             <summary>
             Runs the given patch, runs catch instead if it has been unsuccessful
             </summary>
-            <typeparam name="TState"></typeparam>
         </member>
         <member name="T:VL.Lib.Control.TryCatchFinallyStateful`1">
             <summary>
             Runs the given patch, runs catch instead if it has been unsuccessful. Guarantees to run Finally afterwards
             </summary>
-            <typeparam name="TState"></typeparam>
         </member>
         <member name="T:VL.Lib.Control.TryStateful2`1">
             ---------------------------------------------------------------------------------------------------------
@@ -4233,16 +4230,16 @@
             Manages a serialport provider.
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Ports.SerialPort.IsOpen">
-            <summary>
-            Whether or not the serialport is connected.
-            </summary>
-        </member>
         <member name="M:VL.Lib.IO.Ports.SerialPort.Update(VL.Lib.IO.Ports.ComPort,System.Int32,System.Int32,System.IO.Ports.StopBits,System.IO.Ports.Parity,System.IO.Ports.Handshake,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
             <summary>
             Configures the internally managed serialport provider.
             </summary>
             <returns>A serialport provider which can be used by multiple threads in parallel.</returns>
+        </member>
+        <member name="P:VL.Lib.IO.Ports.SerialPort.IsOpen">
+            <summary>
+            Whether or not the serialport is connected.
+            </summary>
         </member>
         <member name="P:VL.Lib.IO.Ports.SerialPort4.IsOpen">
             <summary>
@@ -4254,16 +4251,16 @@
             Receives bytes from a SerialPort.
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Ports.Receiver.Data">
-            <summary>
-            The observable sequence of bytes. The bytes will be pushed on the network thread.
-            </summary>
-        </member>
         <member name="M:VL.Lib.IO.Ports.Receiver.Update(VL.Lib.Basics.Resources.IResourceProvider{System.IO.Ports.SerialPort})">
             <summary>
             Configures the receiver.
             </summary>
             <param name="port">The serialport to receive data from.</param>
+        </member>
+        <member name="P:VL.Lib.IO.Ports.Receiver.Data">
+            <summary>
+            The observable sequence of bytes. The bytes will be pushed on the network thread.
+            </summary>
         </member>
         <member name="T:VL.Lib.IO.Ports.Sender">
             <summary>
@@ -4353,17 +4350,12 @@
             <param name="localSocket">The local socket to send data out of.</param>
             <param name="datagrams">The datagrams to send.</param>
         </member>
-        <member name="T:VL.Lib.IO.Socket.UDPSocket">
+        <member name="T:VL.Lib.IO.Socket.UdpSocket">
             <summary>
             Manages a UDP socket provider.
             </summary>
         </member>
-        <member name="P:VL.Lib.IO.Socket.UDPSocket.IsOpen">
-            <summary>
-            Whether or not the socket is open.
-            </summary>
-        </member>
-        <member name="M:VL.Lib.IO.Socket.UDPSocket.Update(System.Net.IPEndPoint,System.Boolean,System.Boolean)">
+        <member name="M:VL.Lib.IO.Socket.UdpSocket.Update(System.Net.IPEndPoint,System.Boolean,System.Boolean)">
             <summary>
             Configures the internally managed socket provider.
             </summary>
@@ -4371,6 +4363,11 @@
             <param name="bind">Whether or not to bind the socket.</param>
             <param name="enabled">Whether or not the socket is active.</param>
             <returns>A socket provider which can be used by multiple threads in parallel.</returns>
+        </member>
+        <member name="P:VL.Lib.IO.Socket.UdpSocket.IsOpen">
+            <summary>
+            Whether or not the socket is open.
+            </summary>
         </member>
         <member name="T:VL.Lib.IO.Socket.SocketProvider">
             <summary>
@@ -6434,6 +6431,11 @@
             Parses a binary string to an integer, note that leading '0x' is not allowed
             </summary>
         </member>
+        <member name="M:VL.Lib.Primitive.Object.ObjectHelpers.NULL_OR_DEFAULT``1">
+            <summary>
+            NULL in case of reference type, unitialized in case of value type, e.g. (0,0,0,0) for a vector4 
+            </summary>
+        </member>
         <member name="M:VL.Lib.Primitive.Object.ObjectHelpers.IsAssigned(System.Object,System.Boolean@,System.Boolean@)">
             <summary>
             Whether or not the value is null
@@ -6451,6 +6453,13 @@
             <param name="y"></param>
             <returns></returns>
         </member>
+        <member name="M:VL.Lib.Primitive.Object.ObjectHelpers.AvoidNULL``1(``0,``0)">
+            <summary>
+            If the Input is NULL the fallbackValue will be returned
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns></returns>
+        </member>
         <member name="M:VL.Lib.Primitive.Object.ObjectHelpers.HardCast``1(System.Object)">
             <summary>
             Casts the input value to the downstream connected type. Will throw a InvalidCastException if the cast fails
@@ -6466,6 +6475,15 @@
             <typeparam name="T"></typeparam>
             <param name="input"></param>
             <param name="default"></param>
+            <param name="result"></param>
+            <param name="success"></param>
+        </member>
+        <member name="M:VL.Lib.Primitive.Object.ObjectHelpers.CastAs_Slim``1(System.Object,``0@,System.Boolean@)">
+            <summary>
+            Casts the input value to the downstream connected type. In case the cast fails the result will be unassigned or unitialized in case of a value type 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="input"></param>
             <param name="result"></param>
             <param name="success"></param>
         </member>
@@ -6855,6 +6873,11 @@
             </remarks>
             <typeparam name="T"></typeparam>
         </member>
+        <member name="M:VL.Lib.Reactive.SubChannelHelpers.warnForAWhile(VL.Core.NodeContext,System.Func{System.String})">
+            <summary>
+            suitable for when Update calls refresh the warnings constantly
+            </summary>
+        </member>
         <member name="T:VL.Lib.Reactive.ToObservable`1">
             <summary>
             Creates an observable and sends the input value as an event on it. The output observable is always the same and never completes.
@@ -6960,8 +6983,11 @@
         </member>
         <member name="T:VL.Lib.Reactive.MultimediaTimerObservable">
             <summary>
-            Timer using the systems multimedia timer with millisecond accuracy on a high proiority thread. Experimental, you should only create one if it...
+            Observable timer on a backround thread using the windows multimedia timer with about 1ms precision.
             </summary>
+            <remarks>
+            You should only use one multimedia timer at a time!
+            </remarks>
         </member>
         <member name="M:VL.Lib.Reactive.MultimediaTimerObservable.Update(System.Single@,System.Int32,VL.Core.TimerMode,System.Boolean,System.Boolean)">
             <summary>
@@ -7334,32 +7360,15 @@
             <param name="newValue">Target value</param>
             <returns>Filtered target value</returns>
         </member>
-        <member name="P:VL.Core.Reactive.ChannelBuildDescription.CompileTimeType">
+        <member name="M:VL.Core.Reactive.PublicChannelDescription.GetCompileTimeType(VL.Core.TypeRegistry)">
             <summary>
-            Returns object for patched types. Must bu used when building the pin description.
+            Returns object for patched types. Must be used when building the pin description.
             </summary>
         </member>
-        <member name="M:VL.Core.Reactive.ChannelBuildDescription.GetRuntimeType(VL.Core.AppHost)">
+        <member name="M:VL.Core.Reactive.PublicChannelDescription.GetRuntimeType(VL.Core.TypeRegistry)">
             <summary>
             Returns the type itself. Must not be called during compilation.
             </summary>
-        </member>
-        <member name="T:VL.Core.Reactive.IChannelHub">
-            <summary>
-            A ChannelHub manages the lifetime of channels.
-            </summary>
-        </member>
-        <member name="M:VL.Core.Reactive.IChannelHub.BeginChange">
-            <summary>
-            Do several changes to the ChannelHub in one go. using BeginChange()
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:VL.Core.Reactive.IChannelHub.RegisterModule(VL.Core.Reactive.IModule)">
-            <summary>
-            Please call this inside a static RegisterServices operation
-            </summary>
-            <param name="module"></param>
         </member>
         <member name="T:Windows.Win32.Foundation.COLORREF">
             <summary>The COLORREF value is used to specify an RGB color.</summary>
@@ -7863,6 +7872,24 @@
             <para>Type: <b>UINT16</b> The number of text positions in the cluster.</para>
             <para><see href="https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_cluster_metrics#members">Read more on docs.microsoft.com</see>.</para>
             </summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS.canWrapLineAfter">
+            <summary>Gets or sets bit 0 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS.isWhitespace">
+            <summary>Gets or sets bit 1 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS.isNewline">
+            <summary>Gets or sets bit 2 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS.isSoftHyphen">
+            <summary>Gets or sets bit 3 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS.isRightToLeft">
+            <summary>Gets or sets bit 4 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS.padding">
+            <summary>Gets or sets bits 5-15 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_CLUSTER_METRICS._bitfield" /> field. Allowed values are [0..2047].</summary>
         </member>
         <member name="T:Windows.Win32.Graphics.DirectWrite.DWRITE_FACTORY_TYPE">
             <summary>Specifies the type of DirectWrite factory object.</summary>
@@ -8987,6 +9014,21 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_breakpoint">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
         </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT.breakConditionBefore">
+            <summary>Gets or sets bits 0-1 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT._bitfield" /> field. Allowed values are [0..3].</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT.breakConditionAfter">
+            <summary>Gets or sets bits 2-3 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT._bitfield" /> field. Allowed values are [0..3].</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT.isWhitespace">
+            <summary>Gets or sets bit 4 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT.isSoftHyphen">
+            <summary>Gets or sets bit 5 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT.padding">
+            <summary>Gets or sets bits 6-7 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_BREAKPOINT._bitfield" /> field. Allowed values are [0..3].</summary>
+        </member>
         <member name="T:Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_METRICS">
             <summary>Contains information about a formatted line of text. (DWRITE_LINE_METRICS)</summary>
             <remarks>
@@ -9302,11 +9344,38 @@
             <para><see href="https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_glyph_properties">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
         </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES.justification">
+            <summary>Gets or sets bits 0-3 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES._bitfield" /> field. Allowed values are [0..15].</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES.isClusterStart">
+            <summary>Gets or sets bit 4 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES.isDiacritic">
+            <summary>Gets or sets bit 5 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES.isZeroWidthSpace">
+            <summary>Gets or sets bit 6 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES.reserved">
+            <summary>Gets or sets bits 7-15 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES._bitfield" /> field. Allowed values are [0..511].</summary>
+        </member>
         <member name="T:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES">
             <summary>Shaping output properties for an output glyph.</summary>
             <remarks>
             <para><see href="https://learn.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_text_properties">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES.isShapedAlone">
+            <summary>Gets or sets bit 0 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES.reserved1">
+            <summary>Gets or sets bit 1 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES.canBreakShapingAfter">
+            <summary>Gets or sets bit 2 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES._bitfield" /> field.</summary>
+        </member>
+        <member name="P:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES.reserved">
+            <summary>Gets or sets bits 3-15 in the <see cref="F:Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES._bitfield" /> field. Allowed values are [0..8191].</summary>
         </member>
         <member name="T:Windows.Win32.Graphics.DirectWrite.DWRITE_STRIKETHROUGH">
             <summary>Contains information regarding the size and placement of strikethroughs.</summary>
@@ -11230,6 +11299,73 @@
             </returns>
             <remarks>
             <para><see href="https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader.GetFilePathLengthFromKey(System.Void*,System.UInt32,System.UInt32@)">
+            <summary>Obtains the length of the absolute file path from the font file reference key.</summary>
+            <param name="fontFileReferenceKey">
+            <para>Type: **const void\*** Font file reference key that uniquely identifies the local font file within the scope of the font loader being used.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="fontFileReferenceKeySize">
+            <para>Type: **UINT32** Size of font file reference key in bytes.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="filePathLength">
+            <para>Type: **UINT32\*** Length of the file path string, not including the terminated **NULL** character.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <returns>
+            <para>Type: **HRESULT** If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader.GetFilePathFromKey(System.Void*,System.UInt32,Windows.Win32.Foundation.PWSTR,System.UInt32)">
+            <summary>Obtains the absolute font file path from the font file reference key.</summary>
+            <param name="fontFileReferenceKey">
+            <para>Type: **const void\*** The font file reference key that uniquely identifies the local font file within the scope of the font loader being used.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="fontFileReferenceKeySize">
+            <para>Type: **UINT32** The size of font file reference key in bytes.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="filePath">
+            <para>Type: **WCHAR\*** The character array that receives the local file path.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="filePathSize">
+            <para>Type: **UINT32** The length of the file path character array.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <returns>
+            <para>Type: **HRESULT** If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey">Learn more about this API from docs.microsoft.com</see>.</para>
+            </remarks>
+        </member>
+        <member name="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader.GetLastWriteTimeFromKey(System.Void*,System.UInt32,System.Runtime.InteropServices.ComTypes.FILETIME*)">
+            <summary>Obtains the last write time of the file from the font file reference key.</summary>
+            <param name="fontFileReferenceKey">
+            <para>Type: **const void\*** The font file reference key that uniquely identifies the local font file within the scope of the font loader being used.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="fontFileReferenceKeySize">
+            <para>Type: **UINT32** The size of font file reference key in bytes.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <param name="lastWriteTime">
+            <para>Type: **FILETIME\*** The time of the last font file modification.</para>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey#parameters">Read more on docs.microsoft.com</see>.</para>
+            </param>
+            <returns>
+            <para>Type: **HRESULT** If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.</para>
+            </returns>
+            <remarks>
+            <para><see href="https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey">Learn more about this API from docs.microsoft.com</see>.</para>
             </remarks>
         </member>
         <member name="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings.GetCount">
@@ -13404,8 +13540,20 @@
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteInlineObject_Extensions.GetBreakConditions(Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject,Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION@,Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject.GetBreakConditions(Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION*,Windows.Win32.Graphics.DirectWrite.DWRITE_BREAK_CONDITION*)"/>
         </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteLocalFontFileLoader_Extensions.GetFilePathFromKey(Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader,System.Void*,System.UInt32,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader.GetFilePathFromKey(System.Void*,System.UInt32,Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteLocalFontFileLoader_Extensions.GetLastWriteTimeFromKey(Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader,System.Void*,System.UInt32,System.Runtime.InteropServices.ComTypes.FILETIME@)">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalFontFileLoader.GetLastWriteTimeFromKey(System.Void*,System.UInt32,System.Runtime.InteropServices.ComTypes.FILETIME*)"/>
+        </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteLocalizedStrings_Extensions.FindLocaleName(Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings,System.String,System.UInt32@,Windows.Win32.Foundation.BOOL@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings.FindLocaleName(Windows.Win32.Foundation.PCWSTR,System.UInt32@,Windows.Win32.Foundation.BOOL*)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteLocalizedStrings_Extensions.GetLocaleName(Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings,System.UInt32,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings.GetLocaleName(System.UInt32,Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteLocalizedStrings_Extensions.GetString(Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings,System.UInt32,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteLocalizedStrings.GetString(System.UInt32,Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWritePixelSnapping_Extensions.IsPixelSnappingDisabled(Windows.Win32.Graphics.DirectWrite.IDWritePixelSnapping,System.Void*,Windows.Win32.Foundation.BOOL@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWritePixelSnapping.IsPixelSnappingDisabled(System.Void*,Windows.Win32.Foundation.BOOL*)"/>
@@ -13431,10 +13579,10 @@
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextAnalyzer_Extensions.GetGlyphs(Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer,System.String,Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS@,System.String,Windows.Win32.Graphics.DirectWrite.IDWriteNumberSubstitution,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.ReadOnlySpan{System.UInt32},System.UInt16[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES},System.UInt16[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer.GetGlyphs(Windows.Win32.Foundation.PCWSTR,System.UInt32,Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS*,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Graphics.DirectWrite.IDWriteNumberSubstitution,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.UInt32*,System.UInt32,System.UInt32,System.UInt16[],Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES*,System.UInt16[],Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES*,System.UInt32@)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextAnalyzer_Extensions.GetGlyphPlacements(Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer,System.String,System.UInt16[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES},System.UInt16[],System.ReadOnlySpan{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES},Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,System.Single,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS@,System.String,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.ReadOnlySpan{System.UInt32},System.Single[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET})">
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextAnalyzer_Extensions.GetGlyphPlacements(Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer,System.String,System.UInt16[],System.ReadOnlySpan{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES},System.UInt16[],System.ReadOnlySpan{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES},Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,System.Single,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS@,System.String,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.ReadOnlySpan{System.UInt32},System.Single[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET})">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer.GetGlyphPlacements(Windows.Win32.Foundation.PCWSTR,System.UInt16[],Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES*,System.UInt32,System.UInt16[],Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES*,System.UInt32,Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,System.Single,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS*,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.UInt32*,System.UInt32,System.Single[],Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET*)"/>
         </member>
-        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextAnalyzer_Extensions.GetGdiCompatibleGlyphPlacements(Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer,System.String,System.UInt16[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES},System.UInt16[],System.ReadOnlySpan{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES},Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,System.Single,System.Single,System.Nullable{Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX},Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS@,System.String,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.ReadOnlySpan{System.UInt32},System.Single[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET})">
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextAnalyzer_Extensions.GetGdiCompatibleGlyphPlacements(Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer,System.String,System.UInt16[],System.ReadOnlySpan{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES},System.UInt16[],System.ReadOnlySpan{Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES},Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,System.Single,System.Single,System.Nullable{Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX},Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS@,System.String,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.ReadOnlySpan{System.UInt32},System.Single[],System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET})">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextAnalyzer.GetGdiCompatibleGlyphPlacements(Windows.Win32.Foundation.PCWSTR,System.UInt16[],Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_TEXT_PROPERTIES*,System.UInt32,System.UInt16[],Windows.Win32.Graphics.DirectWrite.DWRITE_SHAPING_GLYPH_PROPERTIES*,System.UInt32,Windows.Win32.Graphics.DirectWrite.IDWriteFontFace,System.Single,System.Single,Windows.Win32.Graphics.DirectWrite.DWRITE_MATRIX*,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Foundation.BOOL,Windows.Win32.Graphics.DirectWrite.DWRITE_SCRIPT_ANALYSIS*,Windows.Win32.Foundation.PCWSTR,Windows.Win32.Graphics.DirectWrite.DWRITE_TYPOGRAPHIC_FEATURES**,System.UInt32*,System.UInt32,System.Single[],Windows.Win32.Graphics.DirectWrite.DWRITE_GLYPH_OFFSET*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextFormat_Extensions.SetTrimming(Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat,Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING@,Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject)">
@@ -13446,6 +13594,12 @@
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextFormat_Extensions.GetLineSpacing(Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat,Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_METHOD@,System.Single@,System.Single@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat.GetLineSpacing(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_METHOD*,System.Single@,System.Single@)"/>
         </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextFormat_Extensions.GetFontFamilyName(Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat.GetFontFamilyName(Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextFormat_Extensions.GetLocaleName(Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextFormat.GetLocaleName(Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
+        </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.SetTrimming(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING@,Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.SetTrimming(Windows.Win32.Graphics.DirectWrite.DWRITE_TRIMMING*,Windows.Win32.Graphics.DirectWrite.IDWriteInlineObject)"/>
         </member>
@@ -13455,11 +13609,20 @@
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetLineSpacing(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_METHOD@,System.Single@,System.Single@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetLineSpacing(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_SPACING_METHOD*,System.Single@,System.Single@)"/>
         </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetFontFamilyName(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetFontFamilyName(Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetLocaleName(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.Span{System.Char})">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetLocaleName(Windows.Win32.Foundation.PWSTR,System.UInt32)"/>
+        </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.SetFontFamilyName(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.String,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.SetFontFamilyName(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.SetLocaleName(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.String,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.SetLocaleName(Windows.Win32.Foundation.PCWSTR,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetFontFamilyName(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.UInt32,System.Span{System.Char},Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetFontFamilyName(System.UInt32,Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetFontWeight(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.UInt32,Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT@,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetFontWeight(System.UInt32,Windows.Win32.Graphics.DirectWrite.DWRITE_FONT_WEIGHT*,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)"/>
@@ -13475,6 +13638,9 @@
         </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetStrikethrough(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.UInt32,Windows.Win32.Foundation.BOOL@,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetStrikethrough(System.UInt32,Windows.Win32.Foundation.BOOL*,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)"/>
+        </member>
+        <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetLocaleName(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.UInt32,System.Span{System.Char},Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)">
+            <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetLocaleName(System.UInt32,Windows.Win32.Foundation.PWSTR,System.UInt32,Windows.Win32.Graphics.DirectWrite.DWRITE_TEXT_RANGE*)"/>
         </member>
         <member name="M:Windows.Win32.Graphics_DirectWrite_IDWriteTextLayout_Extensions.GetLineMetrics(Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout,System.Span{Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_METRICS},System.UInt32@)">
             <inheritdoc cref="M:Windows.Win32.Graphics.DirectWrite.IDWriteTextLayout.GetLineMetrics(Windows.Win32.Graphics.DirectWrite.DWRITE_LINE_METRICS*,System.UInt32,System.UInt32@)"/>

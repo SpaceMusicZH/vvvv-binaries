@@ -513,6 +513,12 @@
             </summary>
             <userdoc>Cull some faces of the model depending on orientation</userdoc>
         </member>
+        <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.DepthFunction">
+            <summary>
+            The test used to figure out whether the material should be drawn when behind other models
+            </summary>
+            <userdoc>The test used to figure out whether the material should be drawn when behind other models</userdoc>
+        </member>
         <member name="P:VL.Stride.Rendering.Materials.MiscAttributes.ClearCoat">
             <summary>
             Gets or sets the clear coat shading features for the material.
@@ -996,6 +1002,38 @@
             <param name="vertexNormals">The vertex normals.</param>
             <param name="isLefthanded"></param>
         </member>
+        <member name="T:VL.Stride.Rendering.PostFX.ApplyImageEffect">
+            <summary>
+            Applies an image effect on the given input texture. Some effects also need the depth buffer on the second input.
+            Use the optional output texture pin to render to a pre-existing target.
+            </summary>
+            <remarks>
+            The following filters expect the depth buffer on the second pin (press Ctrl-+ to add more pins): 
+            <see cref="T:Stride.Rendering.Images.AmbientOcclusion"/>, <see cref="T:Stride.Rendering.Images.Outline"/>, <see cref="T:Stride.Rendering.Images.TemporalAntiAliasEffect"/>, <see cref="T:Stride.Rendering.Images.LocalReflections"/>, <see cref="T:Stride.Rendering.Images.DepthOfField"/>, <see cref="T:Stride.Rendering.Images.Fog"/>
+            In addition <see cref="T:Stride.Rendering.Images.LocalReflections"/> also expects the normals and specular roughness buffers on the third and forth pins.
+            </remarks>
+        </member>
+        <member name="T:VL.Stride.Rendering.PostFX.CustomColorTransformNode">
+            <summary>
+            Allows to patch a custom <see cref="T:Stride.Rendering.Images.ColorTransform"/> with ShaderFX.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.PostFX.CustomPostFX">
+            <summary>
+            Allows to patch a custom post-processing effect.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.PostFX.CustomPostFX.Update(VL.Stride.Rendering.PostFX.Internal.CreateHandler,VL.Stride.Rendering.PostFX.Internal.DrawHandler,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Configures the custom post-processing effect.
+            </summary>
+            <param name="create"></param>
+            <param name="draw"></param>
+            <param name="requiresNormalBuffer"></param>
+            <param name="requiresSpecularRoughnessBuffer"></param>
+            <param name="requiresVelocityBuffer"></param>
+            <param name="userTakesCareOfWritingToRenderTarget">Tells the node that the render target gets written and therefor no extra work has to be done.</param>
+        </member>
         <member name="T:VL.Stride.Rendering.BufferReadback`1">
             <summary>
             Allow readback a Buffer from GPU to CPU with a frame delay count to avoid blocking read.
@@ -1096,6 +1134,41 @@
             Works with pixels. One unit equals 100 actual pixels. The origin is located at the top left. Y-Axis points upwards.
             </summary>
         </member>
+        <member name="T:VL.Stride.Rendering.MeshOutlineComponent">
+            <summary>
+            Enables mesh outline (MeshOutlineRenderFeature must be enabled in Graphics Compositor)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.MeshOutlineComponent.Color">
+            <summary>
+            Color of outline
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.MeshOutlineComponent.Intensity">
+            <summary>
+            Intensity of outline color
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.MeshOutlineComponent.Size">
+            <summary>
+            Site of outline
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.WireframeComponent">
+            <summary>
+            Enables wireframe over mesh (SinglePassWireframeRenderFeature must be enabled in Graphics Compositor)
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.WireframeComponent.LineWidth">
+            <summary>
+            Width of wireframe lines
+            </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.WireframeComponent.Color">
+            <summary>
+            Color of wireframe lines
+            </summary>
+        </member>
         <member name="T:VL.Stride.Rendering.EntityRendererRenderFeature">
             <summary>
             The render feature redirects low level rendering calls to the <see cref="T:Stride.Rendering.IGraphicsRendererBase"/> 
@@ -1105,6 +1178,19 @@
             <summary>
             A property key to get the current parent transformation from the <see cref="F:Stride.Core.ComponentBase.Tags"/> property of the render context.
             </summary>
+        </member>
+        <member name="F:VL.Stride.Rendering.MeshOutlineRenderFeature.ScaleAdjust">
+            <summary>
+            Adjust scale a bit of model for outline thickness
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.MeshRenderFeature">
+            <summary>
+            Renders <see cref="T:Stride.Rendering.RenderMesh"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.MeshRenderFeature.Draw(Stride.Rendering.RenderDrawContext,Stride.Rendering.RenderView,Stride.Rendering.RenderViewStage,System.Int32,System.Int32)">
+            <inheritdoc/>
         </member>
         <member name="T:VL.Stride.Rendering.VLEffectRenderFeature">
             <summary>
@@ -1116,6 +1202,11 @@
         </member>
         <member name="M:VL.Stride.Rendering.VLEffectRenderFeature.PrepareEffectPermutations(Stride.Rendering.RenderDrawContext)">
             <inheritdoc/>
+        </member>
+        <member name="F:VL.Stride.Rendering.WireframeRenderFeature.ScaleAdjust">
+            <summary>
+            Adjust scale a bit of wireframe model to prevent z-fighting
+            </summary>
         </member>
         <member name="T:VL.Stride.Rendering.RenderRenderer">
             <summary>
@@ -1351,12 +1442,17 @@
             </summary>
             <param name="renderer">The layer to schedule.</param>
         </member>
+        <member name="M:VL.Stride.Engine.SchedulerSystem.Remove(Stride.Rendering.IGraphicsRendererBase)">
+            <summary>
+            Removes a renderer from the scheduler. Used by RendererScheduler node on Dispose to ensure that the renderer is not called after it has been disposed.
+            </summary>
+        </member>
         <member name="M:VL.Stride.Engine.SchedulerSystem.WithPrivateScheduler(System.Action{Stride.Rendering.IGraphicsRendererBase})">
             <summary>
             Allows to install a custom schedulerer. Used by regions like CustomPostFX during their draw call.
             </summary>
         </member>
-        <member name="M:VL.Stride.Engine.ScreenshotBuilder.SaveScreenshot(Stride.Games.GameBase,System.String,System.Int32,System.Int32,Stride.Graphics.PixelFormat,Stride.Graphics.PixelFormat,Stride.Graphics.ImageFileType)">
+        <member name="M:VL.Stride.Engine.ScreenshotBuilder.SaveScreenshot(Stride.Games.GameBase,System.String,System.Int32,System.Int32,Stride.Graphics.PixelFormat,Stride.Graphics.PixelFormat,VL.Stride.Graphics.TextureWriterFileType)">
             <summary>
             Request a screenshot and save it to disc.
             </summary>
@@ -1408,6 +1504,11 @@
             <value>
             The window manager.
             </value>
+        </member>
+        <member name="P:VL.Stride.Games.GameWindowRenderer.PresentCallIntercept">
+            <summary>
+            Gets or sets the present call intercept. Can be set to manage the present call on your own.
+            </summary>
         </member>
         <member name="T:VL.Stride.Games.GameWindowRendererManager">
             <summary>
@@ -1708,7 +1809,7 @@
             This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
             </remarks>
         </member>
-        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData(Stride.Graphics.Buffer,Stride.Graphics.CommandList,Stride.Graphics.DataPointer,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData``1(Stride.Graphics.Buffer,Stride.Graphics.CommandList,System.Span{``0},System.Boolean,System.Int32,System.Int32)">
             <summary>
             Copies the content of this buffer to an array of data.
             </summary>
@@ -1724,7 +1825,7 @@
             This method creates internally a stagging resource if this buffer is not already a stagging resouce, copies to it and map it to memory. Use method with explicit staging resource
             for optimal performances.</remarks>
         </member>
-        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData(Stride.Graphics.Buffer,Stride.Graphics.CommandList,Stride.Graphics.Buffer,Stride.Graphics.DataPointer,System.Boolean,System.Int32,System.Int32)">
+        <member name="M:VL.Stride.Graphics.BufferExtensions.GetData``1(Stride.Graphics.Buffer,Stride.Graphics.CommandList,Stride.Graphics.Buffer,System.Span{``0},System.Boolean,System.Int32,System.Int32)">
             <summary>
             Copies the content of this buffer from GPU memory to a CPU memory using a specific staging resource.
             </summary>
@@ -1865,6 +1966,11 @@
         <member name="F:VL.Stride.Input.InputExtensions.WindowInputSource">
             <summary>
             A property key to get the window input source from the <see cref="F:Stride.Core.ComponentBase.Tags"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Input.InputExtensions.SetPriority(Stride.Input.IInputSource,System.Int32)">
+            <summary>
+            The priority of the input devices. Larger means higher priority when selecting the first device of some type.
             </summary>
         </member>
         <member name="T:VL.Stride.Input.InputNodes">

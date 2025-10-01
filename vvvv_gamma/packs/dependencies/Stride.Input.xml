@@ -1553,6 +1553,11 @@
             Class that keeps track of the the global input state of all devices
             </summary>
         </member>
+        <member name="T:Stride.Input.InputManager.VirtualButtonsState">
+            <summary>
+            The state of each Virtualbutton in a config.
+            </summary>
+        </member>
         <member name="F:Stride.Input.InputManager.GameControllerAxisDeadZone">
             <summary>
             The deadzone amount applied to all game controller axes
@@ -1800,9 +1805,41 @@
             <summary>
             Gets a binding value for the specified name and the specified config extract from the current <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.
             </summary>
-            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/></param>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.</param>
             <param name="bindingName">Name of the binding.</param>
             <returns>The value of the binding.</returns>
+        </member>
+        <member name="M:Stride.Input.InputManager.GetVirtualButtonValue(System.Int32,System.Object)">
+            <summary>
+            Gets a binding value for the specified name and the specified config extract from the current <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.
+            </summary>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.</param>
+            <param name="bindingName">Name of the binding.</param>
+            <returns>The value of the binding.</returns>
+        </member>
+        <member name="M:Stride.Input.InputManager.IsVirtualButtonPressed(System.Int32,System.Object)">
+            <summary>
+            Determines whether the specified binding in the specified config in the current <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/> was pressed since the previous Update. 
+            </summary>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.</param>
+            <param name="bindingName">Name of the binding.</param>
+            <returns><c>true</c> if the binding was pressed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.InputManager.IsVirtualButtonDown(System.Int32,System.Object)">
+            <summary>
+            Determines whether the specified binding in the specified config in the current <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/> is currently pressed down. 
+            </summary>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.</param>
+            <param name="bindingName">Name of the binding.</param>
+            <returns><c>true</c> if the binding is currently pressed down; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.InputManager.IsVirtualButtonReleased(System.Int32,System.Object)">
+            <summary>
+            Determines whether the specified binding in the specified config in the current <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/> was released since the previous Update. 
+            </summary>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="P:Stride.Input.InputManager.VirtualButtonConfigSet"/>.</param>
+            <param name="bindingName">Name of the binding.</param>
+            <returns><c>true</c> if the binding was released; otherwise, <c>false</c>.</returns>
         </member>
         <member name="M:Stride.Input.InputManager.Pause">
             <summary>
@@ -3276,19 +3313,19 @@
         </member>
         <member name="M:Stride.Input.PointerDeviceState.ProcessPointerEvent(Stride.Input.PointerDeviceState.InputEvent)">
             <summary>
-            Processes a <see cref="T:Stride.Input.PointerDeviceState.InputEvent"/>, converting it to a <see cref="T:Stride.Input.PointerEvent"/>. Also calls <see cref="!:OnPointer"/> and updates <see cref="!:CurrentPointerEvents"/>
+            Processes a <see cref="T:Stride.Input.PointerDeviceState.InputEvent"/>, converting it to a <see cref="T:Stride.Input.PointerEvent"/>. Also calls <see cref="M:Stride.Input.PointerDeviceState.UpdatePointerState(Stride.Input.PointerEvent,System.Boolean)"/> and updates current <see cref="T:Stride.Input.PointerEvent"/>
             </summary>
             <param name="evt"></param>
         </member>
         <member name="M:Stride.Input.PointerDeviceState.UpdatePointerState(Stride.Input.PointerEvent,System.Boolean)">
             <summary>
-            Updates a pointer event with position / type / id set and updates the storted pointer data
+            Updates a pointer event with position / type / id set and updates the stored pointer data
             </summary>
             <param name="evt"></param>
         </member>
         <member name="M:Stride.Input.PointerDeviceState.GetPointerData(System.Int32)">
             <summary>
-            Retrueves a pointer data structure unqiue to the given pointer ID
+            Retrieves a pointer data structure unique to the given pointer ID
             </summary>
             <param name="pointerId"></param>
             <returns></returns>
@@ -4764,6 +4801,24 @@
             </summary>
             <returns>Value of the binding</returns>
         </member>
+        <member name="M:Stride.Input.VirtualButtonBinding.IsPressed(Stride.Input.InputManager)">
+            <summary>
+            Gets the pressed state for a particular binding.
+            </summary>
+            <returns><c>true</c> when pressed since the last frame; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonBinding.IsDown(Stride.Input.InputManager)">
+            <summary>
+            Gets the held down state for a particular binding.
+            </summary>
+            <returns><c>true</c> when currently held down; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonBinding.IsReleased(Stride.Input.InputManager)">
+            <summary>
+            Gets the pressed state for a particular binding.
+            </summary>
+            <returns><c>true</c> when released since the last frame; otherwise, <c>false</c>.</returns>
+        </member>
         <member name="T:Stride.Input.VirtualButtonConfig">
             <summary>
             Describes the configuration composed by a collection of <see cref="T:Stride.Input.VirtualButtonBinding"/>.
@@ -4780,6 +4835,30 @@
             </summary>
             <value>The binding names.</value>
         </member>
+        <member name="M:Stride.Input.VirtualButtonConfig.GetValue(Stride.Input.InputManager,System.Object)">
+            <summary>
+            Gets the value for a particular binding.
+            </summary>
+            <returns>Value of the binding</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfig.IsPressed(Stride.Input.InputManager,System.Object)">
+            <summary>
+            Gets the pressed state for a particular binding.
+            </summary>
+            <returns><c>true</c> when pressed since the last frame; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfig.IsDown(Stride.Input.InputManager,System.Object)">
+            <summary>
+            Gets the held down state for a particular binding.
+            </summary>
+            <returns><c>true</c> when currently held down; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfig.IsReleased(Stride.Input.InputManager,System.Object)">
+            <summary>
+            Gets the pressed state for a particular binding.
+            </summary>
+            <returns><c>true</c> when released since the last frame; otherwise, <c>false</c>.</returns>
+        </member>
         <member name="T:Stride.Input.VirtualButtonConfigSet">
             <summary>
             A collection of <see cref="T:Stride.Input.VirtualButtonConfig"/>.
@@ -4793,6 +4872,42 @@
             <summary>
             Initializes a new instance of the <see cref="T:Stride.Input.VirtualButtonConfigSet" /> class.
             </summary>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfigSet.GetValue(Stride.Input.InputManager,System.Int32,System.Object)">
+            <summary>
+            Gets a binding value for the specified name and the specified config extract from the <see cref="T:Stride.Input.VirtualButtonConfigSet"/>.
+            </summary>
+            <param name="inputManager">The <see cref="T:Stride.Input.InputManager"/> to used to get the device input.</param>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/>.</param>
+            <param name="name">Name of the binding.</param>
+            <returns>The value of the binding.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfigSet.IsPressed(Stride.Input.InputManager,System.Int32,System.Object)">
+            <summary>
+            Determines whether the specified binding in the specified config in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/> was pressed since the previous Update. 
+            </summary>
+            <param name="inputManager">The <see cref="T:Stride.Input.InputManager"/> to used to get device input.</param>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/>.</param>
+            <param name="name">Name of the binding.</param>
+            <returns><c>true</c> if the binding was pressed; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfigSet.IsDown(Stride.Input.InputManager,System.Int32,System.Object)">
+            <summary>
+            Determines whether the specified binding in the specified config in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/> is currently pressed down. 
+            </summary>
+            <param name="inputManager">The <see cref="T:Stride.Input.InputManager"/> to used to get device input.</param>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/>.</param>
+            <param name="name">Name of the binding.</param>
+            <returns><c>true</c> if the binding is currently pressed down; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Stride.Input.VirtualButtonConfigSet.IsReleased(Stride.Input.InputManager,System.Int32,System.Object)">
+            <summary>
+            Determines whether the specified binding in the specified config in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/> was released since the previous Update. 
+            </summary>
+            <param name="inputManager">The <see cref="T:Stride.Input.InputManager"/> to used to get device input.</param>
+            <param name="configIndex">An index to a <see cref="T:Stride.Input.VirtualButtonConfig"/> stored in the <see cref="T:Stride.Input.VirtualButtonConfigSet"/>.</param>
+            <param name="name">Name of the binding.</param>
+            <returns><c>true</c> if the binding was released; otherwise, <c>false</c>.</returns>
         </member>
         <member name="T:Stride.Input.VirtualButtonGroup">
             <summary>

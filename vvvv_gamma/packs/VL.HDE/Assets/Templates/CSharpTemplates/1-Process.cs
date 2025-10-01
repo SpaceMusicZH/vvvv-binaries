@@ -8,10 +8,10 @@ namespace Template;
 [ProcessNode]
 public class ProcessTemplate
 {
-    private int _counter;
+    private int _value;
 
     public int Update(int increment)
     {
-        return _counter += increment;
+        return _value += increment;
     }
 }

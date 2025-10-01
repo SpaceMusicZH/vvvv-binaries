@@ -42,9 +42,9 @@
               Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
             </summary>
         </member>
-        <member name="P:VL.Skia.SkiaRenderer.RenderTime">
+        <member name="T:VL.Skia.SkiaRenderer">
             <summary>
-            The time to evaluate and draw the layer input in μs.
+            The render window used in patches. Exposed to user via <see cref="P:Graphics.Skia.SkiaRendererNode.Form"/> output.
             </summary>
         </member>
         <member name="F:VL.Skia.SkiaRenderer.components">
@@ -57,6 +57,37 @@
             Clean up any resources being used.
             </summary>
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="P:VL.Skia.SkiaRenderer.ExtendIntoTitleBar">
+            <summary>
+            Enables custom drawing and handling of the title bar (extending the client area into the standard non-client area).
+            Automatically ignored while the renderer is in fullscreen (borderless) mode.
+            </summary>
+        </member>
+        <member name="M:Graphics.Skia.FormBoundsNotification.#ctor(Stride.Core.Mathematics.RectangleF,System.Windows.Forms.Form)">
+            <summary>
+            Create (stores initial control bounds in DIP and the Form reference).
+            </summary>
+        </member>
+        <member name="T:Graphics.Skia.SkiaRendererNode">
+            <summary>
+            Internal renderer node. Only visible to VL.Skia. On patch side only ILayer related things (Space, Clear, PerfMeter) is built on top.
+            </summary>
+        </member>
+        <member name="P:Graphics.Skia.SkiaRendererNode.FormBoundsNotifications">
+            <summary>
+            Bounds in DIP.
+            </summary>
+        </member>
+        <member name="P:Graphics.Skia.SkiaRendererNode.Form">
+            <summary>
+            Returns the underlying SkiaRenderer Form.
+            </summary>
+        </member>
+        <member name="P:Graphics.Skia.SkiaRendererNode.ClientBounds">
+            <summary>
+            Current client rectangle in DIP.
+            </summary>
         </member>
     </members>
 </doc>

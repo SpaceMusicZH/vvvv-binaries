@@ -1436,12 +1436,22 @@
             Binding of the DirectXTex class ScratchImage
             </summary>
         </member>
-        <member name="T:Stride.TextureConverter.PvrttWrapper.Utilities">
+        <member name="T:Stride.TextureConverter.PvrttWrapper.PVRTexture">
+            <summary>
+            Binding class of PVR Texture class PVRTexture.
+            </summary>
+        </member>
+        <member name="T:Stride.TextureConverter.PvrttWrapper.PVRTextureHeader">
+            <summary>
+            Binding class of PVR Texture class PVRTextureHeader.
+            </summary>
+        </member>
+        <member name="T:Stride.TextureConverter.PvrttWrapper.PVRTextureUtilities">
             <summary>
             Provides utilities methods to handle PVR Texture type.
             </summary>
         </member>
-        <member name="M:Stride.TextureConverter.PvrttWrapper.Utilities.CopyChannels(Stride.TextureConverter.PvrttWrapper.PVRTexture,Stride.TextureConverter.PvrttWrapper.PVRTexture,System.UInt32,Stride.TextureConverter.PvrttWrapper.EChannelName@,Stride.TextureConverter.PvrttWrapper.EChannelName@)">
+        <member name="M:Stride.TextureConverter.PvrttWrapper.PVRTextureUtilities.CopyChannels(Stride.TextureConverter.PvrttWrapper.PVRTexture,Stride.TextureConverter.PvrttWrapper.PVRTexture,System.UInt32,Stride.TextureConverter.PvrttWrapper.EChannelName@,Stride.TextureConverter.PvrttWrapper.EChannelName@)">
             <summary>
             Copies a specified channel from one texture to a specified channel in another texture.
             </summary>
@@ -1452,7 +1462,7 @@
             <param name="eChannelsSource">The source channel.</param>
             <returns></returns>
         </member>
-        <member name="M:Stride.TextureConverter.PvrttWrapper.Utilities.Resize(Stride.TextureConverter.PvrttWrapper.PVRTexture,System.UInt32,System.UInt32,System.UInt32,Stride.TextureConverter.PvrttWrapper.EResizeMode)">
+        <member name="M:Stride.TextureConverter.PvrttWrapper.PVRTextureUtilities.Resize(Stride.TextureConverter.PvrttWrapper.PVRTexture,System.UInt32,System.UInt32,System.UInt32,Stride.TextureConverter.PvrttWrapper.EResizeMode)">
             <summary>
             Resizes the specified texture.
             </summary>
@@ -1463,7 +1473,7 @@
             <param name="eResizeMode">The resize mode (Filter).</param>
             <returns></returns>
         </member>
-        <member name="M:Stride.TextureConverter.PvrttWrapper.Utilities.Flip(Stride.TextureConverter.PvrttWrapper.PVRTexture,Stride.TextureConverter.PvrttWrapper.EPVRTAxis)">
+        <member name="M:Stride.TextureConverter.PvrttWrapper.PVRTextureUtilities.Flip(Stride.TextureConverter.PvrttWrapper.PVRTexture,Stride.TextureConverter.PvrttWrapper.EPVRTAxis)">
             <summary>
             Flips the specified texture.
             </summary>
@@ -1471,15 +1481,44 @@
             <param name="eFlipDirection">The flip direction.</param>
             <returns></returns>
         </member>
-        <member name="T:Stride.TextureConverter.PvrttWrapper.PVRTexture">
-            <summary>
-            Binding class of PVR Texture class PVRTexture.
-            </summary>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.pixelFormat">
+            <summary>Pixel format</summary>
         </member>
-        <member name="T:Stride.TextureConverter.PvrttWrapper.PVRTextureHeader">
-            <summary>
-            Binding class of PVR Texture class PVRTextureHeader.
-            </summary>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.width">
+            <summary>Texture width</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.height">
+            <summary>Texture height</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.depth">
+            <summary>Texture depth</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.numMipMaps">
+            <summary>Number of MIP maps</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.numArrayMembers">
+            <summary>Number of array members</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.numFaces">
+            <summary>Number of faces</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.colourSpace">
+            <summary>Colour space</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.channelType">
+            <summary>Channel type</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRHeaderCreateParams.preMultiplied">
+            <summary>Has the RGB been pre-multiplied by the alpha?</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRTTranscoderOptions.sizeofStruct">
+            <summary>For versioning - sizeof(PVRTexLib_TranscoderOptions)`</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRTTranscoderOptions.maxRange">
+            <summary>Max range value for RGB[M|D] encoding</summary>
+        </member>
+        <member name="F:Stride.TextureConverter.PvrttWrapper.PVRTTranscoderOptions.maxThreads">
+            <summary> Max number of threads to use for transcoding, if set to 0 PVRTexLib will use all available cores.</summary>						
         </member>
         <member name="T:Stride.TextureConverter.Filter">
             <summary>
@@ -1698,7 +1737,7 @@
             Provides method to load images or textures, to modify them and to convert them with different texture compression format.
             Input supported format : gif, png, jpe, pds (Every FreeImage supported format...), dds, pvr, ktx.
             Output format : gif, png, jpe, pds (Every FreeImage supported format...), dds, pvr, ktx.
-            Compression format : DXT1-5, ATC, PVRTC1-2, ETC1-2, uncompressed formats (BGRA8888, RGBA8888)
+            Compression format : DXT1-5, ETC1-2, uncompressed formats (BGRA8888, RGBA8888)
             Image processing : resize, flip, gamma correction
             Texture utilities : Mipmap generation, normal map generation
             </summary>
@@ -2268,7 +2307,7 @@
         </member>
         <member name="F:FreeImageAPI.FreeImageBitmap.lockObject">
             <summary>
-            Object used to syncronize lock methods.
+            Object used to synchronize lock methods.
             </summary>
         </member>
         <member name="F:FreeImageAPI.FreeImageBitmap.saveInformation">
@@ -2353,125 +2392,6 @@
             <param name="original">The original to clone from.</param>
             <param name="width">Width of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
             <param name="height">Height of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="width"/> or <paramref name="height"/> are less or equal zero.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Drawing.Image)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class
-            bases on the specified image.
-            </summary>
-            <param name="original">The original to clone from.</param>
-            <remarks>
-            Although this constructor supports creating images in both formats
-            <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppPArgb"/>
-            and <see cref="F:System.Drawing.Imaging.PixelFormat.Format64bppPArgb"/>, bitmaps
-            created in these formats are treated like any normal 32-bit RGBA and 64-bit RGBA
-            images respectively. Currently, there is no  support for automatic premultiplying images in
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </remarks>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Drawing.Image,System.Drawing.Size)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class
-            bases on the specified image with the specified size.
-            </summary>
-            <param name="original">The original to clone from.</param>
-            <param name="newSize">The Size structure that represent the
-            size of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <remarks>
-            Although this constructor supports creating images in both formats
-            <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppPArgb"/>
-            and <see cref="F:System.Drawing.Imaging.PixelFormat.Format64bppPArgb"/>, bitmaps
-            created in these formats are treated like any normal 32-bit RGBA and 64-bit RGBA
-            images respectively. Currently, there is no  support for automatic premultiplying images in
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </remarks>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="newSize"/> or <paramref name="newSize"/> are less or equal zero.
-            </exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Drawing.Image,System.Int32,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class
-            bases on the specified image with the specified size.
-            </summary>
-            <param name="original">The original to clone from.</param>
-            <param name="width">The width, in pixels, of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <param name="height">The height, in pixels, of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <remarks>
-            Although this constructor supports creating images in both formats
-            <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppPArgb"/>
-            and <see cref="F:System.Drawing.Imaging.PixelFormat.Format64bppPArgb"/>, bitmaps
-            created in these formats are treated like any normal 32-bit RGBA and 64-bit RGBA
-            images respectively. Currently, there is no  support for automatic premultiplying images in
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </remarks>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="width"/> or <paramref name="height"/> are less or equal zero.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Drawing.Bitmap)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class
-            bases on the specified image.
-            </summary>
-            <param name="original">The original to clone from.</param>
-            <remarks>
-            Although this constructor supports creating images in both formats
-            <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppPArgb"/>
-            and <see cref="F:System.Drawing.Imaging.PixelFormat.Format64bppPArgb"/>, bitmaps
-            created in these formats are treated like any normal 32-bit RGBA and 64-bit RGBA
-            images respectively. Currently, there is no  support for automatic premultiplying images in
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </remarks>
-            <exception cref="T:System.ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Drawing.Bitmap,System.Drawing.Size)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class
-            bases on the specified image with the specified size.
-            </summary>
-            <param name="original">The original to clone from.</param>
-            <param name="newSize">The Size structure that represent the
-            size of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <remarks>
-            Although this constructor supports creating images in both formats
-            <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppPArgb"/>
-            and <see cref="F:System.Drawing.Imaging.PixelFormat.Format64bppPArgb"/>, bitmaps
-            created in these formats are treated like any normal 32-bit RGBA and 64-bit RGBA
-            images respectively. Currently, there is no  support for automatic premultiplying images in
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </remarks>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
-            <exception cref="T:System.ArgumentOutOfRangeException">
-            <paramref name="newSize"/> or <paramref name="newSize"/> are less or equal zero.
-            </exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Drawing.Bitmap,System.Int32,System.Int32)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class
-            bases on the specified image with the specified size.
-            </summary>
-            <param name="original">The original to clone from.</param>
-            <param name="width">The width, in pixels, of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <param name="height">The height, in pixels, of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <remarks>
-            Although this constructor supports creating images in both formats
-            <see cref="F:System.Drawing.Imaging.PixelFormat.Format32bppPArgb"/>
-            and <see cref="F:System.Drawing.Imaging.PixelFormat.Format64bppPArgb"/>, bitmaps
-            created in these formats are treated like any normal 32-bit RGBA and 64-bit RGBA
-            images respectively. Currently, there is no  support for automatic premultiplying images in
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </remarks>
             <exception cref="T:System.Exception">The operation failed.</exception>
             <exception cref="T:System.ArgumentNullException"><paramref name="original"/> is a null reference.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">
@@ -2613,18 +2533,7 @@
             <param name="resource">The name of the resource.</param>
             <exception cref="T:System.Exception">The operation failed.</exception>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,System.Drawing.Graphics)">
-            <summary>
-            Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class bases on the specified size
-            and with the resolution of the specified <see cref="T:System.Drawing.Graphics"/> object.
-            </summary>
-            <param name="width">The width, in pixels, of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <param name="height">The height, in pixels, of the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <param name="g">The Graphics object that specifies the resolution for the new <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
-            <exception cref="T:System.Exception">The operation failed.</exception>
-            <exception cref="T:System.ArgumentNullException"><paramref name="g"/> is a null reference.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,System.Drawing.Imaging.PixelFormat)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,FreeImageAPI.PixelFormat)">
             <summary>
             Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class bases on the specified size and format.
             </summary>
@@ -2659,7 +2568,7 @@
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="width"/> or <paramref name="height"/> are less or equal zero.</exception>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,System.Int32,System.Drawing.Imaging.PixelFormat,System.IntPtr)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,System.Int32,FreeImageAPI.PixelFormat,System.IntPtr)">
             <summary>
             Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class bases on the specified size,
             pixel format and pixel data.
@@ -2686,7 +2595,7 @@
             <exception cref="T:System.ArgumentOutOfRangeException">
             <paramref name="width"/> or <paramref name="height"/> are less or equal zero.</exception>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,System.Int32,System.Drawing.Imaging.PixelFormat,System.Byte[])">
+        <member name="M:FreeImageAPI.FreeImageBitmap.#ctor(System.Int32,System.Int32,System.Int32,FreeImageAPI.PixelFormat,System.Byte[])">
             <summary>
             Initializes a new instance of the <see cref="T:FreeImageAPI.FreeImageBitmap"/> class bases on the specified size,
             pixel format and pixel data.
@@ -2766,32 +2675,6 @@
             <summary>
             Frees all managed and unmanaged ressources.
             </summary>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.op_Explicit(FreeImageAPI.FreeImageBitmap)~System.Drawing.Bitmap">
-            <summary>
-            Converts a <see cref="T:FreeImageAPI.FreeImageBitmap"/> instance to a <see cref="T:System.Drawing.Bitmap"/> instance.
-            </summary>
-            <param name="value">A <see cref="T:FreeImageAPI.FreeImageBitmap"/> instance.</param>
-            <returns>A new instance of <see cref="T:System.Drawing.Bitmap"/> initialized to <paramref name="value"/>.</returns>
-            <remarks>
-            The explicit conversion from <see cref="T:FreeImageAPI.FreeImageBitmap"/> into Bitmap
-            allows to create an instance on the fly and use it as if
-            was a Bitmap. This way it can be directly used with a
-            PixtureBox for example without having to call any
-            conversion operations.
-            </remarks>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.op_Explicit(System.Drawing.Bitmap)~FreeImageAPI.FreeImageBitmap">
-            <summary>
-            Converts a <see cref="T:System.Drawing.Bitmap"/> instance to a <see cref="T:FreeImageAPI.FreeImageBitmap"/> instance.
-            </summary>
-            <param name="value">A <see cref="T:System.Drawing.Bitmap"/> instance.</param>
-            <returns>A new instance of <see cref="T:FreeImageAPI.FreeImageBitmap"/> initialized to <paramref name="value"/>.</returns>
-            <remarks>
-            The explicit conversion from <see cref="T:System.Drawing.Bitmap"/> into <see cref="T:FreeImageAPI.FreeImageBitmap"/>
-            allows to create an instance on the fly to perform
-            image processing operations and converting it back.
-            </remarks>
         </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.op_Equality(FreeImageAPI.FreeImageBitmap,FreeImageAPI.FreeImageBitmap)">
             <summary>
@@ -2986,11 +2869,6 @@
             Gets all the property items (pieces of metadata) stored in this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
             </summary>
         </member>
-        <member name="P:FreeImageAPI.FreeImageBitmap.RawFormat">
-            <summary>
-            Gets the format of this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
-            </summary>
-        </member>
         <member name="P:FreeImageAPI.FreeImageBitmap.Size">
             <summary>
             Gets the width and height, in pixels, of this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
@@ -3049,21 +2927,13 @@
             Gets the encapsulated FIBITMAP.
             </summary>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.GetBounds(System.Drawing.GraphicsUnit@)">
-            <summary>
-            Gets the bounds of this <see cref="T:FreeImageAPI.FreeImageBitmap"/> in the specified unit.
-            </summary>
-            <param name="pageUnit">One of the <see cref="T:System.Drawing.GraphicsUnit"/> values indicating
-            the unit of measure for the bounding rectangle.</param>
-            <returns>The <see cref="T:System.Drawing.RectangleF"/> that represents the bounds of this
-            <see cref="T:FreeImageAPI.FreeImageBitmap"/>, in the specified unit.</returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:FreeImageAPI.FreeImageBitmap.GetBounds" -->
         <member name="M:FreeImageAPI.FreeImageBitmap.GetPropertyItem(System.Int32)">
             <summary>
             Gets the specified property item from this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
             </summary>
             <param name="propid">The ID of the property item to get.</param>
-            <returns>The <see cref="T:System.Drawing.Imaging.PropertyItem"/> this method gets.</returns>
+            <returns>The <see cref="T:FreeImageAPI.PropertyItem"/> this method gets.</returns>
         </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.GetThumbnailImage(System.Int32,System.Int32,System.Drawing.Image.GetThumbnailImageAbort,System.IntPtr)">
             <summary>
@@ -3085,12 +2955,6 @@
             <param name="convert">When true HDR images are transperantly
             converted to standard images.</param>
             <returns>The thumbnail in a new instance.</returns>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.ToBitmap">
-            <summary>
-            Converts this <see cref="T:FreeImageAPI.FreeImageBitmap"/> instance to a <see cref="T:System.Drawing.Bitmap"/> instance.
-            </summary>
-            <returns>A new instance of <see cref="T:System.Drawing.Bitmap"/> initialized this instance.</returns>
         </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.GetScanline``1(System.Int32)">
             <summary>
@@ -3250,7 +3114,7 @@
             </summary>
             <param name="propid">The ID of the property item to remove.</param>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.RotateFlip(System.Drawing.RotateFlipType)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.RotateFlip(FreeImageAPI.RotateFlipType)">
             <summary>
             This method rotates, flips, or rotates and flips this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.
             </summary>
@@ -3434,12 +3298,6 @@
             This parameter is ignored if the bitmap is totally opaque.</param>
             <returns>A handle to the GDI bitmap object that this method creates.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.GetHicon">
-            <summary>
-            Returns the handle to an icon.
-            </summary>
-            <returns>A Windows handle to an icon with the same image as this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</returns>
-        </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.GetHbitmapForDevice">
             <summary>
             Creates a GDI bitmap object from this <see cref="T:FreeImageAPI.FreeImageBitmap"/> with the same
@@ -3489,14 +3347,14 @@
             <param name="xDpi">The horizontal resolution, in dots per inch, of this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
             <param name="yDpi">The vertical resolution, in dots per inch, of this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</param>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.LockBits(System.Drawing.Rectangle,System.Drawing.Imaging.ImageLockMode,System.Drawing.Imaging.PixelFormat)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.LockBits(System.Drawing.Rectangle,System.Drawing.Imaging.ImageLockMode,FreeImageAPI.PixelFormat)">
             <summary>
             This function is not yet implemented.
             </summary>
             <exception cref="T:System.NotImplementedException">
             This method is not implemented.</exception>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.LockBits(System.Drawing.Rectangle,System.Drawing.Imaging.ImageLockMode,System.Drawing.Imaging.PixelFormat,System.Drawing.Imaging.BitmapData)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.LockBits(System.Drawing.Rectangle,System.Drawing.Imaging.ImageLockMode,FreeImageAPI.PixelFormat,System.Drawing.Imaging.BitmapData)">
             <summary>
             This function is not yet implemented.
             </summary>
@@ -4145,42 +4003,26 @@
             </summary>
             <returns>An integer value that specifies the hash code for this <see cref="T:FreeImageAPI.FreeImageBitmap"/>.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.IsAlphaPixelFormat(System.Drawing.Imaging.PixelFormat)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.IsAlphaPixelFormat(FreeImageAPI.PixelFormat)">
             <summary>
             Returns a value that indicates whether the pixel format for this <see cref="T:FreeImageAPI.FreeImageBitmap"/> contains alpha information.
             </summary>
             <param name="pixfmt">The <see cref="T:System.Drawing.Imaging.PixelFormat"/> to test.</param>
             <returns><b>true</b> if pixfmt contains alpha information; otherwise, <b>false</b>.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.IsCanonicalPixelFormat(System.Drawing.Imaging.PixelFormat)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.IsCanonicalPixelFormat(FreeImageAPI.PixelFormat)">
             <summary>
             Returns a value that indicates whether the pixel format is 32 bits per pixel.
             </summary>
             <param name="pixfmt">The <see cref="T:System.Drawing.Imaging.PixelFormat"/> to test.</param>
             <returns>true if pixfmt is canonical; otherwise, false.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.IsExtendedPixelFormat(System.Drawing.Imaging.PixelFormat)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.IsExtendedPixelFormat(FreeImageAPI.PixelFormat)">
             <summary>
             Returns a value that indicates whether the pixel format is 64 bits per pixel.
             </summary>
             <param name="pixfmt">The <see cref="T:System.Drawing.Imaging.PixelFormat"/> enumeration to test.</param>
             <returns>true if pixfmt is extended; otherwise, false.</returns>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.FromHicon(System.IntPtr)">
-            <summary>
-            Creates a <see cref="T:FreeImageAPI.FreeImageBitmap"/> from a Windows handle to an icon.
-            </summary>
-            <param name="hicon">A handle to an icon.</param>
-            <returns>The <see cref="T:FreeImageAPI.FreeImageBitmap"/> that this method creates.</returns>
-        </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.FromResource(System.IntPtr,System.String)">
-            <summary>
-            Creates a <see cref="T:FreeImageAPI.FreeImageBitmap"/> from the specified Windows resource.
-            </summary>
-            <param name="hinstance">A handle to an instance of the executable
-            file that contains the resource.</param>
-            <param name="bitmapName">A string containing the name of the resource bitmap.</param>
-            <returns>The <see cref="T:FreeImageAPI.FreeImageBitmap"/> that this method creates.</returns>
         </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.FromFile(System.String)">
             <summary>
@@ -4246,7 +4088,7 @@
             <param name="validateImageData">Ignored.</param>
             <returns>The <see cref="T:FreeImageAPI.FreeImageBitmap"/> this method creates.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImageBitmap.GetPixelFormatSize(System.Drawing.Imaging.PixelFormat)">
+        <member name="M:FreeImageAPI.FreeImageBitmap.GetPixelFormatSize(FreeImageAPI.PixelFormat)">
             <summary>
             Returns the color depth, in number of bits per pixel,
             of the specified pixel format.
@@ -4379,10 +4221,10 @@
         </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.CreateNewPropertyItem">
             <summary>
-            Returns a new instance of the <see cref="T:System.Drawing.Imaging.PropertyItem"/> class which
+            Returns a new instance of the <see cref="T:FreeImageAPI.PropertyItem"/> class which
             has no public accessible constructor.
             </summary>
-            <returns>A new instace of <see cref="T:System.Drawing.Imaging.PropertyItem"/>.</returns>
+            <returns>A new instace of <see cref="T:FreeImageAPI.PropertyItem"/>.</returns>
         </member>
         <member name="M:FreeImageAPI.FreeImageBitmap.EnsureNotDisposed">
             <summary>
@@ -4647,16 +4489,6 @@
             Delegate for register callback by FreeImage.
             </summary>
         </member>
-        <member name="F:FreeImageAPI.Plugins.LocalPlugin.format">
-            <summary>
-            The format id assiged to the plugin.
-            </summary>
-        </member>
-        <member name="F:FreeImageAPI.Plugins.LocalPlugin.registered">
-            <summary>
-            When true the plugin was registered successfully else false.
-            </summary>
-        </member>
         <member name="F:FreeImageAPI.Plugins.LocalPlugin.implementedMethods">
             <summary>
             A copy of the functions used to register.
@@ -4842,11 +4674,13 @@
         </member>
         <member name="P:FreeImageAPI.Plugins.LocalPlugin.Registered">
             <summary>
+            When true the plugin was registered successfully else false.
             Gets if the plugin was registered successfully.
             </summary>
         </member>
         <member name="P:FreeImageAPI.Plugins.LocalPlugin.Format">
             <summary>
+            The format id assiged to the plugin.
             Gets the <see cref="T:FreeImageAPI.FREE_IMAGE_FORMAT"/> FreeImage assigned to this plugin.
             </summary>
         </member>
@@ -5428,11 +5262,6 @@
             Tells the wrapper to block readings or not
             </summary>
         </member>
-        <member name="F:FreeImageAPI.IO.StreamWrapper.disposed">
-            <summary>
-            Indicates if the wrapped stream is disposed or not
-            </summary>
-        </member>
         <member name="M:FreeImageAPI.IO.StreamWrapper.#ctor(System.IO.Stream,System.Boolean)">
             <summary>
             Initializes a new instance based on the specified <see cref="T:System.IO.Stream"/>.
@@ -5444,6 +5273,11 @@
         <member name="M:FreeImageAPI.IO.StreamWrapper.Finalize">
             <summary>
             Releases all resources used by the instance.
+            </summary>
+        </member>
+        <member name="P:FreeImageAPI.IO.StreamWrapper.Disposed">
+            <summary>
+            Indicates if the wrapped stream is disposed or not
             </summary>
         </member>
         <member name="T:FreeImageAPI.IO.ReadProc">
@@ -8444,20 +8278,6 @@
             Setting this property's value to a null reference deletes the
             metadata tag from the metadata model.
             </remarks>
-        </member>
-        <member name="T:FreeImageAPI.Metadata.MDM_MAIN">
-            <summary>
-            Represents a collection of all tags contained in the metadata model
-            <see cref="F:FreeImageAPI.FREE_IMAGE_MDMODEL.FIMD_EXIF_MAIN"/>.
-            <para/>
-            <b>This class is obsolete. Use class <see cref="T:FreeImageAPI.Metadata.MDM_EXIF_MAIN"/> instead.</b>
-            </summary>
-        </member>
-        <member name="M:FreeImageAPI.Metadata.MDM_MAIN.#ctor(FreeImageAPI.FIBITMAP)">
-            <summary>
-            Initializes a new instance of this class.
-            </summary>
-            <param name="dib">Handle to a FreeImage bitmap.</param>
         </member>
         <member name="T:FreeImageAPI.Metadata.MDM_EXIF_MAIN">
             <summary>
@@ -12583,7 +12403,7 @@
             </summary>
             <param name="dib">Handle to a FreeImage bitmap.</param>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.Load(FreeImageAPI.FREE_IMAGE_FORMAT,System.String,FreeImageAPI.FREE_IMAGE_LOAD_FLAGS)">
+        <member name="M:FreeImageAPI.FreeImage.LoadNU(FreeImageAPI.FREE_IMAGE_FORMAT,System.String,FreeImageAPI.FREE_IMAGE_LOAD_FLAGS)">
             <summary>
             Decodes a bitmap, allocates memory for it and returns it as a FIBITMAP.
             </summary>
@@ -12612,7 +12432,7 @@
             <param name="flags">Flags to enable or disable plugin-features.</param>
             <returns>Handle to a FreeImage bitmap.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.Save(FreeImageAPI.FREE_IMAGE_FORMAT,FreeImageAPI.FIBITMAP,System.String,FreeImageAPI.FREE_IMAGE_SAVE_FLAGS)">
+        <member name="M:FreeImageAPI.FreeImage.SaveNU(FreeImageAPI.FREE_IMAGE_FORMAT,FreeImageAPI.FIBITMAP,System.String,FreeImageAPI.FREE_IMAGE_SAVE_FLAGS)">
             <summary>
             Saves a previosly loaded FIBITMAP to a file.
             </summary>
@@ -12831,7 +12651,7 @@
             <param name="fif">The desired <see cref="T:FreeImageAPI.FREE_IMAGE_FORMAT"/>.</param>
             <returns>A MIME content type string.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.GetFIFFromFilename(System.String)">
+        <member name="M:FreeImageAPI.FreeImage.GetFIFFromFilenameNU(System.String)">
             <summary>
             This function takes a filename or a file-extension and returns the plugin that can
             read/write files with that extension in the form of a <see cref="T:FreeImageAPI.FREE_IMAGE_FORMAT"/> identifier.
@@ -12992,7 +12812,7 @@
             <param name="count">If <paramref name="pages"/> is set to null count will contain the number of locked pages.</param>
             <returns>Returns true on success, false on failure.</returns>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.GetFileType(System.String,System.Int32)">
+        <member name="M:FreeImageAPI.FreeImage.GetFileTypeNU(System.String,System.Int32)">
             <summary>
             Orders FreeImage to analyze the bitmap signature.
             </summary>
@@ -14695,60 +14515,6 @@
             first palette entry.
             </remarks>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.GetBitmap(FreeImageAPI.FIBITMAP)">
-            <summary>
-            Converts a FreeImage bitmap to a .NET <see cref="T:System.Drawing.Bitmap"/>.
-            </summary>
-            <param name="dib">Handle to a FreeImage bitmap.</param>
-            <returns>The converted .NET <see cref="T:System.Drawing.Bitmap"/>.</returns>
-            <remarks>Copying metadata has been disabled until a proper way
-            of reading and storing metadata in a .NET bitmap is found.</remarks>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="dib"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The image type of <paramref name="dib"/> is not FIT_BITMAP.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.GetBitmap(FreeImageAPI.FIBITMAP,System.Boolean)">
-            <summary>
-            Converts a FreeImage bitmap to a .NET <see cref="T:System.Drawing.Bitmap"/>.
-            </summary>
-            <param name="dib">Handle to a FreeImage bitmap.</param>
-            <param name="copyMetadata">When true existing metadata will be copied.</param>
-            <returns>The converted .NET <see cref="T:System.Drawing.Bitmap"/>.</returns>
-            <remarks>Copying metadata has been disabled until a proper way
-            of reading and storing metadata in a .NET bitmap is found.</remarks>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="dib"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The image type of <paramref name="dib"/> is not FIT_BITMAP.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CreateFromBitmap(System.Drawing.Bitmap)">
-            <summary>
-            Converts an .NET <see cref="T:System.Drawing.Bitmap"/> into a FreeImage bitmap.
-            </summary>
-            <param name="bitmap">The <see cref="T:System.Drawing.Bitmap"/> to convert.</param>
-            <returns>Handle to a FreeImage bitmap.</returns>
-            <remarks>Copying metadata has been disabled until a proper way
-            of reading and storing metadata in a .NET bitmap is found.</remarks>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="bitmap"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The bitmaps pixelformat is invalid.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.CreateFromBitmap(System.Drawing.Bitmap,System.Boolean)">
-            <summary>
-            Converts an .NET <see cref="T:System.Drawing.Bitmap"/> into a FreeImage bitmap.
-            </summary>
-            <param name="bitmap">The <see cref="T:System.Drawing.Bitmap"/> to convert.</param>
-            <param name="copyMetadata">When true existing metadata will be copied.</param>
-            <returns>Handle to a FreeImage bitmap.</returns>
-            <remarks>Copying metadata has been disabled until a proper way
-            of reading and storing metadata in a .NET bitmap is found.</remarks>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="bitmap"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The bitmaps pixelformat is invalid.</exception>
-        </member>
         <member name="M:FreeImageAPI.FreeImage.ConvertFromRawBits(System.Byte[],FreeImageAPI.FREE_IMAGE_TYPE,System.Int32,System.Int32,System.Int32,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.Boolean)">
             <summary>
             Converts a raw bitmap to a FreeImage bitmap.
@@ -14790,46 +14556,6 @@
             <param name="topdown">If true, the raw bitmap is stored in top-down order (top-left pixel first)
             and in bottom-up order (bottom-left pixel first) otherwise.</param>
             <returns>Handle to a FreeImage bitmap.</returns>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.SaveBitmap(System.Drawing.Bitmap,System.String)">
-            <summary>
-            Saves a .NET <see cref="T:System.Drawing.Bitmap"/> to a file.
-            </summary>
-            <param name="bitmap">The .NET <see cref="T:System.Drawing.Bitmap"/> to save.</param>
-            <param name="filename">Name of the file to save to.</param>
-            <returns>Returns true on success, false on failure.</returns>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="bitmap"/> or <paramref name="filename"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The bitmaps pixelformat is invalid.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.SaveBitmap(System.Drawing.Bitmap,System.String,FreeImageAPI.FREE_IMAGE_SAVE_FLAGS)">
-            <summary>
-            Saves a .NET <see cref="T:System.Drawing.Bitmap"/> to a file.
-            </summary>
-            <param name="bitmap">The .NET <see cref="T:System.Drawing.Bitmap"/> to save.</param>
-            <param name="filename">Name of the file to save to.</param>
-            <param name="flags">Flags to enable or disable plugin-features.</param>
-            <returns>Returns true on success, false on failure.</returns>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="bitmap"/> or <paramref name="filename"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The bitmaps pixelformat is invalid.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.SaveBitmap(System.Drawing.Bitmap,System.String,FreeImageAPI.FREE_IMAGE_FORMAT,FreeImageAPI.FREE_IMAGE_SAVE_FLAGS)">
-            <summary>
-            Saves a .NET <see cref="T:System.Drawing.Bitmap"/> to a file.
-            </summary>
-            <param name="bitmap">The .NET <see cref="T:System.Drawing.Bitmap"/> to save.</param>
-            <param name="filename">Name of the file to save to.</param>
-            <param name="format">Format of the bitmap. If the format should be taken from the
-            filename use <see cref="F:FreeImageAPI.FREE_IMAGE_FORMAT.FIF_UNKNOWN"/>.</param>
-            <param name="flags">Flags to enable or disable plugin-features.</param>
-            <returns>Returns true on success, false on failure.</returns>
-            <exception cref="T:System.ArgumentNullException">
-            <paramref name="bitmap"/> or <paramref name="filename"/> is null.</exception>
-            <exception cref="T:System.ArgumentException">
-            The bitmaps pixelformat is invalid.</exception>
         </member>
         <member name="M:FreeImageAPI.FreeImage.LoadEx(System.String)">
             <summary>
@@ -14885,20 +14611,6 @@
             <returns>Handle to a FreeImage bitmap.</returns>
             <exception cref="T:System.IO.FileNotFoundException">
             <paramref name="filename"/> does not exists.</exception>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.LoadBitmap(System.String,FreeImageAPI.FREE_IMAGE_LOAD_FLAGS,FreeImageAPI.FREE_IMAGE_FORMAT@)">
-            <summary>
-            Loads a .NET <see cref="T:System.Drawing.Bitmap"/> from a file.
-            </summary>
-            <param name="filename">Name of the file to be loaded.</param>
-            <param name="format">Format of the image. If the format should be taken from the
-            filename use <see cref="F:FreeImageAPI.FREE_IMAGE_FORMAT.FIF_UNKNOWN"/>.</param>
-            <param name="flags">Flags to enable or disable plugin-features.</param>
-            <returns>The loaded .NET <see cref="T:System.Drawing.Bitmap"/>.</returns>
-            <exception cref="T:System.IO.FileNotFoundException">
-            <paramref name="filename"/> does not exists.</exception>
-            <exception cref="T:System.ArgumentException">
-            The image type of the image is not <see cref="F:FreeImageAPI.FREE_IMAGE_TYPE.FIT_BITMAP"/>.</exception>
         </member>
         <member name="M:FreeImageAPI.FreeImage.UnloadEx(FreeImageAPI.FIBITMAP@)">
             <summary>
@@ -15586,7 +15298,7 @@
             <exception cref="T:System.ArgumentNullException">
             <paramref name="dib"/> is null.</exception>
         </member>
-        <member name="M:FreeImageAPI.FreeImage.GetFormatParameters(System.Drawing.Imaging.PixelFormat,FreeImageAPI.FREE_IMAGE_TYPE@,System.UInt32@,System.UInt32@,System.UInt32@,System.UInt32@)">
+        <member name="M:FreeImageAPI.FreeImage.GetFormatParameters(FreeImageAPI.PixelFormat,FreeImageAPI.FREE_IMAGE_TYPE@,System.UInt32@,System.UInt32@,System.UInt32@,System.UInt32@)">
             <summary>
             Retrieves all parameters needed to create a new FreeImage bitmap from
             the format of a .NET <see cref="T:System.Drawing.Image"/>.
@@ -15613,16 +15325,6 @@
             <param name="blueMask">Returns the blue_mask for the new bitmap.</param>
             <returns>True in case a matching conversion exists; else false.
             </returns>
-        </member>
-        <member name="M:FreeImageAPI.FreeImage.GetFormat(System.Drawing.Imaging.ImageFormat)">
-            <summary>
-            Returns the <see cref="T:FreeImageAPI.FREE_IMAGE_FORMAT"/> for the specified
-            <see cref="T:System.Drawing.Imaging.ImageFormat"/>.
-            </summary>
-            <param name="imageFormat">The <see cref="T:System.Drawing.Imaging.ImageFormat"/>
-            for which to return the corresponding <see cref="T:FreeImageAPI.FREE_IMAGE_FORMAT"/>.</param>
-            <returns>The <see cref="T:FreeImageAPI.FREE_IMAGE_FORMAT"/> for the specified
-            <see cref="T:System.Drawing.Imaging.ImageFormat"/></returns>
         </member>
         <member name="M:FreeImageAPI.FreeImage.GetTypeParameters(FreeImageAPI.FREE_IMAGE_TYPE,System.Int32,System.UInt32@,System.UInt32@,System.UInt32@)">
             <summary>
@@ -15953,7 +15655,7 @@
         <member name="M:FreeImageAPI.FreeImage.Rotate(FreeImageAPI.FIBITMAP,System.Double)">
             <summary>
             This function rotates a 1-, 8-bit greyscale or a 24-, 32-bit color image by means of 3 shears.
-            1-bit images rotation is limited to integer multiple of 90�.
+            1-bit images rotation is limited to integer multiple of 90°.
             <c>null</c> is returned for other values.
             </summary>
             <param name="dib">Handle to a FreeImage bitmap.</param>
@@ -15963,7 +15665,7 @@
         <member name="M:FreeImageAPI.FreeImage.Rotate``1(FreeImageAPI.FIBITMAP,System.Double,System.Nullable{``0})">
             <summary>
             This function rotates a 1-, 8-bit greyscale or a 24-, 32-bit color image by means of 3 shears.
-            1-bit images rotation is limited to integer multiple of 90�.
+            1-bit images rotation is limited to integer multiple of 90°.
             <c>null</c> is returned for other values.
             </summary>
             <typeparam name="T">The type of the color to use as background.</typeparam>

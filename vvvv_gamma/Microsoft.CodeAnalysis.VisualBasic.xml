@@ -5882,6 +5882,11 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  True if the method has declarative security information (HasSecurity flags).
  </summary>
 </member>
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.Symbols.MethodSymbol.RequiresSecurityObject">
+ <summary>
+ True if the method calls another method containing security code (metadata flag RequiresSecurityObject is set).
+ </summary>
+</member>
 <member name="P:Microsoft.CodeAnalysis.VisualBasic.Symbols.MethodSymbol.IsExtensionMethod">
  <summary>
  Returns true if this method is an extension method from the VB language perspective; 
@@ -7775,7 +7780,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  Look up the given metadata type, if it is forwarded.
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.AssemblySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.SpecialType)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.AssemblySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.ExtendedSpecialType)">
  <summary>
  Lookup declaration for predefined CorLib type in this Assembly. Only valid if this 
  assembly is the Cor Library
@@ -7837,7 +7842,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  <returns></returns>
  <remarks></remarks>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.AssemblySymbol.GetSpecialType(Microsoft.CodeAnalysis.SpecialType)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.AssemblySymbol.GetSpecialType(Microsoft.CodeAnalysis.ExtendedSpecialType)">
  <summary>
  Get symbol for predefined type from Cor Library used by this assembly.
  </summary>
@@ -7959,7 +7964,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  <param name="typeName"></param>
  <returns>True if the attribute data matches.</returns>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.Metadata.PE.PEAttributeData.GetTargetAttributeSignatureIndex(Microsoft.CodeAnalysis.VisualBasic.Symbol,Microsoft.CodeAnalysis.AttributeDescription)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.Metadata.PE.PEAttributeData.GetTargetAttributeSignatureIndex(Microsoft.CodeAnalysis.AttributeDescription)">
  <summary>
  Matches an attribute by metadata namespace, metadata type name and metadata signature. Does not load the
  type symbol for the attribute.
@@ -8590,13 +8595,6 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  Represents a retargeting custom attribute
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.Retargeting.RetargetingAttributeData.GetSystemType(Microsoft.CodeAnalysis.VisualBasic.Symbol)">
- <summary>
- Gets the retargeted System.Type type symbol.
- </summary>
- <param name="targetSymbol">Target symbol on which this attribute is applied.</param>
- <returns>Retargeted System.Type type symbol.</returns>
-</member>
 <member name="T:Microsoft.CodeAnalysis.VisualBasic.Symbols.Retargeting.RetargetingAssemblySymbol">
  <summary>
  Essentially this is a wrapper around another AssemblySymbol that is responsible for retargeting
@@ -8682,7 +8680,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  <returns></returns>
  <remarks></remarks>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.Retargeting.RetargetingAssemblySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.SpecialType)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.Retargeting.RetargetingAssemblySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.ExtendedSpecialType)">
  <summary>
  Lookup declaration for FX type in this Assembly.
  </summary>
@@ -9058,7 +9056,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  This is for perf, not for correctness.
  </remarks>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.SourceAttributeData.GetTargetAttributeSignatureIndex(Microsoft.CodeAnalysis.VisualBasic.Symbol,Microsoft.CodeAnalysis.AttributeDescription)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.SourceAttributeData.GetTargetAttributeSignatureIndex(Microsoft.CodeAnalysis.AttributeDescription)">
  <summary>
  This method finds an attribute by metadata name and signature. The algorithm for signature matching is similar to the one
  in Module.GetTargetAttributeSignatureIndex. Note, the signature matching is limited to primitive types
@@ -9067,12 +9065,10 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  </summary>
  <param name="description">Attribute to match.</param>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.SourceAttributeData.GetSystemType(Microsoft.CodeAnalysis.VisualBasic.Symbol)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.SourceAttributeData.IsTargetAttribute(System.String,System.String,System.Boolean)">
  <summary>
- Gets the System.Type type symbol from targetSymbol's containing assembly.
+ Compares the namespace and type name with the attribute's namespace and type name.  Returns true if they are the same.
  </summary>
- <param name="targetSymbol">Target symbol on which this attribute is applied.</param>
- <returns>System.Type type symbol.</returns>
 </member>
 <member name="T:Microsoft.CodeAnalysis.VisualBasic.Symbols.EventWellKnownAttributeData">
  <summary>
@@ -9743,7 +9739,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  How many Cor types have we cached so far.
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.MetadataOrSourceAssemblySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.SpecialType)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.MetadataOrSourceAssemblySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.ExtendedSpecialType)">
  <summary>
  Lookup declaration for predefined CorLib type in this Assembly. Only should be
  called if it is know that this is the Cor Library (mscorlib).
@@ -9920,7 +9916,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  Lazily filled by GetDeclaredSpecialType method.
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.MissingCorLibrarySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.SpecialType)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.MissingCorLibrarySymbol.GetDeclaredSpecialType(Microsoft.CodeAnalysis.ExtendedSpecialType)">
  <summary>
  Lookup declaration for predefined CorLib type in this Assembly. Only should be
  called if it is know that this is the Cor Library (mscorlib).
@@ -12888,7 +12884,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  Class to represent a synthesized attribute
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.SynthesizedAttributeData.Create(Microsoft.CodeAnalysis.VisualBasic.Symbols.MethodSymbol,Microsoft.CodeAnalysis.WellKnownMember,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.TypedConstant},System.Collections.Immutable.ImmutableArray{System.Collections.Generic.KeyValuePair{System.String,Microsoft.CodeAnalysis.TypedConstant}})">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbols.SynthesizedAttributeData.Create(Microsoft.CodeAnalysis.VisualBasic.VisualBasicCompilation,Microsoft.CodeAnalysis.VisualBasic.Symbols.MethodSymbol,Microsoft.CodeAnalysis.WellKnownMember,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.TypedConstant},System.Collections.Immutable.ImmutableArray{System.Collections.Generic.KeyValuePair{System.String,Microsoft.CodeAnalysis.TypedConstant}})">
  <summary>
  Synthesizes attribute data for given constructor symbol.
  If the constructor has UseSiteErrors and the attribute is optional returns Nothing.
@@ -14009,7 +14005,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  Gets the kind of this type.
  </summary>
 </member>
-<member name="P:Microsoft.CodeAnalysis.VisualBasic.Symbols.TypeSymbol.SpecialType">
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.Symbols.TypeSymbol.ExtendedSpecialType">
  <summary>
  Gets corresponding special TypeId of this type.
  </summary>
@@ -15812,7 +15808,7 @@ we see that namespaces A and B and C are declared.  This declaration is represen
  The Script class symbol or null if it is not defined.
  </returns>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.VisualBasicCompilation.GetSpecialType(Microsoft.CodeAnalysis.SpecialType)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.VisualBasicCompilation.GetSpecialType(Microsoft.CodeAnalysis.ExtendedSpecialType)">
  <summary>
  Get symbol for predefined type from Cor Library referenced by this compilation.
  </summary>
@@ -17737,16 +17733,17 @@ End Class
  <param name="specificDiagnosticOptions">How specific diagnostics should be reported</param>
  <returns>A diagnostic updated to reflect the options, or null if it has been filtered out</returns>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.VisualBasicDiagnosticFilter.GetDiagnosticReport(Microsoft.CodeAnalysis.DiagnosticSeverity,System.Boolean,System.String,Microsoft.CodeAnalysis.Location,System.String,Microsoft.CodeAnalysis.ReportDiagnostic,System.Collections.Generic.IDictionary{System.String,Microsoft.CodeAnalysis.ReportDiagnostic},Microsoft.CodeAnalysis.SyntaxTreeOptionsProvider,System.Threading.CancellationToken,System.Boolean@)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.VisualBasicDiagnosticFilter.GetDiagnosticReport(Microsoft.CodeAnalysis.DiagnosticSeverity,System.Boolean,System.String,Microsoft.CodeAnalysis.Location,System.Collections.Immutable.ImmutableArray{System.String},Microsoft.CodeAnalysis.ReportDiagnostic,System.Collections.Generic.IDictionary{System.String,Microsoft.CodeAnalysis.ReportDiagnostic},Microsoft.CodeAnalysis.SyntaxTreeOptionsProvider,System.Threading.CancellationToken,System.Boolean@)">
  <summary>
  Take a warning And return the final disposition of the given warning,
  based on both command line options And pragmas. The diagnostic options
  have precedence in the following order:
      1. Warning level
      2. Command line options (/nowarn, /warnaserror)
-     3. Editor config options (syntax tree level)
-     4. Global analyzer config options (compilation level)
-     5. Global warning level
+     3. Custom severity configuration applied by analyzer
+     4. Editor config options (syntax tree level)
+     5. Global analyzer config options (compilation level)
+     6. Global warning level
 
  Global overrides are complicated. Global options never override suppression.
  Even if you have generalDiagnosticOption = ReportDiagnostic.Error, a
@@ -18288,13 +18285,6 @@ End Class
  <summary>
  Is this lambda method a query lambda? 
  If it is, IsLambdaMethod == True as well.
- </summary>
-</member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbol.GetGuidStringDefaultImplementation(System.String@)">
- <summary>
- Returns true and a <see cref="T:System.String"/> from the first <see cref="T:System.Runtime.InteropServices.GuidAttribute"/> on the symbol, 
- the string might be null or an invalid guid representation. False, 
- if there is no <see cref="T:System.Runtime.InteropServices.GuidAttribute"/> with string argument.
  </summary>
 </member>
 <member name="M:Microsoft.CodeAnalysis.VisualBasic.Symbol.GetDocumentationCommentId">
@@ -67496,13 +67486,7 @@ Parse the input for leading trivia.
  Represents a VB location in source code or metadata.
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.AsyncRewriter.AsyncMethodToClassRewriter.SpillExpressionsWithReceiver(Microsoft.CodeAnalysis.VisualBasic.BoundExpression,System.Boolean,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.VisualBasic.BoundExpression},Microsoft.CodeAnalysis.VisualBasic.AsyncRewriter.SpillBuilder@)">
- <summary>
- Spill an expression list with a receiver (e.g. array access, method call), 
- where at least one of the receiver or the arguments contains an await expression.
- </summary>
-</member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.AsyncRewriter.AsyncMethodToClassRewriter.SpillExpressionList(Microsoft.CodeAnalysis.VisualBasic.AsyncRewriter.SpillBuilder@,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.VisualBasic.BoundExpression},System.Boolean)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.AsyncRewriter.AsyncMethodToClassRewriter.SpillExpressionList(Microsoft.CodeAnalysis.VisualBasic.AsyncRewriter.SpillBuilder@,System.Collections.Immutable.ImmutableArray{Microsoft.CodeAnalysis.VisualBasic.BoundExpression})">
  <summary>
  Spill a list of expressions (e.g. the arguments of a method call).
  
@@ -68091,7 +68075,7 @@ Parse the input for leading trivia.
 <member name="F:Microsoft.CodeAnalysis.VisualBasic.LambdaRewriter._rewrittenNodes">
  <summary> WARNING: used ONLY in DEBUG </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.LambdaRewriter.Rewrite(Microsoft.CodeAnalysis.VisualBasic.BoundBlock,Microsoft.CodeAnalysis.VisualBasic.Symbols.MethodSymbol,System.Int32,Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.CodeGen.LambdaDebugInfo},Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.CodeGen.ClosureDebugInfo},System.Int32@,Microsoft.CodeAnalysis.CodeGen.VariableSlotAllocator,Microsoft.CodeAnalysis.VisualBasic.TypeCompilationState,System.Collections.Generic.ISet{Microsoft.CodeAnalysis.VisualBasic.Symbol},Microsoft.CodeAnalysis.VisualBasic.BindingDiagnosticBag,System.Collections.Generic.HashSet{Microsoft.CodeAnalysis.VisualBasic.BoundNode})">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.LambdaRewriter.Rewrite(Microsoft.CodeAnalysis.VisualBasic.BoundBlock,Microsoft.CodeAnalysis.VisualBasic.Symbols.MethodSymbol,System.Int32,Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.Emit.EncLambdaInfo},Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.CodeGen.LambdaRuntimeRudeEditInfo},Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.Emit.EncClosureInfo},System.Int32@,Microsoft.CodeAnalysis.CodeGen.VariableSlotAllocator,Microsoft.CodeAnalysis.VisualBasic.TypeCompilationState,System.Collections.Generic.ISet{Microsoft.CodeAnalysis.VisualBasic.Symbol},Microsoft.CodeAnalysis.VisualBasic.BindingDiagnosticBag,System.Collections.Generic.HashSet{Microsoft.CodeAnalysis.VisualBasic.BoundNode})">
  <summary>
  Rewrite the given node to eliminate lambda expressions.  Also returned are the method symbols and their
  bound bodies for the extracted lambda bodies. These would typically be emitted by the caller such as
@@ -68101,11 +68085,14 @@ Parse the input for leading trivia.
  <param name="node">The bound node to be rewritten</param>
  <param name="method">The containing method of the node to be rewritten</param>
  <param name="methodOrdinal">Index of the method symbol in its containing type member list.</param>
+ <param name="lambdaDebugInfoBuilder">Information on lambdas defined in <paramref name="method"/> needed for debugging.</param>
+ <param name="lambdaRuntimeRudeEditsBuilder">EnC rude edit information on lambdas defined in <paramref name="method"/>.</param>
+ <param name="closureDebugInfoBuilder">Information on closures defined in <paramref name="method"/> needed for debugging.</param>
  <param name="compilationState">The caller's buffer into which we produce additional methods to be emitted by the caller</param>
  <param name="symbolsCapturedWithoutCopyCtor">Set of symbols that should not be captured using a copy constructor</param>
  <param name="diagnostics">The caller's buffer into which we place any diagnostics for problems encountered</param>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.LambdaRewriter.MakeFrames(Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.CodeGen.ClosureDebugInfo})">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.LambdaRewriter.MakeFrames(Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.Emit.EncClosureInfo})">
  <summary>
  Create the frame types.
  </summary>
@@ -68555,7 +68542,7 @@ Parse the input for leading trivia.
  involves overloaded comparison/IsTrue operators
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.LocalRewriter.TryGetSpecialMember``1(``0@,Microsoft.CodeAnalysis.SpecialMember,Microsoft.CodeAnalysis.SyntaxNode)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.LocalRewriter.TryGetSpecialMember``1(``0@,Microsoft.CodeAnalysis.SpecialMember,Microsoft.CodeAnalysis.SyntaxNode,System.Boolean)">
  <summary>
  Attempt to retrieve the specified special member, reporting a use-site diagnostic if the member is not found.
  </summary>
@@ -68584,7 +68571,7 @@ Parse the input for leading trivia.
  are returned in temp/init
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.LocalRewriter.NullableValueOrDefault(Microsoft.CodeAnalysis.VisualBasic.BoundExpression)">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.LocalRewriter.NullableValueOrDefault(Microsoft.CodeAnalysis.VisualBasic.BoundExpression,System.Boolean)">
  <summary>
  Returns expression that -
  a) evaluates the operand if needed
@@ -69177,7 +69164,7 @@ Parse the input for leading trivia.
  Synthesizes an expression that evaluates to the index of a source document in the table of debug source documents.
  </summary>
 </member>
-<member name="M:Microsoft.CodeAnalysis.VisualBasic.UseTwiceRewriter.UseTwice(Microsoft.CodeAnalysis.VisualBasic.Symbol,Microsoft.CodeAnalysis.VisualBasic.BoundExpression,Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.VisualBasic.Symbols.SynthesizedLocal})">
+<member name="M:Microsoft.CodeAnalysis.VisualBasic.UseTwiceRewriter.UseTwice(Microsoft.CodeAnalysis.VisualBasic.Symbol,Microsoft.CodeAnalysis.VisualBasic.BoundExpression,System.Boolean,Microsoft.CodeAnalysis.PooledObjects.ArrayBuilder{Microsoft.CodeAnalysis.VisualBasic.Symbols.SynthesizedLocal})">
  <summary>
  Given an expression that produces some result and 
  has some observable evaluation side effects, return two expressions:
@@ -81500,6 +81487,18 @@ Parse the input for leading trivia.
 </member>
 <member name="P:Microsoft.CodeAnalysis.VisualBasic.VBResources.ERR_SymbolDefinedInAssembly">
  <summary>'{0}' is defined in assembly '{1}'.</summary>
+</member>
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBResources.ERR_InvalidExperimentalDiagID">
+ <summary>The diagnosticId argument to the 'Experimental' attribute must be a valid identifier</summary>
+</member>
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBResources.ERR_LockTypeUnsupported">
+ <summary>A value of type 'System.Threading.Lock' is not supported in SyncLock. Consider manually calling 'Enter' and 'Exit' methods in a Try/Finally block instead.</summary>
+</member>
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBResources.WRN_ConvertingLock">
+ <summary>A value of type 'System.Threading.Lock' converted to a different type will use likely unintended monitor-based locking in SyncLock statement.</summary>
+</member>
+<member name="P:Microsoft.CodeAnalysis.VisualBasic.VBResources.WRN_ConvertingLock_Title">
+ <summary>A value of type 'System.Threading.Lock' converted to a different type will use likely unintended monitor-based locking in SyncLock statement.</summary>
 </member>
 <member name="T:Microsoft.CodeAnalysis.Diagnostics.VisualBasic.VisualBasicCompilerDiagnosticAnalyzer">
  <summary>

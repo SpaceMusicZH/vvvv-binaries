@@ -1341,6 +1341,16 @@
             <returns>An new image.</returns>
             <remarks>If <paramref name="makeACopy"/> is set to false, the returned image is now the holder of the unmanaged pointer and will release it on Dispose. </remarks>
         </member>
+        <member name="M:Stride.Graphics.Image.Load(System.Span{System.Byte},System.Boolean,System.Boolean)">
+            <summary>
+            Loads an image from an unmanaged memory pointer.
+            </summary>
+            <param name="dataBuffer">Pointer to an unmanaged memory. If <paramref name="makeACopy"/> is false, this buffer must be allocated with <see cref="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)"/>.</param>
+            <param name="makeACopy">True to copy the content of the buffer to a new allocated buffer, false otherwise.</param>
+            <param name="loadAsSRGB">Indicate if the image should be loaded as an sRGB texture</param>
+            <returns>An new image.</returns>
+            <remarks>If <paramref name="makeACopy"/> is set to false, the returned image is now the holder of the unmanaged pointer and will release it on Dispose. </remarks>
+        </member>
         <member name="M:Stride.Graphics.Image.Load(System.IntPtr,System.Int32,System.Boolean,System.Boolean)">
             <summary>
             Loads an image from an unmanaged memory pointer.

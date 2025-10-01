@@ -4,6 +4,39 @@
         <name>VL.IO.Redis</name>
     </assembly>
     <members>
+        <member name="M:VL.IO.Redis.Advanced.RedisClientExtensions.Get``1(VL.IO.Redis.RedisClient,System.String,VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{``0})">
+            <summary>
+            Get the value of key. If the key does not exist the <paramref name="defaultValue"/> is returned.
+            An error is returned if the value stored at key is not a string, because GET only handles string values.
+            </summary>
+            <param name="client">The Redis client.</param>
+            <param name="key">The key of the string.</param>
+            <param name="format">The serialization format to use. If not provided the one from the <paramref name="client"/> will be used.</param>
+            <param name="defaultValue">The value to return in case the key does not exist or the client is not connected.</param>
+            <returns>The value of key, or <paramref name="defaultValue"/> when key does not exist.</returns>
+            <remarks><seealso href="https://redis.io/commands/get"/></remarks>
+        </member>
+        <member name="M:VL.IO.Redis.Advanced.RedisClientExtensions.GetAsync``1(VL.IO.Redis.RedisClient,System.String,VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{``0})">
+            <summary>
+            Get the value of key. If the key does not exist the <paramref name="defaultValue"/> is returned.
+            An error is returned if the value stored at key is not a string, because GET only handles string values.
+            </summary>
+            <param name="client">The Redis client.</param>
+            <param name="key">The key of the string.</param>
+            <param name="format">The serialization format to use. If not provided the one from the <paramref name="client"/> will be used.</param>
+            <param name="defaultValue">The value to return in case the key does not exist or the client is not connected.</param>
+            <returns>The value of key, or <paramref name="defaultValue"/> when key does not exist.</returns>
+            <remarks><seealso href="https://redis.io/commands/get"/></remarks>
+        </member>
+        <member name="M:VL.IO.Redis.Advanced.RedisClientExtensions.Set``1(VL.IO.Redis.RedisClient,System.String,``0,VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{System.TimeSpan},StackExchange.Redis.When)">
+            <inheritdoc cref="M:StackExchange.Redis.IDatabase.StringSet(StackExchange.Redis.RedisKey,StackExchange.Redis.RedisValue,System.Nullable{System.TimeSpan},System.Boolean,StackExchange.Redis.When,StackExchange.Redis.CommandFlags)"/>
+        </member>
+        <member name="M:VL.IO.Redis.Advanced.RedisClientExtensions.SetAsync``1(VL.IO.Redis.RedisClient,System.String,``0,VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{System.TimeSpan},StackExchange.Redis.When)">
+            <inheritdoc cref="M:StackExchange.Redis.IDatabaseAsync.StringSetAsync(StackExchange.Redis.RedisKey,StackExchange.Redis.RedisValue,System.Nullable{System.TimeSpan},System.Boolean,StackExchange.Redis.When,StackExchange.Redis.CommandFlags)"/>
+        </member>
+        <member name="M:VL.IO.Redis.Advanced.RedisClientExtensions.Publish``1(VL.IO.Redis.RedisClient,System.String,``0,VL.Core.Optional{VL.IO.Redis.SerializationFormat})">
+            <inheritdoc cref="M:StackExchange.Redis.IDatabase.Publish(StackExchange.Redis.RedisChannel,StackExchange.Redis.RedisValue,StackExchange.Redis.CommandFlags)"/>
+        </member>
         <member name="T:VL.IO.Redis.BindingModel">
             <summary>
             A description of a Redis binding. The <see cref="T:VL.IO.Redis.RedisClientManager"/> holds one of these per global channel.
@@ -14,8 +47,9 @@
             <param name="CollisionHandling">Defines the behavior when both Redis and vvvv have a value.</param>
             <param name="SerializationFormat">The serialization format to used for this binding. If not specified the one from the <see cref="T:VL.IO.Redis.RedisClient"/> is used.</param>
             <param name="Expiry">Allows to make this key expire (and vanish) from the Redis database. The channel will persist and will pick up values as soon as the key in the Db exists again.</param>
+            <param name="When">Which condition to set the value under (defaults to always).</param>
         </member>
-        <member name="M:VL.IO.Redis.BindingModel.#ctor(System.String,VL.IO.Redis.Initialization,VL.IO.Redis.BindingDirection,VL.IO.Redis.CollisionHandling,System.Nullable{VL.IO.Redis.SerializationFormat},System.Nullable{System.TimeSpan})">
+        <member name="M:VL.IO.Redis.BindingModel.#ctor(VL.Core.Optional{System.String},VL.Core.Optional{VL.IO.Redis.Initialization},VL.Core.Optional{VL.IO.Redis.BindingDirection},VL.Core.Optional{VL.IO.Redis.CollisionHandling},VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{System.TimeSpan},VL.Core.Optional{StackExchange.Redis.When},System.Boolean)">
             <summary>
             A description of a Redis binding. The <see cref="T:VL.IO.Redis.RedisClientManager"/> holds one of these per global channel.
             </summary>
@@ -25,6 +59,7 @@
             <param name="CollisionHandling">Defines the behavior when both Redis and vvvv have a value.</param>
             <param name="SerializationFormat">The serialization format to used for this binding. If not specified the one from the <see cref="T:VL.IO.Redis.RedisClient"/> is used.</param>
             <param name="Expiry">Allows to make this key expire (and vanish) from the Redis database. The channel will persist and will pick up values as soon as the key in the Db exists again.</param>
+            <param name="When">Which condition to set the value under (defaults to always).</param>
         </member>
         <member name="P:VL.IO.Redis.BindingModel.Key">
             <summary>The Redis key.</summary>
@@ -44,10 +79,24 @@
         <member name="P:VL.IO.Redis.BindingModel.Expiry">
             <summary>Allows to make this key expire (and vanish) from the Redis database. The channel will persist and will pick up values as soon as the key in the Db exists again.</summary>
         </member>
+        <member name="P:VL.IO.Redis.BindingModel.When">
+            <summary>Which condition to set the value under (defaults to always).</summary>
+        </member>
         <member name="T:VL.IO.Redis.BindingNode">
             <summary>
             Binds a Channel to a key in a Redis database
             </summary>
+        </member>
+        <member name="M:VL.IO.Redis.BindingNode.Update(VL.IO.Redis.RedisClient,VL.Lib.Reactive.IChannel,VL.Core.Optional{System.String},VL.Core.Optional{VL.IO.Redis.BindingDirection},VL.Core.Optional{VL.IO.Redis.Initialization},VL.Core.Optional{VL.IO.Redis.CollisionHandling},VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{System.TimeSpan},VL.Core.Optional{StackExchange.Redis.When})">
+            <param name="client">The Redis client.</param>
+            <param name="key">The Redis key.</param>
+            <param name="input">The channel to bind to.</param>
+            <param name="bindingDirection">Defines the direction of the binding.</param>
+            <param name="initialization">What to do on startup.</param>
+            <param name="collisionHandling">Defines the behavior when both Redis and vvvv have a value.</param>
+            <param name="serializationFormat">The serialization format to use for this binding. If not specified the one from the <paramref name="client"/> is used.</param>
+            <param name="expiry">Allows to make this key expire (and vanish) from the Redis database. The channel will persist and will pick up values as soon as the key in the Db exists again.</param>
+            <param name="when">Which condition to set the value under (defaults to always).</param>
         </member>
         <member name="T:VL.IO.Redis.ChannelMessage`1">
             <summary>
@@ -79,11 +128,6 @@
         <member name="T:VL.IO.Redis.Internal.IParticipant">
             <summary>
             Allows to take part in a Redis transaction created each vvvv frame by the <see cref="T:VL.IO.Redis.RedisClient"/>.
-            </summary>
-        </member>
-        <member name="T:VL.IO.Redis.Internal.IRedisBinding">
-            <summary>
-            A non-generic view on <see cref="T:VL.IO.Redis.Internal.Binding`1"/>. Used by <see cref="T:VL.IO.Redis.RedisClientManager"/> to manage bindings.
             </summary>
         </member>
         <member name="T:VL.IO.Redis.Internal.TransactionBuilder">

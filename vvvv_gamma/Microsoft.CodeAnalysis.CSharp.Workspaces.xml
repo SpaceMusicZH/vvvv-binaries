@@ -41,6 +41,11 @@
             <c>var</c>).
             </summary>
         </member>
+        <member name="F:Microsoft.CodeAnalysis.CSharp.CodeStyle.CSharpCodeStyleOptions.EditorConfigOptions">
+            <summary>
+            Options that we expect the user to set in editorconfig.
+            </summary>
+        </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.CodeStyle.TypeStyle.TypeStyleHelper.IsTypeApparentInAssignmentExpression(Microsoft.CodeAnalysis.CSharp.CodeStyle.TypeStyle.UseVarPreference,Microsoft.CodeAnalysis.CSharp.Syntax.ExpressionSyntax,Microsoft.CodeAnalysis.SemanticModel,Microsoft.CodeAnalysis.ITypeSymbol,System.Threading.CancellationToken)">
             <summary>
             Analyzes if type information is obvious to the reader by simply looking at the assignment expression.
@@ -71,7 +76,7 @@
             otherwise, we match for type equivalence
             </remarks>
         </member>
-        <member name="T:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictWalker">
+        <member name="T:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictFinder">
             <summary>
             Walks the portion of the tree we're adding imports to looking to see if those imports could likely cause
             conflicts with existing code.  Note: this is a best-effort basis, and the goal is to catch reasonable
@@ -81,13 +86,13 @@
             impacted by adding an import to a normal namespace.
             </summary>
         </member>
-        <member name="F:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictWalker._importedTypes">
+        <member name="F:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictFinder._importedTypes">
             <summary>
             A mapping containing the simple names and arity of all imported types, mapped to the import that they're
             brought in by.
             </summary>
         </member>
-        <member name="F:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictWalker._importedExtensionMethods">
+        <member name="F:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictFinder._importedExtensionMethods">
             <summary>
             A mapping containing the simple names of all imported extension methods, mapped to the import that
             they're brought in by.  This doesn't keep track of arity because methods can be called with type
@@ -98,13 +103,6 @@
             called with).  That could then be used to check if there could be a conflict. However, that's likely
             more complexity than we need currently.  But it is always something we can do in the future.
             </remarks>
-        </member>
-        <member name="F:Microsoft.CodeAnalysis.CSharp.Editing.CSharpImportAdder.ConflictWalker._inAnonymousMethod">
-            <summary>
-            Track if we're in an anonymous method or not.  If so, because of how the language binds lambdas and
-            overloads, we'll assume any method access we see inside (instance or otherwise) could end up conflicting
-            with an extension method we might pull in.
-            </summary>
         </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.Extensions.SemanticModelExtensions.GenerateNameForArgument(Microsoft.CodeAnalysis.SemanticModel,Microsoft.CodeAnalysis.CSharp.Syntax.ArgumentSyntax,System.Threading.CancellationToken)">
             <summary>
@@ -334,7 +332,7 @@
             <param name="genericIdentifier">The "name" of the generic identifier, last token before
             the "&amp;"</param>
             <returns>The last token in the name</returns>
-            <remarks>This is related to the code in <see cref="M:Microsoft.CodeAnalysis.CSharp.Extensions.SyntaxTreeExtensions.IsInPartiallyWrittenGeneric(Microsoft.CodeAnalysis.SyntaxTree,System.Int32,System.Threading.CancellationToken)"/></remarks>
+            <remarks>This is related to the code in SyntaxTreeExtensions.IsInPartiallyWrittenGeneric</remarks>
         </member>
         <member name="M:Microsoft.CodeAnalysis.CSharp.Extensions.SyntaxTriviaListExtensions.TakeRange(Microsoft.CodeAnalysis.SyntaxTriviaList,System.Int32,System.Int32)">
             <summary>
@@ -483,6 +481,21 @@
         </member>
         <member name="P:Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions.NewLineForClausesInQuery">
             <inheritdoc cref="P:Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions2.NewLineForClausesInQuery"/>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions2.CollectionExpressionWrappingLength">
+            <summary>
+            Internal option -- not exposed to editorconfig tooling via <see cref="F:Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions2.EditorConfigOptions"/>.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions2.EditorConfigOptions">
+            <summary>
+            Options that we expect the user to set in editorconfig.
+            </summary>
+        </member>
+        <member name="F:Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions2.UndocumentedOptions">
+            <summary>
+            Options that can be set via editorconfig but we do not provide tooling support.
+            </summary>
         </member>
         <member name="F:Microsoft.CodeAnalysis.CSharp.Formatting.LabelPositionOptions.LeftMost">
             Placed in the Zeroth column of the text editor
@@ -787,18 +800,6 @@
             true, otherwise.
             </returns>
         </member>
-        <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpWorkspaceResources.Node_does_not_descend_from_root">
-            <summary>Node does not descend from root.</summary>
-        </member>
-        <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpWorkspaceResources.Node_not_in_parent_s_child_list">
-            <summary>Node not in parent's child list</summary>
-        </member>
-        <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpWorkspaceResources.Trivia_is_not_associated_with_token">
-            <summary>Trivia is not associated with token</summary>
-        </member>
-        <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpWorkspaceResources.Cannot_retrieve_the_Span_of_a_null_syntax_reference">
-            <summary>Cannot retrieve the Span of a null syntax reference.</summary>
-        </member>
         <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpWorkspaceResources.Only_attributes_constructor_initializers_expressions_or_statements_can_be_made_explicit">
             <summary>Only attributes, constructor initializers, expressions or statements can be made explicit</summary>
         </member>
@@ -846,9 +847,6 @@
         </member>
         <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpCompilerExtensionsResources.Expected_string_or_char_literal">
             <summary>Expected string or char literal</summary>
-        </member>
-        <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpCompilerExtensionsResources._0_1_is_not_supported_in_this_version">
-            <summary>'{0}.{1}' is not supported in this version</summary>
         </member>
         <member name="P:Microsoft.CodeAnalysis.CSharp.CSharpWorkspaceExtensionsResources.EmptyResource">
             <summary>Remove this value when another is added.</summary>

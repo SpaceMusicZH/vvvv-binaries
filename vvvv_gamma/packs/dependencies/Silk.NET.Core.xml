@@ -310,6 +310,7 @@
             - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.MainModuleDirectoryResolver" />
             - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.RuntimesFolderResolver" />
             - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.NativePackageResolver" />
+            - <see cref="F:Silk.NET.Core.Loader.DefaultPathResolver.SilkDirectoryResolver"/>
             </summary>
         </member>
         <member name="P:Silk.NET.Core.Loader.DefaultPathResolver.Resolvers">
@@ -333,6 +334,12 @@
             <summary>
             A resolver that returns a path to a file in <see cref="P:System.Diagnostics.Process.MainModule"/>'s
             <see cref="P:System.Diagnostics.ProcessModule.FileName"/> directory with the given name.
+            </summary>
+        </member>
+        <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.SilkDirectoryResolver">
+            <summary>
+            A resolver that returns a path to a file in Silk.NET's <see cref="P:System.Reflection.Assembly.Location"/> and/or
+            <see cref="P:System.Reflection.Assembly.CodeBase"/> directory with the given name.
             </summary>
         </member>
         <member name="F:Silk.NET.Core.Loader.DefaultPathResolver.RuntimesFolderResolver">
@@ -1700,6 +1707,18 @@
             <param name="input">Global memory containing a string array.</param>
             <param name="customUnmarshaller">The pointer-to-string marshaller to use.</param>
             <returns>The read string array.</returns>
+        </member>
+        <member name="M:Silk.NET.Core.Native.SilkMarshal.StringLength(System.IntPtr,Silk.NET.Core.Native.NativeStringEncoding)">
+            <summary>
+            Gets the length of the given native string.
+            </summary>
+            <param name="ptr">The native string pointer.</param>
+            <param name="encoding">The encoding.</param>
+            <returns>The length of the string.</returns>
+            <remarks>
+            Note that this returns the length in characters. Namely, if a 16-bit character encoding is used, the actual
+            byte count will be double the return value from this function.
+            </remarks>
         </member>
         <member name="M:Silk.NET.Core.Native.SilkMarshal.HGlobalToMemory(System.IntPtr,System.Int32)">
             <summary>

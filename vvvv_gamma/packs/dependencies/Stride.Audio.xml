@@ -72,8 +72,8 @@
             In current version, the audio engine necessarily creates its context on the default audio hardware of the device.
             The audio engine is required when creating or loading sounds.
             </summary>
-            <remarks/>The AudioEngine is Disposable. Call the <see cref="!:ComponentBase.Dispose"/> function when you do not need to play sounds anymore to free memory allocated to the audio system. 
-            A call to Dispose automatically stops and disposes all the <see cref="T:Stride.Audio.SoundBase"/>, <see cref="T:Stride.Audio.SoundInstance"/>
+            <remarks>The AudioEngine is Disposable. Call the <see cref="M:Stride.Core.DisposeBase.Dispose"/> function when you do not need to play sounds anymore to free memory allocated to the audio system.
+            A call to Dispose automatically stops and disposes all the <see cref="T:Stride.Audio.SoundBase"/>, <see cref="T:Stride.Audio.SoundInstance"/>.</remarks>
         </member>
         <member name="F:Stride.Audio.AudioEngine.Logger">
             <summary>
@@ -117,7 +117,7 @@
         </member>
         <member name="M:Stride.Audio.AudioEngine.Update">
             <summary>
-            Method that updates all the sounds play status. 
+            Method that updates all the sounds play status.
             </summary>
             <remarks>Should be called in same thread as user main thread.</remarks>
             <exception cref="T:System.InvalidOperationException">One or several of the sounds asked for play had invalid data (corrupted or unsupported formats).</exception>
@@ -463,10 +463,10 @@
         <member name="T:Stride.Audio.IPlayableSound">
             <summary>
             Interface for a playable sound.
-            A playable sound can loop (ref <see cref="!:IsLooped"/>), be played (ref <see cref="M:Stride.Audio.IPlayableSound.Play"/>), be paused (ref <see cref="M:Stride.Audio.IPlayableSound.Pause"/>), be resumed (ref <see cref="M:Stride.Audio.IPlayableSound.Play"/>), 
+            A playable sound can loop (ref <see cref="P:Stride.Audio.IPlayableSound.IsLooping"/>), be played (ref <see cref="M:Stride.Audio.IPlayableSound.Play"/>), be paused (ref <see cref="M:Stride.Audio.IPlayableSound.Pause"/>), be resumed (ref <see cref="M:Stride.Audio.IPlayableSound.Play"/>),
             be stopped (ref <see cref="M:Stride.Audio.IPlayableSound.Stop"/>) and be attenuated (ref <see cref="P:Stride.Audio.IPlayableSound.Volume"/>).
             To query the current state of a sound use the <see cref="P:Stride.Audio.IPlayableSound.PlayState"/> property. 
-            To stop a sound after its currently loop use <see cref="!:ExitLoop"/>
+            To stop a sound after its currently loop set `IsLooping = false;`
             </summary>
         </member>
         <member name="P:Stride.Audio.IPlayableSound.PlayState">

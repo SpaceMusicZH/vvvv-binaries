@@ -466,7 +466,7 @@
         </member>
         <member name="T:Stride.Rendering.Compositing.SceneRendererBase">
             <summary>
-            Describes the code part of a <see cref="!:GraphicsCompositor"/>.
+            Describes the code part of a `GraphicsCompositor`.
             </summary>
         </member>
         <member name="P:Stride.Rendering.Compositing.SceneRendererBase.Id">
@@ -1846,7 +1846,7 @@
             Binds a set of viewports to the rasterizer stage.
             </summary>
             <param name="values">The set of viewports to bind.</param>
-            <remarks>Only <see cref="F:Stride.Graphics.CommandList.MaxViewportAndScissorRectangleCount"/> scissors can be used simultaneously</remarks>
+            <remarks>Only <see cref="T:Stride.Graphics.CommandList"/>'s `MaxViewportAndScissorRectangleCount` scissors can be used simultaneously</remarks>
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.SetScissorRectangle(System.Nullable{Stride.Core.Mathematics.Rectangle})">
             <summary>
@@ -1859,7 +1859,7 @@
             Binds a set of scissor rectangles to the rasterizer stage.
             </summary>
             <param name="values">The set of scissor rectangles to bind.</param>
-            <remarks>Only <see cref="F:Stride.Graphics.CommandList.MaxViewportAndScissorRectangleCount"/> viewports can be used simultaneously</remarks>
+            <remarks>Only <see cref="T:Stride.Graphics.CommandList"/>'s `MaxViewportAndScissorRectangleCount` viewports can be used simultaneously</remarks>
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.SetRenderTargets(Stride.Rendering.RenderDrawContext)">
             <summary>
@@ -1934,13 +1934,13 @@
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.NewScopedRenderTarget2D(Stride.Graphics.TextureDescription)">
             <summary>
-            Gets a render target with the specified description, scoped for the duration of the <see cref="!:DrawEffect.DrawCore"/>.
+            Gets a render target with the specified description, scoped for the duration of the <see cref="M:Stride.Rendering.RendererBase.DrawCore(Stride.Rendering.RenderDrawContext)"/>.
             </summary>
             <returns>A new instance of texture.</returns>
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.NewScopedRenderTarget2D(System.Int32,System.Int32,Stride.Graphics.PixelFormat,Stride.Graphics.TextureFlags,System.Int32)">
             <summary>
-            Gets a render target output for the specified description with a single mipmap, scoped for the duration of the <see cref="!:DrawEffect.DrawCore"/>.
+            Gets a render target output for the specified description with a single mipmap, scoped for the duration of the <see cref="M:Stride.Rendering.RendererBase.DrawCore(Stride.Rendering.RenderDrawContext)"/>.
             </summary>
             <param name="width">The width.</param>
             <param name="height">The height.</param>
@@ -1954,7 +1954,7 @@
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffect.NewScopedRenderTarget2D(System.Int32,System.Int32,Stride.Graphics.PixelFormat,Stride.Graphics.MipMapCount,Stride.Graphics.TextureFlags,System.Int32)">
             <summary>
-            Gets a render target output for the specified description, scoped for the duration of the <see cref="!:DrawEffect.DrawCore"/>.
+            Gets a render target output for the specified description, scoped for the duration of the <see cref="M:Stride.Rendering.RendererBase.DrawCore(Stride.Rendering.RenderDrawContext)"/>.
             </summary>
             <param name="width">The width.</param>
             <param name="height">The height.</param>
@@ -2021,7 +2021,7 @@
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffectShader.SetDefaultParameters">
             <summary>
-            Sets the default parameters (called at constructor time and if <see cref="!:Reset"/> is called)
+            Sets the default parameters (called at constructor time and if <see cref="M:Stride.Rendering.Images.ImageEffect.Reset"/> is called)
             </summary>
         </member>
         <member name="M:Stride.Rendering.Images.ImageEffectShader.UpdateParameters">
@@ -2852,14 +2852,14 @@
         <member name="T:Stride.Rendering.GraphicsRendererCollection`1">
             <summary>
             A collection of <see cref="T:Stride.Rendering.IGraphicsRenderer"/> that is itself a <see cref="T:Stride.Rendering.IGraphicsRenderer"/> handling automatically
-            <see cref="!:IGraphicsRenderer.Initialize"/> and <see cref="!:IGraphicsRenderer.Unload"/>.
+            <see cref="M:Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext)"/> and <see cref="M:Stride.Rendering.RendererCoreBase.Unload"/>.
             </summary>
             <typeparam name="T">Type of the <see cref="T:Stride.Rendering.IGraphicsRenderer"/></typeparam>.
         </member>
         <member name="T:Stride.Rendering.GraphicsRendererCollectionBase`1">
             <summary>
             A collection of <see cref="T:Stride.Rendering.IGraphicsRenderer"/> that is itself a <see cref="T:Stride.Rendering.IGraphicsRenderer"/> handling automatically
-            <see cref="!:IGraphicsRenderer.Initialize"/> and <see cref="!:IGraphicsRenderer.Unload"/>.
+            <see cref="M:Stride.Rendering.IGraphicsRendererCore.Initialize(Stride.Rendering.RenderContext)"/> and <see cref="M:Stride.Rendering.RendererCoreBase.Unload"/>.
             </summary>
             <typeparam name="T">Type of the <see cref="T:Stride.Rendering.IGraphicsRenderer"/></typeparam>.
         </member>
@@ -4523,6 +4523,12 @@
             </summary>
             <userdoc>Cull some faces of the model depending on orientation</userdoc>
         </member>
+        <member name="P:Stride.Rendering.Materials.MaterialAttributes.DepthFunction">
+            <summary>
+            The test used to figure out whether the material should be drawn when behind other models
+            </summary>
+            <userdoc>The test used to figure out whether the material should be drawn when behind other models</userdoc>
+        </member>
         <member name="P:Stride.Rendering.Materials.MaterialAttributes.ClearCoat">
             <summary>
             Gets or sets the clear coat shading features for the material.
@@ -5986,18 +5992,6 @@
             </summary>
             <returns>Gets the color of this light in linear space.</returns>
         </member>
-        <member name="T:Stride.Rendering.Lights.DirectLightBase">
-            <summary>
-            Base implementation of <see cref="T:Stride.Rendering.Lights.IDirectLight"/>.
-            </summary>
-        </member>
-        <member name="P:Stride.Rendering.Lights.DirectLightBase.Shadow">
-            <summary>
-            Gets or sets the shadow.
-            </summary>
-            <value>The shadow.</value>
-            <userdoc>The settings of the light shadow</userdoc>
-        </member>
         <member name="T:Stride.Rendering.Lights.ForwardLightingRenderFeature">
             <summary>
             Compute lighting shaders and data.
@@ -6005,7 +5999,7 @@
         </member>
         <member name="F:Stride.Rendering.Lights.ForwardLightingRenderFeature.CurrentLights">
             <summary>
-            Property key to access the current collection of <see cref="!:CameraComponent"/> from <see cref="!:RenderContext.Tags"/>.
+            Property key to access the current collection of `CameraComponent` from <see cref="F:Stride.Core.ComponentBase.Tags"/>.
             </summary>
         </member>
         <member name="F:Stride.Rendering.Lights.ForwardLightingRenderFeature.RenderViewLightData.ActiveLightGroups">
@@ -6168,6 +6162,13 @@
             A directional light.
             </summary>
         </member>
+        <member name="P:Stride.Rendering.Lights.LightDirectional.Shadow">
+            <summary>
+            Gets or sets the shadow.
+            </summary>
+            <value>The shadow.</value>
+            <userdoc>The settings of the light shadow</userdoc>
+        </member>
         <member name="T:Stride.Rendering.Lights.LightDirectionalGroupRenderer">
             <summary>
             Light renderer for <see cref="T:Stride.Rendering.Lights.LightDirectional"/>.
@@ -6226,7 +6227,7 @@
         </member>
         <member name="M:Stride.Rendering.Lights.LightDirectionalShadowMap.PartitionManual.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="!:LightDirectionalManualPartitionMode"/> class.
+            Initializes a new instance of the <see cref="T:Stride.Rendering.Lights.LightDirectionalShadowMap.PartitionManual"/> class.
             </summary>
         </member>
         <member name="T:Stride.Rendering.Lights.LightDirectionalShadowMap.PartitionLogarithmic">
@@ -6325,6 +6326,13 @@
             </summary>
             <value>The range.</value>
             <userdoc>The radius range of the point light in scene units.</userdoc>
+        </member>
+        <member name="P:Stride.Rendering.Lights.LightPoint.Shadow">
+            <summary>
+            Gets or sets the shadow.
+            </summary>
+            <value>The shadow.</value>
+            <userdoc>The settings of the light shadow</userdoc>
         </member>
         <member name="T:Stride.Rendering.Lights.LightPointGroupRenderer">
             <summary>
@@ -6618,7 +6626,7 @@
         </member>
         <member name="T:Stride.Rendering.Lights.LightSkybox">
             <summary>
-            A light coming from a skybox. The <see cref="!:SkyboxComponent"/> must be set on the entity in order to see a skybox. 
+            A light coming from a skybox. The `BackgroundComponent` must be set on the entity in order to see a skybox.
             </summary>
         </member>
         <member name="P:Stride.Rendering.Lights.LightSkybox.Skybox">
@@ -6692,6 +6700,13 @@
         <member name="P:Stride.Rendering.Lights.LightSpot.MipMapScale">
             <summary>Scales the mip map level in the shader. 0 = biggest mip map, 1 = smallest mip map.</summary>
             <userdoc>Used to set how blurry the projected texture should be. 0 = full resolution, 1 = 1x1 pixel</userdoc>
+        </member>
+        <member name="P:Stride.Rendering.Lights.LightSpot.Shadow">
+            <summary>
+            Gets or sets the shadow.
+            </summary>
+            <value>The shadow.</value>
+            <userdoc>The settings of the light shadow</userdoc>
         </member>
         <member name="T:Stride.Rendering.Lights.LightSpotGroupRenderer">
             <summary>
@@ -7017,6 +7032,11 @@
         <member name="F:Stride.Rendering.MaterialPass.CullMode">
             <summary>
             Overrides the cullmode for this material.
+            </summary>
+        </member>
+        <member name="F:Stride.Rendering.MaterialPass.DepthFunction">
+            <summary>
+            Overrides depth clip for this material.
             </summary>
         </member>
         <member name="F:Stride.Rendering.MaterialPass.BlendState">
@@ -7947,7 +7967,7 @@
         </member>
         <member name="P:Stride.Rendering.RenderContext.VisibilityGroup">
             <summary>
-            The current visibility group from the <see cref="!:SceneInstance"/> and <see cref="P:Stride.Rendering.RenderContext.RenderSystem"/>.
+            The current visibility group from the <see cref="!:Stride.Engine.SceneInstance"/> and <see cref="P:Stride.Rendering.RenderContext.RenderSystem"/>.
             </summary>
         </member>
         <member name="F:Stride.Rendering.RenderContext.RenderOutput">
@@ -8045,7 +8065,7 @@
         </member>
         <member name="T:Stride.Rendering.RenderEffect">
             <summary>
-            Instantiation of an Effect for a given <see cref="!:StaticEffectObjectNodeReference"/>.
+            Instantiation of an Effect for a given <see cref="T:Stride.Rendering.EffectObjectNodeReference"/>.
             </summary>
         </member>
         <member name="F:Stride.Rendering.RenderEffect.State">
@@ -8157,7 +8177,7 @@
         </member>
         <member name="P:Stride.Rendering.RendererCoreBase.Enabled">
             <summary>
-            Gets or sets a value indicating whether this <see cref="!:EntityComponentRendererBase"/> is enabled.
+            Gets or sets a value indicating whether this <see cref="T:Stride.Rendering.RendererCoreBase"/> is enabled.
             </summary>
             <value><c>true</c> if enabled; otherwise, <c>false</c>.</value>
             <userdoc>Enabled if checked, disabled otherwise</userdoc>
@@ -8193,7 +8213,7 @@
         </member>
         <member name="M:Stride.Rendering.RendererCoreBase.NewScopedBuffer(Stride.Graphics.BufferDescription,Stride.Graphics.PixelFormat)">
             <summary>
-            Gets a render target with the specified description, scoped for the duration of the <see cref="!:DrawEffect.DrawCore"/>.
+            Gets a render target with the specified description, scoped for the duration of the <see cref="M:Stride.Rendering.DrawEffect.Draw(Stride.Rendering.RenderDrawContext,System.String)"/>.
             </summary>
             <param name="description">The description of the buffer to allocate</param>
             <param name="viewFormat">The pixel format seen in shader</param>
@@ -8201,7 +8221,7 @@
         </member>
         <member name="M:Stride.Rendering.RendererCoreBase.NewScopedTypedBuffer(System.Int32,Stride.Graphics.PixelFormat,System.Boolean,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
-            Gets a render target with the specified description, scoped for the duration of the <see cref="!:DrawEffect.DrawCore"/>.
+            Gets a render target with the specified description, scoped for the duration of the <see cref="M:Stride.Rendering.DrawEffect.Draw(Stride.Rendering.RenderDrawContext,System.String)"/>.
             </summary>
             <returns>A new instance of texture.</returns>
         </member>

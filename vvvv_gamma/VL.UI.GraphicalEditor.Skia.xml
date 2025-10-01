@@ -42,5 +42,294 @@
             Text class
             </summary>
         </member>
+        <member name="T:VL.GraphicalEditor.Skia.Text.AutoCompletionManager">
+            <summary>
+            Auto-completion functionality for the Text control
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.Callback">
+            <summary>
+            Gets or sets the auto-completion callback function
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.XOffset">
+            <summary>
+            Gets or sets the X offset for the completion window position
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.SelectionMode">
+            <summary>
+            Gets or sets the selection mode for auto-completion entries
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.IsVisible">
+            <summary>
+            Gets whether auto-completion is currently visible
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.Suggestions">
+            <summary>
+            Gets the current auto-completion suggestions
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.SelectedIndex">
+            <summary>
+            Gets the currently selected suggestion index
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.HasSelection">
+            <summary>
+            Gets whether there is a valid selection
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.GetStyledColors">
+            <summary>
+            Get styled colors from the text control
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.InterpolateHSV(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">
+            <summary>
+            Interpolate between two HSV colors
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.Update">
+            <summary>
+            Update auto-completion based on current text and caret position
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.CalculateAndFixPosition">
+            <summary>
+            Calculate and fix the position of the auto-completion box based on the current position mode
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.CalculatePositionAtCursor">
+            <summary>
+            Calculate position at the current cursor position
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.CalculatePositionAtAnchor">
+            <summary>
+            Calculate position at the text element's anchor position
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.Hide">
+            <summary>
+            Hide auto-completion
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.Navigate(System.Int32)">
+            <summary>
+            Navigate through suggestions
+            </summary>
+            <param name="direction">Direction to navigate (-1 for up, 1 for down)</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.NavigatePage(System.Int32)">
+            <summary>
+            Navigate through suggestions with page up/down
+            </summary>
+            <param name="direction">Direction to navigate (-1 for page up, 1 for page down)</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.HandleMouseWheel(System.Drawing.PointF,System.Int32)">
+            <summary>
+            Handle mouse wheel scrolling
+            </summary>
+            <param name="point">Mouse position</param>
+            <param name="delta">Scroll delta</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.UpdateScrolling">
+            <summary>
+            Update scrolling to ensure selected item is visible
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.ClampScrollOffset">
+            <summary>
+            Clamp scroll offset to valid range
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.ApplySelected">
+            <summary>
+            Apply the currently selected suggestion
+            </summary>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.ApplySuggestion(System.Int32)">
+            <summary>
+            Apply a specific suggestion by index
+            </summary>
+            <param name="index">Index of the suggestion to apply</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.IsPointInBox(System.Drawing.PointF)">
+            <summary>
+            Check if a point is within the auto-completion box
+            </summary>
+            <param name="point">Point to test</param>
+            <returns>True if point is within the box</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.IsPointInScrollbar(System.Drawing.PointF)">
+            <summary>
+            Check if a point is within the scrollbar
+            </summary>
+            <param name="point">Point to test</param>
+            <returns>True if point is within the scrollbar</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.GetItemIndexAtPoint(System.Drawing.PointF)">
+            <summary>
+            Get the suggestion item index at a given point
+            </summary>
+            <param name="point">Point to test</param>
+            <returns>Index of the item, or -1 if not found</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.SetSelectedIndex(System.Int32)">
+            <summary>
+            Set the selected suggestion index (for mouse hover)
+            </summary>
+            <param name="index">Index to select</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.HandleKeyDown(VL.Lib.IO.Keys)">
+            <summary>
+            Handle key down events
+            </summary>
+            <param name="keyCode">Key code</param>
+            <returns>True if the key was handled</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.HandleMouseDown(System.Drawing.PointF)">
+            <summary>
+            Handle mouse down events
+            </summary>
+            <param name="point">Mouse position</param>
+            <returns>True if the mouse event was handled</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.HandleMouseUp(System.Drawing.PointF)">
+            <summary>
+            Handle mouse up events
+            </summary>
+            <param name="point">Mouse position</param>
+            <returns>True if the mouse event was handled</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.HandleMouseMove(System.Drawing.PointF)">
+            <summary>
+            Handle mouse move events for hover selection and scrollbar dragging
+            </summary>
+            <param name="point">Mouse position</param>
+            <returns>True if the mouse event was handled</returns>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.Render(SkiaSharp.SKCanvas)">
+            <summary>
+            Render the auto-completion suggestions
+            </summary>
+            <param name="canvas">Canvas to render on</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.RenderScrollbar(SkiaSharp.SKCanvas,System.Single,System.Single,System.Single,System.Single,SkiaSharp.SKColor,SkiaSharp.SKColor)">
+            <summary>
+            Render the scrollbar with styled colors
+            </summary>
+            <param name="canvas">Canvas to render on</param>
+            <param name="x">Scrollbar X position</param>
+            <param name="y">Scrollbar Y position</param>
+            <param name="width">Scrollbar width</param>
+            <param name="height">Scrollbar height</param>
+            <param name="trackColor">Scrollbar track color</param>
+            <param name="thumbColor">Scrollbar thumb color</param>
+        </member>
+        <member name="M:VL.GraphicalEditor.Skia.Text.AutoCompletionManager.ApplyTextReplacement(VL.Core.Viewer.GraphicalEditor.AutoCompletionSuggestion)">
+            <summary>
+            Apply text replacement with the given suggestion
+            </summary>
+            <param name="suggestion">Suggestion to apply</param>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionCallback">
+            <summary>
+            Gets or sets the auto-completion callback function
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.IsAutoCompletionVisible">
+            <summary>
+            Gets whether auto-completion is currently visible
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionSuggestions">
+            <summary>
+            Gets the current auto-completion suggestions
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionXOffset">
+            <summary>
+            Gets or sets the X offset for the auto-completion window position
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.AutoCompletionSelectionMode">
+            <summary>
+            Gets or sets the selection mode for auto-completion entries
+            </summary>
+        </member>
+        <member name="P:VL.GraphicalEditor.Skia.Text.SelectedSuggestionIndex">
+            <summary>
+            Gets the currently selected suggestion index
+            </summary>
+        </member>
+        <member name="E:VL.GraphicalEditor.Skia.Text.OnTextChanged">
+            <summary>
+            Occurs all the time.
+            </summary>
+        </member>
+        <member name="T:Topten.RichTextKit.WordBoundaryAlgorithm">
+            <summary>
+            Implementation of the word boundary algorithm
+            </summary>
+        </member>
+        <member name="M:Topten.RichTextKit.WordBoundaryAlgorithm.FindWordBoundaries(Topten.RichTextKit.Utils.Slice{System.Int32})">
+            <summary>
+            Locate the start of each "word" in a unicode string.  Used for Ctrl+Left/Right
+            in editor and different to the line break algorithm.
+            </summary>
+        </member>
+        <member name="M:Topten.RichTextKit.WordBoundaryAlgorithm.IsWordBoundary(Topten.RichTextKit.Utils.Slice{System.Int32},Topten.RichTextKit.Utils.Slice{System.Int32})">
+            <summary>
+            Check if the characters at the boundary between strings is a word boundary
+            </summary>
+            <param name="a">The first string</param>
+            <param name="b">The second string</param>
+            <returns>True if this is a word boundary</returns>
+        </member>
+        <member name="T:Topten.RichTextKit.UnicodeClasses">
+            <summary>
+            Helper for looking up unicode character class information
+            </summary>
+        </member>
+        <member name="M:Topten.RichTextKit.UnicodeClasses.BoundaryGroup(System.Int32)">
+            <summary>
+            Get the line break class for a Unicode Code Point
+            </summary>
+            <param name="codePoint">The code point in question</param>
+            <returns>The code point's line break class</returns>
+        </member>
+        <member name="T:Topten.RichTextKit.WordBoundaryClass">
+            <summary>
+            Unicode word boundary group classes
+            </summary>
+            <remarks>
+            Note, these need to match those used by the JavaScript script that
+            generates the .trie resources
+            </remarks>
+        </member>
+        <member name="F:Topten.RichTextKit.WordBoundaryClass.AlphaDigit">
+            <summary>
+            Character is an letter or number
+            </summary>
+        </member>
+        <member name="F:Topten.RichTextKit.WordBoundaryClass.Ignore">
+            <summary>
+            Character should be ignored when locating word boundaries
+            </summary>
+        </member>
+        <member name="F:Topten.RichTextKit.WordBoundaryClass.Space">
+            <summary>
+            Character is a spacing character
+            </summary>
+        </member>
+        <member name="F:Topten.RichTextKit.WordBoundaryClass.Punctuation">
+            <summary>
+            Character is a punctuation character
+            </summary>
+        </member>
     </members>
 </doc>

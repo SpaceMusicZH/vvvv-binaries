@@ -44,6 +44,89 @@
         <member name="P:Buildalyzer.AnalyzerResult.PackageReferences">
             <inheritdoc/>
         </member>
+        <member name="P:Buildalyzer.BuildEventArgsCollector.Count">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.BuildEventArgsCollector.GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.BuildEventArgsCollector.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.Language">
+            <summary>The compiler lanuague.</summary>
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.Text">
+            <summary>The original text of the compiler command.</summary>
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.Arguments">
+            <summary>The parsed command line arguments.</summary>
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.CompilerLocation">
+            <summary>The location of the used compiler.</summary>
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.Errors">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.Errors" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.SourceFiles">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.SourceFiles" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.AdditionalFiles">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.AdditionalFiles" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.EmbeddedFiles">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.EmbeddedFiles" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.AnalyzerReferences">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.AnalyzerReferences" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.AnalyzerConfigPaths">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.AnalyzerConfigPaths" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.PreprocessorSymbolNames">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.ParseOptions.PreprocessorSymbolNames" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.MetadataReferences">
+            <inheritdoc  cref="P:Microsoft.CodeAnalysis.CommandLineArguments.MetadataReferences" />
+        </member>
+        <member name="P:Buildalyzer.CompilerCommand.Aliases">
+            <summary>
+            The aliases used in the command line arguments.
+            </summary>
+        </member>
+        <member name="M:Buildalyzer.CompilerCommand.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Buildalyzer.CompilerLanguage">
+            <summary>The compiler language.</summary>
+        </member>
+        <member name="F:Buildalyzer.CompilerLanguage.None">
+            <summary>None.</summary>
+        </member>
+        <member name="F:Buildalyzer.CompilerLanguage.CSharp">
+            <summary>C#.</summary>
+        </member>
+        <member name="F:Buildalyzer.CompilerLanguage.VisualBasic">
+            <summary>VB.NET.</summary>
+        </member>
+        <member name="F:Buildalyzer.CompilerLanguage.FSharp">
+            <summary>F#.</summary>
+        </member>
+        <member name="P:Buildalyzer.CSharpCompilerCommand.Language">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.FSharpCompilerCommand.Language">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.RoslynBasedCompilerCommand`1.CommandLineArguments">
+            <summary>The Roslyn comppiler arguments.</summary>
+        </member>
+        <member name="P:Buildalyzer.VisualBasicCompilerCommand.Language">
+            <inheritdoc />
+        </member>
+        <member name="P:Buildalyzer.VisualBasicCompilerCommand.PreprocessorSymbols">
+            <inheritdoc cref="P:Microsoft.CodeAnalysis.VisualBasic.VisualBasicParseOptions.PreprocessorSymbols" />
+        </member>
         <member name="P:Buildalyzer.Construction.IProjectFile.ContainsPackageReferences">
             <summary>
             Whether the project file contains <c>PackageReference</c> items.
@@ -158,6 +241,31 @@
         <member name="P:Buildalyzer.Construction.ProjectFile.ToolsVersion">
             <inheritdoc />
         </member>
+        <member name="T:Buildalyzer.Conversion.IOPathTypeConverter">
+            <summary>Implements a <see cref="T:System.ComponentModel.TypeConverter"/> for <see cref="T:Buildalyzer.IO.IOPath"/>.</summary>
+        </member>
+        <member name="M:Buildalyzer.Conversion.IOPathTypeConverter.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.Conversion.IOPathTypeConverter.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="T:Buildalyzer.Diagnostics.CollectionDebugView`1">
+            <summary>Allows the debugger to display collections.</summary>
+        </member>
+        <member name="F:Buildalyzer.Diagnostics.CollectionDebugView`1._enumeration">
+            <summary>A reference to the enumeration to display.</summary>
+        </member>
+        <member name="M:Buildalyzer.Diagnostics.CollectionDebugView`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>Initializes a new instance of the <see cref="T:Buildalyzer.Diagnostics.CollectionDebugView`1"/> class..</summary>
+        </member>
+        <member name="P:Buildalyzer.Diagnostics.CollectionDebugView`1.Items">
+            <summary>The array that is shown by the debugger.</summary>
+            <remarks>
+            Every time the enumeration is shown in the debugger, a new array is created.
+            By doing this, it is always in sync with the current state of the enumeration.
+            </remarks>
+        </member>
         <member name="T:Buildalyzer.Environment.BuildEnvironment">
             <summary>
             An immutable representation of a particular build environment (paths, properties, etc).
@@ -195,6 +303,45 @@
             return a <see cref="T:Microsoft.Build.Execution.ProjectInstance"/> without building the project.
             </param>
             <returns>A new build environment with the specified targets.</returns>
+        </member>
+        <member name="T:Buildalyzer.Environment.DotNetInfo">
+            <summary>Information about the .NET environment.</summary>
+            <remarks>
+            Retrieved via `dotnet --info`.
+            </remarks>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.SdkVersion">
+            <summary>The version of the SDK.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.OSName">
+            <summary>The name of the operating system.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.OSPlatform">
+            <summary>The platform of the operating system.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.OSVersion">
+            <summary>The version of the operating system.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.RID">
+            <summary>The RID of the operating system.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.BasePath">
+            <summary>The base path to the .NET environment.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.GlobalJson">
+            <summary>The location of the global.json.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.SDKs">
+            <summary>The installed SDK's.</summary>
+        </member>
+        <member name="P:Buildalyzer.Environment.DotNetInfo.Runtimes">
+            <summary>The installed Runtimes.</summary>
+        </member>
+        <member name="M:Buildalyzer.Environment.DotNetInfo.Parse(System.String)">
+            <summary>Parses the input.</summary>
+        </member>
+        <member name="M:Buildalyzer.Environment.DotNetInfo.Parse(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>Parses the input.</summary>
         </member>
         <member name="P:Buildalyzer.Environment.EnvironmentOptions.Preference">
             <summary>
@@ -271,49 +418,48 @@
             not to support the .NET Framework build tools or the .NET Framework build tools can't be found.
             </summary>
         </member>
-        <member name="T:Buildalyzer.GuidUtility">
+        <member name="F:Buildalyzer.Environment.MsBuildProperties.DesignTime">
             <summary>
-            Helper methods for working with <see cref="T:System.Guid"/>.
+            Gets the MS Build properties equivalent to Visual Studio's DesignTime build.
             </summary>
             <remarks>
-            From https://github.com/LogosBible/Logos.Utility/blob/master/src/Logos.Utility/GuidUtility.cs.
-            See also https://stackoverflow.com/a/5657517/807064.
+            The actual design-time tasks aren't available outside of Visual Studio,
+            so we can't do a "real" design-time build and have to fake it with various global properties
+            See https://github.com/dotnet/msbuild/blob/fb700f90493a0bf47623511edf28b1d6c114e4fa/src/Tasks/Microsoft.CSharp.CurrentVersion.targets#L320
+            To diagnose build failures in design-time mode, generate a binary log and find the filing target,
+            then see if there's a condition or property that can be used to modify it's behavior or turn it off.
             </remarks>
         </member>
-        <member name="M:Buildalyzer.GuidUtility.Create(System.Guid,System.String)">
-            <summary>
-            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
-            </summary>
-            <param name="namespaceId">The ID of the namespace.</param>
-            <param name="name">The name (within that namespace).</param>
-            <returns>A UUID derived from the namespace and name.</returns>
-            <remarks>See <a href="http://code.logos.com/blog/2011/04/generating_a_deterministic_guid.html">Generating a deterministic GUID</a>.</remarks>
+        <member name="M:Buildalyzer.CompilerLanguageExtensions.Display(Buildalyzer.CompilerLanguage)">
+            <summary>Represents the <see cref="T:Buildalyzer.CompilerLanguage"/> as (DEBUG) display string.</summary>
         </member>
-        <member name="M:Buildalyzer.GuidUtility.Create(System.Guid,System.String,System.Int32)">
-            <summary>
-            Creates a name-based UUID using the algorithm from RFC 4122 §4.3.
-            </summary>
-            <param name="namespaceId">The ID of the namespace.</param>
-            <param name="name">The name (within that namespace).</param>
-            <param name="version">The version number of the UUID to create; this value must be either
-            3 (for MD5 hashing) or 5 (for SHA-1 hashing).</param>
-            <returns>A UUID derived from the namespace and name.</returns>
-            <remarks>See <a href="http://code.logos.com/blog/2011/04/generating_a_deterministic_guid.html">Generating a deterministic GUID</a>.</remarks>
+        <member name="T:Buildalyzer.Guard">
+            <summary>Supplies parameter guarding for methods and constructors.</summary>
+            <remarks>
+            Advised usage:
+            * Change the namespace to maximum shared namespace amongst the using projects
+            * Keep it internal and use [assembly: InternalsVisibleTo] to open up access
+            * Add specific Guard methods if you software needs them.
+            * Keep the checks cheap so that you also can run them in production code.
+            </remarks>
         </member>
-        <member name="F:Buildalyzer.GuidUtility.DnsNamespace">
-            <summary>
-            The namespace for fully-qualified domain names (from RFC 4122, Appendix C).
-            </summary>
+        <member name="M:Buildalyzer.Guard.NotNull``1(``0,System.String)">
+            <summary>Guards the parameter if not null, otherwise throws an argument (null) exception.</summary>
+            <typeparam name="T">The type to guard; cannot be a structure.</typeparam>
+            <param name="parameter">The parameter to guard.</param>
+            <param name="paramName">The name of the parameter.</param>
+            <returns>
+            The guarded parameter.
+            </returns>
         </member>
-        <member name="F:Buildalyzer.GuidUtility.UrlNamespace">
-            <summary>
-            The namespace for URLs (from RFC 4122, Appendix C).
-            </summary>
-        </member>
-        <member name="F:Buildalyzer.GuidUtility.IsoOidNamespace">
-            <summary>
-            The namespace for ISO OIDs (from RFC 4122, Appendix C).
-            </summary>
+        <member name="T:Buildalyzer.Guard.ValidatedNotNullAttribute">
+             <summary>Marks the NotNull argument as being validated for not being null, to satisfy the static code analysis.</summary>
+             <remarks>
+             Notice that it does not matter what this attribute does, as long as
+             it is named ValidatedNotNullAttribute.
+            
+             It is marked as conditional, as does not add anything to have the attribute compiled.
+             </remarks>
         </member>
         <member name="M:Buildalyzer.IAnalyzerManager.Analyze(System.String,System.Collections.Generic.IEnumerable{Microsoft.Build.Framework.ILogger})">
             <summary>
@@ -372,6 +518,45 @@
             </summary>
             <param name="name">The name of the property.</param>
             <returns>The value of the property or <c>null</c>.</returns>
+        </member>
+        <member name="T:Buildalyzer.IO.IOPath">
+            <summary>Represents an (IO) path.</summary>
+        </member>
+        <member name="F:Buildalyzer.IO.IOPath.Empty">
+            <summary>Represents none/an empty path.</summary>
+        </member>
+        <member name="P:Buildalyzer.IO.IOPath.DirectorySeparatorChar">
+            <inheritdoc cref="F:System.IO.Path.DirectorySeparatorChar" />
+        </member>
+        <member name="F:Buildalyzer.IO.IOPath.IsCaseSensitive">
+            <summary>Returns true if the file system is case sensitive.</summary>
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.Directory">
+            <summary>Creates a <see cref="T:System.IO.DirectoryInfo"/> based on the path.</summary>
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.File">
+            <summary>Creates a <see cref="T:System.IO.FileInfo"/> based on the path.</summary>
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.Combine(System.String[])">
+            <summary>Creates a new path.</summary>
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.Equals(System.Object)">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.Equals(Buildalyzer.IO.IOPath)">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.Equals(Buildalyzer.IO.IOPath,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.ToString">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.IO.IOPath.ToString(System.String,System.IFormatProvider)">
+            <inheritdoc />
         </member>
         <member name="P:Buildalyzer.IProjectAnalyzer.EnvironmentVariables">
             <summary>
@@ -489,6 +674,39 @@
             </summary>
             <param name="logger">The logger to remove.</param>
         </member>
+        <member name="T:Buildalyzer.Logging.TextWriterLogger">
+            <summary>Implements <see cref="T:Microsoft.Extensions.Logging.ILogger"/> using a <see cref="T:System.IO.TextWriter"/>.</summary>
+        </member>
+        <member name="M:Buildalyzer.Logging.TextWriterLogger.#ctor(System.IO.TextWriter)">
+            <summary>Implements <see cref="T:Microsoft.Extensions.Logging.ILogger"/> using a <see cref="T:System.IO.TextWriter"/>.</summary>
+        </member>
+        <member name="M:Buildalyzer.Logging.TextWriterLogger.Log``1(Microsoft.Extensions.Logging.LogLevel,Microsoft.Extensions.Logging.EventId,``0,System.Exception,System.Func{``0,System.Exception,System.String})">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.Logging.TextWriterLogger.IsEnabled(Microsoft.Extensions.Logging.LogLevel)">
+            <inheritdoc />
+        </member>
+        <member name="M:Buildalyzer.Logging.TextWriterLogger.BeginScope``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="T:Buildalyzer.ProcessData">
+            <summary>The data received during a <see cref="T:System.Diagnostics.Process" />.</summary>
+        </member>
+        <member name="M:Buildalyzer.ProcessData.#ctor(System.Collections.Immutable.ImmutableArray{System.String},System.Collections.Immutable.ImmutableArray{System.String})">
+            <summary>The data received during a <see cref="T:System.Diagnostics.Process" />.</summary>
+        </member>
+        <member name="P:Buildalyzer.ProcessData.Output">
+            <summary>The collected output of the process.</summary>
+        </member>
+        <member name="P:Buildalyzer.ProcessData.Error">
+            <summary>The collected errors of the process.</summary>
+        </member>
+        <member name="T:Buildalyzer.ProcessDataCollector">
+            <summary>Collects the <see cref="T:Buildalyzer.ProcessData"/> durring a <see cref="T:System.Diagnostics.Process"/>.</summary>
+        </member>
+        <member name="M:Buildalyzer.ProcessDataCollector.Dispose">
+            <inheritdoc />
+        </member>
         <member name="P:Buildalyzer.ProjectAnalyzer.ProjectGuid">
             <inheritdoc/>
         </member>
@@ -533,6 +751,45 @@
         </member>
         <member name="M:Buildalyzer.ProjectAnalyzer.RemoveBuildLogger(Microsoft.Build.Framework.ILogger)">
             <inheritdoc/>
+        </member>
+        <member name="T:Buildalyzer.ProjectGuid">
+            <summary>Generates Project <see cref="T:System.Guid"/>'s.</summary>
+            <remarks>
+            See: https://datatracker.ietf.org/doc/html/rfc4122.
+            </remarks>
+        </member>
+        <member name="F:Buildalyzer.ProjectGuid.UrlNamespace">
+            <summary>The namespace for URL's.</summary>
+        </member>
+        <member name="M:Buildalyzer.ProjectGuid.Create(System.String)">
+            <summary>Generates a <see cref="T:System.Guid"/> based on the <see cref="T:System.Security.Cryptography.SHA1"/> hash of the name.</summary>
+        </member>
+        <member name="M:Buildalyzer.ProjectGuid.Hash(System.Byte[])">
+            <summary>Generates a <see cref="T:System.Security.Cryptography.SHA1"/> hash.</summary>
+        </member>
+        <member name="M:Buildalyzer.ProjectGuid.SwapBytes(System.Byte[])">
+            <summary>Converts a GUID (expressed as a byte array) to/from network order (MSB-first).</summary>
+        </member>
+        <member name="M:System.BuildalyzerArrayExtensions.Exists``1(``0[],System.Predicate{``0})">
+            <inheritdoc cref="M:System.Array.Exists``1(``0[],System.Predicate{``0})"/>>
+        </member>
+        <member name="M:System.BuildalyzerArrayExtensions.TrueForAll``1(``0[],System.Predicate{``0})">
+            <inheritdoc cref="M:System.Array.TrueForAll``1(``0[],System.Predicate{``0})"/>>
+        </member>
+        <member name="M:System.BuildalyzerStringExtensions.IsMatch(System.String,System.String)">
+            <summary>
+            Returns true if the <paramref name="value"/> string has the same value, ignoring casing.
+            </summary>
+        </member>
+        <member name="M:System.BuildalyzerStringExtensions.IsMatchStart(System.String,System.String)">
+            <summary>
+            Returns true if the string starts with <paramref name="value"/>, ignoring casing.
+            </summary>
+        </member>
+        <member name="M:System.BuildalyzerStringExtensions.IsMatchEnd(System.String,System.String)">
+            <summary>
+            Returns true if the string ends with <paramref name="value"/>, ignoring casing.
+            </summary>
         </member>
     </members>
 </doc>

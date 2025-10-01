@@ -607,11 +607,13 @@
             </summary>
             <returns>System.String.</returns>
         </member>
-        <member name="M:Stride.Core.IO.UPath.ToWindowsPath">
-            <summary>
-            Converts this path to a Windows path (/ replaced by \)
-            </summary>
-            <returns>A string representation of this path in windows form.</returns>
+        <member name="M:Stride.Core.IO.UPath.ToOSPath">
+             <summary>
+             Converts this path to a OS path, 
+             by replacing each separator with the current operating system
+             <see cref="F:System.IO.Path.DirectorySeparatorChar"/> 
+             </summary>
+            <returns>A normalized string path</returns>
         </member>
         <member name="M:Stride.Core.IO.UPath.op_Equality(Stride.Core.IO.UPath,Stride.Core.IO.UPath)">
             <summary>

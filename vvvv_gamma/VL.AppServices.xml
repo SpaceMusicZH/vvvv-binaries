@@ -46,6 +46,11 @@
             In case of splicers the system will try to align the inner type (e.g. float) with the inner most argument (and also right most) of the outer (e.g. Spread{float} or Dictionary{string, float}).
             </summary>
         </member>
+        <member name="P:VL.AppServices.CompilerServices.CustomRegion.CustomRegionAttribute.TypeConstraintIsBaseType">
+            <summary>
+            If your type constraint is an intereface like IReadOnlyDictionary and your region is able to instantiate concrete types like Dictionary you can set this to true.
+            </summary>
+        </member>
         <member name="P:VL.AppServices.CompilerServices.CustomRegion.CustomRegionAttribute.NodeOrRegionChoice_CompileTime">
             <summary>
             Allows to customize whether the region can also be created as a node.
@@ -54,11 +59,6 @@
         <member name="P:VL.AppServices.CompilerServices.CustomRegion.CustomRegionAttribute.SupportedBorderControlPointsSpecified_CompileTime">
             <summary>
             What control points the region shall support.
-            </summary>
-        </member>
-        <member name="P:VL.AppServices.CompilerServices.ElementAttribute.TracingId">
-            <summary>
-            The element id which lead to this CLR symbol.
             </summary>
         </member>
         <member name="P:VL.AppServices.CompilerServices.ElementAttribute.DocumentId">
@@ -94,6 +94,11 @@
         <member name="P:VL.AppServices.CompilerServices.ElementAttribute.NodeCategory">
             <summary>
             The category of the node description which lead to this element. Used by dynamic nodes during hot swap.
+            </summary>
+        </member>
+        <member name="P:VL.AppServices.CompilerServices.ElementAttribute.NodePrivateData">
+            <summary>
+            The custom data of the node description which lead to this element. Used by dynamic nodes during hot swap.
             </summary>
         </member>
         <member name="T:VL.AppServices.CompilerServices.InputValue">
@@ -193,6 +198,11 @@
         <member name="T:VL.AppServices.ExportedAppHost">
             <summary>
             Encapsulates all the platform independent logic to run a VL app.
+            </summary>
+        </member>
+        <member name="P:VL.AppServices.ExportedAppHost.IgnoreUnhandledExceptions">
+            <summary>
+            If true, unhandled exceptions will only get logged.
             </summary>
         </member>
         <member name="M:VL.AppServices.Hotswap.SwappableVLObject`1.__Restore``1">
@@ -312,11 +322,12 @@
             The name of the version attribute.
             </summary>
         </member>
-        <member name="M:VL.AppServices.Serialization.SerializationServiceImpl.RegisterSerializers(VL.Core.IVLFactory)">
+        <member name="M:VL.AppServices.Serialization.SerializationServiceImpl.RegisterSerializers(VL.Core.IVLFactory,System.Boolean)">
             <summary>
             Registers all the default serializers in the factory.
             </summary>
             <param name="factory">The factory to register in.</param>
+            <param name="skipPatchedObjectSerializer">Whether to skip the serializer for patched types.</param>
         </member>
         <member name="M:VL.AppServices.Serialization.SerializationServiceImpl.GetSerializer(VL.Core.IVLFactory,System.Type)">
             <summary>

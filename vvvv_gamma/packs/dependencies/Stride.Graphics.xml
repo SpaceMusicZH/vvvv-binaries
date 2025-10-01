@@ -6,12 +6,12 @@
     <members>
         <member name="T:Stride.Games.AppContextType">
             <summary>
-            Type of a <see cref="!:GameContext"/>.
+            Type of a `GameContext`.
             </summary>
         </member>
         <member name="F:Stride.Games.AppContextType.Desktop">
             <summary>
-            Game running on desktop in a form or <see cref="!:System.Windows.Forms.Control"/>.
+            Game running on desktop in a form or <see cref="N:System.Windows.Forms"/> Control.
             </summary>
         </member>
         <member name="F:Stride.Games.AppContextType.DesktopSDL">
@@ -297,12 +297,12 @@
         </member>
         <member name="F:Stride.Graphics.Blend.BlendFactor">
             <summary>
-            The data source is the blend factor set with <see cref="!:GraphicsDevice.BlendStates"/>. No pre-blend operation.
+            The data source is the blend factor set with <see cref="T:Stride.Graphics.BlendStates"/>. No pre-blend operation.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.InverseBlendFactor">
             <summary>
-            The data source is the blend factor set with <see cref="!:GraphicsDevice.SetBlendState"/>. The pre-blend operation inverts the blend factor, generating 1 - blend_factor.
+            The data source is the blend factor set with <see cref="T:Stride.Graphics.BlendStates"/>. The pre-blend operation inverts the blend factor, generating 1 - blend_factor.
             </summary>
         </member>
         <member name="F:Stride.Graphics.Blend.SecondarySourceColor">
@@ -567,6 +567,15 @@
             <param name="usage">The usage of this resource.</param>
             <returns>A constant buffer</returns>
         </member>
+        <member name="M:Stride.Graphics.Buffer.Constant.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new constant buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Dynamic"/> usage.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the constant buffer.</param>
+            <param name="usage">The usage of this resource.</param>
+            <returns>A constant buffer</returns>
+        </member>
         <member name="M:Stride.Graphics.Buffer.Constant.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
             Creates a new constant buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Dynamic"/> usage.
@@ -712,7 +721,7 @@
             Copies the content an array of data on CPU memory to this buffer into GPU memory.
             </summary>
             <typeparam name="TData">The type of the T data.</typeparam>
-            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
             <param name="fromData">The data to copy from.</param>
             <param name="offsetInBytes">The offset in bytes to write to.</param>
             <exception cref="T:System.ArgumentException"></exception>
@@ -725,7 +734,7 @@
             Copies the content an array of data on CPU memory to this buffer into GPU memory.
             </summary>
             <typeparam name="TData">The type of the T data.</typeparam>
-            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
             <param name="fromData">The data to copy from.</param>
             <param name="offsetInBytes">The offset in bytes to write to.</param>
             <exception cref="T:System.ArgumentException"></exception>
@@ -744,11 +753,34 @@
             This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
             </remarks>
         </member>
+        <member name="M:Stride.Graphics.Buffer.GetData``1(Stride.Graphics.CommandList,Stride.Graphics.Buffer,System.Span{``0})">
+            <summary>
+            Copies the content of this buffer from GPU memory to a CPU memory using a specific staging resource.
+            </summary>
+            <param name="stagingTexture">The staging buffer used to transfer the buffer.</param>
+            <param name="toData">To data pointer.</param>
+            <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
+            <remarks>
+            This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
+            </remarks>
+        </member>
         <member name="M:Stride.Graphics.Buffer.SetData(Stride.Graphics.CommandList,Stride.Graphics.DataPointer,System.Int32)">
             <summary>
             Copies the content an array of data on CPU memory to this buffer into GPU memory.
             </summary>
-            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
+            <param name="fromData">A data pointer.</param>
+            <param name="offsetInBytes">The offset in bytes to write to.</param>
+            <exception cref="T:System.ArgumentException"></exception>
+            <remarks>
+            See the unmanaged documentation about Map/UnMap for usage and restrictions.
+            </remarks>
+        </member>
+        <member name="M:Stride.Graphics.Buffer.SetData``1(Stride.Graphics.CommandList,System.ReadOnlySpan{``0},System.Int32)">
+            <summary>
+            Copies the content an array of data on CPU memory to this buffer into GPU memory.
+            </summary>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
             <param name="fromData">A data pointer.</param>
             <param name="offsetInBytes">The offset in bytes to write to.</param>
             <exception cref="T:System.ArgumentException"></exception>
@@ -865,7 +897,19 @@
             <param name="usage">The usage.</param>
             <returns>An instance of a new <see cref="T:Stride.Graphics.Buffer" /></returns>
         </member>
-        <member name="M:Stride.Graphics.Buffer.New(Stride.Graphics.GraphicsDevice,System.Byte[],System.Int32,Stride.Graphics.BufferFlags,Stride.Graphics.PixelFormat,Stride.Graphics.GraphicsResourceUsage)">
+        <member name="M:Stride.Graphics.Buffer.New``1(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{``0},Stride.Graphics.BufferFlags,Stride.Graphics.PixelFormat,Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new <see cref="T:Stride.Graphics.Buffer" /> instance.
+            </summary>
+            <typeparam name="T">Type of the buffer, to get the sizeof from.</typeparam>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="initialValues">The initial data this buffer will contain.</param>
+            <param name="bufferFlags">The buffer flags to specify the type of buffer.</param>
+            <param name="viewFormat">The view format must be specified if the buffer is declared as a shared resource view.</param>
+            <param name="usage">The usage.</param>
+            <returns>An instance of a new <see cref="T:Stride.Graphics.Buffer" /></returns>
+        </member>
+        <member name="M:Stride.Graphics.Buffer.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},System.Int32,Stride.Graphics.BufferFlags,Stride.Graphics.PixelFormat,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
             Creates a new <see cref="T:Stride.Graphics.Buffer" /> instance from a byte array.
             </summary>
@@ -976,6 +1020,15 @@
             <param name="usage">The usage of this resource.</param>
             <returns>A index buffer</returns>
         </member>
+        <member name="M:Stride.Graphics.Buffer.Index.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new index buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Immutable"/> uasge by default.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the index buffer.</param>
+            <param name="usage">The usage of this resource.</param>
+            <returns>A index buffer</returns>
+        </member>
         <member name="M:Stride.Graphics.Buffer.Index.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
             Creates a new index buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Immutable"/> uasge by default.
@@ -1035,6 +1088,16 @@
             <param name="usage">The usage of this resource.</param>
             <returns>A Raw buffer</returns>
         </member>
+        <member name="M:Stride.Graphics.Buffer.Raw.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},Stride.Graphics.BufferFlags,Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new Raw buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default"/> uasge by default.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the Raw buffer.</param>
+            <param name="additionalBindings">The additional bindings (for example, to create a combined raw/index buffer, pass <see cref="F:Stride.Graphics.BufferFlags.IndexBuffer" />)</param>
+            <param name="usage">The usage of this resource.</param>
+            <returns>A Raw buffer</returns>
+        </member>
         <member name="M:Stride.Graphics.Buffer.Raw.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,Stride.Graphics.BufferFlags,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
             Creates a new Raw buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default"/> uasge by default.
@@ -1083,6 +1146,16 @@
             <param name="isUnorderedAccess">if set to <c>true</c> this buffer supports unordered access (RW in HLSL).</param>
             <returns>A Structured buffer</returns>
         </member>
+        <member name="M:Stride.Graphics.Buffer.Structured.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},System.Int32,System.Boolean)">
+            <summary>
+            Creates a new Structured buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the Structured buffer.</param>
+            <param name="elementSize">Size of the element.</param>
+            <param name="isUnorderedAccess">if set to <c>true</c> this buffer supports unordered access (RW in HLSL).</param>
+            <returns>A Structured buffer</returns>
+        </member>
         <member name="M:Stride.Graphics.Buffer.Structured.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,System.Int32,System.Boolean)">
             <summary>
             Creates a new Structured buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
@@ -1126,6 +1199,15 @@
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <typeparam name="T">Type of the StructuredAppend buffer to get the sizeof from</typeparam>
             <param name="value">The value to initialize the StructuredAppend buffer.</param>
+            <returns>A StructuredAppend buffer</returns>
+        </member>
+        <member name="M:Stride.Graphics.Buffer.StructuredAppend.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},System.Int32)">
+            <summary>
+            Creates a new StructuredAppend buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the StructuredAppend buffer.</param>
+            <param name="elementSize">Size of the element.</param>
             <returns>A StructuredAppend buffer</returns>
         </member>
         <member name="M:Stride.Graphics.Buffer.StructuredAppend.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,System.Int32)">
@@ -1172,6 +1254,15 @@
             <param name="value">The value to initialize the StructuredCounter buffer.</param>
             <returns>A StructuredCounter buffer</returns>
         </member>
+        <member name="M:Stride.Graphics.Buffer.StructuredCounter.New(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{System.Byte},System.Int32)">
+            <summary>
+            Creates a new StructuredCounter buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the StructuredCounter buffer.</param>
+            <param name="elementSize">Size of the element.</param>
+            <returns>A StructuredCounter buffer</returns>
+        </member>
         <member name="M:Stride.Graphics.Buffer.StructuredCounter.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,System.Int32)">
             <summary>
             Creates a new StructuredCounter buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> usage.
@@ -1201,6 +1292,18 @@
             <returns>A Typed buffer</returns>
         </member>
         <member name="M:Stride.Graphics.Buffer.Typed.New``1(Stride.Graphics.GraphicsDevice,``0[],Stride.Graphics.PixelFormat,System.Boolean,Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new Typed buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
+            </summary>
+            <typeparam name="T">Type of the Typed buffer to get the sizeof from</typeparam>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the Typed buffer.</param>
+            <param name="viewFormat">The view format of the buffer.</param>
+            <param name="isUnorderedAccess">if set to <c>true</c> this buffer supports unordered access (RW in HLSL).</param>
+            <param name="usage">The usage of this resource.</param>
+            <returns>A Typed buffer</returns>
+        </member>
+        <member name="M:Stride.Graphics.Buffer.Typed.New``1(Stride.Graphics.GraphicsDevice,System.ReadOnlySpan{``0},Stride.Graphics.PixelFormat,System.Boolean,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
             Creates a new Typed buffer <see cref="F:Stride.Graphics.GraphicsResourceUsage.Default" /> uasge.
             </summary>
@@ -1277,6 +1380,15 @@
             <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
             <param name="vertexBufferCount">Number of vertex in this buffer with the sizeof(T).</param>
             <param name="usage">The usage.</param>
+            <returns>A Vertex buffer</returns>
+        </member>
+        <member name="M:Stride.Graphics.Buffer.Vertex.New(Stride.Graphics.GraphicsDevice,System.Span{System.Byte},Stride.Graphics.GraphicsResourceUsage)">
+            <summary>
+            Creates a new Vertex buffer with <see cref="F:Stride.Graphics.GraphicsResourceUsage.Immutable"/> uasge by default.
+            </summary>
+            <param name="device">The <see cref="T:Stride.Graphics.GraphicsDevice"/>.</param>
+            <param name="value">The value to initialize the Vertex buffer.</param>
+            <param name="usage">The usage of this resource.</param>
             <returns>A Vertex buffer</returns>
         </member>
         <member name="M:Stride.Graphics.Buffer.Vertex.New(Stride.Graphics.GraphicsDevice,Stride.Graphics.DataPointer,Stride.Graphics.GraphicsResourceUsage)">
@@ -1437,7 +1549,7 @@
             Creates a none buffer.
             </summary>
             <remarks>
-            This is equivalent to <see cref="!:BindFlags.None"/>.
+            This is equivalent to <see cref="F:SharpDX.Direct3D11.BindFlags.None"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.BufferFlags.ConstantBuffer">
@@ -1615,26 +1727,34 @@
         </member>
         <member name="M:Stride.Graphics.CommandList.SetScissorRectangle(Stride.Core.Mathematics.Rectangle)">
             <summary>
-            Binds a single scissor rectangle to the rasterizer stage. See <see cref="!:Render+states"/> to learn how to use it.
+            Binds a single scissor rectangle to the rasterizer stage.
+            See <see href="https://doc.stride3d.net/latest/en/manual/graphics/low-level-api/textures-and-render-textures.html#code-set-the-scissor">Set the scissor</see>
+            in the manual for more information.
             </summary>
             <param name="rectangle">The scissor rectangle.</param>
         </member>
         <member name="M:Stride.Graphics.CommandList.SetScissorRectangles(Stride.Core.Mathematics.Rectangle[])">
             <summary>
-            Binds a set of scissor rectangles to the rasterizer stage. See <see cref="!:Render+states"/> to learn how to use it.
+            Binds a set of scissor rectangles to the rasterizer stage.
+            See <see href="https://doc.stride3d.net/latest/en/manual/graphics/low-level-api/textures-and-render-textures.html#code-set-the-scissor">Set the scissor</see>
+            in the manual for more information.
             </summary>
             <param name="scissorRectangles">The set of scissor rectangles to bind.</param>
         </member>
         <member name="M:Stride.Graphics.CommandList.SetScissorRectangles(System.Int32,Stride.Core.Mathematics.Rectangle[])">
             <summary>
-            Binds a set of scissor rectangles to the rasterizer stage. See <see cref="!:Render+states"/> to learn how to use it.
+            Binds a set of scissor rectangles to the rasterizer stage.
+            See <see href="https://doc.stride3d.net/latest/en/manual/graphics/low-level-api/textures-and-render-textures.html#code-set-the-scissor">Set the scissor</see>
+            in the manual for more information.
             </summary>
             <param name="scissorCount">The number of scissor rectangles to bind.</param>
             <param name="scissorRectangles">The set of scissor rectangles to bind.</param>
         </member>
         <member name="M:Stride.Graphics.CommandList.SetRenderTargetAndViewport(Stride.Graphics.Texture,Stride.Graphics.Texture)">
             <summary>
-            Binds a depth-stencil buffer and a single render target to the output-merger stage. See <see cref="!:Textures+and+render+targets"/> to learn how to use it.
+            Binds a depth-stencil buffer and a single render target to the output-merger stage.
+            See <see href="https://doc.stride3d.net/latest/en/manual/graphics/low-level-api/textures-and-render-textures.html#code-use-a-render-target">Use a render target</see>
+            in the manual for more information.
             </summary>
             <param name="depthStencilView">A view of the depth-stencil buffer to bind.</param>
             <param name="renderTargetView">A view of the render target to bind.</param>
@@ -1981,7 +2101,7 @@
         </member>
         <member name="T:Stride.Graphics.CubeMapFace">
             <summary>
-            Defines the faces of a cube map for <see cref="!:TextureCube"/>.
+            Defines the faces of a cube map for Cube <see cref="T:Stride.Graphics.Texture"/>.
             </summary>
         </member>
         <member name="F:Stride.Graphics.CubeMapFace.PositiveX">
@@ -2019,7 +2139,7 @@
             Indicates triangles facing a particular direction are not drawn.
             </summary>
             <remarks>
-            This enumeration is part of a rasterizer-state object description (see <see cref="!:RasterizerState"/>). 
+            This enumeration is part of a rasterizer-state object description (see <see cref="T:Stride.Graphics.RasterizerStates"/>).
             </remarks>
         </member>
         <member name="F:Stride.Graphics.CullMode.None">
@@ -2988,19 +3108,13 @@
         </member>
         <member name="M:Stride.Graphics.GraphicsOutput.InitializeCurrentDisplayMode">
             <summary>
-            Initializes <see cref="P:Stride.Graphics.GraphicsOutput.CurrentDisplayMode"/> with the most appropiate mode from <see cref="P:Stride.Graphics.GraphicsOutput.SupportedDisplayModes"/>.
+            Initializes <see cref="P:Stride.Graphics.GraphicsOutput.CurrentDisplayMode"/> with the current <see cref="T:Stride.Graphics.DisplayMode"/>,
+            closest matching mode with the provided format (<see cref="F:SharpDX.DXGI.Format.R8G8B8A8_UNorm"/> or <see cref="F:SharpDX.DXGI.Format.B8G8R8A8_UNorm"/>)
+            or null in case of errors.
             </summary>
-            <remarks>It checks first for a mode with <see cref="F:SharpDX.DXGI.Format.R8G8B8A8_UNorm"/>,
-            if it is not found - it checks for <see cref="F:SharpDX.DXGI.Format.B8G8R8A8_UNorm"/>.</remarks>
         </member>
-        <member name="M:Stride.Graphics.GraphicsOutput.TryFindMatchingDisplayMode(SharpDX.DXGI.Format)">
-            <summary>
-            Tries to find a display mode that has the same size as the current <see cref="T:SharpDX.DXGI.OutputDescription"/> associated with this instance
-            of the specified format.
-            </summary>
-            <param name="format">The format to match with.</param>
-            <returns>A matched <see cref="T:Stride.Graphics.DisplayMode"/> or null if nothing is found.</returns>
-        </member>
+        <!-- Badly formed XML comment ignored for member "M:Stride.Graphics.GraphicsOutput.TryGetCurrentDisplayMode(Stride.Graphics.DisplayMode@)" -->
+        <!-- Badly formed XML comment ignored for member "M:Stride.Graphics.GraphicsOutput.TryGetClosestMatchingMode(SharpDX.DXGI.Format,Stride.Graphics.DisplayMode@)" -->
         <member name="M:Stride.Graphics.GraphicsOutput.#ctor">
             <summary>
             Default constructor to initialize fields that are not explicitly set to avoid warnings at compile time.
@@ -3772,7 +3886,37 @@
             This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
             </remarks>
         </member>
+        <member name="M:Stride.Graphics.Texture.GetData``1(Stride.Graphics.CommandList,Stride.Graphics.Texture,System.Span{``0},System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Copies the content of this texture from GPU memory to a pointer on CPU memory using a specific staging resource.
+            </summary>
+            <param name="commandList">The command list.</param>
+            <param name="stagingTexture">The staging texture used to transfer the texture to.</param>
+            <param name="toData">The pointer to data in CPU memory.</param>
+            <param name="arraySlice">The array slice index. This value must be set to 0 for Texture 3D.</param>
+            <param name="mipSlice">The mip slice index.</param>
+            <param name="doNotWait">if set to <c>true</c> this method will return immediately if the resource is still being used by the GPU for writing. Default is false</param>
+            <returns><c>true</c> if data was correctly retrieved, <c>false</c> if <paramref name="doNotWait"/> flag was true and the resource is still being used by the GPU for writing.</returns>
+            <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
+            <remarks>
+            This method is only working when called from the main thread that is accessing the main <see cref="T:Stride.Graphics.GraphicsDevice"/>.
+            </remarks>
+        </member>
         <member name="M:Stride.Graphics.Texture.SetData(Stride.Graphics.CommandList,Stride.Graphics.DataPointer,System.Int32,System.Int32,System.Nullable{Stride.Graphics.ResourceRegion})">
+            <summary>
+            Copies the content an data on CPU memory to this texture into GPU memory.
+            </summary>
+            <param name="commandList">The <see cref="T:Stride.Graphics.CommandList"/>.</param>
+            <param name="fromData">The data to copy from.</param>
+            <param name="arraySlice">The array slice index. This value must be set to 0 for Texture 3D.</param>
+            <param name="mipSlice">The mip slice index.</param>
+            <param name="region">Destination region</param>
+            <exception cref="T:System.ArgumentException">When strides is different from optimal strides, and TData is not the same size as the pixel format, or Width * Height != toData.Length</exception>
+            <remarks>
+            See unmanaged documentation for usage and restrictions.
+            </remarks>
+        </member>
+        <member name="M:Stride.Graphics.Texture.SetData``1(Stride.Graphics.CommandList,System.Span{``0},System.Int32,System.Int32,System.Nullable{Stride.Graphics.ResourceRegion})">
             <summary>
             Copies the content an data on CPU memory to this texture into GPU memory.
             </summary>
@@ -4936,7 +5080,8 @@
         </member>
         <member name="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive">
             <summary>
-            A geometric primitive. Use <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Cube"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Cylinder"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.GeoSphere"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Plane"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Sphere"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Teapot"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Torus"/>. See <see cref="!:Draw+vertices"/> to learn how to use it.
+            A geometric primitive. Use <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Cube"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Cylinder"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.GeoSphere"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Plane"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Sphere"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Teapot"/>, <see cref="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Torus"/>.
+            See <see href="https://doc.stride3d.net/latest/en/manual/graphics/low-level-api/draw-vertices.html">Draw vertices</see> to learn how to use it.
             </summary>
         </member>
         <member name="T:Stride.Graphics.GeometricPrimitives.GeometricPrimitive.Capsule">
@@ -5365,9 +5510,9 @@
             <summary>
             Draws a fullscreen quad with the specified effect and parameters.
             </summary>
-            <param name="device">The device.</param>
-            <param name="effectInstance">The effect instance.</param>
-            <exception cref="T:System.ArgumentNullException">effect</exception>
+            <param name="graphicsContext">The graphics context used for drawing.</param>
+            <param name="effectInstance">The effect instance to apply when drawing the quad.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown when <paramref name="effectInstance"/> is <c>null</c>.</exception>
         </member>
         <member name="M:Stride.Graphics.GraphicsDeviceExtensions.DrawQuad(Stride.Graphics.CommandList)">
             <summary>
@@ -5474,7 +5619,7 @@
         </member>
         <member name="T:Stride.Graphics.GraphicsPresenter">
             <summary>
-            This class is a frontend to <see cref="!:SwapChain" /> and <see cref="!:SwapChain1" />.
+            This class is a frontend to <see cref="T:SharpDX.DXGI.SwapChain" /> and <see cref="T:SharpDX.DXGI.SwapChain1" />.
             </summary>
             <remarks>
             In order to create a new <see cref="T:Stride.Graphics.GraphicsPresenter"/>, a <see cref="P:Stride.Graphics.GraphicsPresenter.GraphicsDevice"/> should have been initialized first.
@@ -5878,7 +6023,7 @@
         </member>
         <member name="T:Stride.Graphics.MapMode">
             <summary>
-            Describes how the cpu is accessing a <see cref="T:Stride.Graphics.GraphicsResource"/> with the <see cref="!:GraphicsDeviceContext.Map"/> method.
+            Describes how the CPU is accessing a <see cref="T:Stride.Graphics.GraphicsResource"/> with the <see cref="M:Stride.Graphics.CommandList.MapSubresource(Stride.Graphics.GraphicsResource,System.Int32,Stride.Graphics.MapMode,System.Boolean,System.Int32,System.Int32)"/> method.
             </summary>
         </member>
         <member name="F:Stride.Graphics.MapMode.Read">
@@ -5923,7 +6068,7 @@
         </member>
         <member name="T:Stride.Graphics.MappedResource">
             <summary>
-            A GPU resource mapped for CPU access. This is returned by using <see cref="!:GraphicsDevice.MapSubresource"/>
+            A GPU resource mapped for CPU access. This is returned by using <see cref="M:Stride.Graphics.CommandList.MapSubresource(Stride.Graphics.GraphicsResource,System.Int32,Stride.Graphics.MapMode,System.Boolean,System.Int32,System.Int32)"/>
             </summary>
         </member>
         <member name="M:Stride.Graphics.MappedResource.#ctor(Stride.Graphics.GraphicsResource,System.Int32,Stride.Graphics.DataBox)">
@@ -6125,7 +6270,7 @@
         </member>
         <member name="T:Stride.Graphics.PrimitiveQuad">
             <summary>
-            Primitive quad use to draw an effect on a quad (fullscreen by default). This is directly accessible from the <see cref="!:GraphicsDevice.DrawQuad"/> method.
+            Primitive quad use to draw an effect on a quad (fullscreen by default). This is directly accessible from the <see cref="M:Stride.Graphics.GraphicsDeviceExtensions.DrawQuad(Stride.Graphics.GraphicsContext,Stride.Rendering.EffectInstance)"/> method.
             </summary>
         </member>
         <member name="F:Stride.Graphics.PrimitiveQuad.pipelineState">
@@ -6761,7 +6906,7 @@
         </member>
         <member name="M:Stride.Graphics.SDL.Window.Show">
             <summary>
-            Show window. The first time a window is shown we execute any actions from <see cref="!:HandleCreated"/>.
+            Show window. The first time a window is shown we execute any actions from 'HandleCreated' />.
             </summary>
         </member>
         <member name="P:Stride.Graphics.SDL.Window.FullscreenIsBorderlessWindow">
@@ -7362,8 +7507,8 @@
             <param name="rotation">The rotation to apply on the sprite</param>
             <param name="depthLayer">The depth layer to which draw the sprite</param>
             <param name="spriteEffects">The sprite effect to apply on the sprite</param>
-            <remarks>This function must be called between the <see cref="!:SpriteBatch.Begin(Stride.Graphics.SpriteSortMode,Stride.Graphics.Effect)"/> 
-            and <see cref="!:SpriteBatch.End()"/> calls of the provided <paramref name="spriteBatch"/></remarks>
+            <remarks>This function must be called between the <see cref="M:Stride.Graphics.SpriteBatch.Begin(Stride.Graphics.GraphicsContext,Stride.Graphics.SpriteSortMode,Stride.Rendering.EffectInstance)"/>
+            and `SpriteBatch.End()` calls of the provided <paramref name="spriteBatch"/></remarks>
             <exception cref="T:System.ArgumentException">The provided frame index is not valid.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">The provided spriteBatch is null</exception>
         </member>
@@ -7379,8 +7524,8 @@
             <param name="scales">The scale factors to apply on the sprite</param>
             <param name="depthLayer">The depth layer to which draw the sprite</param>
             <param name="spriteEffects">The sprite effect to apply on the sprite</param>
-            <remarks>This function must be called between the <see cref="!:SpriteBatch.Begin(Stride.Graphics.SpriteSortMode,Stride.Graphics.Effect)"/> 
-            and <see cref="!:SpriteBatch.End()"/> calls of the provided <paramref name="spriteBatch"/></remarks>
+            <remarks>This function must be called between the <see cref="M:Stride.Graphics.SpriteBatch.Begin(Stride.Graphics.GraphicsContext,Stride.Graphics.SpriteSortMode,Stride.Rendering.EffectInstance)"/>
+            and `SpriteBatch.End()` calls of the provided <paramref name="spriteBatch"/></remarks>
             <exception cref="T:System.ArgumentException">The provided frame index is not valid.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">The provided spriteBatch is null</exception>
         </member>
@@ -7392,8 +7537,8 @@
             <param name="spriteBatch">The sprite batch used to draw the sprite.</param>
             <param name="worldMatrix">The world matrix of the sprite</param>
             <param name="color">The color to apply on the sprite</param>
-            <remarks>This function must be called between the <see cref="!:SpriteBatch.Begin(Stride.Graphics.SpriteSortMode,Stride.Graphics.Effect)"/> 
-            and <see cref="!:SpriteBatch.End()"/> calls of the provided <paramref name="spriteBatch"/></remarks>
+            <remarks>This function must be called between the <see cref="M:Stride.Graphics.SpriteBatch.Begin(Stride.Graphics.GraphicsContext,Stride.Graphics.SpriteSortMode,Stride.Rendering.EffectInstance)"/>
+            and `SpriteBatch.End()` calls of the provided <paramref name="spriteBatch"/></remarks>
             <exception cref="T:System.ArgumentException">The provided frame index is not valid.</exception>
             <exception cref="T:System.ArgumentOutOfRangeException">The provided spriteBatch is null</exception>
         </member>
@@ -7923,7 +8068,7 @@
             <dd> <p>Structure that specifies multisampling parameters for the texture. See <strong><see cref="T:SharpDX.DXGI.SampleDescription"/></strong>.</p> </dd>
             </summary>
             <remarks>
-            This field is only valid for <see cref="!:Texture2D"/>.
+            This field is only valid for <see cref="F:Stride.Graphics.TextureDimension.Texture2D"/>.
             </remarks>
         </member>
         <member name="F:Stride.Graphics.TextureDescription.Usage">
@@ -8532,12 +8677,12 @@
         </member>
         <member name="T:Stride.Graphics.VertexElement">
             <summary>
-            A description of a single element for the input-assembler stage. This structure is related to <see cref="!:Direct3D11.InputElement"/>.
+            A description of a single element for the input-assembler stage. This structure is related to <see cref="T:SharpDX.Direct3D11.InputElement"/>.
             </summary>
             <remarks>
-            Because <see cref="!:Direct3D11.InputElement"/> requires to have the same <see cref="!:VertexBufferLayout.SlotIndex"/>, <see cref="!:VertexBufferLayout.VertexClassification"/> and <see cref="!:VertexBufferLayout.instanceDataStepRate"/>,
+            Because <see cref="T:SharpDX.Direct3D11.InputElement"/> requires to have the same <see cref="!:VertexBufferLayout.SlotIndex"/>, <see cref="!:VertexBufferLayout.VertexClassification"/> and <see cref="!:VertexBufferLayout.instanceDataStepRate"/>,
             the <see cref="!:VertexBufferLayout"/> structure encapsulates a set of <see cref="T:Stride.Graphics.VertexElement"/> for a particular slot, classification and instance data step rate.
-            Unlike the default <see cref="!:Direct3D11.InputElement"/>, this structure accepts a semantic name with a postfix number that will be automatically extracted to the semantic index.
+            Unlike the default <see cref="T:SharpDX.Direct3D11.InputElement"/>, this structure accepts a semantic name with a postfix number that will be automatically extracted to the semantic index.
             </remarks>
             <seealso cref="!:VertexBufferLayout"/>
         </member>

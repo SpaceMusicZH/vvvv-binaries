@@ -1435,15 +1435,17 @@
             <param name="fontAsset">The font description.</param>
             <returns>A SpriteFontData object.</returns>
         </member>
-        <member name="M:Stride.Assets.SpriteFont.Compiler.SignedDistanceFieldFontImporter.LoadSDFBitmap(System.Char,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Stride.Assets.SpriteFont.Compiler.SignedDistanceFieldFontImporter.LoadSDFBitmap(System.Char,System.Int32,System.Int32,System.Single,System.Single,System.Single,System.Single)">
             <summary>
             Generates and load a SDF font glyph using the msdfgen.exe
             </summary>
             <param name="c">Character code</param>
             <param name="width">Width of the output glyph</param>
             <param name="height">Height of the output glyph</param>
-            <param name="offsetx">Left side offset of the glyph from the image border</param>
-            <param name="offsety">Bottom side offset of the glyph from the image border</param>
+            <param name="offsetX">Left side offset of the glyph from the image border in design unit</param>
+            <param name="offsetY">Bottom side offset of the glyph from the image border in design unit</param>
+            <param name="scaleX">Scale factor to convert from 'shape unit' to 'pixel unit' on x-axis</param>
+            <param name="scaleY">Scale factor to convert from 'shape unit' to 'pixel unit' on y-axis</param>
             <returns></returns>
         </member>
         <member name="M:Stride.Assets.SpriteFont.Compiler.SignedDistanceFieldFontImporter.Normalize(System.Drawing.Bitmap)">

@@ -73,6 +73,11 @@
             Whether the app is exported and runs standalone as an executable.
             </summary>
         </member>
+        <member name="P:VL.Core.AppHost.IsUser">
+            <summary>
+            Whether the app is running in the user thread.
+            </summary>
+        </member>
         <member name="P:VL.Core.AppHost.Services">
             <summary>
             The service registry of the app.
@@ -153,13 +158,14 @@
             The path of the locally installed package. If the package is not installed or the app is running as standalone this will return null.
             </summary>
         </member>
-        <member name="M:VL.Core.AppHost.CreateInstance(VL.Core.IVLTypeInfo,VL.Core.NodeContext)">
+        <member name="M:VL.Core.AppHost.CreateInstance(VL.Core.IVLTypeInfo,VL.Core.NodeContext,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary>
             Create a new instance of the given type by calling it's constructor using default values for any of its arguments.
             If there's no default constructor registered it will fallback to the default value.
             </summary>
             <param name="type">The type to create.</param>
             <param name="nodeContext">The node context to use. Used by patched types.</param>
+            <param name="arguments">The arguments to use.</param>
             <returns>The new instance.</returns>
         </member>
         <member name="M:VL.Core.AppHost.GetDefaultValue(VL.Core.IVLTypeInfo)">
@@ -277,6 +283,164 @@
             Happens when users are patching or on fresh start
             </summary>
         </member>
+        <member name="T:VL.Core.PublicAPI.IRegion`1">
+            <summary>
+            Implemented by the region designer. <typeparamref name="TInlay"/> defines how the patch inlay looks like and will be implemented by the user.
+            </summary>
+            <remarks>
+            We currently assume that the class implementing this interface has an operation called "Update".
+            In its current state input control points are assumed to operate on the "Update" operation 
+            while output control points other than splicers and accumulators can be used from multiple moments.
+            This restriction might be lifted in the future.
+            </remarks>
+        </member>
+        <member name="M:VL.Core.PublicAPI.IRegion`1.SetPatchInlayFactory(System.Func{`0})">
+            <summary>
+            Sets the factory method used to create instances of user patched <typeparamref name="TInlay"/>.
+            </summary>
+            <param name="patchInlayFactory">A function that returns a new instance of <typeparamref name="TInlay"/>.</param>
+        </member>
+        <member name="M:VL.Core.PublicAPI.IRegion`1.AcknowledgeInput(VL.Core.PublicAPI.InputDescription@,System.Object)">
+            <summary>
+            Called for each input (including links) that is connected to the region from the outside.
+            </summary>
+            <param name="description">The control point or link for which a value is passed.</param>
+            <param name="outerValue">The value passed to the region.</param>
+        </member>
+        <member name="M:VL.Core.PublicAPI.IRegion`1.RetrieveOutput(VL.Core.PublicAPI.OutputDescription@,System.Object@)">
+            <summary>
+            Called for each output that is connected to the region from the outside.
+            </summary>
+            <param name="description">The control point for which a value is needed.</param>
+            <param name="outerValue">The value retrieved from the region.</param>
+        </member>
+        <member name="M:VL.Core.PublicAPI.IRegion`1.RetrieveInput(VL.Core.PublicAPI.InputDescription@,`0,System.Object@)">
+            <summary>
+            Called from within the patch inlay to retrieve the inner value for a given control point or link.
+            </summary>
+            <param name="description">The control point or link for which a value is requested.</param>
+            <param name="patchInlay">The patch inlay which asks for the value.</param>
+            <param name="innerValue">The value which shall be passed to the inlay.</param>
+        </member>
+        <member name="M:VL.Core.PublicAPI.IRegion`1.AcknowledgeOutput(VL.Core.PublicAPI.OutputDescription@,`0,System.Object)">
+            <summary>
+            Called from within the patch inlay to acknowledge the output value for a given output description.
+            </summary>
+            <param name="description">The control point for which a value is to be acknowledged.</param>
+            <param name="patchInlay">The patch inlay which writes the value.</param>
+            <param name="innerValue">The value the patch inlay produced.</param>
+        </member>
+        <member name="T:VL.Core.PublicAPI.InputDescription">
+            <summary>
+            Describes an input to a region passed either via a control point or a link.
+            </summary>
+            <param name="Id">The unique identifier for the input.</param>
+            <param name="OuterType">The type as seen from the outside of the region.</param>
+            <param name="InnerType">The inner as seen from inside the region.</param>
+            <param name="Name">The optional name of the input. Defaults to <see langword="null"/> if not specified.</param>
+            <param name="IsLink">Whether or not this input is passed to the region via a link.</param>
+            <param name="IsSplicer">Whether or not this input is a splicer thereby having different in- and output types.</param>
+            <param name="AccumulatorId">If set this input refers to an accumulator.</param>
+        </member>
+        <member name="M:VL.Core.PublicAPI.InputDescription.#ctor(System.String,System.Type,System.Type,System.String,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Describes an input to a region passed either via a control point or a link.
+            </summary>
+            <param name="Id">The unique identifier for the input.</param>
+            <param name="OuterType">The type as seen from the outside of the region.</param>
+            <param name="InnerType">The inner as seen from inside the region.</param>
+            <param name="Name">The optional name of the input. Defaults to <see langword="null"/> if not specified.</param>
+            <param name="IsLink">Whether or not this input is passed to the region via a link.</param>
+            <param name="IsSplicer">Whether or not this input is a splicer thereby having different in- and output types.</param>
+            <param name="AccumulatorId">If set this input refers to an accumulator.</param>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.Id">
+            <summary>The unique identifier for the input.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.OuterType">
+            <summary>The type as seen from the outside of the region.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.InnerType">
+            <summary>The inner as seen from inside the region.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.Name">
+            <summary>The optional name of the input. Defaults to <see langword="null"/> if not specified.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.IsLink">
+            <summary>Whether or not this input is passed to the region via a link.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.IsSplicer">
+            <summary>Whether or not this input is a splicer thereby having different in- and output types.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.AccumulatorId">
+            <summary>If set this input refers to an accumulator.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.InputDescription.IsAccumulator">
+            <summary>
+            Whether or not this control point is an accumulator.
+            </summary>
+        </member>
+        <member name="T:VL.Core.PublicAPI.OutputDescription">
+            <summary>
+            Describes an output from a region retrieved a via a control point.
+            </summary>
+            <param name="Id">The unique identifier for the output.</param>
+            <param name="OuterType">The type as seen from outside of the region.</param>
+            <param name="InnerType">The type as seen from inside the region.</param>
+            <param name="Name">The optional name of the output. Defaults to <see langword="null"/> if not specified.</param>
+            <param name="IsSplicer">Whether or not the output is a splicer thereby having different in- and output types.</param>
+            <param name="AccumulatorId">If set this output refers to an accumulator.</param>
+        </member>
+        <member name="M:VL.Core.PublicAPI.OutputDescription.#ctor(System.String,System.Type,System.Type,System.String,System.Boolean,System.String)">
+            <summary>
+            Describes an output from a region retrieved a via a control point.
+            </summary>
+            <param name="Id">The unique identifier for the output.</param>
+            <param name="OuterType">The type as seen from outside of the region.</param>
+            <param name="InnerType">The type as seen from inside the region.</param>
+            <param name="Name">The optional name of the output. Defaults to <see langword="null"/> if not specified.</param>
+            <param name="IsSplicer">Whether or not the output is a splicer thereby having different in- and output types.</param>
+            <param name="AccumulatorId">If set this output refers to an accumulator.</param>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.Id">
+            <summary>The unique identifier for the output.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.OuterType">
+            <summary>The type as seen from outside of the region.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.InnerType">
+            <summary>The type as seen from inside the region.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.Name">
+            <summary>The optional name of the output. Defaults to <see langword="null"/> if not specified.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.IsSplicer">
+            <summary>Whether or not the output is a splicer thereby having different in- and output types.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.AccumulatorId">
+            <summary>If set this output refers to an accumulator.</summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.OutputDescription.IsAccumulator">
+            <summary>
+            Whether or not this control point is an accumulator.
+            </summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.RegionAttribute.SupportedBorderControlPoints">
+            <summary>
+            What control points the region shall support.
+            </summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.RegionAttribute.TypeConstraint">
+            <summary>
+            The type constraint to apply on the control points. 
+            In case of splicers the system will try to align the inner type (e.g. float) with the inner most argument (and also right most) of the outer (e.g. Spread{float} or Dictionary{string, float}).
+            </summary>
+        </member>
+        <member name="P:VL.Core.PublicAPI.RegionAttribute.TypeConstraintIsBaseType">
+            <summary>
+            Whether or not the type constraint is a base type.
+            </summary>
+        </member>
         <member name="M:VL.Core.Documentation.GetEventInfosWithAttribute``1(System.Reflection.Assembly)">
             <summary>Enumerates through all the events with a custom attribute.</summary>
             <typeparam name="AttributeType">The type of the custom attribute.</typeparam>
@@ -377,14 +541,35 @@
             of types common in the VL eco system are stored in an attribute. 
             We want to protect the user from the need to guess how to deserialize. 
             Furthermore we expect that you know what type the value should have on deserialize.
-            For now only a handful of types are supported: int, float, double, Vector2, Vector3, RGBA
+            For now only a handful of types are supported: number types, Vector2, Vector3, RGBA, Int2, Int3
             more primitive types might get added later on.
             JSON serialization might be added for other types later on. (The first character being a {)
+            </summary>
+        </member>
+        <member name="T:VL.Core.EditorAttributes.CanBePublishedAttribute">
+            <summary>
+            Used by the Publish node to turn properties into public channels.
+            The Publish node interprets the absence of the attribute means that the property is published.
+            Use the attribute to mark properties that should not be published.
+            Might later on also be used by an auto-publish system, which might interpret the absence of the attribute as "don't publish".
             </summary>
         </member>
         <member name="T:VL.Core.EditorAttributes.CustomMetaDataAttribute">
             <summary>
             Allows to attach custom meta data. You can use several. 
+            </summary>
+        </member>
+        <member name="T:VL.Core.EditorAttributes.DefaultAttribute">
+            <summary>
+            Default value for a property. Can be in short form or properly deserialized as known from other places in VL.
+            </summary>
+        </member>
+        <member name="M:VL.Core.EditorAttributes.DefaultAttribute.ComputeEncodedValue(System.Object,VL.Core.NodeContext,System.Type)">
+            <param name="typeHint">Feeding a typeHint may abbreviate the serialization. Only feed a typeHint if you know that the type is known on deserialization.</param>
+        </member>
+        <member name="M:VL.Core.EditorAttributes.DefaultAttribute.#ctor(System.String)">
+            <summary>
+            The default value of the property. Does not guearantee that the property gets initialized like that. Only a hint for editors.
             </summary>
         </member>
         <member name="T:VL.Core.EditorAttributes.ExposedAttribute">
@@ -395,14 +580,19 @@
         </member>
         <member name="T:VL.Core.EditorAttributes.MaxAttribute">
             <summary>
-            Current supported types: int, float, double, Vector2, Vector3, RGBA 
+            Current supported types: number types, Vector2, Vector3, RGBA, Int2, Int3
             You may feed a single value for vectors and colors, which will then be used for all dimensions
             </summary>
         </member>
         <member name="T:VL.Core.EditorAttributes.MinAttribute">
             <summary>
-            Current supported types: int, float, double, Vector2, Vector3, RGBA 
+            Current supported types: number types, Vector2, Vector3, RGBA, Int2, Int3
             You may feed a single value for vectors and colors, which will then be used for all dimensions
+            </summary>
+        </member>
+        <member name="T:VL.Core.EditorAttributes.ReadOnlyAttribute">
+            <summary>
+            Read-only. No write access.
             </summary>
         </member>
         <member name="T:VL.Core.EditorAttributes.TagAttribute">
@@ -438,6 +628,17 @@
             Whether or not the given type name matches the include and exclude patterns.
             </summary>
         </member>
+        <member name="T:VL.Core.IHasLearnMode">
+            <summary>
+            Optional interface for nodes that can "learn" from user input. When implemented the node inspector will show a learn button.
+            Use in combination with <see cref="M:VL.Lang.PublicAPI.IDevSession.RegisterNode(VL.Core.IVLObject)"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Core.IHasLearnMode.LearnMode">
+            <summary>
+            This channel will get hooked up to a button in the node inspector that allows the user to toggle the learn mode.
+            </summary>
+        </member>
         <member name="T:VL.Core.Import.FragmentAttribute">
             <summary>
             Marks a method or property to be included as a fragment in a process definition (<see cref="T:VL.Core.Import.ProcessNodeAttribute"/>).
@@ -451,6 +652,11 @@
         <member name="P:VL.Core.Import.FragmentAttribute.IsHidden">
             <summary>
             Whether or not the fragment shall be hidden. Useful when the fragment selection is set to <see cref="F:VL.Core.Import.FragmentSelection.Implicit"/> and certain members shall not be part of the process.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.FragmentAttribute.IsDefault">
+            <summary>
+            If set to true, this fragment will be assigned to the default moment if not assigned otherwise.
             </summary>
         </member>
         <member name="T:VL.Core.Import.FragmentSelection">
@@ -485,6 +691,79 @@
             Defines the category where types are placed in VL.
             </summary>
         </member>
+        <member name="T:VL.Core.Import.ImportNamespaceAttribute">
+            <summary>
+            Makes all public types and their members of a given namespace directly available in VL.
+            Process nodes can be defined with the <see cref="T:VL.Core.Import.ProcessNodeAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Import.ImportNamespaceAttribute.#ctor(System.String)">
+            <summary>
+            Makes all public types and their members under given namespace directly available in VL.
+            </summary>
+            <param name="namespace">The namespace to import.</param>
+        </member>
+        <member name="P:VL.Core.Import.ImportNamespaceAttribute.Namespace">
+            <summary>
+            Defines the namespace from which types are getting picked up. The namespace will be stripped on VL side.
+            For example namespace = "VL" with class "VL.Foo.Bar" will make it show up as "Bar [Foo]".
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ImportNamespaceAttribute.Category">
+            <summary>
+            Defines the category where types are placed in VL.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.ImportTypeAttribute">
+            <summary>
+            Makes the specified type directly available in VL.
+            Process nodes can be defined with the <see cref="T:VL.Core.Import.ProcessNodeAttribute"/>.
+            </summary>
+            <remarks>
+            Nested types are not supported / not tested at all.
+            </remarks>
+        </member>
+        <member name="M:VL.Core.Import.ImportTypeAttribute.#ctor(System.Type)">
+            <summary>
+            Makes the type and all its public members directly available in VL.
+            </summary>
+            <param name="type">The type to import.</param>
+        </member>
+        <member name="P:VL.Core.Import.ImportTypeAttribute.Type">
+            <summary>
+            The type to import.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ImportTypeAttribute.Name">
+            <summary>
+            The name to use in VL. Leave empty to use the type's name.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ImportTypeAttribute.Category">
+            <summary>
+            Defines the category where the type is placed in VL.
+            If not set the category is the namespace of the type with optional <see cref="P:VL.Core.Import.ImportTypeAttribute.NamespacePrefixToStrip"/> removed.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ImportTypeAttribute.NamespacePrefixToStrip">
+            <summary>
+            Defines the namespace prefix (excluding the .) to strip from the type's namespace.
+            For example "VL" with class "VL.Foo.Bar" will make it show up as "Bar [Foo]".
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.IncludeForeignAttribute">
+            <summary>
+            If set all types and their members not imported by the <see cref="T:VL.Core.Import.ImportAsIsAttribute"/> are exposed as foreign types in VL.
+            </summary>
+            <remarks>
+            It allows to use the new features provided by the import attributes while keeping compatibility with existing code.
+            </remarks>
+        </member>
+        <member name="P:VL.Core.Import.PinAttribute.IsState">
+            <summary>
+            For internal use only.
+            </summary>
+        </member>
         <member name="T:VL.Core.Import.ProcessNodeAttribute">
             <summary>
             Defines a process node. The class must have a public constructor.
@@ -507,6 +786,11 @@
             The name of the process. Leave empty to use the class name.
             </summary>
         </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.Category">
+            <summary>
+            The category of the process. Leave empty to use the one from the class.
+            </summary>
+        </member>
         <member name="P:VL.Core.Import.ProcessNodeAttribute.HasStateOutput">
             <summary>
             Whether or not the process shall have a state output. If true, the class its members will also be available as individual nodes.
@@ -515,6 +799,86 @@
         <member name="P:VL.Core.Import.ProcessNodeAttribute.FragmentSelection">
             <summary>
             Controls how fragments get selected. By default all public members will be included.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.StateOutputNotVisibleByDefault">
+            <summary>
+            Indicates whether the state output is not visible by default.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.Summary">
+            <summary>
+            A brief summary of the node.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.Remarks">
+            <summary>
+            Additional remarks about the node.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeAttribute.Tags">
+            <summary>
+            Tags associated with the node.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.ProcessNodeFactory">
+            <summary>
+            Abstract base class for creating process node factories.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Import.ProcessNodeFactory.Node">
+            <summary>
+            Represents a node with its associated <see cref="T:VL.Core.Import.ProcessNodeAttribute"/>.
+            </summary>
+            <param name="Attribute">The attribute defining the process node.</param>
+            <param name="PrivateData">Optional private data associated with the node.</param>
+        </member>
+        <member name="M:VL.Core.Import.ProcessNodeFactory.Node.#ctor(VL.Core.Import.ProcessNodeAttribute,System.String)">
+            <summary>
+            Represents a node with its associated <see cref="T:VL.Core.Import.ProcessNodeAttribute"/>.
+            </summary>
+            <param name="Attribute">The attribute defining the process node.</param>
+            <param name="PrivateData">Optional private data associated with the node.</param>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeFactory.Node.Attribute">
+            <summary>The attribute defining the process node.</summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeFactory.Node.PrivateData">
+            <summary>Optional private data associated with the node.</summary>
+        </member>
+        <member name="M:VL.Core.Import.ProcessNodeFactory.GetNodes">
+            <summary>
+            Gets the collection of nodes defined by this factory.
+            </summary>
+            <returns>An enumerable collection of nodes.</returns>
+        </member>
+        <member name="M:VL.Core.Import.ProcessNodeFactory.GetNodesForPath(System.String)">
+            <summary>
+            Gets the collection of nodes defined by this factory for a specific path.
+            </summary>
+            <param name="path">The path for which to get the nodes.</param>
+            <returns>An enumerable collection of nodes for the specified path.</returns>
+        </member>
+        <member name="T:VL.Core.Import.ProcessNodeFactoryAttribute">
+            <summary>
+            Dynamic version of <see cref="T:VL.Core.Import.ProcessNodeAttribute"/> that allows to specify the factory type that creates the node attributes.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Import.ProcessNodeFactoryAttribute.#ctor(System.Type)">
+            <summary>
+            Creates a new instance of <see cref="T:VL.Core.Import.ProcessNodeFactoryAttribute"/>.
+            </summary>
+            <param name="factoryType">The type of the factory that creates the node attributes. Must derive from <see cref="T:VL.Core.Import.ProcessNodeFactory"/>.</param>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeFactoryAttribute.FactoryType">
+            <summary>
+            The type of the factory that creates the node attributes. Must derive from <see cref="T:VL.Core.Import.ProcessNodeFactory"/>.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Import.ProcessNodeFactoryAttribute.ImportClass">
+            <summary>
+            Whether or not the class and its members shall be imported.
+            Set to true if any of the generated nodes have their state output enabled <see cref="P:VL.Core.Import.ProcessNodeAttribute.HasStateOutput"/>.
             </summary>
         </member>
         <member name="T:VL.Core.InitializationException">
@@ -720,20 +1084,25 @@
             Whether or not this property should be serialized.
             </summary>
         </member>
-        <member name="M:VL.Core.IVLPropertyInfo.GetValue(VL.Core.IVLObject)">
+        <member name="M:VL.Core.IVLPropertyInfo.GetValue(System.Object)">
             <summary>
             Gets the property value of the given instance.
             </summary>
             <param name="instance">The instance to get the value from.</param>
             <returns>The value of the property.</returns>
         </member>
-        <member name="M:VL.Core.IVLPropertyInfo.WithValue(VL.Core.IVLObject,System.Object)">
+        <member name="M:VL.Core.IVLPropertyInfo.WithValue(System.Object,System.Object)">
             <summary>
             Sets the property value of the given instance.
             </summary>
             <param name="instance">The instance to set the value on.</param>
             <param name="value">The value to set.</param>
             <returns>The instance with the newly set value.</returns>
+        </member>
+        <member name="P:VL.Core.ObjectGraphNode.AccessedViaKey">
+            <summary>
+            Is either a string (dictionaryKey.ToString()), a PropertyInfo (.Net object property), an IVLPropertyInfo (IVLObject property) or an int (index of collection).
+            </summary>
         </member>
         <member name="M:VL.Core.VLFactoryExtensions.GetDefaultValue``1(VL.Core.IVLFactory)">
             <summary>
@@ -1024,12 +1393,13 @@
             <param name="includeCategory">Whether or not to include the category.</param>
             <returns>The string representation of this type.</returns>
         </member>
-        <member name="M:VL.Core.IVLTypeInfo.CreateInstance(VL.Core.NodeContext)">
+        <member name="M:VL.Core.IVLTypeInfo.CreateInstance(VL.Core.NodeContext,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Object})">
             <summary>
             Create a new instance of this type by calling it's constructor using default values for any of its arguments.
             If there's no default constructor registered for this type it will fallback to the default value.
             </summary>
             <param name="context">The node context to use. Used by patched types.</param>
+            <param name="arguments">The arguments to use for the constructor.</param>
             <returns>The new instance.</returns>
         </member>
         <member name="M:VL.Core.IVLTypeInfo.GetDefaultValue">
@@ -1296,6 +1666,16 @@
             The real time clock.
             </summary>
         </member>
+        <member name="M:VL.Core.NodeContext.GetAncestors">
+            <summary>
+            Returns the ancestors of this node.
+            </summary>
+        </member>
+        <member name="M:VL.Core.NodeContext.GetCallingPatches">
+            <summary>
+            Returns the type infos of the patches calling this node. Say this node is placed in App -> Patch1 -> Node1, we get Patch1 and App.
+            </summary>
+        </member>
         <member name="P:VL.Core.ExportContext.ProjectRootElement">
             <summary>
             The Microsoft.Build.Construction.ProjectRootElement which represent the MSBuild project.
@@ -1430,6 +1810,61 @@
             <param name="result"></param>
             <returns></returns>
         </member>
+        <member name="T:VL.Core.Reactive.IChannelHub">
+            <summary>
+            A ChannelHub manages the lifetime of channels.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Reactive.IChannelHub.BeginChange">
+            <summary>
+            Do several changes to the ChannelHub in one go. using BeginChange()
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VL.Core.Reactive.IChannelHub.RegisterModule(VL.Core.Reactive.IModule)">
+            <summary>
+            Please call this inside a static RegisterServices operation
+            </summary>
+            <param name="module"></param>
+        </member>
+        <member name="P:VL.Core.Reactive.IModule.Name">
+            <summary>
+            A short name of the module. Shown in the browser in the top of row of the column header. (Or a corresponding icon)
+            </summary>
+        </member>
+        <member name="P:VL.Core.Reactive.IModule.Description">
+            <summary>
+            Describes what the user can expect from this module.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Reactive.IModule.Nickname">
+            <summary>
+            A short name for the module, used in the editor. 
+            Might stem from the name and some of the more prominent conifguration options.
+            Might be set by the user of the node.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Reactive.IModule.ConfigHint">
+            <summary>
+            A thorough description of the configuration of this module. 
+            For a short info see NickName.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Reactive.IModule.SupportsType(System.Type)">
+            <summary>
+            If a type of a channel is not supported by this module, the cell shouldn't show a checkobox.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Reactive.IModule.NodeContext">
+            <summary>
+            So that we can jump to the module node.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Reactive.IModule.InterfaceVersion">
+            <summary>
+            Interface version of this module. If not implemented it's probably 1.0
+            </summary>
+        </member>
         <member name="T:VL.Core.RuntimeGraph">
             <summary>
             A collection of methods used by nodes which introduce new entry points into the VL runtime graph.
@@ -1437,16 +1872,29 @@
         </member>
         <member name="M:VL.Core.RuntimeGraph.ReportException(System.Exception)">
             <summary>
-            The exception to throw by the HandleAsyncException call.
+            Report an exception to the current app host.
+            </summary>
+            <param name="exception">The exception to report.</param>
+        </member>
+        <member name="M:VL.Core.RuntimeGraph.ReportException(System.Runtime.ExceptionServices.ExceptionDispatchInfo)">
+            <summary>
+            Report an exception to the current app host.
             </summary>
             <param name="exception">The exception to report.</param>
         </member>
         <member name="M:VL.Core.RuntimeGraph.ReportException(System.Exception,VL.Core.AppHost)">
             <summary>
-            The exception to throw by the HandleAsyncException call.
+            Report an exception to current app host. If no app host is current the captured app host is used.
             </summary>
             <param name="exception">The exception to report.</param>
-            <param name="capturedAppHost">The captured service registry.</param>
+            <param name="capturedAppHost">The captured app host.</param>
+        </member>
+        <member name="M:VL.Core.RuntimeGraph.ReportException(System.Runtime.ExceptionServices.ExceptionDispatchInfo,VL.Core.AppHost)">
+            <summary>
+            Report an exception to current app host. If no app host is current the captured app host is used.
+            </summary>
+            <param name="exception">The exception to report.</param>
+            <param name="capturedAppHost">The captured app host.</param>
         </member>
         <member name="T:VL.Core.ISerializer`1">
             <summary>
@@ -1484,11 +1932,6 @@
         <member name="P:VL.Core.SerializationContext.Logger">
             <summary>
             The logger to use in case something goes wrong.
-            </summary>
-        </member>
-        <member name="P:VL.Core.SerializationContext.IsSystem">
-            <summary>
-            Whether or not the current deserialization is stemming from a system call.
             </summary>
         </member>
         <member name="M:VL.Core.SerializationContext.Serialize``1(System.String,``0,System.Boolean)">
@@ -2365,6 +2808,16 @@
             The time interval between the last frame and the current frame.
             </summary>
         </member>
+        <member name="F:VL.Lib.Animation.SubFrameMessage.Time">
+            <summary>
+            The frame time since application start
+            </summary>
+        </member>
+        <member name="F:VL.Lib.Animation.SubFrameMessage.LastInterval">
+            <summary>
+            The time interval between the last frame and the current frame.
+            </summary>
+        </member>
         <member name="P:VL.Lib.Animation.IFrameClock.TimeDifference">
             <summary>
             Gets the time difference between the frame time of the last frame to the current frame time.
@@ -2462,6 +2915,11 @@
             </summary>
             <param name="input"></param>
             <returns></returns>
+        </member>
+        <member name="P:VL.Lib.Reactive.IChannel.HasBeenRequested">
+            <summary>
+            Is true for the rest of the application lifetime once the channel has been requested.
+            </summary>
         </member>
         <member name="T:VL.Lib.Reactive.HoldLatestCopy`2">
             <summary>
@@ -3978,6 +4436,32 @@
             </returns>
             <param name="rgb">Color value to convert.</param>
         </member>
+        <member name="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(System.UInt32)">
+            <inheritdoc cref="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(VL.Core.UniqueId,System.Boolean)"/>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(VL.Core.UniqueId,System.Boolean)">
+            <summary>
+            Shows the patch of the node in the editor.
+            </summary>
+            <param name="nodeID">Refers to a node application or a node definition</param>
+            <param name="toDefinition">
+            If false, the patch where the node resides in will be shown.
+            If true, it depends on the node type:
+            - for a node application, the patch of its definition will be shown
+            - for a node definition, its patch will be shown
+            </param>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(VL.Core.NodePath,System.Boolean)">
+            <inheritdoc cref="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(VL.Core.UniqueId,System.Boolean)"/>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.IDevSession.RegisterNode(VL.Core.IVLObject)">
+            <summary>
+            Registers a node with the session. This allows the editor to interact with it.
+            The node can populate its context menu by implementing the <see cref="T:VL.Core.Commands.IHasCommands"/> interface.
+            </summary>
+            <param name="node">The node to register.</param>
+            <returns>A disposable to remove the registration.</returns>
+        </member>
         <member name="M:VL.Lang.PublicAPI.ISolution.ModifyPinGroup(System.UInt32,System.String,System.Boolean)">
             <summary>
             Returns a <see cref="T:VL.Lang.PublicAPI.PinGroupBuilder"/> which can be used to modify the given pin group.
@@ -4025,6 +4509,12 @@
             <summary>
             Modifies a pin group by simply adding pins to it and once finished calling commit on it. The pins will then get synchronized.
             </summary>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.SessionNodes.ShowPatchOfNode(VL.Core.UniqueId,System.Boolean)">
+            <inheritdoc cref="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(VL.Core.UniqueId,System.Boolean)"/>
+        </member>
+        <member name="M:VL.Lang.PublicAPI.SessionNodes.ShowPatchOfNode(VL.Core.NodePath,System.Boolean)">
+            <inheritdoc cref="M:VL.Lang.PublicAPI.IDevSession.ShowPatchOfNode(VL.Core.NodePath,System.Boolean)"/>
         </member>
         <member name="M:VL.Lang.PublicAPI.SessionNodes.AddMessage(VL.Core.UniqueId,System.String,VL.Lang.MessageSeverity)">
             <summary>
@@ -4074,6 +4564,37 @@
         <member name="F:VL.Model.PinExpositionMode.Expose">
             <summary>
             Infect all surrounding patches (the call stack)
+            </summary>
+        </member>
+        <member name="T:VL.Model.PinGroupEditModes">
+            <summary>
+            Specifies the different modes for editing pin groups in a node.
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinGroupEditModes.None">
+            <summary>
+            Pin group can not be modified directly. Useful when pins get added or removed by the node itself.
+            </summary>
+        </member>
+        <member name="F:VL.Model.PinGroupEditModes.AddOnly">
+            <summary>
+            The user can only add pins.
+            </summary>
+            <remarks>
+            There's currently no action which supports this. Therefore we hide it from the user.
+            </remarks>
+        </member>
+        <member name="F:VL.Model.PinGroupEditModes.RemoveOnly">
+            <summary>
+            The user can only remove pins. This mode is supported by the node inspector.
+            </summary>
+            <remarks>
+            Useful for example when pins get added through other means (like the <see cref="T:VL.Core.IHasLearnMode"/>) but user shall be able to remove them.
+            </remarks>
+        </member>
+        <member name="F:VL.Model.PinGroupEditModes.AddAndRemove">
+            <summary>
+            The user can add and remove pins freely (for example via Ctrl++ and Ctrl+-).
             </summary>
         </member>
         <member name="T:VL.Model.PinVisibility">

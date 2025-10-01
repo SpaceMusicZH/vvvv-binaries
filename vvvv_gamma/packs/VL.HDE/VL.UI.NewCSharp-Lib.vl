@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="FQJDhE0pb4bOx7S00XpOde" LanguageVersion="2023.5.3-0307-gae52e06b2d" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="FQJDhE0pb4bOx7S00XpOde" LanguageVersion="2025.7.0-0253-g169ec5ff92" Version="0.128">
   <NugetDependency Id="OL9hP65cAbHMpfTbo9KnAl" Location="VL.CoreLib" Version="2022.5.0-0225-ge247e95b60" />
   <Patch Id="LDMkIeZ47NoOdzmDTrn8vR">
     <Canvas Id="TB1ZqAEXZvAMjUbCD9wchk" DefaultCategory="NewWizard" CanvasType="FullCategory">
@@ -8,19 +8,12 @@
     ************************ SetDependency ************************
 
 -->
-      <Node Name="SetDependency" Bounds="266,214,300,922" Id="VCNep5uLNisNKURioDDOsF">
+      <Node Name="SetDependency" Bounds="266,230,300,906" Id="VCNep5uLNisNKURioDDOsF">
         <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
           <Choice Kind="OperationDefinition" Name="Operation" />
           <CategoryReference Kind="Category" Name="Primitive" NeedsToBeDirectParent="true" />
         </p:NodeReference>
         <Patch Id="JtIbEv3lXdCPYvbBNEg6CY">
-          <Node Bounds="323,237,88,19" Id="Vzpd8MzlIIwOTh9qOYHs0X">
-            <p:NodeReference LastCategoryFullName="VL.Session" LastDependency="VL.CoreLib.vl">
-              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="CurrentSolution" />
-            </p:NodeReference>
-            <Pin Id="F8tywC21cu8P8fD2nEq77w" Name="Current Solution" Kind="OutputPin" />
-          </Node>
           <Node Bounds="323,452,85,26" Id="UChIN20gu47O2qJBBWkuEP">
             <p:NodeReference LastCategoryFullName="VL.Model.Solution" LastDependency="VL.HDE.vl" OverloadStrategy="AllPinsThatAreNotCommon">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
@@ -168,30 +161,19 @@
               </Node>
             </Patch>
           </Node>
-          <Node Bounds="323,280,48,19" Id="Krmlfh6aF2uNku41Jy4HkA">
-            <p:NodeReference LastCategoryFullName="Primitive.Object" LastDependency="VL.CoreLib.vl">
-              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-              <Choice Kind="OperationCallFlag" Name="CastAs" />
-            </p:NodeReference>
-            <Pin Id="RwDwTsPIN2KQWADBsOXtaa" Name="Input" Kind="StateInputPin" />
-            <Pin Id="IfURd6KGBFgOHcpp3BvEZ4" Name="Default" Kind="InputPin" />
-            <Pin Id="IT9bsE5DO4IOEXTbcx8LcH" Name="Result" Kind="OutputPin" />
-            <Pin Id="MKI3WhEgKtTLzqyZaPG3U4" Name="Success" Kind="OutputPin" />
-          </Node>
           <Link Id="Scn7znIrO73PzCV50VOK10" Ids="TiyWR3j0agtPpa3qydVGXs,DX3whVHgWouOngqml6qNSS" />
           <Link Id="Qds2RBkUxLeOHNvktHB2WD" Ids="EacqSnhHZepLCz2g5dtUvK,Cj448lsspcgO5FbuG46QwR" />
           <Link Id="DOxrEFMT03cOR2s8MFz5LJ" Ids="EacqSnhHZepLCz2g5dtUvK,E1Ac6rNTjaWMi5BSI1ttzu" />
           <Link Id="Pq7JOSNhsdKPj3jafWbKIO" Ids="H2zy9fMDBh4LWSZgwcpKXV,LC7sKRReKXJPAyZaJiasF9" />
-          <Link Id="DSkskpafPOYOjVfF8GfyKO" Ids="IT9bsE5DO4IOEXTbcx8LcH,KoTsPLMq7jULAUMmQQatdl" />
-          <Link Id="MOOBlkMotw5MzZo4BtVuy8" Ids="F8tywC21cu8P8fD2nEq77w,RwDwTsPIN2KQWADBsOXtaa" />
           <Link Id="VZ1lR2Y7eZfPd5kjpvz2Ni" Ids="OY1iXlkSi5eLHK4kNaqyqG,R1JS3DvHi4fOl4cJwUwYxP" />
           <ControlPoint Id="AS1XfqtOfF4NIM1tgJumPl" Bounds="504,248" />
           <Pin Id="SdJzsqHGIXZNN6tMlkhX8h" Name="File Path" Kind="InputPin" Bounds="1758,1177" />
           <Link Id="DJLbH6Hol3uPnwq6KpmlMa" Ids="SdJzsqHGIXZNN6tMlkhX8h,AS1XfqtOfF4NIM1tgJumPl" IsHidden="true" />
           <Node Bounds="386,347,107,19" Id="Bq0SC9DbNHmL1Tb8WQuoGN">
-            <p:NodeReference LastCategoryFullName="VL.Lang.PublicAPI.Session" LastDependency="VL.Lang.dll">
+            <p:NodeReference LastCategoryFullName="HDE.API" LastDependency="VL.Lang.dll">
               <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
               <Choice Kind="OperationCallFlag" Name="ActiveCanvasStream" />
+              <FullNameCategoryReference ID="HDE.API" />
             </p:NodeReference>
             <Pin Id="GqQTjoS6TaiMcEKa2u1eQU" Name="Active Canvas Stream" Kind="OutputPin" />
           </Node>
@@ -226,6 +208,26 @@
           <Link Id="IuUywsaQUBVMp6GDuPyCxX" Ids="H68pETr2z3KObXxlZIJdEO,JIu4xg6WQP3OgE1BwzPNpE" IsHidden="true" />
           <Link Id="JpucSbmz0OsNqn9cS0M2po" Ids="Jjoe53BA41iOUQyFSDI4Ku,TuKrqvcvWGPQUvJNX3v9yI" />
           <Link Id="CgVgM1qeM12PaEx6u4rMeU" Ids="Jjoe53BA41iOUQyFSDI4Ku,LZiV7hsXjv3NZw6W1uMCKx" />
+          <Node Bounds="315,260,54,19" Id="LNsil3jDempQdzkr2EzNTB">
+            <p:NodeReference LastCategoryFullName="VL.Model.VLSession" LastDependency="VL.Lang.dll">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <CategoryReference Kind="AssemblyCategory" Name="VLSession" />
+              <Choice Kind="OperationCallFlag" Name="Instance" />
+            </p:NodeReference>
+            <Pin Id="AhwFIyFFeSQO5RLM6Y9rvS" Name="Instance" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="315,290,88,26" Id="JfOcMVw6t1uOSHijfSZFy6">
+            <p:NodeReference LastCategoryFullName="VL.Model.VLSession" LastDependency="VL.Lang.dll">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <CategoryReference Kind="AssemblyCategory" Name="VLSession" NeedsToBeDirectParent="true" />
+              <Choice Kind="OperationCallFlag" Name="CurrentSolution" />
+            </p:NodeReference>
+            <Pin Id="TdKY7uODQqTLGFODcnvW5f" Name="Input" Kind="StateInputPin" />
+            <Pin Id="BHqBBWoWNysLCmbvFKuLpE" Name="Output" Kind="StateOutputPin" />
+            <Pin Id="TAtEf8Rq43WOFbll6ZU4JV" Name="Current Solution" Kind="OutputPin" />
+          </Node>
+          <Link Id="EhVhK13VyeWOXYYGKoLL6W" Ids="AhwFIyFFeSQO5RLM6Y9rvS,TdKY7uODQqTLGFODcnvW5f" />
+          <Link Id="PlJDmooOIIrP6pWjesBBUF" Ids="TAtEf8Rq43WOFbll6ZU4JV,KoTsPLMq7jULAUMmQQatdl" />
         </Patch>
       </Node>
       <Pad Id="CaQh73Gbv8ULQ7zwR3mdI9" Bounds="232,140,107,39" ShowValueBox="true" isIOBox="true" Value="Helper">
