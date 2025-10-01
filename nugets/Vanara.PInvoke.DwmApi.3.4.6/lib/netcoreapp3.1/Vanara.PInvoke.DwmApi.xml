@@ -1,0 +1,962 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Vanara.PInvoke.DwmApi</name>
+    </assembly>
+    <members>
+        <member name="T:Vanara.PInvoke.DwmApi">
+            <summary>Encapsulates classes exposed by DWNAPI.DLL</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND_Mask">
+            <summary>Flags used by the DWM_BLURBEHIND structure to indicate which of its members contain valid information.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND_Mask.DWM_BB_ENABLE">
+            <summary>A value for the fEnable member has been specified.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND_Mask.DWM_BB_BLURREGION">
+            <summary>A value for the hRgnBlur member has been specified.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND_Mask.DWM_BB_TRANSITIONONMAXIMIZED">
+            <summary>A value for the fTransitionOnMaximized member has been specified.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_CLOAKED">
+            <summary>Flags used by the DwmSetWindowAttribute function to specify the cloaking reason</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_CLOAKED.DWM_CLOAKED_APP">
+            <summary>The window was cloaked by its owner application.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_CLOAKED.DWM_CLOAKED_SHELL">
+            <summary>The window was cloaked by the Shell.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_CLOAKED.DWM_CLOAKED_INHERITED">
+            <summary>The cloak value was inherited from its owner window.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_SETICONICPREVIEW_Flags">
+            <summary>The display options for the live preview.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SETICONICPREVIEW_Flags.DWM_SIT_NONE">
+            <summary>No frame is displayed around the provided thumbnail.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SETICONICPREVIEW_Flags.DWM_SIT_DISPLAYFRAME">
+            <summary>Displays a frame around the provided bitmap.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT">
+            <summary>Visualizations that DWM should show for a contact.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_NONE">
+            <summary>No visual feedback should be shown in reponse to the contact.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_DOWN">
+            <summary>Show the "contact down" animation, such as would be used in a button press.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_UP">
+            <summary>Show the "contact up" animation, such as would be used in a button release.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_DRAG">
+            <summary>Show the "contact drag" animation when the UI element that was selected by the touch or pen is dragged.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_HOLD">
+            <summary>Show a visual while the contact is held down, such as holding down a button.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_PENBARREL">
+            <summary>Show the pen barrel visual when the pen barrel button is pressed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT.DWMSC_ALL">
+            <summary>Show any of the animations if called for.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS">
+            <summary>
+            Returned by DwmGetUnmetTabRequirements to indicate the requirements needed for a window to put tabs in the application title bar.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_NONE">
+            <summary>The window meets all requirements requested.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_IMPLEMENTED_BY_SYSTEM">
+            <summary>
+            In some configurations, the admin/user setting or mode of the system means that windows won't be tabbed. This requirement
+            indicates that the system mode must implement tabbing. If the system does not implement tabbing, nothing can be done to
+            change this.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_WINDOW_RELATIONSHIP">
+            <summary>The window has an owner or parent, and is therefore ineligible for tabbing.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_WINDOW_STYLES">
+            <summary>
+            The window has one or more styles that make it ineligible for tabbing. To be eligible for tabbing, a window must:
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_WINDOW_REGION">
+            <summary>The window has a region (set using SetWindowRgn) making it ineligible.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_WINDOW_DWM_ATTRIBUTES">
+            <summary>
+            The window is ineligible due to its Dwm configuration. To resolve this issue, the window must not extended its client area
+            into the title bar using DwmExtendFrameIntoClientArea. In addition, the window must not have DWMWA_NCRENDERING_POLICY set to DWMNCRP_ENABLED.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_WINDOW_MARGINS">
+            <summary>
+            The window is ineligible due to its margins, most likely due to custom handling in WM_NCCALCSIZE. To resolve this issue, the
+            window must use the default window margins for the non-client area.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_TABBING_ENABLED">
+            <summary>The window has been explicitly opted out by setting DWMWA_TABBING_ENABLED to false.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_USER_POLICY">
+            <summary>The user has configured this application to not participate in tabbing.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_GROUP_POLICY">
+            <summary>The group policy has configured this application to not participate in tabbing.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS.DWMTWR_APP_COMPAT">
+            <summary>
+            This is set if app compat has blocked tabs for this window. Can be overridden per window by setting DWMWA_TABBING_ENABLED to
+            TRUE. That does not override any other tabbing requirements.
+            </summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_TNP">
+            <summary>Flags used by the DWM_THUMBNAIL_PROPERTIES structure to indicate which of its members contain valid information.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TNP.DWM_TNP_RECTDESTINATION">
+            <summary>A value for the rcDestination member has been specified.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TNP.DWM_TNP_RECTSOURCE">
+            <summary>A value for the rcSource member has been specified.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TNP.DWM_TNP_OPACITY">
+            <summary>A value for the opacity member has been specified.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TNP.DWM_TNP_VISIBLE">
+            <summary>A value for the fVisible member has been specified.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TNP.DWM_TNP_SOURCECLIENTAREAONLY">
+            <summary>A value for the fSourceClientAreaOnly member has been specified.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWMFLIP3DWINDOWPOLICY">
+            <summary>Flags used by the DwmSetWindowAttribute function to specify the Flip3D window policy.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMFLIP3DWINDOWPOLICY.DWMFLIP3D_DEFAULT">
+            <summary>
+            Use the window's style and visibility settings to determine whether to hide or include the window in Flip3D rendering.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMFLIP3DWINDOWPOLICY.DWMFLIP3D_EXCLUDEBELOW">
+            <summary>Exclude the window from Flip3D and display it below the Flip3D rendering.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMFLIP3DWINDOWPOLICY.DWMFLIP3D_EXCLUDEABOVE">
+            <summary>Exclude the window from Flip3D and display it above the Flip3D rendering.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMFLIP3DWINDOWPOLICY.DWMFLIP3D_LAST">
+            <summary>The maximum recognized DWMFLIP3DWINDOWPOLICY value, used for validation purposes.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWMNCRENDERINGPOLICY">
+            <summary>Flags used by the DwmSetWindowAttribute function to specify the non-client area rendering policy.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMNCRENDERINGPOLICY.DWMNCRP_USEWINDOWSTYLE">
+            <summary>The non-client rendering area is rendered based on the window style.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMNCRENDERINGPOLICY.DWMNCRP_DISABLED">
+            <summary>The non-client area rendering is disabled; the window style is ignored.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMNCRENDERINGPOLICY.DWMNCRP_ENABLED">
+            <summary>The non-client area rendering is enabled; the window style is ignored.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMNCRENDERINGPOLICY.DWMNCRP_LAST">
+            <summary>The maximum recognized DWMNCRENDERINGPOLICY value, used for validation purposes.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWMTRANSITION_OWNEDWINDOW_TARGET">
+            <summary>Identifies the target.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMTRANSITION_OWNEDWINDOW_TARGET.DWMTRANSITION_OWNEDWINDOW_NULL">
+            <summary>Indicates no animation.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMTRANSITION_OWNEDWINDOW_TARGET.DWMTRANSITION_OWNEDWINDOW_REPOSITION">
+            <summary>Indicates that the window is repositioned.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE">
+            <summary>
+            Flags used by the DwmGetWindowAttribute and DwmSetWindowAttribute functions to specify window attributes for non-client rendering.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_NCRENDERING_ENABLED">
+            <summary>
+            Use with DwmGetWindowAttribute. Discovers whether non-client rendering is enabled. The retrieved value is of type BOOL. TRUE
+            if non-client rendering is enabled; otherwise, FALSE.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_NCRENDERING_POLICY">
+            <summary>
+            Use with DwmSetWindowAttribute. Sets the non-client rendering policy. The pvAttribute parameter points to a value from the
+            DWMNCRENDERINGPOLICY enumeration.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_TRANSITIONS_FORCEDISABLED">
+            <summary>
+            Use with DwmSetWindowAttribute. Enables or forcibly disables DWM transitions. The pvAttribute parameter points to a value of
+            TRUE to disable transitions or FALSE to enable transitions.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_ALLOW_NCPAINT">
+            <summary>
+            Use with DwmSetWindowAttribute. Enables content rendered in the non-client area to be visible on the frame drawn by DWM. The
+            pvAttribute parameter points to a value of TRUE to enable content rendered in the non-client area to be visible on the frame;
+            otherwise, it points to FALSE.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_CAPTION_BUTTON_BOUNDS">
+            <summary>
+            Use with DwmGetWindowAttribute. Retrieves the bounds of the caption button area in the window-relative space. The retrieved
+            value is of type RECT.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_NONCLIENT_RTL_LAYOUT">
+            <summary>
+            Use with DwmSetWindowAttribute. Specifies whether non-client content is right-to-left (RTL) mirrored. The pvAttribute
+            parameter points to a value of TRUE if the non-client content is right-to-left (RTL) mirrored; otherwise, it points to FALSE.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_FORCE_ICONIC_REPRESENTATION">
+            <summary>
+            Use with DwmSetWindowAttribute. Forces the window to display an iconic thumbnail or peek representation (a static bitmap),
+            even if a live or snapshot representation of the window is available. This value normally is set during a window's creation
+            and not changed throughout the window's lifetime. Some scenarios, however, might require the value to change over time. The
+            pvAttribute parameter points to a value of TRUE to require a iconic thumbnail or peek representation; otherwise, it points to FALSE.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_FLIP3D_POLICY">
+            <summary>
+            Use with DwmSetWindowAttribute. Sets how Flip3D treats the window. The pvAttribute parameter points to a value from the
+            DWMFLIP3DWINDOWPOLICY enumeration.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_EXTENDED_FRAME_BOUNDS">
+            <summary>
+            Use with DwmGetWindowAttribute. Retrieves the extended frame bounds rectangle in screen space. The retrieved value is of type RECT.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_HAS_ICONIC_BITMAP">
+            <summary>
+            Use with DwmSetWindowAttribute. The window will provide a bitmap for use by DWM as an iconic thumbnail or peek representation
+            (a static bitmap) for the window. DWMWA_HAS_ICONIC_BITMAP can be specified with DWMWA_FORCE_ICONIC_REPRESENTATION.
+            DWMWA_HAS_ICONIC_BITMAP normally is set during a window's creation and not changed throughout the window's lifetime. Some
+            scenarios, however, might require the value to change over time. The pvAttribute parameter points to a value of TRUE to
+            inform DWM that the window will provide an iconic thumbnail or peek representation; otherwise, it points to FALSE.
+            <para><c>Windows Vista and earlier:</c> This value is not supported.</para>
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_DISALLOW_PEEK">
+            <summary>
+            Use with DwmSetWindowAttribute. Do not show peek preview for the window. The peek view shows a full-sized preview of the
+            window when the mouse hovers over the window's thumbnail in the taskbar. If this attribute is set, hovering the mouse pointer
+            over the window's thumbnail dismisses peek (in case another window in the group has a peek preview showing). The pvAttribute
+            parameter points to a value of TRUE to prevent peek functionality or FALSE to allow it.
+            <para><c>Windows Vista and earlier:</c> This value is not supported.</para>
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_EXCLUDED_FROM_PEEK">
+            <summary>
+            Use with DwmSetWindowAttribute. Prevents a window from fading to a glass sheet when peek is invoked. The pvAttribute
+            parameter points to a value of TRUE to prevent the window from fading during another window's peek or FALSE for normal behavior.
+            <para><c>Windows Vista and earlier:</c> This value is not supported.</para>
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_CLOAK">
+            <summary>
+            Use with DwmSetWindowAttribute. Cloaks the window such that it is not visible to the user. The window is still composed by DWM.
+            <para>
+            <c>Using with DirectComposition:</c> Use the DWMWA_CLOAK flag to cloak the layered child window when animating a
+            representation of the window's content via a DirectComposition visual which has been associated with the layered child
+            window. For more details on this usage case, see How to How to animate the bitmap of a layered child window.
+            </para>
+            <para><c>Windows 7 and earlier:</c> This value is not supported.</para>
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_CLOAKED">
+            <summary>
+            Use with DwmGetWindowAttribute. If the window is cloaked, provides one of the following values explaining why:
+            <list type="table">
+            <listheader>
+            <term>Name (Value)</term>
+            <definition>Meaning</definition>
+            </listheader>
+            <item>
+            <term>DWM_CLOAKED_APP 0x0000001</term>
+            <definition>The window was cloaked by its owner application.</definition>
+            </item>
+            <item>
+            <term>DWM_CLOAKED_SHELL 0x0000002</term>
+            <definition>The window was cloaked by the Shell.</definition>
+            </item>
+            <item>
+            <term>DWM_CLOAKED_INHERITED 0x0000004</term>
+            <definition>The cloak value was inherited from its owner window.</definition>
+            </item>
+            </list>
+            <para><c>Windows 7 and earlier:</c> This value is not supported.</para>
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE.DWMWA_FREEZE_REPRESENTATION">
+            <summary>
+            Use with DwmSetWindowAttribute. Freeze the window's thumbnail image with its current visuals. Do no further live updates on
+            the thumbnail image to match the window's contents.
+            <para><c>Windows 7 and earlier:</c> This value is not supported.</para>
+            </summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.GESTURE_TYPE">
+            <summary>Identifies the gesture type specified in DwmRenderGesture.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_PEN_TAP">
+            <summary>A pen tap.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_PEN_DOUBLETAP">
+            <summary>A pen double tap.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_PEN_RIGHTTAP">
+            <summary>A pen right tap.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_PEN_PRESSANDHOLD">
+            <summary>A pen press and hold.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_PEN_PRESSANDHOLDABORT">
+            <summary>An abort of the pen press and hold.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_TOUCH_TAP">
+            <summary>A touch tap.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_TOUCH_DOUBLETAP">
+            <summary>A touch double tap.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_TOUCH_RIGHTTAP">
+            <summary>A touch right tap.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_TOUCH_PRESSANDHOLD">
+            <summary>A touch press and hold.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_TOUCH_PRESSANDHOLDABORT">
+            <summary>An abort of the touch press and hold.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.GESTURE_TYPE.GT_TOUCH_PRESSANDTAP">
+            <summary>A touch press and tap.</summary>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmDefWindowProc(Vanara.PInvoke.HWND,System.UInt32,System.IntPtr,System.IntPtr,System.IntPtr@)">
+            <summary>Default window procedure for Desktop Window Manager (DWM) hit testing within the non-client area.</summary>
+            <param name="hwnd">A handle to the window procedure that received the message.</param>
+            <param name="msg">The message.</param>
+            <param name="wParam">
+            Specifies additional message information. The content of this parameter depends on the value of the msg parameter.
+            </param>
+            <param name="lParam">
+            Specifies additional message information. The content of this parameter depends on the value of the msg parameter.
+            </param>
+            <param name="plResult">
+            A pointer to an LRESULT value that, when this method returns successfully,receives the result of the hit test.
+            </param>
+            <returns>TRUE if DwmDefWindowProc handled the message; otherwise, FALSE.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmEnableBlurBehindWindow(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWM_BLURBEHIND@)">
+            <summary>Enables the blur effect on a specified window.</summary>
+            <param name="hWnd">The handle to the window on which the blur behind data is applied.</param>
+            <param name="pDwmBlurbehind">A pointer to a DWM_BLURBEHIND structure that provides blur behind data.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmEnableComposition(System.Boolean)">
+            <summary>
+            Enables or disables Desktop Window Manager (DWM) composition. <note>This function is deprecated as of Windows 8. DWM can no
+            longer be programmatically disabled.</note>
+            </summary>
+            <param name="uCompositionAction">
+            DWM_EC_ENABLECOMPOSITION to enable DWM composition; DWM_EC_DISABLECOMPOSITION to disable composition. <note>As of Windows 8,
+            calling this function with DWM_EC_DISABLECOMPOSITION has no effect. However, the function will still return a success code.</note>
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmEnableMMCSS(System.Boolean)">
+            <summary>
+            Notifies the Desktop Window Manager (DWM) to opt in to or out of Multimedia Class Schedule Service (MMCSS) scheduling while the
+            calling process is alive.
+            </summary>
+            <param name="fEnableMMCSS">
+            TRUE to instruct DWM to participate in MMCSS scheduling; FALSE to opt out or end participation in MMCSS scheduling.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmExtendFrameIntoClientArea(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.MARGINS@)">
+            <summary>Extends the window frame into the client area.</summary>
+            <param name="hWnd">The handle to the window in which the frame will be extended into the client area.</param>
+            <param name="pMarInset">
+            A pointer to a MARGINS structure that describes the margins to use when extending the frame into the client area.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmFlush">
+            <summary>
+            Issues a flush call that blocks the caller until the next present, when all of the Microsoft DirectX surface updates that are
+            currently outstanding have been made. This compensates for very complex scenes or calling processes with very low priority.
+            </summary>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmGetColorizationColor(System.UInt32@,System.Boolean@)">
+            <summary>
+            Retrieves the current color used for Desktop Window Manager (DWM) glass composition. This value is based on the current color
+            scheme and can be modified by the user. Applications can listen for color changes by handling the WM_DWMCOLORIZATIONCOLORCHANGED notification.
+            </summary>
+            <param name="pcrColorization">
+            A pointer to a value that, when this function returns successfully, receives the current color used for glass composition. The
+            color format of the value is 0xAARRGGBB.
+            </param>
+            <param name="pfOpaqueBlend">
+            A pointer to a value that, when this function returns successfully, indicates whether the color is an opaque blend. TRUE if the
+            color is an opaque blend; otherwise, FALSE.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmGetCompositionTimingInfo(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWM_TIMING_INFO@)">
+            <summary>Retrieves the current composition timing information for a specified window.</summary>
+            <param name="hwnd">
+            The handle to the window for which the composition timing information should be retrieved. Starting with Windows 8.1, this
+            parameter must be set to NULL. If this parameter is not set to NULL, DwmGetCompositionTimingInfo returns E_INVALIDARG.
+            </param>
+            <param name="dwAttribute">
+            A pointer to a DWM_TIMING_INFO structure that, when this function returns successfully, receives the current composition timing
+            information for the window. The cbSize member of this structure must be set before this function is called.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmGetTransportAttributes(System.Boolean@,System.Boolean@,System.UInt32@)">
+            <summary>Retrieves transport attributes.</summary>
+            <param name="pfIsRemoting">
+            A pointer to a BOOL value that indicates whether the transport supports remoting. TRUE if the transport supports remoting;
+            otherwise, FALSE.
+            </param>
+            <param name="pfIsConnected">
+            A pointer to a BOOL value that indicates whether the transport is connected. TRUE if the transport is connected; otherwise, FALSE.
+            </param>
+            <param name="pDwGeneration">A pointer to a DWORD that receives a generation value for the transport.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmGetUnmetTabRequirements(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWM_TAB_WINDOW_REQUIREMENTS@)">
+            <summary>
+              <para><c>Note</c> This function is publicly available, but nonfunctional, for Windows 10, version 1803.</para>
+              <para>Checks the requirements needed to get tabs in the application title bar for the specified window.</para>
+            </summary>
+            <param name="appWindow">The handle of the window to check.</param>
+            <param name="value">The value.</param>
+            <returns>None</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmGetWindowAttribute(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE,System.IntPtr,System.Int32)">
+            <summary>Retrieves the current value of a specified attribute applied to a window.</summary>
+            <param name="hwnd">The handle to the window from which the attribute data is retrieved.</param>
+            <param name="dwAttribute">The attribute to retrieve, specified as a DWMWINDOWATTRIBUTE value.</param>
+            <param name="pvAttribute">
+            A pointer to a value that, when this function returns successfully, receives the current value of the attribute. The type of the
+            retrieved value depends on the value of the dwAttribute parameter.
+            </param>
+            <param name="cbAttribute">
+            The size of the DWMWINDOWATTRIBUTE value being retrieved. The size is dependent on the type of the pvAttribute parameter.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmGetWindowAttribute``1(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE,``0@)">
+            <summary>Retrieves the current value of a specified attribute applied to a window.</summary>
+            <param name="hwnd">The handle to the window from which the attribute data is retrieved.</param>
+            <param name="dwAttribute">The attribute to retrieve, specified as a DWMWINDOWATTRIBUTE value.</param>
+            <param name="pvAttribute">
+            A value that, when this function returns successfully, receives the current value of the attribute. The type of the retrieved
+            value depends on the value of the dwAttribute parameter.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmInvalidateIconicBitmaps(Vanara.PInvoke.HWND)">
+            <summary>
+            Called by an application to indicate that all previously provided iconic bitmaps from a window, both thumbnails and peek
+            representations, should be refreshed.
+            </summary>
+            <param name="hwnd">
+            A handle to the window or tab whose bitmaps are being invalidated through this call. This window must belong to the calling process.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+            <remarks>
+            Calling this function causes the Desktop Window Manager (DWM) to invalidate its current bitmaps for the window and request new
+            bitmaps from the window when they are next needed. DwmInvalidateIconicBitmaps should not be called frequently. Doing so can lead
+            to poor performance as new bitmaps are created and retrieved.
+            </remarks>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmIsCompositionEnabled(System.Boolean@)">
+            <summary>
+            Obtains a value that indicates whether Desktop Window Manager (DWM) composition is enabled. Applications on machines running
+            Windows 7 or earlier can listen for composition state changes by handling the WM_DWMCOMPOSITIONCHANGED notification.
+            </summary>
+            <param name="pfEnabled">
+            A pointer to a value that, when this function returns successfully, receives TRUE if DWM composition is enabled; otherwise,
+            FALSE. <note>As of Windows 8, DWM composition is always enabled. If an app declares Windows 8 compatibility in their manifest,
+            this function will receive a value of TRUE through pfEnabled. If no such manifest entry is found, Windows 8 compatibility is not
+            assumed and this function receives a value of FALSE through pfEnabled. This is done so that older programs that interpret a value
+            of TRUE to imply that high contrast mode is off can continue to make the correct decisions about rendering their images. (Note
+            that this is a bad practice—you should use the SystemParametersInfo function with the SPI_GETHIGHCONTRAST flag to determine the
+            state of high contrast mode.)</note>
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmpGetColorizationParameters(Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS@)">
+            <summary>Gets the colorization parameters.</summary>
+            <param name="parameters">The parameters.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmpSetColorizationParameters(Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS@,System.UInt32)">
+            <summary>Sets the colorization parameters.</summary>
+            <param name="parameters">The parameters.</param>
+            <param name="unk">Always set to 1.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmQueryThumbnailSourceSize(Vanara.PInvoke.HTHUMBNAIL,Vanara.PInvoke.SIZE@)">
+            <summary>Retrieves the source size of the Desktop Window Manager (DWM) thumbnail.</summary>
+            <param name="hThumbnail">A handle to the thumbnail to retrieve the source window size from.</param>
+            <param name="pSize">
+            A pointer to a SIZE structure that, when this function returns successfully, receives the size of the source thumbnail.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmRegisterThumbnail(Vanara.PInvoke.HWND,Vanara.PInvoke.HWND,Vanara.PInvoke.HTHUMBNAIL@)">
+            <summary>Creates a Desktop Window Manager (DWM) thumbnail relationship between the destination and source windows.</summary>
+            <param name="hwndDestination">
+            The handle to the window that will use the DWM thumbnail. Setting the destination window handle to anything other than a
+            top-level window type will result in a return value of E_INVALIDARG.
+            </param>
+            <param name="hwndSource">
+            The handle to the window to use as the thumbnail source. Setting the source window handle to anything other than a top-level
+            window type will result in a return value of E_INVALIDARG.
+            </param>
+            <param name="phThumbnailId">
+            A pointer to a handle that, when this function returns successfully, represents the registration of the DWM thumbnail.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmRenderGesture(Vanara.PInvoke.DwmApi.GESTURE_TYPE,System.UInt32,System.UInt32@,Vanara.PInvoke.POINT[])">
+            <summary>
+            Notifies Desktop Window Manager (DWM) that a touch contact has been recognized as a gesture, and that DWM should draw feedback
+            for that gesture.
+            </summary>
+            <param name="gt">The type of gesture, specified as one of the GESTURE_TYPE values.</param>
+            <param name="cContacts">The number of contact points.</param>
+            <param name="pdwPointerID">The pointer ID.</param>
+            <param name="pPoints">The points.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmSetIconicLivePreviewBitmap(Vanara.PInvoke.HWND,Vanara.PInvoke.HBITMAP,Vanara.PInvoke.POINT@,Vanara.PInvoke.DwmApi.DWM_SETICONICPREVIEW_Flags)">
+            <summary>
+            Sets a static, iconic bitmap to display a live preview (also known as a Peek preview) of a window or tab. The taskbar can use
+            this bitmap to show a full-sized preview of a window or tab.
+            </summary>
+            <param name="hwnd">A handle to the window. This window must belong to the calling process.</param>
+            <param name="hbmp">A handle to the bitmap to represent the window that hwnd specifies.</param>
+            <param name="pptClient">
+            The offset of a tab window's client region (the content area inside the client window frame) from the host window's frame. This
+            offset enables the tab window's contents to be drawn correctly in a live preview when it is drawn without its frame.
+            </param>
+            <param name="dwSITFlags">The display options for the live preview.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmSetIconicLivePreviewBitmap(Vanara.PInvoke.HWND,Vanara.PInvoke.HBITMAP,System.IntPtr,Vanara.PInvoke.DwmApi.DWM_SETICONICPREVIEW_Flags)">
+            <summary>
+            Sets a static, iconic bitmap to display a live preview (also known as a Peek preview) of a window or tab. The taskbar can use
+            this bitmap to show a full-sized preview of a window or tab.
+            </summary>
+            <param name="hwnd">A handle to the window. This window must belong to the calling process.</param>
+            <param name="hbmp">A handle to the bitmap to represent the window that hwnd specifies.</param>
+            <param name="pptClient">
+            The offset of a tab window's client region (the content area inside the client window frame) from the host window's frame. This
+            offset enables the tab window's contents to be drawn correctly in a live preview when it is drawn without its frame.
+            </param>
+            <param name="dwSITFlags">The display options for the live preview.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmSetIconicThumbnail(Vanara.PInvoke.HWND,Vanara.PInvoke.HBITMAP,Vanara.PInvoke.DwmApi.DWM_SETICONICPREVIEW_Flags)">
+            <summary>
+            Sets a static, iconic bitmap on a window or tab to use as a thumbnail representation. The taskbar can use this bitmap as a
+            thumbnail switch target for the window or tab.
+            </summary>
+            <param name="hwnd">A handle to the window. This window must belong to the calling process.</param>
+            <param name="hbmp">A handle to the bitmap to represent the window that hwnd specifies.</param>
+            <param name="dwSITFlags">The display options for the live preview.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmSetWindowAttribute(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE,System.IntPtr,System.Int32)">
+            <summary>Sets the value of non-client rendering attributes for a window.</summary>
+            <param name="hwnd">The handle to the window that will receive the attributes.</param>
+            <param name="dwAttribute">
+            A single DWMWINDOWATTRIBUTE flag to apply to the window. This parameter specifies the attribute and the pvAttribute parameter
+            points to the value of that attribute.
+            </param>
+            <param name="pvAttribute">
+            A pointer to the value of the attribute specified in the dwAttribute parameter. Different DWMWINDOWATTRIBUTE flags require
+            different value types.
+            </param>
+            <param name="cbAttribute">The size, in bytes, of the value type pointed to by the pvAttribute parameter.</param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmSetWindowAttribute``1(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWMWINDOWATTRIBUTE,``0)">
+            <summary>Sets the value of non-client rendering attributes for a window.</summary>
+            <param name="hwnd">The handle to the window that will receive the attributes.</param>
+            <param name="dwAttribute">
+            A single DWMWINDOWATTRIBUTE flag to apply to the window. This parameter specifies the attribute and the pvAttribute parameter
+            points to the value of that attribute.
+            </param>
+            <param name="pvAttribute">
+            The value of the attribute specified in the dwAttribute parameter. Different DWMWINDOWATTRIBUTE flags require different value types.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmShowContact(System.UInt32,Vanara.PInvoke.DwmApi.DWM_SHOWCONTACT)">
+            <summary>
+            Called by an app or framework to specify the visual feedback type to draw in response to a particular touch or pen contact.
+            </summary>
+            <param name="dwPointerID">The pointer ID of the contact. Each touch or pen contact is given a unique ID when it is detected.</param>
+            <param name="eShowContact">One or more of the following DWM_SHOWCONTACT visualizations that DWM should show for this contact.</param>
+            <returns>
+            If dwPointerID does not match that of a contact currently present on the screen, this function returns E_INVALIDARG; otherwise,
+            it returns S_OK.
+            </returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmTetherContact(System.UInt32,System.Boolean,Vanara.PInvoke.POINT)">
+            <summary>Enables the graphical feedback of touch and drag interactions to the user.</summary>
+            <param name="dwPointerID">The pointer ID.</param>
+            <param name="fEnable">Indicates whether the contact is enabled.</param>
+            <param name="ptTether">The tether.</param>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmTransitionOwnedWindow(Vanara.PInvoke.HWND,Vanara.PInvoke.DwmApi.DWMTRANSITION_OWNEDWINDOW_TARGET)">
+            <summary>Coordinates the animations of tool windows with the Desktop Window Manager (DWM).</summary>
+            <param name="hwnd">Handle to the window.</param>
+            <param name="target">The target.</param>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmUnregisterThumbnail(Vanara.PInvoke.HTHUMBNAIL)">
+            <summary>Removes a Desktop Window Manager (DWM) thumbnail relationship created by the DwmRegisterThumbnail function.</summary>
+            <param name="hThumbnailId">
+            The handle to the thumbnail relationship to be removed. Null or non-existent handles will result in a return value of E_INVALIDARG.
+            </param>
+            <returns>If this function succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DwmUpdateThumbnailProperties(Vanara.PInvoke.HTHUMBNAIL,Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES@)">
+            <summary>
+            <para>Updates the properties for a Desktop Window Manager (DWM) thumbnail.</para>
+            </summary>
+            <param name="hThumbnailId">
+            <para>
+            The handle to the DWM thumbnail to be updated. Null or invalid thumbnails, as well as thumbnails owned by other processes will
+            result in a return value of E_INVALIDARG.
+            </para>
+            </param>
+            <param name="ptnProperties">
+            <para>A pointer to a DWM_THUMBNAIL_PROPERTIES structure that contains the new thumbnail properties.</para>
+            </param>
+            <returns>
+            <para>If this function succeeds, it returns <c>S_OK</c>. Otherwise, it returns an <c>HRESULT</c> error code.</para>
+            </returns>
+            <remarks>
+            <para>
+            Thumbnail relationships created by the DwmRegisterThumbnail function will not be rendered to the destination window until this
+            function is called. Subsequent calls will update the thumbnail according to the provided properties.
+            </para>
+            <para>Examples</para>
+            <para>The following example demonstrates how to register and display the desktop thumbnail.</para>
+            </remarks>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND">
+            <summary>Specifies Desktop Window Manager (DWM) blur-behind properties. Used by the DwmEnableBlurBehindWindow function.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND.dwFlags">
+            <summary>
+            A bitwise combination of DWM Blur Behind constant values that indicates which of the members of this structure have been set.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND.fEnable">
+            <summary>TRUE to register the window handle to DWM blur behind; FALSE to unregister the window handle from DWM blur behind.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND.hRgnBlur">
+            <summary>
+            The region within the client area where the blur behind will be applied. A NULL value will apply the blur behind the entire
+            client area.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND.fTransitionOnMaximized">
+            <summary>TRUE if the window's colorization should transition to match the maximized windows; otherwise, FALSE.</summary>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND.#ctor(System.Boolean)">
+            <summary>Initializes a new instance of the <see cref="T:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND"/> struct.</summary>
+            <param name="enabled">if set to <c>true</c> enabled.</param>
+        </member>
+        <member name="P:Vanara.PInvoke.DwmApi.DWM_BLURBEHIND.TransitionOnMaximized">
+            <summary>Gets or sets a value indicating whether the window's colorization should transition to match the maximized windows.</summary>
+            <value><c>true</c> if the window's colorization should transition to match the maximized windows; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS">
+            <summary>Structure to get colorization information using the <see cref="M:Vanara.PInvoke.DwmApi.DwmpGetColorizationParameters(Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS@)"/> function.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.clrColor">
+            <summary>The ARGB accent color.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.clrAfterGlow">
+            <summary>The ARGB after glow color.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.nIntensity">
+            <summary>Determines how much the glass streaks are visible in window borders.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.clrAfterGlowBalance">
+            <summary>Determines how bright the glass is (0 removes all color from borders).</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.clrBlurBalance">
+            <summary>Determines how bright the blur is.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.clrGlassReflectionIntensity">
+            <summary>Determines how much the glass reflection is visible.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_COLORIZATION_PARAMS.fOpaque">
+            <summary>Determines if borders are opaque ( <c>true</c>) or transparent ( <c>false</c>).</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES">
+            <summary>Specifies Desktop Window Manager (DWM) thumbnail properties. Used by the <c>DwmUpdateThumbnailProperties</c> function.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES.dwFlags">
+            <summary>A bitwise combination of DWM thumbnail constant values that indicates which members of this structure are set.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES.rcDestination">
+            <summary>The area in the destination window where the thumbnail will be rendered.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES.rcSource">
+            <summary>The region of the source window to use as the thumbnail. By default, the entire window is used as the thumbnail.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES.opacity">
+            <summary>
+            The opacity with which to render the thumbnail. 0 is fully transparent while 255 is fully opaque. The default value is 255.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES.fVisible">
+            <summary>TRUE to make the thumbnail visible; otherwise, FALSE. The default is FALSE.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_THUMBNAIL_PROPERTIES.fSourceClientAreaOnly">
+            <summary>TRUE to use only the thumbnail source's client area; otherwise, FALSE. The default is FALSE.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO">
+            <summary>Specifies Desktop Window Manager (DWM) composition timing information. Used by the DwmGetCompositionTimingInfo function.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cbSize">
+            <summary>The size of this DWM_TIMING_INFO structure.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.rateRefresh">
+            <summary>The monitor refresh rate.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.qpcRefreshPeriod">
+            <summary>The monitor refresh period.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.rateCompose">
+            <summary>The composition rate.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.qpcVBlank">
+            <summary>The query performance counter value before the vertical blank.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefresh">
+            <summary>The DWM refresh counter.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cDXRefresh">
+            <summary>The DirectX refresh counter.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.qpcCompose">
+            <summary>The query performance counter value for a frame composition.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFrame">
+            <summary>The frame number that was composed at qpcCompose.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cDXPresent">
+            <summary>The DirectX present number used to identify rendering frames.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshFrame">
+            <summary>The refresh count of the frame that was composed at qpcCompose.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFrameSubmitted">
+            <summary>The DWM frame number that was last submitted.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cDXPresentSubmitted">
+            <summary>The DirectX present number that was last submitted.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFrameConfirmed">
+            <summary>The DWM frame number that was last confirmed as presented.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cDXPresentConfirmed">
+            <summary>The DirectX present number that was last confirmed as presented.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshConfirmed">
+            <summary>The target refresh count of the last frame confirmed as completed by the GPU.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cDXRefreshConfirmed">
+            <summary>The DirectX refresh count when the frame was confirmed as presented.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesLate">
+            <summary>The number of frames the DWM presented late.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesOutstanding">
+            <summary>The number of composition frames that have been issued but have not been confirmed as completed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFrameDisplayed">
+            <summary>The last frame displayed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.qpcFrameDisplayed">
+            <summary>The QPC time of the composition pass when the frame was displayed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshFrameDisplayed">
+            <summary>The vertical refresh count when the frame should have become visible.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFrameComplete">
+            <summary>The ID of the last frame marked as completed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.qpcFrameComplete">
+            <summary>The QPC time when the last frame was marked as completed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramePending">
+            <summary>The ID of the last frame marked as pending.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.qpcFramePending">
+            <summary>The QPC time when the last frame was marked as pending.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesDisplayed">
+            <summary>
+            The number of unique frames displayed. This value is valid only after a second call to the DwmGetCompositionTimingInfo function.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesComplete">
+            <summary>The number of new completed frames that have been received.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesPending">
+            <summary>The number of new frames submitted to DirectX but not yet completed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesAvailable">
+            <summary>
+            The number of frames available but not displayed, used, or dropped. This value is valid only after a second call to DwmGetCompositionTimingInfo.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesDropped">
+            <summary>
+            The number of rendered frames that were never displayed because composition occurred too late. This value is valid only after
+            a second call to DwmGetCompositionTimingInfo.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cFramesMissed">
+            <summary>The number of times an old frame was composed when a new frame should have been used but was not available.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshNextDisplayed">
+            <summary>The frame count at which the next frame is scheduled to be displayed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshNextPresented">
+            <summary>The frame count at which the next DirectX present is scheduled to be displayed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshesDisplayed">
+            <summary>
+            The total number of refreshes that have been displayed for the application since the DwmSetPresentParameters function was
+            last called.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshesPresented">
+            <summary>
+            The total number of refreshes that have been presented by the application since DwmSetPresentParameters was last called.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cRefreshStarted">
+            <summary>The refresh number when content for this window started to be displayed.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cPixelsReceived">
+            <summary>The total number of pixels DirectX redirected to the DWM.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cPixelsDrawn">
+            <summary>The number of pixels drawn.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.DWM_TIMING_INFO.cBuffersEmpty">
+            <summary>The number of empty buffers in the flip chain.</summary>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.MARGINS">
+            <summary>Returned by the GetThemeMargins function to define the margins of windows that have visual styles applied.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.MARGINS.cxLeftWidth">
+            <summary>Width of the left border that retains its size.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.MARGINS.cxRightWidth">
+            <summary>Width of the right border that retains its size.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.MARGINS.cyTopHeight">
+            <summary>Height of the top border that retains its size.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.MARGINS.cyBottomHeight">
+            <summary>Height of the bottom border that retains its size.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.MARGINS.Empty">
+            <summary>Retrieves a <see cref="T:Vanara.PInvoke.DwmApi.MARGINS"/> instance with all values set to 0.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.MARGINS.Infinite">
+            <summary>Retrieves a <see cref="T:Vanara.PInvoke.DwmApi.MARGINS"/> instance with all values set to -1.</summary>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>Initializes a new instance of the <see cref="T:Vanara.PInvoke.DwmApi.MARGINS"/> struct.</summary>
+            <param name="left">The left border value.</param>
+            <param name="right">The right border value.</param>
+            <param name="top">The top border value.</param>
+            <param name="bottom">The bottom border value.</param>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.#ctor(System.Int32)">
+            <summary>Initializes a new instance of the <see cref="T:Vanara.PInvoke.DwmApi.MARGINS"/> struct.</summary>
+            <param name="allMargins">Value to assign to all margins.</param>
+        </member>
+        <member name="P:Vanara.PInvoke.DwmApi.MARGINS.Left">
+            <summary>Gets or sets the left border value.</summary>
+            <value>The left border.</value>
+        </member>
+        <member name="P:Vanara.PInvoke.DwmApi.MARGINS.Right">
+            <summary>Gets or sets the right border value.</summary>
+            <value>The right border.</value>
+        </member>
+        <member name="P:Vanara.PInvoke.DwmApi.MARGINS.Top">
+            <summary>Gets or sets the top border value.</summary>
+            <value>The top border.</value>
+        </member>
+        <member name="P:Vanara.PInvoke.DwmApi.MARGINS.Bottom">
+            <summary>Gets or sets the bottom border value.</summary>
+            <value>The bottom border.</value>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.op_Inequality(Vanara.PInvoke.DwmApi.MARGINS,Vanara.PInvoke.DwmApi.MARGINS)">
+            <summary>Determines if two <see cref="T:Vanara.PInvoke.DwmApi.MARGINS"/> values are not equal.</summary>
+            <param name="m1">The first margin.</param>
+            <param name="m2">The second margin.</param>
+            <returns><c>true</c> if the values are unequal; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.op_Equality(Vanara.PInvoke.DwmApi.MARGINS,Vanara.PInvoke.DwmApi.MARGINS)">
+            <summary>Determines if two <see cref="T:Vanara.PInvoke.DwmApi.MARGINS"/> values are equal.</summary>
+            <param name="m1">The first margin.</param>
+            <param name="m2">The second margin.</param>
+            <returns><c>true</c> if the values are equal; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.Equals(System.Object)">
+            <summary>Determines whether the specified <see cref="T:System.Object"/>, is equal to this instance.</summary>
+            <param name="obj">The <see cref="T:System.Object"/> to compare with this instance.</param>
+            <returns><c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.GetHashCode">
+            <summary>Returns a hash code for this instance.</summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="M:Vanara.PInvoke.DwmApi.MARGINS.ToString">
+            <summary>Returns a <see cref="T:System.String"/> that represents this instance.</summary>
+            <returns>A <see cref="T:System.String"/> that represents this instance.</returns>
+        </member>
+        <member name="T:Vanara.PInvoke.DwmApi.UNSIGNED_RATIO">
+            <summary>
+            Defines a data type used by the Desktop Window Manager (DWM) APIs. It represents a generic ratio and is used for different
+            purposes and units even within a single API.
+            </summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.UNSIGNED_RATIO.uiNumerator">
+            <summary>The ratio numerator.</summary>
+        </member>
+        <member name="F:Vanara.PInvoke.DwmApi.UNSIGNED_RATIO.uiDenominator">
+            <summary>The ratio denominator.</summary>
+        </member>
+    </members>
+</doc>
