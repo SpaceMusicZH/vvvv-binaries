@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Core.Commands</name>
+    </assembly>
+    <members>
+        <member name="T:VL.Core.Commands.Command">
+            <summary>
+            Provides various factory methods to create a <see cref="T:VL.Core.Commands.ICommand"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.Command.Create(System.Action)">
+            <summary>
+            Creates a command which delegates its <see cref="M:VL.Core.Commands.ICommand.Execute"/> call to the given delegate. The command is always enabled.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.Command.Create(System.Action,System.Func{System.Boolean})">
+            <summary>
+            Creates a command which delegates its <see cref="M:VL.Core.Commands.ICommand.Execute"/> and <see cref="P:VL.Core.Commands.ICommand.IsEnabled"/> calls to the given delegates.
+            </summary>
+        </member>
+        <member name="T:VL.Core.Commands.CommandBinding">
+            <summary>
+            A command bound to a specific keyboard shortcut.
+            </summary>
+            <param name="Keys">A bitwise combination of keys.</param>
+            <param name="Command">The command to execute when pressing the shortcut.</param>
+        </member>
+        <member name="M:VL.Core.Commands.CommandBinding.#ctor(VL.Lib.IO.Keys,VL.Core.Commands.ICommand)">
+            <summary>
+            A command bound to a specific keyboard shortcut.
+            </summary>
+            <param name="Keys">A bitwise combination of keys.</param>
+            <param name="Command">The command to execute when pressing the shortcut.</param>
+        </member>
+        <member name="P:VL.Core.Commands.CommandBinding.Keys">
+            <summary>A bitwise combination of keys.</summary>
+        </member>
+        <member name="P:VL.Core.Commands.CommandBinding.Command">
+            <summary>The command to execute when pressing the shortcut.</summary>
+        </member>
+        <member name="T:VL.Core.Commands.CommandList">
+            <summary>
+            Provides various factory methods to create a <see cref="T:VL.Core.Commands.ICommandList"/>
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.CommandList.Create(VL.Core.Commands.CommandBinding[])">
+            <summary>
+            Creates a command list out of the given command bindings.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.CommandList.CreateRange(System.Collections.Generic.IEnumerable{VL.Core.Commands.CommandBinding})">
+            <summary>
+            Creates a command list out of the given command bindings.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.CommandList.Combine(VL.Core.Commands.ICommandList[])">
+            <summary>
+            Creates a command list out of other command lists. The first command list which provides a command for a given key wins.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.CommandList.CombineRange(System.Collections.Generic.IEnumerable{VL.Core.Commands.ICommandList})">
+            <summary>
+            Creates a command list out of other command lists. The first command list which provides a command for a given key wins.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.CommandList.Reserve(VL.Lib.IO.Keys[])">
+            <summary>
+            Creates a command list simply to "reserve" certain keys.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Commands.CommandList.ReserveRange(System.Collections.Generic.IEnumerable{VL.Lib.IO.Keys})">
+            <summary>
+            Creates a command list simply to "reserve" certain keys.
+            </summary>
+        </member>
+    </members>
+</doc>

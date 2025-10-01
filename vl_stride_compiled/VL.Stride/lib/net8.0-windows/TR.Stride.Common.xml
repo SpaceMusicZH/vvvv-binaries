@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TR.Stride.Common</name>
+    </assembly>
+    <members>
+        <member name="M:TR.Stride.Hacks.RelinkComponent``1(Stride.Engine.EntityManager,System.Guid)">
+            <summary>
+            Hack used to fix entities after hot reload
+            </summary>
+        </member>
+        <member name="M:TR.Stride.SceneSystemExtensions.TryGetMainCamera(Stride.Engine.SceneSystem)">
+            <summary>
+            Try to get the main camera in a game, this is mainly used
+            to prevent linking directly with a camera component and to locate
+            the camera in the editor scene.
+            
+            Proper usage should use render features instead of this though where you get 
+            the camera information through the render view instead. This does makes it simpler and 
+            also allows to make some easier optimizations as no logic to reduce redundant calcualtions over mulitple view (shadow casting etc)
+            is neeed. 
+            
+            Examples from TR.Stride projects:
+            * Ocean LOD selection and mesh placement (would have to rewrite buffers written by Transformation feature, or change ordering).
+            * Vegation instancing placement, would require multiple buffer uploads and calculations of relatively heavy data for each view
+            </summary>
+            <param name="sceneSystem"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

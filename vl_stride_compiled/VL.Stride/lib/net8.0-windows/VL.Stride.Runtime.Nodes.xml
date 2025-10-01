@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VL.Stride.Runtime.Nodes</name>
+    </assembly>
+    <members>
+        <member name="T:VL.Stride.Rendering.PostFX.ApplyImageEffect">
+            <summary>
+            Applies an image effect on the given input texture. Some effects also need the depth buffer on the second input.
+            Use the optional output texture pin to render to a pre-existing target.
+            </summary>
+            <remarks>
+            The following filters expect the depth buffer on the second pin (press Ctrl-+ to add more pins): 
+            <see cref="T:Stride.Rendering.Images.AmbientOcclusion"/>, <see cref="T:Stride.Rendering.Images.Outline"/>, <see cref="T:Stride.Rendering.Images.TemporalAntiAliasEffect"/>, <see cref="T:Stride.Rendering.Images.LocalReflections"/>, <see cref="T:Stride.Rendering.Images.DepthOfField"/>, <see cref="T:Stride.Rendering.Images.Fog"/>
+            In addition <see cref="T:Stride.Rendering.Images.LocalReflections"/> also expects the normals and specular roughness buffers on the third and forth pins.
+            </remarks>
+        </member>
+        <member name="T:VL.Stride.Rendering.PostFX.CustomColorTransformNode">
+            <summary>
+            Allows to patch a custom <see cref="T:Stride.Rendering.Images.ColorTransform"/> with ShaderFX.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Rendering.PostFX.CustomPostFX">
+            <summary>
+            Allows to patch a custom post-processing effect.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Rendering.PostFX.CustomPostFX.Update(VL.Stride.Rendering.PostFX.Internal.CreateHandler,VL.Stride.Rendering.PostFX.Internal.DrawHandler,System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            Configures the custom post-processing effect.
+            </summary>
+            <param name="create"></param>
+            <param name="draw"></param>
+            <param name="requiresNormalBuffer"></param>
+            <param name="requiresSpecularRoughnessBuffer"></param>
+            <param name="requiresVelocityBuffer"></param>
+            <param name="userTakesCareOfWritingToRenderTarget">Tells the node that the render target gets written and therefor no extra work has to be done.</param>
+        </member>
+    </members>
+</doc>
