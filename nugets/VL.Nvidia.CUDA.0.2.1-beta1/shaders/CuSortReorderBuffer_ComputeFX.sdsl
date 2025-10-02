@@ -1,0 +1,29 @@
+[Summary("Transfer values in their new order back into the original buffer with dynamic stride support")]
+shader CuSortReorderBuffer_ComputeFX : ComputeShaderBase
+{
+    uint _Count;
+    uint _Stride;  // Added stride parameter (size of each struct in bytes)
+    
+    StructuredBuffer<uint> _Keys;
+    ByteAddressBuffer _ExternalValues;  // Changed to ByteAddressBuffer for raw access
+    RWByteAddressBuffer _Temp;  // Changed to RWByteAddressBuffer for raw access
+
+    override void Compute()
+    {
+        uint index = streams.DispatchThreadId.x;
+
+        if (index >= _Count)
+            return;
+            
+        uint srcOffset = _Keys[index] * _Stride;
+        uint dstOffset = index * _Stride;
+        
+        // Copy data byte by byte for the entire stride
+        for (uint i = 0; i < _Stride; i += 4)
+        {
+            // Load 4 bytes (one uint) at a time
+            uint value = _ExternalValues.Load(srcOffset + i);
+            _Temp.Store(dstOffset + i, value);
+        }
+    }
+};

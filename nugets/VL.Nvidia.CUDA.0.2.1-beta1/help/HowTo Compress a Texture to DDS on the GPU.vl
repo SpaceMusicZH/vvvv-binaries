@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Document xmlns:p="property" xmlns:r="reflection" Id="FL9ctUHB2RlLP5J3OToDv5" LanguageVersion="2024.6.7" Version="0.128">
+  <NugetDependency Id="NwYXd19jynvLnLlNSbOZPd" Location="VL.CoreLib" Version="2024.6.7" />
+  <Patch Id="EMPolkaXgdXQYMDNPZiMOA">
+    <Canvas Id="Or6sFPXlOaULTSOcWceduZ" DefaultCategory="Main" CanvasType="FullCategory" />
+    <!--
+
+    ************************ Application ************************
+
+-->
+    <Node Name="Application" Bounds="100,100" Id="Dc8sZw0WCahLdazcJzFgfm">
+      <p:NodeReference>
+        <Choice Kind="ContainerDefinition" Name="Process" />
+        <CategoryReference Kind="Category" Name="Primitive" />
+      </p:NodeReference>
+      <Patch Id="N3moSG8tqncNcyJZCGxKD6">
+        <Canvas Id="PWh2jf5mbS4LOTTUBceoln" CanvasType="Group">
+          <Node Bounds="197,377,85,19" Id="Gz5lAAjUs77PTleq389YyI">
+            <p:NodeReference LastCategoryFullName="Stride.Textures.Utils" LastDependency="VL.Stride.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="ChangeFormat" />
+            </p:NodeReference>
+            <Pin Id="VXvL7TUuz9GMnoEJNwtFat" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="K35Te2HyyJ2MSzNUyGjQRh" Name="Input" Kind="InputPin" />
+            <Pin Id="U12kC1pdIK3PK4Dtsl2d2s" Name="Target Format" Kind="InputPin" />
+            <Pin Id="RdlhFDE9kEDPj2PV8kdM8q" Name="Always Generate Mipmaps" Kind="InputPin" />
+            <Pin Id="ST2Q2TWGee6NLLoNF8Tycf" Name="Use Direct Copy If Possible" Kind="InputPin" />
+            <Pin Id="DOSLy7gIQj0MomkAG8yoAp" Name="Enabled" Kind="InputPin" />
+            <Pin Id="CxYSITxE0YfN5ek5OdI4zf" Name="Output " Kind="OutputPin" />
+            <Pin Id="KHghL0miw7wNQ2BkXAYz7Y" Name="Direct Copy" Kind="OutputPin" />
+          </Node>
+          <Pad Id="PTmETqGA3nWMe9aukPw5AB" Comment="Target Format" Bounds="334,339,167,15" ShowValueBox="true" isIOBox="true" Value="R8G8B8A8_UNorm_SRgb">
+            <p:TypeAnnotation LastCategoryFullName="Stride.API.Graphics" LastDependency="VL.Stride.vl">
+              <Choice Kind="TypeFlag" Name="PixelFormat" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="195,523,90,19" Id="BLTUS51n3UgPP330qeaS3n">
+            <p:NodeReference LastCategoryFullName="CUDA" LastDependency="VL.Nvidia.CUDA.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="DDSCompressor" />
+            </p:NodeReference>
+            <Pin Id="QVprUHQMPoiQcZnY7k8c7C" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="R82esRq27z2QVNZXQGsmfx" Name="Auto Render" Kind="InputPin" IsHidden="true" />
+            <Pin Id="GkUm5CvxHDNLriRakh0xD0" Name="Input" Kind="InputPin" />
+            <Pin Id="Kdn0P0lpjvWLwe45VYQibj" Name="Output Path" Kind="InputPin" />
+            <Pin Id="VzAm4zzX0BaLlPivREW0BC" Name="Format" Kind="InputPin" />
+            <Pin Id="Fixba06h0imLKKGyhekt6v" Name="Quality" Kind="InputPin" />
+            <Pin Id="R2HcrHFh6d4P2HXgl0kGF6" Name="Renderer" Kind="OutputPin" IsHidden="true" />
+            <Pin Id="EQB3HtR5yGmPL8BcTGmLcS" Name="Success" Kind="OutputPin" />
+            <Pin Id="EpzTsFLHZvvLv5VLLdRDIi" Name="Enabled" Kind="InputPin" />
+            <Pin Id="MAqSURUCkCuOAyhaZTL7GX" Name="Compression Time" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="202,230,125,19" Id="J86UsTiz1uhONm886F2Z3R">
+            <p:NodeReference LastCategoryFullName="Stride.Textures.Source" LastDependency="VL.Stride.TextureFX.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessNode" Name="Liquish" />
+            </p:NodeReference>
+            <Pin Id="Atb441UrbjcNm7L9TjlpOV" Name="Time" Kind="InputPin" />
+            <Pin Id="IuW2ouC22HTNL9EokOhwkE" Name="Scale" Kind="InputPin" />
+            <Pin Id="NORcfX1rSlqLKbkCjrDDFE" Name="Color A" Kind="InputPin" />
+            <Pin Id="DrwbUh2ACKSM7vqaRqSzjr" Name="Color B" Kind="InputPin" />
+            <Pin Id="R1vBbH4wkBgMHhQlh0ZzPk" Name="Color C" Kind="InputPin" />
+            <Pin Id="LKT8McDColPMsQODKnS9FE" Name="Output Size" Kind="InputPin" />
+            <Pin Id="GJ9RwcA6yFTMWD1R5YdyO6" Name="Output Format" Kind="InputPin" IsHidden="true" />
+            <Pin Id="DZuqeObqPxLL0chQSugq5K" Name="Render Format" Kind="InputPin" IsHidden="true" />
+            <Pin Id="CL6aGqeEBRkLwFfY7qt113" Name="Output Texture" Kind="InputPin" IsHidden="true" />
+            <Pin Id="SjoKWvNO4BpNz8PVmuoMUv" Name="Enabled" Kind="InputPin" />
+            <Pin Id="UtUx2IdPBMKNIc5fmt3JdJ" Name="Output" Kind="OutputPin" />
+          </Node>
+          <Pad Id="PHTYV31h1wsPJdTEkr6kPn" Comment="Success" Bounds="197,609,35,35" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="R6N4NitiOqoLG4MSuJv0oH" Comment="Output Path" Bounds="220,471,140,15" ShowValueBox="true" isIOBox="true" Value="compressed.dds">
+            <p:TypeAnnotation LastCategoryFullName="IO" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="Path" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Pad Id="QzINOhQDKmqMxn04sR3UQ1" Comment="Enabled" Bounds="448,449,35,35" ShowValueBox="true" isIOBox="true" Value="false">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="ImmutableTypeFlag" Name="Boolean" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Bang</p:buttonmode>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Pad Id="UNYDbATtX9lLWJ1RG6DwSs" Comment="Compression Time" Bounds="319,609,35,15" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="VnaVJwEsaRkNqvVAWAqozK" Comment="Quality" Bounds="262,498,72,15" ShowValueBox="true" isIOBox="true" Value="Normal">
+            <p:TypeAnnotation LastCategoryFullName="VL.Nvidia.CUDA" LastDependency="VL.Nvidia.CUDA.vl">
+              <Choice Kind="TypeFlag" Name="GpuCompressionQuality" />
+            </p:TypeAnnotation>
+          </Pad>
+          <Node Bounds="568,545,105,19" Id="LFvjOkDgEGRN84iwOrZGSA">
+            <p:NodeReference LastCategoryFullName="Stride.Assets" LastDependency="VL.Stride.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="FileTexture" />
+            </p:NodeReference>
+            <Pin Id="LRpkhqeIzHwLEnmbC2pqOV" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="LNqlH6lzi1uO5sDXpBhXat" Name="Path" Kind="InputPin" DefaultValue="compressed.dds" />
+            <Pin Id="DXiONQ1RaT5OYslCSBKum3" Name="Generate Mipmaps" Kind="InputPin" DefaultValue="False" />
+            <Pin Id="MVHU18mbx6rLRuQSiE0fqz" Name="Is sRGB" Kind="InputPin" IsHidden="true" />
+            <Pin Id="JMsats08IZAMdtDJUBPZiH" Name="Premultiply Alpha" Kind="InputPin" />
+            <Pin Id="QHZH49fS8t5L9Vz1bzJoJI" Name="Compress" Kind="InputPin" />
+            <Pin Id="NLAkID2kKiKLzGr1UJOhNE" Name="Alpha Format" Kind="InputPin" />
+            <Pin Id="AckwIo58MSNOyFQNSW9TXs" Name="Reload" Kind="InputPin" />
+            <Pin Id="RzkH62HfVZrNl37W7hrZAe" Name="Texture" Kind="OutputPin" />
+            <Pin Id="NQL3eULaOoGMtvKF1iW3Y4" Name="Is Loading" Kind="OutputPin" />
+            <Pin Id="QfruI70qwMSOSArF4kFp8I" Name="Already Loaded" Kind="OutputPin" />
+          </Node>
+          <Pad Id="AvxMXfzLUFKLH4UsGOGTCx" Comment="Texture" Bounds="569,636,203,167" ShowValueBox="true" isIOBox="true" />
+          <Pad Id="MSZSf7I1CdJQOepFFYyaHM" Comment="Reload" Bounds="678,509,35,35" ShowValueBox="true" isIOBox="true" Value="false">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="ImmutableTypeFlag" Name="Boolean" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:buttonmode p:Assembly="VL.UI.Forms" p:Type="VL.HDE.PatchEditor.Editors.ButtonModeEnum">Bang</p:buttonmode>
+            </p:ValueBoxSettings>
+          </Pad>
+          <Node Bounds="203,165,63,19" Id="RwBVJguX0XAMNonRCuklFg">
+            <p:NodeReference LastCategoryFullName="Animation" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <FullNameCategoryReference ID="Animation" />
+              <Choice Kind="ProcessAppFlag" Name="Stopwatch" />
+            </p:NodeReference>
+            <Pin Id="GocwSR9ltGWOEr4ss39ITv" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="Pj6HJjR1kcjNyPPu2t6ThE" Name="Clock" Kind="InputPin" IsHidden="true" />
+            <Pin Id="NicW4l6QBwjMTetDXstjWp" Name="Time" Kind="InputPin" IsHidden="true" />
+            <Pin Id="IICq2Wq1jALM6u7FmqEXJg" Name="New Clock" Kind="InputPin" IsHidden="true" />
+            <Pin Id="BI5PLpuyFb6LqBiUYyG3h1" Name="New Time" Kind="InputPin" IsHidden="true" />
+            <Pin Id="IVCz8zSAL1FOpMzQOgO6Q2" Name="Enabled" Kind="InputPin" DefaultValue="True" />
+            <Pin Id="V3tRWsBJv23MlEZa40RuQj" Name="Reset" Kind="InputPin" />
+            <Pin Id="Qnwd8NG7cvTL0YlfPnyUM9" Name="Time" Kind="OutputPin" />
+          </Node>
+          <Node Bounds="650,403,75,19" Id="FJQ7qBVoCZ6QbUpnION1ll">
+            <p:NodeReference LastCategoryFullName="Stride.Textures" LastDependency="VL.Stride.vl">
+              <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
+              <Choice Kind="ProcessAppFlag" Name="CopyTexture" />
+            </p:NodeReference>
+            <Pin Id="O5pgkLBLivFLncrygfSR2X" Name="Node Context" Kind="InputPin" IsHidden="true" />
+            <Pin Id="NVqipQozEtmPeNAclFhesB" Name="Input" Kind="InputPin" />
+            <Pin Id="VUqyhmO3dI2L30us2hD73C" Name="Copy Content On Clone" Kind="InputPin" IsHidden="true" />
+            <Pin Id="EfOigHfFfQBMayv4ns0iQR" Name="Format" Kind="InputPin" />
+            <Pin Id="V2G6XCgR8N9LQUPnobENXI" Name="Flags" Kind="InputPin" IsHidden="true" />
+            <Pin Id="UfHvcUPSenCPaUEOaZE0BX" Name="Dispose Cached Texture" Kind="InputPin" IsHidden="true" />
+            <Pin Id="KsJsb4mgtzdMr6vptuwYbE" Name="To Shared Texture" Kind="InputPin" />
+            <Pin Id="VOG7U10ZvFCNUcbJaerCk6" Name="Renderer" Kind="OutputPin" IsHidden="true" />
+            <Pin Id="ElCEk96WGUPNLeiaFV2lBp" Name="Output" Kind="OutputPin" />
+            <Pin Id="NEStpdh40AMPB3rRdIPbQz" Name="Auto Render" Kind="InputPin" IsHidden="true" />
+          </Node>
+          <Pad Id="LzSjzsMsuvQQRQskryfPtP" Bounds="290,384,372,19" ShowValueBox="true" isIOBox="true" Value="needed for now, as render targets cant be registered for cuda">
+            <p:TypeAnnotation LastCategoryFullName="Primitive" LastDependency="VL.CoreLib.vl">
+              <Choice Kind="TypeFlag" Name="String" />
+            </p:TypeAnnotation>
+            <p:ValueBoxSettings>
+              <p:fontsize p:Type="Int32">9</p:fontsize>
+              <p:stringtype p:Assembly="VL.Core" p:Type="VL.Core.StringType">Comment</p:stringtype>
+            </p:ValueBoxSettings>
+          </Pad>
+        </Canvas>
+        <Patch Id="UMwf2G0neW4QW2nFgcH6Br" Name="Create" />
+        <Patch Id="ShMr5o4YxY7MA8g4qcvHpB" Name="Update" />
+        <ProcessDefinition Id="VcxR8ATmMXCMwRqseT7mW7">
+          <Fragment Id="VU0vlHGYXrCNJqY10cQfNW" Patch="UMwf2G0neW4QW2nFgcH6Br" Enabled="true" />
+          <Fragment Id="PipIybySdhkPUBjQqDEClL" Patch="ShMr5o4YxY7MA8g4qcvHpB" Enabled="true" />
+        </ProcessDefinition>
+        <Link Id="RAfftz67WsZLMzW8wrwcGx" Ids="PTmETqGA3nWMe9aukPw5AB,U12kC1pdIK3PK4Dtsl2d2s" />
+        <Link Id="BspUtTOYYYVN2OtAHqGTsX" Ids="UtUx2IdPBMKNIc5fmt3JdJ,K35Te2HyyJ2MSzNUyGjQRh" />
+        <Link Id="PSwca2lDtKtLYOjHshmbEf" Ids="EQB3HtR5yGmPL8BcTGmLcS,PHTYV31h1wsPJdTEkr6kPn" />
+        <Link Id="AY5C9G5ouwlLpFy9TXt8tu" Ids="R6N4NitiOqoLG4MSuJv0oH,Kdn0P0lpjvWLwe45VYQibj" />
+        <Link Id="JytqSUtvezXLu01yz9mO16" Ids="QzINOhQDKmqMxn04sR3UQ1,EpzTsFLHZvvLv5VLLdRDIi" />
+        <Link Id="H9L9DWusq0BQMB9Y8h6emk" Ids="MAqSURUCkCuOAyhaZTL7GX,UNYDbATtX9lLWJ1RG6DwSs" />
+        <Link Id="OJMLQ70fO0VPCKtmUBF0t2" Ids="VnaVJwEsaRkNqvVAWAqozK,Fixba06h0imLKKGyhekt6v" />
+        <Link Id="TRGUk1xailxLFNcQdo7DdV" Ids="RzkH62HfVZrNl37W7hrZAe,AvxMXfzLUFKLH4UsGOGTCx" />
+        <Link Id="OuHLXrrPjjmOYaoER58bZv" Ids="MSZSf7I1CdJQOepFFYyaHM,AckwIo58MSNOyFQNSW9TXs" />
+        <Link Id="My34HXULOaANFBhMdCeQN5" Ids="Qnwd8NG7cvTL0YlfPnyUM9,Atb441UrbjcNm7L9TjlpOV" />
+        <Link Id="AncQ6LIZqkXQLupj77Qcgx" Ids="R6N4NitiOqoLG4MSuJv0oH,LNqlH6lzi1uO5sDXpBhXat" />
+        <Link Id="PehS9D0KQRULbXaSkcYOva" Ids="CxYSITxE0YfN5ek5OdI4zf,GkUm5CvxHDNLriRakh0xD0" />
+      </Patch>
+    </Node>
+  </Patch>
+  <NugetDependency Id="N75RzqhZcfRQGQkHHlvcoA" Location="VL.Stride" Version="2024.6.7" />
+  <NugetDependency Id="CpcMhBwI9OPNeefbOXahHC" Location="VL.Skia" Version="2024.6.7" />
+  <NugetDependency Id="LEVCCqlVFiKL6FvxfChldG" Location="VL.Nvidia.CUDA" Version="0.0.0" />
+  <NugetDependency Id="No3BZWmbUFzNx6MdUqtisw" Location="VL.Stride.TextureFX" Version="2024.6.7" />
+</Document>

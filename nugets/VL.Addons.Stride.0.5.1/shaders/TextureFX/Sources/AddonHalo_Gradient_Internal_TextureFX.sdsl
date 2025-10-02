@@ -1,0 +1,72 @@
+// source:
+// https://github.com/mrvux/dx11-vvvv-girlpower/blob/master/nodes/texture11/Source/Halo.tfx
+
+[TextureSource]
+[Category("Source")]
+[Summary("Returns a halo texture derived from a 1d texture")]
+shader AddonHalo_Gradient_Internal_TextureFX : TextureFX, Spectral
+{
+    [Default(0.0f)]
+	compose ComputeFloat InnerRadius;
+
+    [Default(0.5f)]
+	compose ComputeFloat OuterRadius;
+
+    [Default(0.0f, 0.0f, 0.0f, 0.0f)]
+    compose ComputeColor BackgroundColor;
+
+    [Default(1.0f, 1.0f, 1.0f, 1.0f)]
+    compose ComputeColor HaloColor;
+
+    [Default(0.5f)]
+	compose ComputeFloat Gamma;
+
+    [Default(0.5f)]
+	compose ComputeFloat GradientY;
+
+
+    [EnumType("VL.Stride.Effects.TextureFX.GradientType, TextureFX")]
+    int GradientType;
+    
+    stage Texture2D GradientTexture;
+
+
+
+    float4 Textured(float f, float g)
+    {
+        f = GradientTexture.SampleLevel(LinearSampler, float2(f.x, GradientY.Compute()), 0).x;
+        f = sign(f) * pow(abs(f), g);
+        
+        float4 c;
+
+        switch(GradientType)
+        {
+            case 0 : c = lerp(HaloColor.Compute(), BackgroundColor.Compute(), f); break;
+            case 1 : c = spectral_lerp(HaloColor.Compute(), BackgroundColor.Compute(), f); break;
+        }
+        
+        return c;
+    }
+
+    stage override float4 Shading()
+    {
+        float2 uv = streams.TexCoord;
+
+        float4 col = 0;
+        float2 targetSize = ViewSize;
+        float aspect = targetSize.x / targetSize.y;
+        uv = (uv-0.5) * float2(aspect, 1) + 0.5;
+
+        float innerRadius = InnerRadius.Compute();
+        float outerRadius = OuterRadius.Compute();
+        float gamma = Gamma.Compute();
+
+        float thickness = outerRadius - innerRadius;
+        float halo = clamp(distance(float2(0, 0), uv-0.5)-innerRadius, 0, thickness);
+        float f = halo/thickness;
+     
+        float g = gamma/(1.00001-gamma);
+
+        return Textured(f, g);
+    }
+};

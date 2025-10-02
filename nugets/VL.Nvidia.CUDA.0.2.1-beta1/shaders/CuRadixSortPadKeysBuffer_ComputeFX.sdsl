@@ -1,0 +1,45 @@
+// copy the original data into a new buffer which is the size of the next power of two.
+// populate the spare values with the padding value 
+shader CuRadixSortPadKeysBuffer_ComputeFX : ComputeShaderBase
+{
+    uint _NextPowerOfTwo;
+    uint _Count;
+    uint _PaddingValue;
+    bool _IsFloat;
+    bool _HasNegativeValues;
+
+    StructuredBuffer<uint> _ExternalKeys;
+    RWStructuredBuffer<uint> _Values;
+
+    uint IntBitsToSortable(uint x)
+    {
+        return x ^ 0x80000000;
+    }
+
+    uint FloatBitsToSortable(uint bits)
+    {
+        return (bits & 0x80000000) ? ~bits : (bits ^ 0x80000000);
+    }
+    
+    override void Compute()
+    {
+        uint i = streams.DispatchThreadId.x;
+        
+        if (i >= _NextPowerOfTwo)
+            return;
+
+        uint value = _ExternalKeys[i];
+
+        if (_IsFloat)
+        {
+            value = FloatBitsToSortable(value);
+        }
+        else if (_HasNegativeValues)
+        {
+            value = IntBitsToSortable(value);
+        }
+
+        _Values[i] = i >= _Count ? _PaddingValue : value;
+
+    }
+};
