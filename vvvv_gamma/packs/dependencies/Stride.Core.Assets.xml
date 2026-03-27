@@ -82,11 +82,11 @@
             </summary>
             <remarks>There are 3 types of dependencies:
             <ul>
-            <li><c>in</c> dependencies: through the <see cref="P:Stride.Core.Assets.Analysis.AssetDependencies.LinksIn"/> property, contains assets                                 
+            <li><c>in</c> dependencies: through the <see cref="P:Stride.Core.Assets.Analysis.AssetDependencies.LinksIn"/> property, contains assets
             that are referencing this asset.</li>
-            <li><c>out</c> dependencies: through the <see cref="P:Stride.Core.Assets.Analysis.AssetDependencies.LinksOut"/> property, contains assets 
+            <li><c>out</c> dependencies: through the <see cref="P:Stride.Core.Assets.Analysis.AssetDependencies.LinksOut"/> property, contains assets
             that are referenced by this asset.</li>
-            <li><c>broken</c> dependencies: through the <see cref="P:Stride.Core.Assets.Analysis.AssetDependencies.BrokenLinksOut"/> property, 
+            <li><c>broken</c> dependencies: through the <see cref="P:Stride.Core.Assets.Analysis.AssetDependencies.BrokenLinksOut"/> property,
             contains output links to assets that are missing.</li>
             </ul>
             </remarks>
@@ -122,7 +122,7 @@
             <summary>
             Gets a value indicating whether this instance has missing references.
             </summary>
-            <value><c>true</c> if this instance has missing references; otherwise, 
+            <value><c>true</c> if this instance has missing references; otherwise,
             <c>false</c>.</value>
         </member>
         <member name="P:Stride.Core.Assets.Analysis.AssetDependencies.MissingDependencyCount">
@@ -2025,7 +2025,6 @@
             <summary>
             Serializer for <see cref="T:Stride.Core.Assets.AssetReference"/>.
             </summary>
-            <typeparam name="T"></typeparam>
         </member>
         <member name="M:Stride.Core.Assets.AssetReferenceDataSerializer.Serialize(Stride.Core.Assets.AssetReference@,Stride.Core.Serialization.ArchiveMode,Stride.Core.Serialization.SerializationStream)">
             <inheritdoc/>
@@ -2113,6 +2112,26 @@
             </summary>
             <returns>An array of <see cref="T:System.Type"/> elements.</returns>
         </member>
+        <member name="M:Stride.Core.Assets.AssetRegistry.CanPropertyHandleAssets(System.Type,System.Collections.Generic.HashSet{System.Type}@)">
+            <summary>
+            Whether a property of this type can be set to asset content, outputs the assets it can hold if true
+            </summary>
+            <remarks>
+            The difference between this one and <see cref="M:Stride.Core.Assets.AssetRegistry.CanPropertyHandleContent(System.Type,System.Collections.Generic.IReadOnlyList{System.Type}@)"/> is that this one returns the asset types,
+            meaning the types that would be compiled into 'content' to be used at runtime.
+            This means that the types contained in <see cref="F:Stride.Core.Assets.AssetRegistry.AssetTypes"/> are not directly assignable to <paramref name="propertyType"/>
+            </remarks>
+        </member>
+        <member name="M:Stride.Core.Assets.AssetRegistry.CanPropertyHandleContent(System.Type,System.Collections.Generic.IReadOnlyList{System.Type}@)">
+            <summary>
+            Whether a property of this type can be set to content, outputs the content types it can hold if true
+            </summary>
+            <remarks>
+            The difference between this one and <see cref="M:Stride.Core.Assets.AssetRegistry.CanPropertyHandleAssets(System.Type,System.Collections.Generic.HashSet{System.Type}@)"/> is that this one returns the content types,
+            meaning the concrete types that are types that would be compiled into 'content' to be used at runtime.
+            The types contained in <see cref="!:contentTypes"/> are not guaranteed to be assignable to <paramref name="propertyType"/>
+            </remarks>
+        </member>
         <member name="M:Stride.Core.Assets.AssetRegistry.FindImporterForFile(System.String)">
             <summary>
             Finds the importer associated with an asset by the file of the file to import.
@@ -2133,6 +2152,23 @@
             </summary>
             <param name="importer">The importer.</param>
             <exception cref="T:System.ArgumentNullException">importer</exception>
+        </member>
+        <member name="M:Stride.Core.Assets.AssetRegistry.CanBeAssignedToContentTypes(System.Type,System.Boolean)">
+            <summary>
+            Can a property of this type hold content
+            </summary>
+            <remarks>
+            You may want to use <see cref="M:Stride.Core.Assets.AssetRegistry.IsExactContentType(System.Type)"/> instead if you're checking if this type is a concrete content type
+            </remarks>
+        </member>
+        <member name="M:Stride.Core.Assets.AssetRegistry.IsExactContentType(System.Type)">
+            <summary>
+            Is this type a concrete content type, or derives from a concrete content type
+            </summary>
+            <remarks>
+            You may want to use <see cref="M:Stride.Core.Assets.AssetRegistry.CanBeAssignedToContentTypes(System.Type,System.Boolean)"/> instead if you're checking
+            whether a property of this type could hold at least one type of content
+            </remarks>
         </member>
         <member name="M:Stride.Core.Assets.AssetRegistry.IsAssetType(System.Type,System.Boolean)">
             <summary>
@@ -2350,7 +2386,7 @@
         </member>
         <member name="T:Stride.Core.Assets.Compiler.AssetCompiledArgs">
             <summary>
-            The class represents the argument of the <see cref="F:Stride.Core.Assets.Compiler.ItemListCompiler.AssetCompiled"/> event raised by the <see cref="T:Stride.Core.Assets.Compiler.ItemListCompiler"/> class.
+            The class represents the argument of the <see cref="E:Stride.Core.Assets.Compiler.ItemListCompiler.AssetCompiled"/> event raised by the <see cref="T:Stride.Core.Assets.Compiler.ItemListCompiler"/> class.
             </summary>
         </member>
         <member name="M:Stride.Core.Assets.Compiler.AssetCompiledArgs.#ctor(Stride.Core.Assets.AssetItem,Stride.Core.Assets.Compiler.AssetCompilerResult)">
@@ -2509,7 +2545,7 @@
             An asset compiler that will compile an asset with all its dependencies.
             </summary>
         </member>
-        <member name="F:Stride.Core.Assets.Compiler.AssetDependenciesCompiler.AssetCompiled">
+        <member name="E:Stride.Core.Assets.Compiler.AssetDependenciesCompiler.AssetCompiled">
             <summary>
             Raised when a single asset has been compiled.
             </summary>
@@ -2631,7 +2667,7 @@
             The result of a compilation has then to be executed by the build engine to effectively create the outputs items.
             </summary>
         </member>
-        <member name="F:Stride.Core.Assets.Compiler.ItemListCompiler.AssetCompiled">
+        <member name="E:Stride.Core.Assets.Compiler.ItemListCompiler.AssetCompiled">
             <summary>
             Raised when a single asset has been compiled.
             </summary>
@@ -2681,7 +2717,7 @@
             Creates the build steps necessary to produce the assets of a package.
             </summary>
         </member>
-        <member name="F:Stride.Core.Assets.Compiler.PackageCompiler.AssetCompiled">
+        <member name="E:Stride.Core.Assets.Compiler.PackageCompiler.AssetCompiled">
             <summary>
             Raised when a single asset has been compiled.
             </summary>
@@ -2769,8 +2805,6 @@
             <param name="package">The package.</param>
             <param name="assetReference">The asset reference.</param>
             <param name="type">The type.</param>
-            <param name="messageCode">The message code.</param>
-            <param name="arguments">The arguments.</param>
             <exception cref="T:System.ArgumentNullException">asset</exception>
         </member>
         <member name="P:Stride.Core.Assets.Diagnostics.AssetLogMessage.MessageCode">
@@ -3695,7 +3729,6 @@
             <summary>
             Second part of the package loading process, when references, assets and package analysis is done.
             </summary>
-            <param name="package">The package.</param>
             <param name="log">The log.</param>
             <param name="loadParametersArg">The load parameters argument.</param>
             <returns></returns>
@@ -3704,7 +3737,6 @@
             <summary>
             Load only assembly references
             </summary>
-            <param name="package">The package.</param>
             <param name="log">The log.</param>
             <param name="loadParametersArg">The load parameters argument.</param>
             <returns></returns>
@@ -3713,20 +3745,19 @@
             <summary>
             Load assets and perform package analysis.
             </summary>
-            <param name="package">The package.</param>
             <param name="log">The log.</param>
             <param name="loadParametersArg">The load parameters argument.</param>
             <returns></returns>
         </member>
-        <member name="M:Stride.Core.Assets.Package.LoadTemporaryAssets(Stride.Core.Diagnostics.ILogger,System.Collections.Generic.List{Stride.Core.Assets.PackageLoadingAssetFile},System.Nullable{System.Threading.CancellationToken},System.Boolean,System.Func{Stride.Core.Assets.PackageLoadingAssetFile,System.Boolean})">
+        <member name="M:Stride.Core.Assets.Package.LoadTemporaryAssets(Stride.Core.Diagnostics.ILogger,System.Collections.Generic.List{Stride.Core.Assets.PackageLoadingAssetFile},System.Boolean,System.Func{Stride.Core.Assets.PackageLoadingAssetFile,System.Boolean},System.Threading.CancellationToken)">
             <summary>
             Refreshes this package from the disk by loading or reloading all assets.
             </summary>
             <param name="log">The log.</param>
-            <param name="assetFiles">The asset files (loaded from <see cref="M:Stride.Core.Assets.Package.ListAssetFiles(Stride.Core.Diagnostics.ILogger,Stride.Core.Assets.Package,System.Boolean,System.Boolean,System.Nullable{System.Threading.CancellationToken})"/> if null).</param>
-            <param name="cancelToken">The cancel token.</param>
+            <param name="assetFiles">The asset files (loaded from <see cref="M:Stride.Core.Assets.Package.ListAssetFiles(Stride.Core.Assets.Package,System.Boolean,System.Boolean)"/> if null).</param>
             <param name="listAssetsInMsbuild">Specifies if we need to evaluate MSBuild files for assets.</param>
             <param name="filterFunc">A function that will filter assets loading</param>
+            <param name="cancellationToken">The cancellation token.</param>
             <returns>A logger that contains error messages while refreshing.</returns>
             <exception cref="T:System.InvalidOperationException">Package RootDirectory is null
             or
@@ -4149,7 +4180,7 @@
         </member>
         <member name="P:Stride.Core.Assets.PackageLoadParameters.AssetFiles">
             <summary>
-            Gets or sets the asset files to load, if you want to not rely on the default <see cref="M:Stride.Core.Assets.Package.ListAssetFiles(Stride.Core.Diagnostics.ILogger,Stride.Core.Assets.Package,System.Boolean,System.Boolean,System.Nullable{System.Threading.CancellationToken})"/>.
+            Gets or sets the asset files to load, if you want to not rely on the default <see cref="M:Stride.Core.Assets.Package.ListAssetFiles(Stride.Core.Assets.Package,System.Boolean,System.Boolean)"/>.
             </summary>
             <value>
             The load asset files.
@@ -6263,7 +6294,7 @@
             Adds an additional element to the path representing an access to an item of a collection or a value of a dictionary that does not use <see cref="T:Stride.Core.Reflection.ItemId"/>.
             </summary>
             <param name="index">The index of the item.</param>
-            <seealso cref="T:Stride.Core.Annotations.NonIdentifiableCollectionItemsAttribute"/>
+            <seealso cref="!:NonIdentifiableCollectionItemsAttribute"/>
             <seealso cref="T:Stride.Core.Reflection.ItemId"/>
         </member>
         <member name="M:Stride.Core.Assets.Yaml.YamlAssetPath.PushItemId(Stride.Core.Reflection.ItemId)">

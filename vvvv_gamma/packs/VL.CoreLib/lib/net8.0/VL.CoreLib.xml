@@ -7104,6 +7104,36 @@
             The error message that explains the reason for the exception. 
             </param>
         </member>
+        <member name="T:VL.Lib.ApplicationPath">
+            <summary>
+            Returns the path to the directory of the application, including a trailing directory separator.
+            </summary>
+            <remarks>
+            <para>
+            During development: Returns the path to the directory containing the main .vl document.
+            When exported: Returns the path to the directory containing the executable.
+            </para>
+            <para>
+            The returned path always ends with a directory separator character (\ on Windows, / on Unix-based systems),
+            allowing for direct string concatenation with file or folder names.
+            </para>
+            </remarks>
+        </member>
+        <member name="T:VL.Lib.PatchPath">
+            <summary>
+            Returns the path to the directory of the current patch, including a trailing directory separator.
+            </summary>
+            <remarks>
+            <para>
+            During development: Returns the path to the directory containing the .vl document where the calling patch is defined.
+            When exported: Returns the path to the directory containing the assembly where the calling patch is compiled.
+            </para>
+            <para>
+            The returned path always ends with a directory separator character (\ on Windows, / on Unix-based systems),
+            allowing for direct string concatenation with file or folder names.
+            </para>
+            </remarks>
+        </member>
         <member name="M:VL.Lib.BitmapNodes.Copy(System.Drawing.Bitmap,System.Boolean)">
             <summary>
             Copy the pixel data of a Bitmap into a new one. Uses the same code path as Convert and also copies the metadata PropertyItems.

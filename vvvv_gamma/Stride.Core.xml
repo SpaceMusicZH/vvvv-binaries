@@ -543,7 +543,7 @@
         <member name="P:Stride.Core.Collections.KeyedSortedList`2.System#Collections#ICollection#IsSynchronized">
             <inheritdoc/>
         </member>
-        <member name="P:Stride.Core.Collections.KeyedSortedList`2.System#Collections#Generic#ICollection{T}#IsReadOnly">
+        <member name="P:Stride.Core.Collections.KeyedSortedList`2.IsReadOnly">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.Collections.KeyedSortedList`2.System#Collections#Generic#IEnumerable{T}#GetEnumerator">
@@ -2623,7 +2623,7 @@
         </member>
         <member name="M:Stride.Core.Diagnostics.LoggerResult.ToText">
             <summary>
-            Returns a string representation of this 
+            Returns a string representation of this
             </summary>
             <returns>System.String.</returns>
         </member>
@@ -3017,7 +3017,6 @@
             being profiled. See remarks.
             </summary>
             <param name="profilingKey">The profile key.</param>
-            <param name="text">The text to log with the profile.</param>
             <returns>A profiler state.</returns>
             <remarks>It is recommended to call this method with <c>using (Profiler.Begin(...)) {...}</c> or <c>using var _ = Profiler.Begin(...);</c> 
             in order to make sure that the Dispose() method will be called on the <see cref="T:Stride.Core.Diagnostics.ProfilingState" /> returned object.</remarks>
@@ -3110,7 +3109,7 @@
             <param name="profilingType">Type of the profiling.</param>
             <param name="timeStamp"></param>
             <param name="elapsedTime">The elapsed time.</param>
-            <param name="Message">The message.</param>
+            <param name="message">The message.</param>
             <param name="attributes">The attributes.</param>
         </member>
         <member name="T:Stride.Core.Diagnostics.ProfilingEventMessage">
@@ -3207,7 +3206,6 @@
             <param name="profileId">The profile unique identifier.</param>
             <param name="profilingKey">The profile key.</param>
             <param name="profilingType">Type of the profile.</param>
-            <param name="text">The text.</param>
         </member>
         <member name="P:Stride.Core.Diagnostics.ProfilingMessage.Id">
             <summary>
@@ -3973,6 +3971,7 @@
             <summary>
             Gets the service object of the specified type.
             </summary>
+            <remarks>The generic type provided must match the generic type of your initial call to <see cref="M:Stride.Core.IServiceRegistry.AddService``1(``0)"/></remarks>
             <typeparam name="T">The type of the service to retrieve.</typeparam>
             <returns>A service of the requested type, or [null] if not found.</returns>
         </member>
@@ -3980,7 +3979,22 @@
             <summary>
             Removes the object providing a specified service.
             </summary>
+            <remarks>The generic type provided must match the generic type of your initial call to <see cref="M:Stride.Core.IServiceRegistry.AddService``1(``0)"/></remarks>
             <typeparam name="T">The type of the service to remove.</typeparam>
+        </member>
+        <member name="M:Stride.Core.IServiceRegistry.RemoveService``1(``0)">
+            <summary>
+            Removes the following object from services if it was registered as one.
+            </summary>
+            <remarks>The generic type provided must match the generic type of your initial call to <see cref="M:Stride.Core.IServiceRegistry.AddService``1(``0)"/></remarks>
+            <returns>True if the argument was a service, false otherwise</returns>
+            <typeparam name="T">The type of the service to remove.</typeparam>
+        </member>
+        <member name="M:Stride.Core.IServiceRegistry.GetOrCreate``1">
+            <summary>
+            Gets the service object of the specified type, create one if it didn't exist before.
+            </summary>
+            <typeparam name="T">The type of the service to retrieve.</typeparam>
         </member>
         <member name="T:Stride.Core.NamespaceDoc">
             <summary>
@@ -4629,14 +4643,14 @@
             Finds all registered assemblies.
             </summary>
             <returns>A set of all assembly registered.</returns>
-            <exception cref="T:System.ArgumentNullException">categories</exception>
+            <exception cref="T:System.ArgumentNullException">categories</exception>7
         </member>
         <member name="M:Stride.Core.Reflection.AssemblyRegistry.GetTypeFromAlias(System.String)">
             <summary>
             Gets a type from its <see cref="P:Stride.Core.DataContractAttribute.Alias"/> or <see cref="P:Stride.Core.DataAliasAttribute.Name"/>.
             </summary>
             <param name="alias"></param>
-            <returns></returns>
+            <returns></returns>7
         </member>
         <member name="M:Stride.Core.Reflection.AssemblyRegistry.GetType(System.String,System.Boolean)">
             <summary>
@@ -5398,12 +5412,6 @@
             <param name="stream">The stream to serialize to.</param>
             <param name="obj">The object to serialize.</param>
             <param name="mode">The serialization mode.</param>
-        </member>
-        <member name="M:Stride.Core.Serialization.SerializerExtensions.Serialize(Stride.Core.Serialization.SerializationStream,System.IntPtr,System.Int32)">
-            <summary>Serializes or deserializes the memory using <see cref="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})"/>.</summary>
-        </member>
-        <member name="M:Stride.Core.Serialization.SerializerExtensions.Serialize(Stride.Core.Serialization.SerializationStream,System.Void*,System.Int32)">
-            <summary>Serializes or deserializes the memory using <see cref="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})"/>.</summary>
         </member>
         <member name="M:Stride.Core.Serialization.SerializerExtensions.Serialize``1(Stride.Core.Serialization.SerializationStream,``0@)">
             <summary>Serializes or deserializes the value using <see cref="M:Stride.Core.Serialization.SerializationStream.Serialize(System.Span{System.Byte})"/>.</summary>
@@ -6224,6 +6232,12 @@
             If the service type is not found, this method does nothing.
             </remarks>
         </member>
+        <member name="M:Stride.Core.ServiceRegistry.RemoveService``1(``0)">
+            <inheritdoc />
+        </member>
+        <member name="M:Stride.Core.ServiceRegistry.GetOrCreate``1">
+            <inheritdoc />
+        </member>
         <member name="M:Stride.Core.ServiceRegistryExtensions.GetSafeServiceAs``1(Stride.Core.IServiceRegistry)">
             <summary>
             Gets a service instance from a specified interface contract.
@@ -6981,6 +6995,25 @@
             <summary>
             Utility class.
             </summary>
+        </member>
+        <member name="M:Stride.Core.Utilities.CopyWithAlignmentFallback(System.Byte@,System.Byte@,System.UInt32)">
+            <inheritdoc cref="M:Stride.Core.Utilities.AlignmentFallbackDoc"/>
+            <inheritdoc cref="M:System.Runtime.CompilerServices.Unsafe.CopyBlock(System.Byte@,System.Byte@,System.UInt32)"/>
+        </member>
+        <member name="M:Stride.Core.Utilities.CopyWithAlignmentFallback(System.Void*,System.Void*,System.UInt32)">
+            <inheritdoc cref="M:Stride.Core.Utilities.AlignmentFallbackDoc"/>
+            <inheritdoc cref="M:System.Runtime.CompilerServices.Unsafe.CopyBlock(System.Byte@,System.Byte@,System.UInt32)"/>
+        </member>
+        <member name="M:Stride.Core.Utilities.Clear(System.Void*,System.UInt32)">
+            <summary>
+            Zero out memory at the address provided
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Utilities.AlignmentFallbackDoc">
+            <remarks>
+            Some of the architecture dotnet runs on do not support arbitrary unaligned reads or writes,
+            use this instead of other memcopy if you aren't sure whether the pointers you passed in are aligned.
+            </remarks>
         </member>
         <member name="M:Stride.Core.Utilities.AllocateMemory(System.Int32,System.Int32)">
             <summary>

@@ -175,6 +175,26 @@
             </summary>
             <returns>The default of the given type.</returns>
         </member>
+        <member name="M:VL.Core.AppHost.LoadPlugin(System.String)">
+            <summary>
+            Loads a plugin from the specified directory. The specified directory should contain the plugin dll of the same name. For example myPlugin/myPlugin.dll
+            </summary>
+            <param name="path">The directory of the plugin to load.</param>
+            <returns>A <see cref="T:VL.Core.PluginInfo"/> object containing information about the loaded plugin.</returns>
+        </member>
+        <member name="E:VL.Core.AppHost.PluginLoaded">
+            <summary>
+            Occurs when a plugin is successfully loaded.
+            </summary>
+            <remarks>This event is triggered after a plugin has been loaded into the application. 
+            Subscribers can use this event to perform actions such as initializing plugin-specific settings or updating
+            the user interface to reflect the newly available plugin functionality.</remarks>
+        </member>
+        <member name="M:VL.Core.AppHost.OnPluginLoaded(VL.Core.PluginInfo)">
+            <summary>
+            Called when a plugin got loaded. Raises the <see cref="E:VL.Core.AppHost.PluginLoaded"/> event.
+            </summary>
+        </member>
         <member name="P:VL.Core.IHotSwappableEntryPoint.OnSwap">
             <summary>
             Fires before a frame gets executed.
@@ -549,9 +569,9 @@
         <member name="T:VL.Core.EditorAttributes.CanBePublishedAttribute">
             <summary>
             Used by the Publish node to turn properties into public channels.
-            The Publish node interprets the absence of the attribute means that the property is published.
-            Use the attribute to mark properties that should not be published.
-            Might later on also be used by an auto-publish system, which might interpret the absence of the attribute as "don't publish".
+            VLObjects are published by default
+            For .Net classes and structs, the default is not to publish anything. unless marked with [CanBePublished(true)].
+            Properties are published unless marked with [CanBePublished(false)].
             </summary>
         </member>
         <member name="T:VL.Core.EditorAttributes.CustomMetaDataAttribute">

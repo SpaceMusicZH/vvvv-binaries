@@ -452,6 +452,14 @@
             Reads its packages from a directory.
             </summary>
         </member>
+        <member name="P:VL.Lang.Packages.PackageCompiler.OutputDirectory">
+            <summary>
+            The base directory of the package-cache. Defaults to vvvv.exe folder.
+            </summary>
+            <remarks>
+            When we pre-compile packages during build we set this directory manually to the build output folder.
+            </remarks>
+        </member>
         <member name="P:VL.Lang.Packages.PackageInfo.DependencyResolver">
             <summary>
             A resolver using a package specific *.deps.json file, for example FOO/lib/net8.0/FOO.deps.json
@@ -1462,13 +1470,6 @@
             - the type definition of this build item
             </summary>
         </member>
-        <member name="M:VL.Lang.Symbols.PreCompilation.GetUserReferencedDefinitions(VL.Lang.Symbols.IDefinitionSymbol)">
-            <summary>
-            The referenced definitions as given by user provided type annotations and node references. 
-            References to process definitions will be replaced with references to the surrounding type of the process as there's no real
-            distinction between process and type for the user.
-            </summary>
-        </member>
         <member name="P:VL.Lang.Symbols.PreCompilation.SourceDocuments">
             <summary>
             Does not include pre-compiled documents.
@@ -2014,13 +2015,11 @@
         <member name="T:VL.Lang.Symbols.Layer">
             <summary>
             A layer holds all the symbol sources plus additional information how that source was found.
-            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
             </summary>
         </member>
         <member name="M:VL.Lang.Symbols.Layer.#ctor(System.Collections.Immutable.ImmutableArray{VL.Lang.Symbols.LayerEntry},System.String,System.Boolean)">
             <summary>
             A layer holds all the symbol sources plus additional information how that source was found.
-            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
             </summary>
         </member>
         <member name="M:VL.Lang.Symbols.Layer.GetSymbols``1(System.String,System.Boolean,System.Func{System.String,System.Boolean})">
@@ -2043,7 +2042,6 @@
             Scopes are used to provide a unified view over what symbols are visible in a certain context.
             A scope is organized in layers.
             A layer holds all the symbol sources plus additional information how that source was found.
-            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
             The layers usually are: patch -> documents -> assemblies -> transitive documents -> transitive assemblies
             Those layers get queried by a resolver in the given order.
             </summary>
@@ -2055,7 +2053,6 @@
             Scopes are used to provide a unified view over what symbols are visible in a certain context.
             A scope is organized in layers.
             A layer holds all the symbol sources plus additional information how that source was found.
-            Layers are opaque. That means a symbol can be ambiguous inside a layer but not across layers.
             The layers usually are: patch -> documents -> assemblies -> transitive documents -> transitive assemblies
             Those layers get queried by a resolver in the given order.
             </summary>
@@ -2674,15 +2671,202 @@
             Removes duplicate application patches from documents.
             </summary>
         </member>
-        <member name="F:VL.Model.Internal.Diff.Path">
+        <member name="T:VL.Model.Internal.DiffType">
             <summary>
-            Top id points to the modified leave.
+            Represents the type of difference found between elements.
             </summary>
         </member>
-        <member name="M:VL.Model.Internal.DiffExtensions.Apply``1(``0,System.Collections.Immutable.ImmutableArray{VL.Model.Internal.Diff},System.Boolean)">
+        <member name="F:VL.Model.Internal.DiffType.Modified">
+            <summary>Element properties were modified</summary>
+        </member>
+        <member name="F:VL.Model.Internal.DiffType.Replaced">
+            <summary>Element was replaced with a different type</summary>
+        </member>
+        <member name="F:VL.Model.Internal.DiffType.ChildrenChanged">
+            <summary>Children changed (added, removed, or reordered)</summary>
+        </member>
+        <member name="F:VL.Model.Internal.DiffType.Added">
+            <summary>Element was added (informational - ChildrenChanged contains the actual change)</summary>
+        </member>
+        <member name="F:VL.Model.Internal.DiffType.Removed">
+            <summary>Element was removed (informational - ChildrenChanged contains the actual change)</summary>
+        </member>
+        <member name="T:VL.Model.Internal.IgnoreInEqualityComparisonAttribute">
             <summary>
-            Applies the diffs (if possible) on the compound. Note that not all properties are implemented yet.
-            See <see cref="M:VL.Model.Internal.Element.ApplyInternal(VL.Model.Internal.Diff,System.Boolean)"/> method.
+            Attribute to mark properties and fields that should be ignored during deep equality comparison.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.ElementDeepEqualityComparer">
+            <summary>
+            Provides deep equality comparison for Element instances using reflection with delegate caching.
+            Uses <see cref="T:VL.Model.Internal.ElementFieldMetadataProvider"/> to ensure consistent field discovery with <see cref="T:VL.Model.Internal.ElementDiffApplicator"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDeepEqualityComparer.CreateGenericComparer(System.String,System.Type[])">
+            <summary>
+            Creates a strongly-typed comparer using MakeGenericMethod and compiles it via expression trees for performance.
+            The resulting delegate casts once and calls the strongly-typed method.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDeepEqualityComparer.CompareEnumerablesGeneric``1(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Compares two IEnumerable&lt;T&gt; instances for equality using strongly-typed comparison.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDeepEqualityComparer.CompareElementArraysGeneric``1(System.Collections.Immutable.ImmutableArray{``0},System.Collections.Immutable.ImmutableArray{``0})">
+            <summary>
+            Compares two ImmutableArray&lt;T&gt; where T is Element, using deep recursive comparison.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDeepEqualityComparer.Diff(VL.Model.Internal.Element,VL.Model.Internal.Element,System.Boolean)">
+            <summary>
+            Performs a diff between two Element trees and returns all differences.
+            </summary>
+            <param name="oldElement">The original element</param>
+            <param name="newElement">The new element</param>
+            <param name="reportAddedRemoved">If true, generates informational Added/Removed diffs in addition to ChildrenChanged</param>
+            <returns>A list of all differences</returns>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDeepEqualityComparer.DiffInternal(VL.Model.Internal.Element,VL.Model.Internal.Element,System.Collections.Immutable.ImmutableStack{VL.Model.Internal.Element},System.Collections.Generic.List{VL.Model.Internal.ElementDiff},System.Boolean)">
+            <summary>
+            Internal recursive method to compare two elements and generate diffs.
+            </summary>
+            <param name="oldElement">The original element</param>
+            <param name="newElement">The new element</param>
+            <param name="path">The path from root to this element</param>
+            <param name="differences">The list to accumulate differences</param>
+            <param name="reportAddedRemoved">Whether to report Added/Removed diffs</param>
+            <remarks>
+            Invariant: oldElement and newElement must have different references (not ReferenceEquals).
+            This is ensured by the caller checking ReferenceEquals before calling this method.
+            </remarks>
+        </member>
+        <member name="T:VL.Model.Internal.ElementDiff">
+            <summary>
+            Represents a single difference found during a deep comparison.
+            </summary>
+        </member>
+        <member name="P:VL.Model.Internal.ElementDiff.Type">
+            <summary>The type of difference</summary>
+        </member>
+        <member name="P:VL.Model.Internal.ElementDiff.Path">
+            <summary>The path from root to the parent of the changed element</summary>
+        </member>
+        <member name="P:VL.Model.Internal.ElementDiff.OldElement">
+            <summary>The old version of the element (null if added)</summary>
+        </member>
+        <member name="P:VL.Model.Internal.ElementDiff.NewElement">
+            <summary>The new version of the element (null if removed)</summary>
+        </member>
+        <member name="P:VL.Model.Internal.ElementDiff.ChangedProperties">
+            <summary>List of property names that changed (only for Modified type)</summary>
+        </member>
+        <member name="P:VL.Model.Internal.ElementDiff.SerializedId">
+            <summary>Gets the serialized ID of the element</summary>
+        </member>
+        <member name="T:VL.Model.Internal.ElementDiffApplicator">
+            <summary>
+            Applies ElementDiff changes to Element instances using reflection with delegate caching.
+            Uses <see cref="T:VL.Model.Internal.ElementFieldMetadataProvider"/> to ensure consistent field discovery with <see cref="T:VL.Model.Internal.ElementDeepEqualityComparer"/>.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDiffApplicator.ApplyDiffs(VL.Model.Internal.Element,System.Collections.Generic.IEnumerable{VL.Model.Internal.ElementDiff})">
+            <summary>
+            Applies multiple diffs to an element tree.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDiffApplicator.GetPathDebugString(System.Collections.Generic.IEnumerable{VL.Model.Internal.Element})">
+            <summary>
+            Helper for debugging: gets a readable path string showing element types
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.ElementDiffUtils">
+            <summary>
+            Extension methods for Element diffing and patching operations.
+            Provides a fluent API for comparing and applying changes to Element trees.
+            </summary>
+            <example>
+            Basic usage:
+            <code>
+            // Generate diff
+            var diffs = oldElement.Diff(newElement);
+            
+            // Apply diffs
+            var result = baseElement.ApplyDiffs(diffs);
+            
+            // Check equality
+            bool equal = element1.DeepEquals(element2);
+            </code>
+            </example>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDiffUtils.Diff(VL.Model.Internal.Element,VL.Model.Internal.Element,System.Boolean)">
+            <summary>
+            Performs a diff between two Element trees and returns all differences.
+            </summary>
+            <param name="oldElement">The original element tree</param>
+            <param name="newElement">The modified element tree</param>
+            <param name="reportAddedRemoved">If true, generates informational Added/Removed diffs in addition to ChildrenReordered</param>
+            <returns>A list of all differences found</returns>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDiffUtils.ApplyDiffs``1(``0,System.Collections.Generic.IEnumerable{VL.Model.Internal.ElementDiff})">
+            <summary>
+            Applies multiple diffs to this element tree, returning a new modified element tree.
+            </summary>
+            <param name="baseElement">The element tree to apply the diffs to</param>
+            <param name="diffs">The diffs to apply</param>
+            <returns>A new element tree with all diffs applied</returns>
+        </member>
+        <member name="M:VL.Model.Internal.ElementDiffUtils.DeepEquals(VL.Model.Internal.Element,VL.Model.Internal.Element)">
+            <summary>
+            Checks if two elements are deeply equal (compares all fields recursively).
+            </summary>
+            <param name="element">The first element</param>
+            <param name="other">The second element</param>
+            <returns>True if the elements are deeply equal</returns>
+        </member>
+        <member name="T:VL.Model.Internal.ElementFieldMetadata">
+            <summary>
+            Metadata about a field in an Element type.
+            </summary>
+        </member>
+        <member name="T:VL.Model.Internal.ElementFieldMetadataProvider">
+            <summary>
+            Provides cached metadata about fields in Element types, ensuring consistent field discovery
+            between diff creation and diff application.
+            
+            <para>
+            This class serves as the single source of truth for which fields should be included in
+            equality comparisons and diff operations. It is used by:
+            </para>
+            <list type="bullet">
+            <item><see cref="T:VL.Model.Internal.ElementDeepEqualityComparer"/> - for comparing elements and generating diffs</item>
+            <item><see cref="T:VL.Model.Internal.ElementDiffApplicator"/> - for applying diffs to elements</item>
+            </list>
+            <para>
+            By using a shared provider, we guarantee that both operations work on the same set of fields,
+            eliminating potential bugs where a field might be included in one operation but not the other.
+            </para>
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementFieldMetadataProvider.GetFields(System.Type)">
+            <summary>
+            Gets cached field metadata for the specified type.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementFieldMetadataProvider.BuildWithMethodsMap(System.Type)">
+            <summary>
+            Builds a mapping from property names to available With methods on the type.
+            When multiple overloads exist, they are all stored for later selection based on field type.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementFieldMetadataProvider.BuildWithMethodInvoker(System.Type,System.Reflection.MethodInfo)">
+            <summary>
+            Builds a compiled invoker for a specific With method that matches the field type.
+            </summary>
+        </member>
+        <member name="M:VL.Model.Internal.ElementFieldMetadataProvider.ShouldSkipField(System.Reflection.FieldInfo,System.Type)">
+            <summary>
+            Determines if a field should be skipped during equality comparison and diff operations.
             </summary>
         </member>
         <member name="T:VL.Model.Internal.Element">

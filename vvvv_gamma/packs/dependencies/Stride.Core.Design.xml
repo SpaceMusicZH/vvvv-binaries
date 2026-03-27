@@ -83,6 +83,84 @@
             enumerated.
             </summary>
         </member>
+        <member name="M:Stride.Core.CodeEditorSupport.IDEInfo.#ctor(System.String,System.String,Stride.Core.CodeEditorSupport.IDEType,System.Version)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.CodeEditorSupport.IDEInfo"/> class.
+            </summary>
+            <param name="displayName">The display name of the IDE instance</param>
+            <param name="programPath">The path to the installation root of the IDE instance.</param>
+            <param name="ideType">The type of IDE instance</param>
+            <param name="installationVersion">The version of the IDE instance.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.IDEType">
+            <summary> 
+            Gets the type of the IDE. 
+            </summary>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.DisplayName">
+            <summary> 
+            Gets the display name (title) of the product installed in this instance. 
+            </summary>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.InstallationVersion">
+            <summary>Gets the version of the product installed in this instance.</summary>
+            <value>The version of the product installed in this instance.</value>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.ProgramPath">
+            <summary>
+            The path to the executable of this IDE, or <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.VsixInstallerPath">
+            <summary>
+            The path to the VSIX installer of this IDE, or <c>null</c>.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.PackageVersions">
+            <summary>
+            The package names and versions of packages installed to this instance.
+            </summary>
+            <value></value>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.HasProgram">
+            <summary>
+            <c>true</c> if this IDE has a development environment; otherwise, <c>false</c>.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.IDEInfo.HasVsixInstaller">
+            <summary>
+            <c>true</c> if this IDE has a VSIX installer; otherwise, <c>false</c>.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.CodeEditorSupport.IDEInfo.ToString">
+            <inheritdoc />
+        </member>
+        <member name="T:Stride.Core.CodeEditorSupport.IDEType">
+            <summary>
+            Represents the type of <see cref="T:Stride.Core.CodeEditorSupport.IDEInfo"/> class.
+            </summary>
+        </member>
+        <member name="F:Stride.Core.CodeEditorSupport.IDEType.VisualStudio">
+            <summary>
+            Represents the Visual Studio IDE
+            </summary>
+        </member>
+        <member name="F:Stride.Core.CodeEditorSupport.IDEType.Rider">
+            <summary>
+            Represents the JetBrains Rider IDE
+            </summary>
+        </member>
+        <member name="F:Stride.Core.CodeEditorSupport.IDEType.VSCode">
+            <summary>
+            Represents the Visual Studio Code editor, or it's fork - VS Codium
+            </summary>
+        </member>
+        <member name="P:Stride.Core.CodeEditorSupport.VisualStudio.VisualStudioVersions.AvailableInstances">
+            <summary>
+            Only lists VS2019+ (previous versions are not supported due to lack of buildTransitive targets).
+            </summary>
+        </member>
         <member name="T:Stride.Core.Extensions.AnonymousEqualityComparer`1">
             <summary>
             This class allows implementation of <see cref="T:System.Collections.Generic.IEqualityComparer`1"/> using anonymous functions.
@@ -317,17 +395,6 @@
             </summary>
             <param name="typeDescriptor">The type descriptor.</param>
             <returns>The type of inner values of an <see cref="T:Stride.Core.Reflection.ITypeDescriptor"/>.</returns>
-        </member>
-        <member name="T:Stride.Core.IAsyncDisposable">
-            <summary>
-            An interface allowing to dispose an object asynchronously.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.IAsyncDisposable.DisposeAsync">
-            <summary>
-            Disposes the given instance asynchronously.
-            </summary>
-            <returns>A task that completes when this instance has been disposed.</returns>
         </member>
         <member name="T:Stride.Core.IDestroyable">
             <summary>
@@ -609,9 +676,9 @@
         </member>
         <member name="M:Stride.Core.IO.UPath.ToOSPath">
              <summary>
-             Converts this path to a OS path, 
+             Converts this path to a OS path,
              by replacing each separator with the current operating system
-             <see cref="F:System.IO.Path.DirectorySeparatorChar"/> 
+             <see cref="F:System.IO.Path.DirectorySeparatorChar"/>
              </summary>
             <returns>A normalized string path</returns>
         </member>
@@ -882,6 +949,19 @@
             <param name="namePattern">The pattern used to generate the new name, when the base name is unavailable. This pattern must contains the token '{0}' that will be replaced by the base name, and the token '{1}' that will be replaced by the smallest numerical value that can generate an available name, starting from 2. If null, <see cref="F:Stride.Core.NamingHelper.DefaultNamePattern"/> will be used instead.</param>
             <returns><see cref="!:baseName"/> if the "contains predicate" returns false. Otherwise, a string formatted with <see cref="!:namePattern"/>, using <see cref="!:baseName"/> as token '{0}' and the smallest numerical value that can generate an available name, starting from 2</returns>
         </member>
+        <member name="M:Stride.Core.NamingHelper.GetMatchIdentifierRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^[a-zA-Z_][a-zA-Z0-9_]*$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ Match a character in the set [A-Z_a-z].<br/>
+            ○ Match a character in the set [0-9A-Z_a-z] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
         <member name="T:Stride.Core.ObjectCache`2">
             <summary>
             A thread-safe cache of indexed objects that will keep the most recently accessed instance around in a fixed size buffer.
@@ -1023,6 +1103,64 @@
         <member name="M:Stride.Core.PackageVersion.GetHashCode">
             <inheritdoc/>
         </member>
+        <member name="M:Stride.Core.PackageVersion.GetSemanticVersionRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;Version&gt;\\d+(\\s*\\.\\s*\\d+){0,3})(?&lt;Release&gt;-[0-9a-z]*[\\.0-9a-z-]*)?(?&lt;BuildMetadata&gt;\\+[0-9a-z]*[\\.0-9a-z-]*)?$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "Version" capture group.<br/>
+                ○ Match a Unicode digit greedily at least once.<br/>
+                ○ Loop greedily at most 3 times.<br/>
+                    ○ Match a whitespace character atomically any number of times.<br/>
+                    ○ Match '.'.<br/>
+                    ○ Match a whitespace character atomically any number of times.<br/>
+                    ○ Match a Unicode digit greedily at least once.<br/>
+            ○ Optional (greedy).<br/>
+                ○ "Release" capture group.<br/>
+                    ○ Match '-'.<br/>
+                    ○ Match a character in the set [0-9A-Za-z\u212A] greedily any number of times.<br/>
+                    ○ Match a character in the set [-.0-9A-Za-z\u212A] greedily any number of times.<br/>
+            ○ Optional (greedy).<br/>
+                ○ "BuildMetadata" capture group.<br/>
+                    ○ Match '+'.<br/>
+                    ○ Match a character in the set [0-9A-Za-z\u212A] greedily any number of times.<br/>
+                    ○ Match a character in the set [-.0-9A-Za-z\u212A] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Stride.Core.PackageVersion.GetStrictSemanticVersionRegex">
+            <remarks>
+            Pattern:<br/>
+            <code>^(?&lt;Version&gt;\\d+(\\.\\d+){2})(?&lt;Release&gt;-[0-9a-z]*[\\.0-9a-z-]*)?(?&lt;BuildMetadata&gt;\\+[0-9a-z]*[\\.0-9a-z-]*)?$</code><br/>
+            Options:<br/>
+            <code>RegexOptions.IgnoreCase | RegexOptions.ExplicitCapture</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ "Version" capture group.<br/>
+                ○ Match a Unicode digit atomically at least once.<br/>
+                ○ Loop exactly 2 times.<br/>
+                    ○ Match '.'.<br/>
+                    ○ Match a Unicode digit greedily at least once.<br/>
+            ○ Optional (greedy).<br/>
+                ○ "Release" capture group.<br/>
+                    ○ Match '-'.<br/>
+                    ○ Match a character in the set [0-9A-Za-z\u212A] greedily any number of times.<br/>
+                    ○ Match a character in the set [-.0-9A-Za-z\u212A] greedily any number of times.<br/>
+            ○ Optional (greedy).<br/>
+                ○ "BuildMetadata" capture group.<br/>
+                    ○ Match '+'.<br/>
+                    ○ Match a character in the set [0-9A-Za-z\u212A] greedily any number of times.<br/>
+                    ○ Match a character in the set [-.0-9A-Za-z\u212A] atomically any number of times.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
         <member name="P:Stride.Core.PackageVersion.PackageVersionDataSerializer.IsBlittable">
             <inheritdoc/>
         </member>
@@ -1133,6 +1271,9 @@
             <inheritdoc/>
         </member>
         <member name="M:Stride.Core.PackageVersionRange.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Stride.Core.PackageVersionRange.GetHashCode">
             <inheritdoc/>
         </member>
         <member name="F:Stride.Core.Reflection.AssemblyContainer.Default">
@@ -2044,13 +2185,12 @@
             <param name="instance">The object to serialize.</param>
             <param name="type">The type.</param>
         </member>
-        <member name="M:Stride.Core.Settings.SettingsYamlSerializer.Serialize(System.IO.Stream,System.Object,System.Boolean)">
+        <member name="M:Stride.Core.Settings.SettingsYamlSerializer.Serialize(System.IO.Stream,System.Object)">
             <summary>
             Serializes an object to specified stream in YAML format.
             </summary>
             <param name="stream">The stream to receive the YAML representation of the object.</param>
             <param name="instance">The instance.</param>
-            <param name="generateIds"><c>true</c> to generate ~Id for class objects</param>
         </member>
         <member name="M:Stride.Core.Settings.SettingsYamlSerializer.CreateSelector">
             <inheritdoc />
@@ -2063,6 +2203,378 @@
             <param name="field">The field to update.</param>
             <param name="value">The value to set.</param>
             <param name="action">The action to invoke if the field has changed.</param>
+        </member>
+        <member name="M:Stride.Core.Solutions.KeyedCollectionExtensions.AddRange``2(System.Collections.ObjectModel.KeyedCollection{``0,``1},System.Collections.Generic.IEnumerable{``1})">
+            <summary>
+            Adds the specified enumeration of values to this collection.
+            </summary>
+            <typeparam name="TKey">The type of the key.</typeparam>
+            <typeparam name="TValue">The type of the value.</typeparam>
+            <param name="collection">The collection to add the value to.</param>
+            <param name="items">The items to add to the collection.</param>
+        </member>
+        <member name="T:Stride.Core.Solutions.Project">
+            <summary>
+            A project referenced by a VisualStudio solution.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.#ctor(System.Guid,System.Guid,System.String,System.String,System.Guid,System.Collections.Generic.IEnumerable{Stride.Core.Solutions.Section},System.Collections.Generic.IEnumerable{Stride.Core.Solutions.PropertyItem},System.Collections.Generic.IEnumerable{Stride.Core.Solutions.PropertyItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.Project"/> class.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <param name="typeGuid">The type unique identifier.</param>
+            <param name="name">The name.</param>
+            <param name="fullPath">The relative path.</param>
+            <param name="parentGuid">The parent unique identifier.</param>
+            <param name="projectSections">The project sections.</param>
+            <param name="versionControlLines">The version control lines.</param>
+            <param name="projectConfigurationPlatformsLines">The project configuration platforms lines.</param>
+            <exception cref="T:System.ArgumentNullException">
+            solution
+            or
+            guid
+            or
+            typeGuid
+            or
+            name
+            </exception>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.GetAllDescendants(Stride.Core.Solutions.Solution)">
+            <summary>
+            Gets all descendants <see cref="T:Stride.Core.Solutions.Project"/>
+            </summary>
+            <value>All descendants.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.IsSolutionFolder">
+            <summary>
+            Gets a value indicating whether this instance is solution folder.
+            </summary>
+            <value><c>true</c> if this instance is solution folder; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.GetChildren(Stride.Core.Solutions.Solution)">
+            <summary>
+            Gets all direct child <see cref="T:Stride.Core.Solutions.Project"/>
+            </summary>
+            <value>The children.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.GetDependencies(Stride.Core.Solutions.Solution)">
+            <summary>
+            Gets all project dependencies.
+            </summary>
+            <value>The dependencies.</value>
+            <exception cref="T:Stride.Core.Solutions.SolutionFileException">
+            </exception>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.FullPath">
+            <summary>
+            Gets the full path.
+            </summary>
+            <value>The full path.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.GetParentProject(Stride.Core.Solutions.Solution)">
+            <summary>
+            Gets the parent project.
+            </summary>
+            <value>The parent project.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.ParentGuid">
+            <summary>
+            Gets or sets the parent folder unique identifier.
+            </summary>
+            <value>The parent folder unique identifier.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.GetFullName(Stride.Core.Solutions.Solution)">
+            <summary>
+            Gets the full name of the project.
+            </summary>
+            <value>The full name of the project.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.Guid">
+            <summary>
+            Gets the project unique identifier.
+            </summary>
+            <value>The project unique identifier.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.Name">
+            <summary>
+            Gets or sets the name of the project.
+            </summary>
+            <value>The name of the project.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.PlatformProperties">
+            <summary>
+            Gets the project platform properties.
+            </summary>
+            <value>The project platform properties.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.Sections">
+            <summary>
+            Gets the project sections.
+            </summary>
+            <value>The project sections.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.TypeGuid">
+            <summary>
+            Gets or sets the type unique identifier.
+            </summary>
+            <value>The type unique identifier.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Project.GetRelativePath(Stride.Core.Solutions.Solution)">
+            <summary>
+            Gets or sets the relative path.
+            </summary>
+            <value>The relative path.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Project.VersionControlProperties">
+            <summary>
+            Gets the version control properties.
+            </summary>
+            <value>The version control properties.</value>
+        </member>
+        <member name="T:Stride.Core.Solutions.ProjectCollection">
+            <summary>
+            A collection of <see cref="T:Stride.Core.Solutions.Project"/>
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.ProjectCollection.#ctor(Stride.Core.Solutions.Solution)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.ProjectCollection"/> class.
+            </summary>
+            <param name="container">The container.</param>
+            <exception cref="T:System.ArgumentNullException">container</exception>
+        </member>
+        <member name="M:Stride.Core.Solutions.ProjectCollection.#ctor(Stride.Core.Solutions.Solution,System.Collections.Generic.IEnumerable{Stride.Core.Solutions.Project})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.ProjectCollection"/> class.
+            </summary>
+            <param name="container">The container.</param>
+            <param name="items">The items.</param>
+        </member>
+        <member name="P:Stride.Core.Solutions.ProjectCollection.Solution">
+            <summary>
+            Gets the solution this project is attached to.
+            </summary>
+            <value>The solution.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.ProjectCollection.FindByFullName(System.String)">
+            <summary>
+            Finds a project by its full name.
+            </summary>
+            <param name="projectFullName">Full name of the project.</param>
+            <returns>The Project or null if not found.</returns>
+        </member>
+        <member name="M:Stride.Core.Solutions.ProjectCollection.FindByGuid(System.Guid)">
+            <summary>
+            Finds a project by its unique identifier.
+            </summary>
+            <param name="guid">The unique identifier.</param>
+            <returns>The project or null if not found.</returns>
+        </member>
+        <member name="M:Stride.Core.Solutions.ProjectCollection.Sort">
+            <summary>
+            Sorts this instance.
+            </summary>
+        </member>
+        <member name="T:Stride.Core.Solutions.PropertyItem">
+            <summary>
+            A key/value pair used by <see cref="T:Stride.Core.Solutions.PropertyItemCollection" />
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.PropertyItem.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.PropertyItem"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+        </member>
+        <member name="P:Stride.Core.Solutions.PropertyItem.Name">
+            <summary>
+            Gets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.PropertyItem.Value">
+            <summary>
+            Gets or sets the value.
+            </summary>
+            <value>The value.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.PropertyItem.Clone">
+            <summary>
+            Clones this instance.
+            </summary>
+            <returns>PropertyItem.</returns>
+        </member>
+        <member name="T:Stride.Core.Solutions.PropertyItemCollection">
+            <summary>
+            A collection of <see cref="T:Stride.Core.Solutions.PropertyItem"/>
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.PropertyItemCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.PropertyItemCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.PropertyItemCollection.#ctor(System.Collections.Generic.IEnumerable{Stride.Core.Solutions.PropertyItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.PropertyItemCollection"/> class.
+            </summary>
+            <param name="items">The items to copy from.</param>
+        </member>
+        <member name="T:Stride.Core.Solutions.Section">
+            <summary>
+            A section defined in a <see cref="T:Stride.Core.Solutions.Project"/>
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.Section.#ctor(Stride.Core.Solutions.Section)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.Section"/> class.
+            </summary>
+            <param name="original">The original section to copy from.</param>
+        </member>
+        <member name="M:Stride.Core.Solutions.Section.#ctor(System.String,System.String,System.String,System.Collections.Generic.IEnumerable{Stride.Core.Solutions.PropertyItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.Section"/> class.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="sectionType">Type of the section.</param>
+            <param name="step">The step.</param>
+            <param name="properties">The property lines.</param>
+        </member>
+        <member name="P:Stride.Core.Solutions.Section.Name">
+            <summary>
+            Gets the name of the section.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Section.Properties">
+            <summary>
+            Gets the properties.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Section.SectionType">
+            <summary>
+            Gets or sets the type of the section.
+            </summary>
+            <value>The type of the section.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Section.Step">
+            <summary>
+            Gets or sets the step.
+            </summary>
+            <value>The step.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Section.Clone">
+            <summary>
+            Clones this instance.
+            </summary>
+            <returns>Section.</returns>
+        </member>
+        <member name="T:Stride.Core.Solutions.SectionCollection">
+            <summary>
+            A collection of <see cref="T:Stride.Core.Solutions.Section"/>
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.SectionCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.SectionCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.SectionCollection.#ctor(System.Collections.Generic.IEnumerable{Stride.Core.Solutions.Section})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.SectionCollection"/> class.
+            </summary>
+            <param name="items">The items.</param>
+        </member>
+        <member name="T:Stride.Core.Solutions.Solution">
+            <summary>
+            A VisualStudio solution.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.Solution"/> class.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Stride.Core.Solutions.Project},System.Collections.Generic.IEnumerable{Stride.Core.Solutions.Section},System.Collections.Generic.IEnumerable{Stride.Core.Solutions.PropertyItem})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Stride.Core.Solutions.Solution" /> class.
+            </summary>
+            <param name="fullpath">The fullpath.</param>
+            <param name="headers">The headers.</param>
+            <param name="projects">The projects.</param>
+            <param name="globalSections">The global sections.</param>
+            <param name="properties">The properties.</param>
+        </member>
+        <member name="P:Stride.Core.Solutions.Solution.FullPath">
+            <summary>
+            Gets or sets the full path. If it's a solution folder, it should just be the name of the folder.
+            </summary>
+            <value>The full path.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Solution.Children">
+            <summary>
+            Gets all projects that are not folders.
+            </summary>
+            <value>The children.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Solution.GlobalSections">
+            <summary>
+            Gets the global sections.
+            </summary>
+            <value>The global sections.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Solution.Headers">
+            <summary>
+            Gets the headers.
+            </summary>
+            <value>The headers.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Solution.Projects">
+            <summary>
+            Gets all projects.
+            </summary>
+            <value>The projects.</value>
+        </member>
+        <member name="P:Stride.Core.Solutions.Solution.Properties">
+            <summary>
+            Gets the properties.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.Clone">
+            <summary>
+            Clones this instance.
+            </summary>
+            <returns>Solution.</returns>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.Save">
+            <summary>
+            Saves this instance to the <see cref="P:Stride.Core.Solutions.Solution.FullPath"/> path.
+            </summary>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.SaveAs(System.String)">
+            <summary>
+            Saves this instance to the specified path.
+            </summary>
+            <param name="solutionPath">The solution path.</param>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.FromFile(System.String)">
+            <summary>
+            Loads the solution from the specified file.
+            </summary>
+            <param name="solutionFullPath">The solution full path.</param>
+            <returns>Solution.</returns>
+        </member>
+        <member name="M:Stride.Core.Solutions.Solution.FromStream(System.String,System.IO.Stream)">
+            <summary>
+            Loads the solution from the specified stream.
+            </summary>
+            <param name="solutionFullPath">The solution full path.</param>
+            <param name="stream">The stream.</param>
+            <returns>Solution.</returns>
         </member>
         <member name="T:Stride.Core.StringSpan">
             <summary>
@@ -3820,443 +4332,6 @@
             An <see cref="T:System.Object"/> representing the given <see cref="T:System.Collections.IDictionary"/>, or null if the object cannot be created. This method always returns null.
             </returns>
         </member>
-        <member name="M:Stride.Core.VisualStudio.KeyedCollectionExtensions.AddRange``2(System.Collections.ObjectModel.KeyedCollection{``0,``1},System.Collections.Generic.IEnumerable{``1})">
-            <summary>
-            Adds the specified enumeration of values to this collection.
-            </summary>
-            <typeparam name="TKey">The type of the key.</typeparam>
-            <typeparam name="TValue">The type of the value.</typeparam>
-            <param name="collection">The collection to add the value to.</param>
-            <param name="items">The items to add to the collection.</param>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.Project">
-            <summary>
-            A project referenced by a VisualStudio solution.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.#ctor(System.Guid,System.Guid,System.String,System.String,System.Guid,System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.Section},System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.PropertyItem},System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.PropertyItem})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.Project"/> class.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <param name="typeGuid">The type unique identifier.</param>
-            <param name="name">The name.</param>
-            <param name="fullPath">The relative path.</param>
-            <param name="parentGuid">The parent unique identifier.</param>
-            <param name="projectSections">The project sections.</param>
-            <param name="versionControlLines">The version control lines.</param>
-            <param name="projectConfigurationPlatformsLines">The project configuration platforms lines.</param>
-            <exception cref="T:System.ArgumentNullException">
-            solution
-            or
-            guid
-            or
-            typeGuid
-            or
-            name
-            </exception>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.GetAllDescendants(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Gets all descendants <see cref="T:Stride.Core.VisualStudio.Project"/>
-            </summary>
-            <value>All descendants.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.IsSolutionFolder">
-            <summary>
-            Gets a value indicating whether this instance is solution folder.
-            </summary>
-            <value><c>true</c> if this instance is solution folder; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.GetChildren(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Gets all direct child <see cref="T:Stride.Core.VisualStudio.Project"/>
-            </summary>
-            <value>The children.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.GetDependencies(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Gets all project dependencies.
-            </summary>
-            <value>The dependencies.</value>
-            <exception cref="T:Stride.Core.VisualStudio.SolutionFileException">
-            </exception>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.FullPath">
-            <summary>
-            Gets the full path.
-            </summary>
-            <value>The full path.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.GetParentProject(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Gets the parent project.
-            </summary>
-            <value>The parent project.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.ParentGuid">
-            <summary>
-            Gets or sets the parent folder unique identifier.
-            </summary>
-            <value>The parent folder unique identifier.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.GetFullName(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Gets the full name of the project.
-            </summary>
-            <value>The full name of the project.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.Guid">
-            <summary>
-            Gets the project unique identifier.
-            </summary>
-            <value>The project unique identifier.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.Name">
-            <summary>
-            Gets or sets the name of the project.
-            </summary>
-            <value>The name of the project.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.PlatformProperties">
-            <summary>
-            Gets the project platform properties.
-            </summary>
-            <value>The project platform properties.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.Sections">
-            <summary>
-            Gets the project sections.
-            </summary>
-            <value>The project sections.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.TypeGuid">
-            <summary>
-            Gets or sets the type unique identifier.
-            </summary>
-            <value>The type unique identifier.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Project.GetRelativePath(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Gets or sets the relative path.
-            </summary>
-            <value>The relative path.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Project.VersionControlProperties">
-            <summary>
-            Gets the version control properties.
-            </summary>
-            <value>The version control properties.</value>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.ProjectCollection">
-            <summary>
-            A collection of <see cref="T:Stride.Core.VisualStudio.Project"/>
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.ProjectCollection.#ctor(Stride.Core.VisualStudio.Solution)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.ProjectCollection"/> class.
-            </summary>
-            <param name="container">The container.</param>
-            <exception cref="T:System.ArgumentNullException">container</exception>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.ProjectCollection.#ctor(Stride.Core.VisualStudio.Solution,System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.Project})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.ProjectCollection"/> class.
-            </summary>
-            <param name="container">The container.</param>
-            <param name="items">The items.</param>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.ProjectCollection.Solution">
-            <summary>
-            Gets the solution this project is attached to.
-            </summary>
-            <value>The solution.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.ProjectCollection.FindByFullName(System.String)">
-            <summary>
-            Finds a project by its full name.
-            </summary>
-            <param name="projectFullName">Full name of the project.</param>
-            <returns>The Project or null if not found.</returns>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.ProjectCollection.FindByGuid(System.Guid)">
-            <summary>
-            Finds a project by its unique identifier.
-            </summary>
-            <param name="guid">The unique identifier.</param>
-            <returns>The project or null if not found.</returns>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.ProjectCollection.Sort">
-            <summary>
-            Sorts this instance.
-            </summary>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.PropertyItem">
-            <summary>
-            A key/value pair used by <see cref="T:Stride.Core.VisualStudio.PropertyItemCollection" />
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.PropertyItem.#ctor(System.String,System.String)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.PropertyItem"/> class.
-            </summary>
-            <param name="name">The name.</param>
-            <param name="value">The value.</param>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.PropertyItem.Name">
-            <summary>
-            Gets the name.
-            </summary>
-            <value>The name.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.PropertyItem.Value">
-            <summary>
-            Gets or sets the value.
-            </summary>
-            <value>The value.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.PropertyItem.Clone">
-            <summary>
-            Clones this instance.
-            </summary>
-            <returns>PropertyItem.</returns>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.PropertyItemCollection">
-            <summary>
-            A collection of <see cref="T:Stride.Core.VisualStudio.PropertyItem"/>
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.PropertyItemCollection.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.PropertyItemCollection"/> class.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.PropertyItemCollection.#ctor(System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.PropertyItem})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.PropertyItemCollection"/> class.
-            </summary>
-            <param name="items">The items to copy from.</param>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.Section">
-            <summary>
-            A section defined in a <see cref="T:Stride.Core.VisualStudio.Project"/>
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Section.#ctor(Stride.Core.VisualStudio.Section)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.Section"/> class.
-            </summary>
-            <param name="original">The original section to copy from.</param>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Section.#ctor(System.String,System.String,System.String,System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.PropertyItem})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.Section"/> class.
-            </summary>
-            <param name="name">The name.</param>
-            <param name="sectionType">Type of the section.</param>
-            <param name="step">The step.</param>
-            <param name="properties">The property lines.</param>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Section.Name">
-            <summary>
-            Gets the name of the section.
-            </summary>
-            <value>The name.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Section.Properties">
-            <summary>
-            Gets the properties.
-            </summary>
-            <value>The properties.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Section.SectionType">
-            <summary>
-            Gets or sets the type of the section.
-            </summary>
-            <value>The type of the section.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Section.Step">
-            <summary>
-            Gets or sets the step.
-            </summary>
-            <value>The step.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Section.Clone">
-            <summary>
-            Clones this instance.
-            </summary>
-            <returns>Section.</returns>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.SectionCollection">
-            <summary>
-            A collection of <see cref="T:Stride.Core.VisualStudio.Section"/>
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.SectionCollection.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.SectionCollection"/> class.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.SectionCollection.#ctor(System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.Section})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.SectionCollection"/> class.
-            </summary>
-            <param name="items">The items.</param>
-        </member>
-        <member name="T:Stride.Core.VisualStudio.Solution">
-            <summary>
-            A VisualStudio solution.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.Solution"/> class.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.#ctor(System.String,System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.Project},System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.Section},System.Collections.Generic.IEnumerable{Stride.Core.VisualStudio.PropertyItem})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.Solution" /> class.
-            </summary>
-            <param name="fullpath">The fullpath.</param>
-            <param name="headers">The headers.</param>
-            <param name="projects">The projects.</param>
-            <param name="globalSections">The global sections.</param>
-            <param name="properties">The properties.</param>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Solution.FullPath">
-            <summary>
-            Gets or sets the full path. If it's a solution folder, it should just be the name of the folder.
-            </summary>
-            <value>The full path.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Solution.Children">
-            <summary>
-            Gets all projects that are not folders.
-            </summary>
-            <value>The children.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Solution.GlobalSections">
-            <summary>
-            Gets the global sections.
-            </summary>
-            <value>The global sections.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Solution.Headers">
-            <summary>
-            Gets the headers.
-            </summary>
-            <value>The headers.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Solution.Projects">
-            <summary>
-            Gets all projects.
-            </summary>
-            <value>The projects.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.Solution.Properties">
-            <summary>
-            Gets the properties.
-            </summary>
-            <value>The properties.</value>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.Clone">
-            <summary>
-            Clones this instance.
-            </summary>
-            <returns>Solution.</returns>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.Save">
-            <summary>
-            Saves this instance to the <see cref="P:Stride.Core.VisualStudio.Solution.FullPath"/> path.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.SaveAs(System.String)">
-            <summary>
-            Saves this instance to the specified path.
-            </summary>
-            <param name="solutionPath">The solution path.</param>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.FromFile(System.String)">
-            <summary>
-            Loads the solution from the specified file.
-            </summary>
-            <param name="solutionFullPath">The solution full path.</param>
-            <returns>Solution.</returns>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.Solution.FromStream(System.String,System.IO.Stream)">
-            <summary>
-            Loads the solution from the specified stream.
-            </summary>
-            <param name="solutionFullPath">The solution full path.</param>
-            <param name="stream">The stream.</param>
-            <returns>Solution.</returns>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.IDEInfo.#ctor(System.Version,System.String,System.String,System.String,System.Boolean)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Stride.Core.VisualStudio.IDEInfo"/> class.
-            </summary>
-            <param name="installationVersion">The version of the VS instance.</param>
-            <param name="displayName">The display name of the VS instance</param>
-            <param name="installationPath">The path to the installation root of the VS instance.</param>
-            <param name="instanceId">The unique identifier for this installation instance.</param>
-            <param name="isComplete">Indicates whehter the VS instance is complete.</param>
-            <exception cref="T:System.ArgumentNullException"></exception>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.IsComplete">
-            <summary>Gets a value indicating whether the instance is complete.</summary>
-            <value>Whether the instance is complete.</value>
-            <remarks>An instance is complete if it had no errors during install, resume, or repair.</remarks>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.DisplayName">
-            <summary> 
-            Gets the display name (title) of the product installed in this instance. 
-            </summary>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.InstallationVersion">
-            <summary>Gets the version of the product installed in this instance.</summary>
-            <value>The version of the product installed in this instance.</value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.DevenvPath">
-            <summary>
-            The path to the development environment executable of this IDE, or <c>null</c>.
-            </summary>
-        </member>
-        <!-- Badly formed XML comment ignored for member "P:Stride.Core.VisualStudio.IDEInfo.InstallationPath" -->
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.InstanceId">
-            <summary>
-            The hex code for this installation instance. It is used, for example, to create a unique folder in %LocalAppData%
-            </summary>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.VsixInstallerPath">
-            <summary>
-            The path to the VSIX installer of this IDE, or <c>null</c>.
-            </summary>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.PackageVersions">
-            <summary>
-            The package names and versions of packages installed to this instance.
-            </summary>
-            <value></value>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.HasDevenv">
-            <summary>
-            <c>true</c> if this IDE has a development environment; otherwise, <c>false</c>.
-            </summary>
-        </member>
-        <member name="P:Stride.Core.VisualStudio.IDEInfo.HasVsixInstaller">
-            <summary>
-            <c>true</c> if this IDE has a VSIX installer; otherwise, <c>false</c>.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.VisualStudio.IDEInfo.ToString">
-            <inheritdoc />
-        </member>
-        <member name="P:Stride.Core.VisualStudio.VisualStudioVersions.AvailableVisualStudioInstances">
-            <summary>
-            Only lists VS2019+ (previous versions are not supported due to lack of buildTransitive targets).
-            </summary>
-        </member>
         <member name="T:Stride.Core.Windows.FileLock">
             <summary>
             A class representing an thread-safe, process-safe file lock.
@@ -4451,6 +4526,126 @@
             <summary>
             Assembly name suffix that contains signing information.
             </summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetMatchIdentifierRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetMatchIdentifierRegex_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetSemanticVersionRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetSemanticVersionRegex_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the GetStrictSemanticVersionRegex method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.GetStrictSemanticVersionRegex_2.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPop(System.Int32[],System.Int32@,System.Int32@,System.Int32@)">
+            <summary>Pops 2 values from the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32)">
+            <summary>Pushes 1 value onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32)">
+            <summary>Pushes 2 values onto the backtracking stack.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.StackPush(System.Int32[]@,System.Int32@,System.Int32,System.Int32,System.Int32)">
+            <summary>Pushes 3 values onto the backtracking stack.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_asciiWordChars">
+            <summary>Supports searching for characters in or not in "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz".</summary>
         </member>
     </members>
 </doc>

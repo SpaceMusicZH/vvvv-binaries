@@ -121,7 +121,6 @@
             <summary>
             Initializes a new instance of the <see cref="T:Stride.Core.IO.FileRenameEvent"/> class.
             </summary>
-            <param name="changeType">Type of the change.</param>
             <param name="name">The name.</param>
             <param name="fullPath">The full path.</param>
             <param name="oldFullPath">The old full path. (before rename) </param>
@@ -287,7 +286,7 @@
         </member>
         <member name="M:Stride.Core.IO.IVirtualFileProvider.GetLastWriteTime(System.String)">
             <summary>
-            Returns the date and time the specified file or directory was last written to. 
+            Returns the date and time the specified file or directory was last written to.
             </summary>
             <param name="url">The file or directory for which to obtain write date and time information.</param>
             <returns>A DateTime structure set to the date and time that the specified file or directory was last written to.</returns>
@@ -297,7 +296,7 @@
             The <see cref="N:Stride.Core.IO"/> namespace contains additional types for reading and writing to streams, and types that provide directory and path support.
             It also provides a <see cref="T:Stride.Core.IO.VirtualFileSystem"/> layer that abstracts file accesses and paths of local disks, network, databases, etc.
             <ul>
-            <li>The <see cref="!:UPath"/> class allows manipulation of paths and provides various operation such as absolute/relative path conversion, normalization, etc.</li>
+            <li>The <see cref="T:UPath"/> class allows manipulation of paths and provides various operation such as absolute/relative path conversion, normalization, etc.</li>
             </ul>
             </summary>
         </member>
@@ -650,6 +649,7 @@
             <param name="startPosition">The start position.</param>
             <param name="endPosition">The end position.</param>
             <param name="disposeInternalStream">if set to <c>true</c> this instance has ownership of the internal stream and will dispose it].</param>
+            <param name="seekToBeginning"></param>
             <exception cref="T:System.ArgumentOutOfRangeException">startPosition and endPosition doesn't fit inside current bounds</exception>
             <exception cref="T:System.NotSupportedException">Attempted to create a VirtualFileStream from a Stream which doesn't support seeking.</exception>
         </member>

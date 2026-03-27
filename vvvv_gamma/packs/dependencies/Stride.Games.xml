@@ -156,6 +156,9 @@
             </summary>
             <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
         </member>
+        <member name="P:Stride.Games.GameWindowWinforms.Opacity">
+            <inheritdoc />
+        </member>
         <member name="T:Stride.Games.Win32Native.NativeMessage">
             <summary>
             Internal class to interact with Native Message
@@ -1075,6 +1078,13 @@
             </summary>
             <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
         </member>
+        <member name="P:Stride.Games.GameWindow.Opacity">
+            <summary>
+            Gets or sets the opacity of the window.
+            </summary>
+            <value>1.0d is fully opaque, 0.0d is fully transparent. The value will automatically be clamped to [0.0d, 1.0d].</value>
+            <remarks>The default value, if the window is null, is considered fully opaque (1.0d).</remarks>
+        </member>
         <member name="P:Stride.Games.GameWindow.Position">
             <summary>
             Gets or sets the position of the window on the screen.
@@ -1168,6 +1178,13 @@
             Gets or sets the preferred back buffer format.
             </summary>
             <value>The preferred back buffer format.</value>
+        </member>
+        <member name="P:Stride.Games.GameWindowRenderer.PreferredOutputColorSpace">
+            <summary>
+            Gets or sets the preferred presenter output color space. Can be used to render to HDR monitors. Currently only supported by the DirectX backend.
+            See: https://learn.microsoft.com/en-us/windows/win32/direct3darticles/high-dynamic-range
+            </summary>
+            <value>The preferred presenter output color space.</value>
         </member>
         <member name="P:Stride.Games.GameWindowRenderer.PreferredBackBufferHeight">
             <summary>
@@ -1741,17 +1758,17 @@
         </member>
         <member name="E:Stride.Games.GameFormSDL.PauseRendering">
             <summary>
-            Occurs when [pause rendering].
+            Occurs when the application should stop rendering.
             </summary>
         </member>
         <member name="E:Stride.Games.GameFormSDL.ResumeRendering">
             <summary>
-            Occurs when [resume rendering].
+            Occurs when the application should resume rendering, if it is paused.
             </summary>
         </member>
-        <member name="E:Stride.Games.GameFormSDL.UserResized">
+        <member name="E:Stride.Games.GameFormSDL.SizeChanged">
             <summary>
-            Occurs when [user resized].
+            Occurs when the size of the window has changed.
             </summary>
         </member>
         <member name="E:Stride.Games.GameFormSDL.FullscreenToggle">
@@ -1769,6 +1786,9 @@
             Gets or sets a value indicating whether this <see cref="T:Stride.Games.GameWindow" /> is visible.
             </summary>
             <value><c>true</c> if visible; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Stride.Games.GameWindowSDL.Opacity">
+            <inheritdoc />
         </member>
         <member name="T:Stride.Games.SDLMessageLoop">
             <summary>

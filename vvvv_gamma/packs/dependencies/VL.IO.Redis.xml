@@ -39,7 +39,7 @@
         </member>
         <member name="T:VL.IO.Redis.BindingModel">
             <summary>
-            A description of a Redis binding. The <see cref="T:VL.IO.Redis.RedisClientManager"/> holds one of these per global channel.
+            A description of a Redis binding. The <see cref="!:RedisClientManager"/> holds one of these per global channel.
             </summary>
             <param name="Key">The Redis key.</param>
             <param name="Initialization">What to do on startup.</param>
@@ -51,7 +51,7 @@
         </member>
         <member name="M:VL.IO.Redis.BindingModel.#ctor(VL.Core.Optional{System.String},VL.Core.Optional{VL.IO.Redis.Initialization},VL.Core.Optional{VL.IO.Redis.BindingDirection},VL.Core.Optional{VL.IO.Redis.CollisionHandling},VL.Core.Optional{VL.IO.Redis.SerializationFormat},VL.Core.Optional{System.TimeSpan},VL.Core.Optional{StackExchange.Redis.When},System.Boolean)">
             <summary>
-            A description of a Redis binding. The <see cref="T:VL.IO.Redis.RedisClientManager"/> holds one of these per global channel.
+            A description of a Redis binding. The <see cref="!:RedisClientManager"/> holds one of these per global channel.
             </summary>
             <param name="Key">The Redis key.</param>
             <param name="Initialization">What to do on startup.</param>
@@ -125,7 +125,7 @@
             Represents a binding of a channel to a Redis key.
             </summary>
         </member>
-        <member name="T:VL.IO.Redis.Internal.IParticipant">
+        <member name="T:VL.IO.Redis.Internal.IRedisBinding">
             <summary>
             Allows to take part in a Redis transaction created each vvvv frame by the <see cref="T:VL.IO.Redis.RedisClient"/>.
             </summary>
@@ -150,7 +150,7 @@
             <param name="input"></param>
             <param name="serializationFormat"></param>
         </member>
-        <member name="T:VL.IO.Redis.RedisClientManager">
+        <member name="T:VL.IO.Redis.RedisConnectionManager">
             <summary>
             Sets up a connection to a database on a Redis server
             </summary>

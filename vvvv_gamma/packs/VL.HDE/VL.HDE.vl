@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Document xmlns:p="property" xmlns:r="reflection" Id="E09rriOsHG5LFQGoJXUicu" LanguageVersion="2025.7.0-0313-g126800a4dc" Version="0.128">
+<Document xmlns:p="property" xmlns:r="reflection" Id="E09rriOsHG5LFQGoJXUicu" LanguageVersion="2025.7.1-0161-g176d67638c" Version="0.128">
   <NugetDependency Id="M5KjIwXBlsjPW0u3Lyubp6" Location="VL.CoreLib" Version="2021.4.11-1091-gcb990e3a36" />
   <Patch Id="F7bnzPLW06JPZzJNwudf2b">
     <Canvas Id="Bir0z0GB6wqMBKzMwb1Y5m" DefaultCategory="HDE" CanvasType="FullCategory">
@@ -113,6 +113,7 @@
                 <CategoryReference Kind="AssemblyCategory" Name="SkiaRendererTopMost" NeedsToBeDirectParent="true" />
               </p:NodeReference>
               <Pin Id="SRkcU251268MlnYdRQprpj" Name="Output" Kind="StateOutputPin" />
+              <Pin Id="For9tVAQAK5Nrqb3fYd6dr" Name="Node Context" Kind="InputPin" />
             </Node>
             <Node Bounds="608,278,252,294" Id="CXzhZZsL33NLnikxyzivE9">
               <p:NodeReference LastCategoryFullName="Primitive" LastDependency="Builtin">
@@ -408,7 +409,8 @@
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
                 <Choice Kind="ProcessAppFlag" Name="Renderer" />
               </p:NodeReference>
-              <Pin Id="BalXcO1hunWP42bxx8FAWR" Name="Bounds" Kind="InputPin" DefaultValue="1604, 36, 820, 968">
+              <Pin Id="EYVC1dYnC3NPzJYwO6flwp" Name="Node Context" Kind="InputPin" IsHidden="true" />
+              <Pin Id="BalXcO1hunWP42bxx8FAWR" Name="Bounds" Kind="InputPin" DefaultValue="1904, 41, 550, 759">
                 <p:TypeAnnotation LastCategoryFullName="System.Windows" LastDependency="VL.CoreLib.Windows.vl">
                   <Choice Kind="TypeFlag" Name="Rectangle" />
                 </p:TypeAnnotation>
@@ -419,10 +421,12 @@
                   <Choice Kind="TypeFlag" Name="Boolean" />
                 </p:TypeAnnotation>
               </Pin>
-              <Pin Id="EYVC1dYnC3NPzJYwO6flwp" Name="Node Context" Kind="InputPin" IsHidden="true" />
               <Pin Id="Q0xAmsWAcrMOUrA6G9rskk" Name="Dialog If Document Changed" Kind="InputPin" IsHidden="true" />
+              <Pin Id="Jd8dZ2YsaDHLkRrUZg2X1J" Name="Always On Top" Kind="InputPin" IsHidden="true" />
+              <Pin Id="DcA2yV3i1A0QHkVDYl5mqe" Name="Extend Into Title Bar" Kind="InputPin" IsHidden="true" />
               <Pin Id="KGzMzupiZvGMrJndFyOll6" Name="Input" Kind="InputPin" />
               <Pin Id="Mr8PjwyOFZxLGidrp3hC5f" Name="Title" Kind="InputPin" />
+              <Pin Id="PIur214FVFDLrTkzEGAHB6" Name="Title Bar Interaction Width" Kind="InputPin" IsHidden="true" />
               <Pin Id="HmnTsTNF6rxLgS1xwWbd4j" Name="Color" Kind="InputPin" DefaultValue="0.1000002, 0.1000002, 0.1000002, 1">
                 <p:TypeAnnotation LastCategoryFullName="Color" LastDependency="VL.CoreLib.vl">
                   <Choice Kind="TypeFlag" Name="RGBA" />
@@ -2388,13 +2392,15 @@
               </p:ValueBoxSettings>
             </Pad>
             <Pad Id="RMwrSLt6dh5NU6jFnuzYsX" Comment="" Bounds="336,176,102,15" ShowValueBox="true" isIOBox="true" Value="Receive">
-              <p:TypeAnnotation LastCategoryFullName="Reactive.ChannelHub.Modules" LastDependency="VL.CoreLib.vl">
+              <p:TypeAnnotation LastCategoryFullName="Application.ChannelHub.Modules" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="TypeFlag" Name="BindingType" />
+                <FullNameCategoryReference ID="Application.ChannelHub.Modules" />
               </p:TypeAnnotation>
             </Pad>
             <Pad Id="SfkH2iYG37POhN7O19bCOF" Comment="" Bounds="374,626,102,15" ShowValueBox="true" isIOBox="true" Value="Send">
-              <p:TypeAnnotation LastCategoryFullName="Reactive.ChannelHub.Modules" LastDependency="VL.CoreLib.vl">
+              <p:TypeAnnotation LastCategoryFullName="Application.ChannelHub.Modules" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="TypeFlag" Name="BindingType" />
+                <FullNameCategoryReference ID="Application.ChannelHub.Modules" />
               </p:TypeAnnotation>
             </Pad>
             <Pad Id="BbikQp6rlrmQHoALvvrJj7" Comment="" Bounds="793,250,115,27" ShowValueBox="true" isIOBox="true" />
@@ -2402,10 +2408,10 @@
             <ControlPoint Id="UYFkz8KOAYHOWY4wwDgonY" Bounds="445,205" />
             <ControlPoint Id="I9mZriWejaGPIabAk9RXBW" Bounds="822,204" />
             <Node Bounds="803,296,43,19" Id="PqZq34bG0qPOPDZXz6OsTO">
-              <p:NodeReference LastCategoryFullName="Reactive.ChannelHub.Modules.BindingType" LastDependency="VL.CoreLib.vl">
+              <p:NodeReference LastCategoryFullName="Application.ChannelHub.Modules.BindingType" LastDependency="VL.CoreLib.vl">
                 <Choice Kind="NodeFlag" Name="Node" Fixed="true" />
-                <CategoryReference Kind="EnumType" Name="BindingType" NeedsToBeDirectParent="true" />
                 <Choice Kind="OperationCallFlag" Name="Sends" />
+                <FullNameCategoryReference ID="Application.ChannelHub.Modules.BindingType" />
               </p:NodeReference>
               <Pin Id="Q9ErqJqjfSCPFYyWNVD4wH" Name="Input" Kind="StateInputPin" />
               <Pin Id="C01GqRXTrinN4BrCfRHmL8" Name="Output" Kind="StateOutputPin" />

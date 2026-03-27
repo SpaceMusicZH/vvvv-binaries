@@ -541,6 +541,177 @@
             Use a gamma colorspace.
             </summary>
         </member>
+        <member name="T:Stride.Graphics.ColorSpaceType">
+            <summary>
+            Specifies color space types.
+            </summary>
+            <remarks>
+            This enum is used within DXGI in the CheckColorSpaceSupport, SetColorSpace1 and
+            CheckOverlayColorSpaceSupport methods. It is also referenced in D3D11 video methods
+            such as ID3D11VideoContext1::VideoProcessorSetOutputColorSpace1, and D2D methods
+            such as ID2D1DeviceContext2::CreateImageSourceFromDxgi. The following color parameters
+            are defined:
+            </remarks>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbFullG22NoneP709">
+            <summary>
+            ColorspaceRGB Range0-255 Gamma2.2 SitingImage PrimariesBT.709. Use with backbuffer of 8 bit colors, such as PixelFormat.B8G8R8A8_UNorm.
+            This is the standard definition for sRGB. Note that this is often implemented
+            with a linear segment, but in that case, the exponent is corrected to stay aligned
+            with a gamma 2.2 curve. This is usually used with 8-bit and 10-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbFullG10NoneP709">
+            <summary>
+            ColorspaceRGB Range0-255 Gamma1.0 SitingImage PrimariesBT.709. Use with backbuffer of 16 bit colors, PixelFormat.R16G16B16A16_Float.
+            This is the standard definition for scRGB, and is usually used with 16-bit integer,
+            16-bit floating point, and 32-bit floating point channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbStudioG22NoneP709">
+            <summary>
+            ColorspaceRGB Range16-235 Gamma2.2 SitingImage PrimariesBT.709.
+            This is the standard definition for ITU-R Recommendation BT.709. Note that
+            due to the inclusion of a linear segment, the transfer curve looks similar to
+            a pure exponential gamma of 1.9. This is usually used with 8-bit and 10-bit color
+            channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbStudioG22NoneP2020">
+            <summary>
+            ColorspaceRGB Range16-235 Gamma2.2 SitingImage PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.Reserved">
+            <summary>
+            Reserved.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrFullG22NoneP709X601">
+            <summary>
+            ColorspaceYCbCr Range0-255 Gamma2.2 SitingImage PrimariesBT.709 TransferBT.601.
+            This definition is commonly used for JPG, and is usually used with 8, 10, 12,
+            or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG22LeftP601">
+            <summary>
+            ColorspaceYCbCr Range16-235 Gamma2.2 SitingVideo PrimariesBT.601.
+            This definition is commonly used for MPEG2, and is usually used with 8, 10, 12,
+            or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrFullG22LeftP601">
+            <summary>
+            ColorspaceYCbCr Range0-255 Gamma2.2 SitingVideo PrimariesBT.601.
+            This is sometimes used for H.264 camera capture, and is usually used with 8, 10,
+            12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG22LeftP709">
+            <summary>
+            ColorspaceYCbCr Range16-235 Gamma2.2 SitingVideo PrimariesBT.709.
+            This definition is commonly used for H.264 and HEVC, and is usually used with
+            8, 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrFullG22LeftP709">
+            <summary>
+            ColorspaceYCbCr Range0-255 Gamma2.2 SitingVideo PrimariesBT.709.
+            This is sometimes used for H.264 camera capture, and is usually used with 8, 10,
+            12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG22LeftP2020">
+            <summary>
+            ColorspaceYCbCr Range16-235 Gamma2.2 SitingVideo PrimariesBT.2020.
+            This definition may be used by HEVC, and is usually used with 10, 12, or 16-bit
+            color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrFullG22LeftP2020">
+            <summary>
+            ColorspaceYCbCr Range0-255 Gamma2.2 SitingVideo PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbFullG2084NoneP2020">
+            <summary>
+            ColorspaceRGB Range0-255 Gamma2084 SitingImage PrimariesBT.2020. Use with backbuffer of 10 bit colors, PixelFormat.R10G10B10A2_UNorm.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG2084LeftP2020">
+            <summary>
+            ColorspaceYCbCr Range16-235 Gamma2084 SitingVideo PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbStudioG2084NoneP2020">
+            <summary>
+            ColorspaceRGB Range16-235 Gamma2084 SitingImage PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG22TopleftP2020">
+            <summary>
+            ColorspaceYCbCr Range16-235 Gamma2.2 SitingVideo PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG2084TopleftP2020">
+            <summary>
+            ColorspaceYCbCr Range16-235 Gamma2084 SitingVideo PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbFullG22NoneP2020">
+            <summary>
+            ColorspaceRGB Range0-255 Gamma2.2 SitingImage PrimariesBT.2020.
+            This is usually used with 10, 12, or 16-bit color channels.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioGhlgTopleftP2020">
+            <summary>
+            A custom color definition is used.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrFullGhlgTopleftP2020">
+            <summary>
+            No documentation.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbStudioG24NoneP709">
+            <summary>
+            No documentation.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.RgbStudioG24NoneP2020">
+            <summary>
+            No documentation.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG24LeftP709">
+            <summary>
+            No documentation.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG24LeftP2020">
+            <summary>
+            No documentation.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.YcbcrStudioG24TopleftP2020">
+            <summary>
+            No documentation.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.ColorSpaceType.Custom">
+            <summary>
+            A custom color definition is used.
+            </summary>
+        </member>
         <member name="T:Stride.Graphics.CompareFunction">
             <summary>
             Comparison options.

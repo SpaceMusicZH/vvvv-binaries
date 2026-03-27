@@ -46,6 +46,8 @@
         <member name="M:Stride.Core.IO.DatabaseFileProvider.ListFiles(System.String,System.String,Stride.Core.IO.VirtualSearchOption)">
             <inheritdoc />
             <param name="url">The url (without preceding slash).</param>
+            <param name="searchPattern"></param>
+            <param name="searchOption"></param>
             <remarks>
             Example: to get all files within a directory <c>ListFiles("path/to/folder", "*", VirtualSearchOption.TopDirectoryOnly)</c>
             </remarks>
@@ -293,6 +295,38 @@
             Describe a reference between an object and another.
             </summary>
             <remarks>This class is IEquatable, and equality is true if and only if Location and ObjType properties match</remarks>
+        </member>
+        <member name="M:Stride.Core.Serialization.Contents.ContentIndexMap.RegexEntry">
+            <remarks>
+            Pattern:<br/>
+            <code>^(.*?)\\s+(\\w+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily any number of times.<br/>
+            ○ Match a whitespace character atomically at least once.<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match a word character atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
+        </member>
+        <member name="M:Stride.Core.Serialization.Contents.ContentIndexMap.RegexEntrySpace">
+            <remarks>
+            Pattern:<br/>
+            <code>^(.*?)\\s(\\w+)$</code><br/>
+            Explanation:<br/>
+            <code>
+            ○ Match if at the beginning of the string.<br/>
+            ○ 1st capture group.<br/>
+                ○ Match a character other than '\n' lazily any number of times.<br/>
+            ○ Match a whitespace character.<br/>
+            ○ 2nd capture group.<br/>
+                ○ Match a word character atomically at least once.<br/>
+            ○ Match if at the end of the string or if before an ending newline.<br/>
+            </code>
+            </remarks>
         </member>
         <member name="T:Stride.Core.Serialization.Contents.ContentManager">
             <summary>
@@ -958,7 +992,7 @@
         </member>
         <member name="T:Stride.Core.Serialization.Serializers.UrlReferenceDataSerializerBase`1">
             <summary>
-            Serializer base class for for <see cref="T:Stride.Core.Serialization.UrlReference"/>.
+            Serializer base class for <see cref="T:Stride.Core.Serialization.UrlReference"/>.
             </summary>
         </member>
         <member name="M:Stride.Core.Serialization.Serializers.UrlReferenceDataSerializerBase`1.Serialize(`0@,Stride.Core.Serialization.ArchiveMode,Stride.Core.Serialization.SerializationStream)">
@@ -992,6 +1026,12 @@
             <param name="url"></param>
             <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
         </member>
+        <member name="M:Stride.Core.Serialization.UrlReference.#ctor(Stride.Core.Assets.AssetId,System.String)">
+            <summary>
+            Create a new <see cref="T:Stride.Core.Serialization.UrlReference"/> instance.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
+        </member>
         <member name="T:Stride.Core.Serialization.UrlReference`1">
             <summary>
             Represents a Url to an asset of type <typeparamref name="T"/>.
@@ -1008,6 +1048,12 @@
             Create a new <see cref="T:Stride.Core.Serialization.UrlReference`1"/> instance.
             </summary>
             <param name="url"></param>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
+        </member>
+        <member name="M:Stride.Core.Serialization.UrlReference`1.#ctor(Stride.Core.Assets.AssetId,System.String)">
+            <summary>
+            Create a new <see cref="T:Stride.Core.Serialization.UrlReference"/> instance.
+            </summary>
             <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
         </member>
         <member name="T:Stride.Core.Serialization.UrlReferenceBase">
@@ -1027,9 +1073,20 @@
             <param name="url"></param>
             <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
         </member>
+        <member name="M:Stride.Core.Serialization.UrlReferenceBase.#ctor(Stride.Core.Assets.AssetId,System.String)">
+            <summary>
+            Create a new <see cref="T:Stride.Core.Serialization.UrlReferenceBase"/> instance.
+            </summary>
+            <exception cref="T:System.ArgumentNullException">If <paramref name="url"/> is <c>null</c> or empty.</exception>
+        </member>
         <member name="P:Stride.Core.Serialization.UrlReferenceBase.Url">
             <summary>
             Gets the Url of the referenced asset.
+            </summary>
+        </member>
+        <member name="P:Stride.Core.Serialization.UrlReferenceBase.Id">
+            <summary>
+            Gets the Id of the referenced asset.
             </summary>
         </member>
         <member name="P:Stride.Core.Serialization.UrlReferenceBase.IsEmpty">
@@ -1091,6 +1148,7 @@
             Gets a previously loaded asset from its URL.
             </summary>
             <typeparam name="T">The type of asset to retrieve.</typeparam>
+            <param name="content"></param>
             <param name="urlReference">The URL of the asset to retrieve.</param>
             <returns>The loaded asset, or <c>null</c> if the asset has not been loaded.</returns>
             <exception cref="T:System.ArgumentNullException">If <paramref name="urlReference"/> is <c>null</c> or <c>empty</c>. Or <paramref name="content"/> is <c>null</c>.</exception>
@@ -1100,6 +1158,7 @@
             <summary>
             Gets whether an asset with the given URL is currently loaded.
             </summary>
+            <param name="content"></param>
             <param name="urlReference">The URL to check.</param>
             <param name="loadedManuallyOnly">If <c>true</c>, this method will return true only if an asset with the given URL has been manually loaded via <see cref="M:Stride.Core.Serialization.UrlReferenceContentManagerExtenstions.Load``1(Stride.Core.Serialization.Contents.IContentManager,Stride.Core.Serialization.UrlReference{``0},Stride.Core.Serialization.Contents.ContentManagerLoaderSettings)"/>, and not if the asset has been only loaded indirectly from another asset.</param>
             <returns><c>True</c> if an asset with the given URL is currently loaded, <c>false</c> otherwise.</returns>
@@ -1109,44 +1168,9 @@
             <summary>
             Unloads the asset at the specified URL.
             </summary>
+            <param name="content"></param>
             <param name="urlReference">The URL.</param>
             <exception cref="T:System.ArgumentNullException">If <paramref name="urlReference"/> is <c>null</c> or <c>empty</c>. Or <paramref name="content"/> is <c>null</c>.</exception>
-        </member>
-        <member name="T:Stride.Core.Serialization.UrlReferenceHelper">
-            <summary>
-            A Helper class for <see cref="T:Stride.Core.Serialization.UrlReference"/> and <see cref="T:Stride.Core.Serialization.UrlReference`1"/>.
-            </summary>
-        </member>
-        <member name="M:Stride.Core.Serialization.UrlReferenceHelper.CreateReference(System.Type,Stride.Core.Assets.AssetId,System.String)">
-            <summary>
-            Creates a url reference to the given asset that matches the given reference type.
-            </summary>
-            <param name="referenceType">The type of reference to create.</param>
-            <param name="assetId">The target asset id to create.</param>
-            <param name="assetUrl">The target asset url to create.</param>
-            <returns>A url reference to the given asset if it's not null and <paramref name="referenceType"/> is a valid reference url type, null otherwise.</returns>
-            <remarks>A reference type is either an <see cref="T:Stride.Core.Serialization.UrlReference"/> or a <see cref="T:Stride.Core.Serialization.UrlReference`1"/>.</remarks>
-        </member>
-        <member name="M:Stride.Core.Serialization.UrlReferenceHelper.IsUrlReferenceType(System.Type)">
-            <summary>
-            Checks if the given type is either an <see cref="T:Stride.Core.Serialization.UrlReference"/> or a <see cref="T:Stride.Core.Serialization.UrlReference`1"/>
-            </summary>
-            <param name="type">The type to test.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Stride.Core.Serialization.UrlReferenceHelper.IsGenericUrlReferenceType(System.Type)">
-            <summary>
-            Checks if the given type is a <see cref="T:Stride.Core.Serialization.UrlReference`1"/>
-            </summary>
-            <param name="type">The type to test.</param>
-            <returns></returns>
-        </member>
-        <member name="M:Stride.Core.Serialization.UrlReferenceHelper.GetTargetContentType(System.Type)">
-            <summary>
-            Gets the asset content type for a given url reference type.
-            </summary>
-            <param name="type">The type is an url reference type, either an <see cref="T:Stride.Core.Serialization.UrlReference"/> or a <see cref="T:Stride.Core.Serialization.UrlReference`1"/></param>
-            <returns>The target content type or null.</returns>
         </member>
         <member name="T:Stride.Core.LZ4.LZ4Stream">
             <summary>Block compression stream. Allows to use LZ4 for stream compression.</summary>
@@ -1223,8 +1247,9 @@
             <summary>Initializes a new instance of the <see cref="T:Stride.Core.LZ4.LZ4Stream" /> class.</summary>
             <param name="innerStream">The inner stream.</param>
             <param name="compressionMode">The compression mode.</param>
-            <param name="uncompressedSize">The size of the stream uncompressed</param>
             <param name="highCompression">if set to <c>true</c> [high compression].</param>
+            <param name="uncompressedSize">The size of the stream uncompressed</param>
+            <param name="compressedSize"></param>
             <param name="disposeInnerStream">if set to <c>true</c> <paramref name="innerStream"/> is disposed during called to <see cref="M:Stride.Core.LZ4.LZ4Stream.Dispose(System.Boolean)"/></param>
             <param name="blockSize">Size of the block.</param>
         </member>
@@ -1360,7 +1385,7 @@
         </member>
         <member name="T:Stride.Core.Storage.BlobStream">
             <summary>
-            A read-only <see cref="!:NativeMemoryStream"/> that will properly keep references on its underlying <see cref="T:Stride.Core.Storage.Blob"/>.
+            A read-only native <see cref="T:System.IO.UnmanagedMemoryStream"/> that will properly keep references on its underlying <see cref="T:Stride.Core.Storage.Blob"/>.
             </summary>
         </member>
         <member name="M:Stride.Core.Storage.BlobStream.WriteByte(System.Byte)">
@@ -1390,11 +1415,6 @@
             The bundle file extension.
             </summary>
         </member>
-        <member name="F:Stride.Core.Storage.BundleOdbBackend.vfsBundleDirectory">
-            <summary>
-            The default directory where bundle are stored.
-            </summary>
-        </member>
         <member name="P:Stride.Core.Storage.BundleOdbBackend.BundleResolve">
             <summary>
             Bundle resolve event asynchronous handler.
@@ -1402,6 +1422,11 @@
         </member>
         <member name="P:Stride.Core.Storage.BundleOdbBackend.ContentIndexMap">
             <inheritdoc/>
+        </member>
+        <member name="P:Stride.Core.Storage.BundleOdbBackend.BundleDirectory">
+            <summary>
+            The default directory where bundle are stored.
+            </summary>
         </member>
         <member name="M:Stride.Core.Storage.BundleOdbBackend.LoadBundle(System.String,Stride.Core.Storage.ObjectDatabaseContentIndexMap)">
             <summary>
@@ -1551,6 +1576,7 @@
             <param name="vfsMainUrl">The VFS main URL.</param>
             <param name="indexName">Name of the index file.</param>
             <param name="vfsAdditionalUrl">The VFS additional URL. It will be used only if vfsMainUrl is read-only.</param>
+            <param name="loadDefaultBundle"></param>
         </member>
         <member name="M:Stride.Core.Storage.ObjectDatabase.CreateDefaultDatabase">
             <summary>
@@ -1950,6 +1976,82 @@
             <summary>
             Assembly name suffix that contains signing information.
             </summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.RegexEntry_0">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the RegexEntry method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.RegexEntry_0.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntry_0.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.RegexEntry_0.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntry_0.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.RegexEntry_0.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntry_0.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntry_0.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntry_0.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.RegexEntrySpace_1">
+            <summary>Custom <see cref="T:System.Text.RegularExpressions.Regex"/>-derived type for the RegexEntrySpace method.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.Instance">
+            <summary>Cached, thread-safe singleton instance.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.#ctor">
+            <summary>Initializes the instance.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.RunnerFactory">
+            <summary>Provides a factory for creating <see cref="T:System.Text.RegularExpressions.RegexRunner"/> instances to be used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.RunnerFactory.CreateInstance">
+            <summary>Creates an instance of a <see cref="T:System.Text.RegularExpressions.RegexRunner"/> used by methods on <see cref="T:System.Text.RegularExpressions.Regex"/>.</summary>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.RunnerFactory.Runner">
+            <summary>Provides the runner that contains the custom logic implementing the specified regular expression.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.RunnerFactory.Runner.Scan(System.ReadOnlySpan{System.Char})">
+            <summary>Scan the <paramref name="inputSpan"/> starting from base.runtextstart for the next match.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.RunnerFactory.Runner.TryFindNextPossibleStartingPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Search <paramref name="inputSpan"/> starting from base.runtextpos for the next location a match could possibly start.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if a possible match was found; false if no more matches are possible.</returns>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.RegexEntrySpace_1.RunnerFactory.Runner.TryMatchAtCurrentPosition(System.ReadOnlySpan{System.Char})">
+            <summary>Determine whether <paramref name="inputSpan"/> at base.runtextpos is a match for the regular expression.</summary>
+            <param name="inputSpan">The text being scanned by the regular expression.</param>
+            <returns>true if the regular expression matches at the current position; otherwise, false.</returns>
+        </member>
+        <member name="T:System.Text.RegularExpressions.Generated.Utilities">
+            <summary>Helper methods used by generated <see cref="T:System.Text.RegularExpressions.Regex"/>-derived implementations.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout">
+            <summary>Default timeout value set in <see cref="T:System.AppContext"/>, or <see cref="F:System.Text.RegularExpressions.Regex.InfiniteMatchTimeout"/> if none was set.</summary>
+        </member>
+        <member name="F:System.Text.RegularExpressions.Generated.Utilities.s_hasTimeout">
+            <summary>Whether <see cref="F:System.Text.RegularExpressions.Generated.Utilities.s_defaultTimeout"/> is non-infinite.</summary>
+        </member>
+        <member name="M:System.Text.RegularExpressions.Generated.Utilities.IsWordChar(System.Char)">
+            <summary>Determines whether the character is part of the [\w] set.</summary>
         </member>
     </members>
 </doc>

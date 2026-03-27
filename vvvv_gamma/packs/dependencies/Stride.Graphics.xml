@@ -1795,7 +1795,7 @@
             </summary>
             <param name="renderTargetViews">A set of render target views to bind.</param>
         </member>
-        <member name="M:Stride.Graphics.CommandList.SetRenderTargets(Stride.Graphics.Texture,System.Int32,Stride.Graphics.Texture[])">
+        <member name="M:Stride.Graphics.CommandList.SetRenderTargets(Stride.Graphics.Texture,System.Int32,System.Span{Stride.Graphics.Texture})">
             <summary>
             Binds a depth-stencil buffer and a set of render targets to the output-merger stage. See <see cref="!:Textures+and+render+targets"/> to learn how to use it.
             </summary>
@@ -3437,6 +3437,7 @@
             <summary>
             Flip model does not support certain format, this method ensures it is in a supported format.
             https://learn.microsoft.com/en-us/windows/win32/direct3ddxgi/dxgi-flip-model
+            For HDR see: https://learn.microsoft.com/en-us/windows/win32/direct3darticles/high-dynamic-range
             </summary>
             <exception cref="T:System.ArgumentException">
             Will throw if the given format does not have a direct analog supported by the flip model
@@ -5693,6 +5694,17 @@
             <param name="height"></param>
             <param name="format"></param>
         </member>
+        <member name="M:Stride.Graphics.GraphicsPresenter.SetOutputColorSpace(Stride.Graphics.ColorSpaceType,Stride.Graphics.PixelFormat)">
+            <summary>
+            Sets the output color space of the presenter and the format for the backbuffer. Currently only supported by the DirectX backend.
+            Use the following combinations: <br />
+            Render to SDR Display with gamma 2.2: <see cref="F:Stride.Graphics.ColorSpaceType.RgbFullG22NoneP709"/> with <see cref="F:Stride.Graphics.PixelFormat.R8G8B8A8_UNorm"/>, <see cref="F:Stride.Graphics.PixelFormat.R8G8B8A8_UNorm_SRgb"/>, <see cref="F:Stride.Graphics.PixelFormat.B8G8R8A8_UNorm"/>, <see cref="F:Stride.Graphics.PixelFormat.B8G8R8A8_UNorm"/>. <br />
+            Render to HDR Display in scRGB (standard linear), windows DWM will do the color conversion: <see cref="F:Stride.Graphics.ColorSpaceType.RgbFullG10NoneP709"/> with <see cref="F:Stride.Graphics.PixelFormat.R16G16B16A16_Float"/> <br />
+            Render to HDR Display in HDR10/BT.2100, no windows DWM conversion, rendering needs to be in the Display color space: <see cref="F:Stride.Graphics.ColorSpaceType.RgbFullG2084NoneP2020"/> with <see cref="F:Stride.Graphics.PixelFormat.R10G10B10A2_UNorm"/> <br />
+            </summary>
+            <param name="colorSpace"></param>
+            <param name="format"></param>
+        </member>
         <member name="M:Stride.Graphics.GraphicsPresenter.OnDestroyed">
             <summary>
             Called when [destroyed].
@@ -6000,6 +6012,65 @@
             The image is rotated of the 90 degrees (clockwise) in the source texture.
             </summary>
         </member>
+        <member name="T:Stride.Graphics.IndexBufferHelper">
+            <example>
+            Reading the indices of a mesh:
+            <code>
+            <![CDATA[
+            Model.Meshes[0].Draw.IndexBuffer.AsReadable(Services, out IndexBufferHelper helper, out int count)
+            var indices = helper.To32Bit();
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="F:Stride.Graphics.IndexBufferHelper.DataOuter">
+            <summary>
+            Full index buffer, does not account for the binding offset or length
+            </summary>
+        </member>
+        <member name="P:Stride.Graphics.IndexBufferHelper.DataInner">
+            <summary>
+            Effective index buffer, handles the binding offset
+            </summary>
+        </member>
+        <member name="M:Stride.Graphics.IndexBufferHelper.#ctor(Stride.Graphics.IndexBufferBinding,Stride.Core.IServiceRegistry,System.Int32@)">
+            <inheritdoc cref="M:Stride.Graphics.MeshExtension.AsReadable(Stride.Graphics.IndexBufferBinding,Stride.Core.IServiceRegistry,Stride.Graphics.IndexBufferHelper@,System.Int32@)"/>
+        </member>
+        <member name="M:Stride.Graphics.IndexBufferHelper.Is32Bit(System.Span{System.Int32}@,System.Span{System.UInt16}@)">
+            <summary>
+            Branch to read the buffer as a 16 or 32 bit buffer, does not allocate
+            </summary>
+            <example>
+            <code>
+            if (Is32Bit(out var d32, out var d16))
+            {
+                foreach (var value in d32)
+                {
+                    // Your logic for 32 bit
+                }
+            }
+            else
+            {
+                foreach (var value in d16)
+                {
+                    // Your logic for 16bit
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Stride.Graphics.IndexBufferHelper.To32Bit">
+            <summary>
+            Does not allocate if the buffer is already 32 bit,
+            otherwise allocates a new int[] and copies the data into it
+            </summary>
+        </member>
+        <member name="M:Stride.Graphics.IndexBufferHelper.To16Bit">
+            <summary>
+            Does not allocate if the buffer is already 16 bit,
+            otherwise allocates a new ushort[] and copies the data into it
+            </summary>
+        </member>
         <member name="T:Stride.Graphics.IndexElementSize">
             <summary>
             Size of an index
@@ -6114,6 +6185,44 @@
             the size of the mapped resource
             </summary>
         </member>
+        <member name="M:Stride.Graphics.MeshExtension.AsReadable(Stride.Graphics.VertexBufferBinding,Stride.Core.IServiceRegistry,Stride.Graphics.VertexBufferHelper@,System.Int32@)">
+            <summary>
+            Fetch this buffer and create a helper to read from it.
+            </summary>
+            <remarks>
+            This operation loads the buffer from disk, or directly from the gpu. It is <b>very slow</b>, avoid calling this too often if at all possible.
+            </remarks>
+            <param name="binding"> The bindings for this buffer </param>
+            <param name="services"> The service used to retrieve the buffer from disk/GPU if it wasn't found through other means </param>
+            <param name="helper"> The helper class to interact with the loaded buffer </param>
+            <param name="count"> The amount of vertices this buffer holds </param>
+            <inheritdoc cref="T:Stride.Graphics.VertexBufferHelper"/>
+        </member>
+        <member name="M:Stride.Graphics.MeshExtension.AsReadable(Stride.Graphics.IndexBufferBinding,Stride.Core.IServiceRegistry,Stride.Graphics.IndexBufferHelper@,System.Int32@)">
+            <summary>
+            Fetch this buffer and create a helper to read from it.
+            </summary>
+            <remarks>
+            This operation loads the buffer from disk, or directly from the gpu. It is <b>very slow</b>, avoid calling this too often if at all possible.
+            </remarks>
+            <param name="binding"> The bindings for this buffer </param>
+            <param name="services"> The service used to retrieve the buffer from disk/GPU if it wasn't found through other means </param>
+            <param name="helper"> The helper class to interact with the loaded buffer </param>
+            <param name="count"> The amount of indices this buffer holds </param>
+            <inheritdoc cref="T:Stride.Graphics.IndexBufferHelper"/>
+        </member>
+        <member name="M:Stride.Graphics.MeshExtension.TryGetElement(Stride.Graphics.VertexDeclaration,System.String,System.Int32,Stride.Graphics.VertexElementWithOffset@)">
+            <summary>
+            Given a semantic and its index, returns its offset and size in the given vertex buffer. Similar to <see cref="M:Stride.Graphics.VertexDeclaration.EnumerateWithOffsets"/>
+            </summary>
+        </member>
+        <member name="M:Stride.Graphics.MeshExtension.FetchBufferContentOrThrow(Stride.Graphics.Buffer,Stride.Core.IServiceRegistry)">
+            <inheritdoc cref="M:Stride.Graphics.MeshExtension.TryFetchBufferContent(Stride.Graphics.Buffer,Stride.Core.IServiceRegistry)"/>
+            <remarks> Same as <see cref="M:Stride.Graphics.MeshExtension.TryFetchBufferContent(Stride.Graphics.Buffer,Stride.Core.IServiceRegistry)"/> but throws on failure </remarks>
+        </member>
+        <member name="M:Stride.Graphics.MeshExtension.TryFetchBufferContent(Stride.Graphics.Buffer,Stride.Core.IServiceRegistry)">
+            <summary> Get buffer content from GPU, shared memory or disk </summary>
+        </member>
         <member name="T:Stride.Graphics.MultisampleCount">
             <summary>
             Multisample count level.
@@ -6218,7 +6327,12 @@
         </member>
         <member name="F:Stride.Graphics.PresentationParameters.ColorSpace">
             <summary>
-            The colorspace used.
+            The colorspace of the rendering pipeline.
+            </summary>
+        </member>
+        <member name="F:Stride.Graphics.PresentationParameters.OutputColorSpace">
+            <summary>
+            The colorspace type used for the swapchain output. Currently only supported by the DirectX backend.
             </summary>
         </member>
         <member name="M:Stride.Graphics.PresentationParameters.#ctor">
@@ -6946,6 +7060,12 @@
             Size of window.
             </summary>
         </member>
+        <member name="P:Stride.Graphics.SDL.Window.Opacity">
+            <summary>
+            The opacity of the window.
+            </summary>
+            <remarks>The value should be between 0.0f and 1.0f. It will automatically be clamped to this range.</remarks>
+        </member>
         <member name="P:Stride.Graphics.SDL.Window.ClientSize">
             <summary>
             Size of the client area of a window.
@@ -7022,6 +7142,21 @@
             Dispose of current Window.
             </summary>
             <param name="disposing">If <c>false</c> we are being called from the Finalizer.</param>
+        </member>
+        <member name="T:Stride.Graphics.Semantics.Relaxed`1">
+            <summary>
+            A semantic extension to allow users to provide non default destination datatypes
+            </summary>
+            <example>
+            Reading positions of a mesh into a Half3 array
+            <code>
+            <![CDATA[
+            var positions = new Half3[count];
+            helper.Read<Relaxed<PositionSemantic>, Half3>(positions);
+            ]]>
+            </code>
+            </example>
+            <typeparam name="T">The actual semantic used, for example <see cref="T:Stride.Graphics.Semantics.PositionSemantic"/></typeparam>
         </member>
         <member name="T:Stride.Graphics.SpriteBatch">
             <summary>
@@ -8500,6 +8635,11 @@
             <param name="swizzle">Swizzle mode indicating the swizzle use when sampling the texture in the shader</param>
             <param name="snapImage">Indicate if the image needs to be snapped or not</param>
         </member>
+        <member name="M:Stride.Graphics.UIBatch.FacingDirection(Stride.Graphics.UIBatch.UIImageDrawInfo*)">
+            <summary>
+            Returns +x when this rect is facing towards the camera, -x otherwise
+            </summary>
+        </member>
         <member name="T:Stride.Graphics.UIBatch.PrimitiveType">
             <summary>
             The primitive type to draw for an element.
@@ -8605,6 +8745,234 @@
             Gets the layout of the vertex buffer.
             </summary>
             <value>The declaration.</value>
+        </member>
+        <member name="T:Stride.Graphics.VertexBufferHelper">
+            <example>
+            Reading the vertex positions of a mesh:
+            <code>
+            <![CDATA[
+            Model.Meshes[0].Draw.VertexBuffers[0].AsReadable(Services, out VertexBufferHelper helper, out int count);
+            var vertexPositions = new Vector3[count];
+            helper.Copy<PositionSemantic, Vector3>(vertexPositions);
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="F:Stride.Graphics.VertexBufferHelper.DataOuter">
+            <summary>
+            Full vertex buffer, the start and end of this buffer may contain data that does not map to this <see cref="F:Stride.Graphics.VertexBufferHelper.Binding"/>,
+            use <see cref="P:Stride.Graphics.VertexBufferHelper.DataInner"/> if you want to only read the data that is mapped to this binding.
+            </summary>
+        </member>
+        <member name="P:Stride.Graphics.VertexBufferHelper.DataInner">
+            <summary>
+            Effective vertex buffer, accounts for the binding offset and length
+            </summary>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.#ctor(Stride.Graphics.VertexBufferBinding,Stride.Core.IServiceRegistry,System.Int32@)">
+            <inheritdoc cref="M:Stride.Graphics.MeshExtension.AsReadable(Stride.Graphics.VertexBufferBinding,Stride.Core.IServiceRegistry,Stride.Graphics.VertexBufferHelper@,System.Int32@)"/>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.#ctor(Stride.Graphics.VertexBufferBinding,System.Byte[],System.Int32@)">
+            <summary>
+            Create the helper from existing data instead of trying to fetch the buffer automatically
+            </summary>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="dataOuter"/> does not match the binding definition provided,
+            <paramref name="dataOuter"/> must be the entire vertex buffer
+            </exception>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.Copy``2(System.Span{``1},System.Int32)">
+            <summary>
+            Extract individual element from each vertex contained in this vertex buffer and copies them into <paramref name="buffer"/>
+            </summary>
+            <param name="buffer">
+            The buffer which will be written to, must have exactly the same amount of items as there are <b>vertices</b> in the buffer
+            </param>
+            <param name="semanticIndex">
+            The semantic to read with that index, starts at zero.<br/>
+            For example, to sample the second TextureCoordinate, you would use
+            <code>
+            <![CDATA[
+            helper.Copy<TextureCoordinateSemantic, Vector2>(myUvs, 1);
+            ]]>
+            </code>
+            </param>
+            <typeparam name="TSemantic">The semantic to read, for example <see cref="T:Stride.Graphics.Semantics.PositionSemantic"/></typeparam>
+            <typeparam name="TValue">The value type to read, depends entirely on the <typeparamref name="TSemantic"/> used</typeparam>
+            <returns>True when this semantic exists in the vertex buffer, false otherwise</returns>
+            <exception cref="T:System.NotImplementedException">
+            When the data format for this semantic is too arcane - no conversion logic is implemented for that type
+            </exception>
+            <inheritdoc cref="T:Stride.Graphics.VertexBufferHelper"/>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.Copy``1(System.Span{``0})">
+            <summary>
+            Copies this vertex buffer's data to the vertex-buffer-like span provided.
+            Any semantic data present in <paramref name="destination"/> that is not present in this buffer is left untouched.
+            </summary>
+            <param name="destination">
+            The buffer which will be written to, must be of the same length as the amount of vertices in this buffer
+            </param>
+            <returns>True if every semantic element of <typeparamref name="TDest"/> was written to from this buffers' data, false if at least one semantic was missing</returns>
+            <exception cref="T:System.NotImplementedException">
+            When the data format for this semantic is too arcane - no conversion logic is implemented for that type
+            </exception>
+            <example>
+            Copying a mesh's vertex positions, colors and UVs:
+            <code>
+            <![CDATA[
+            Model.Meshes[0].Draw.VertexBuffers[0].AsReadable(Services, out VertexBufferHelper helper, out int count);
+            var vertexPositionsColorsAndUVs = new VertexPositionColorTexture[count];
+            helper.Copy(vertexPositionsColorsAndUVs);
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.Read``3(System.Span{``1},``2,System.Int32)">
+            <summary>
+            Lower level access to read into the vertex buffer
+            </summary>
+            <param name="destination">
+            The destination span your <typeparamref name="TReader"/> <see cref="M:Stride.Graphics.VertexBufferHelper.IReader`1.Read``2(System.Byte*,System.Int32,System.Int32,System.Span{`0})"/> method receives,
+            you may pass <see cref="P:System.Span`1.Empty"/> if you do not need one.
+            </param>
+            <param name="reader">
+            An implementation of <see cref="T:Stride.Graphics.VertexBufferHelper.IReader`1"/>, implement this interface to read directly from the vertex buffer
+            while making use of the auto-conversion of the <typeparamref name="TSemantic"/> provided <br/>
+            Preferably as a struct to ensure it is inlined by the JIT
+            </param>
+            <param name="semanticIndex">
+            The semantic to read with that index, starts at zero.<br/>
+            For example, to sample the second TextureCoordinate, you would use
+            <code>
+            <![CDATA[
+            helper.Read<TextureCoordinateSemantic, Vector2>(yourReader, 1);
+            ]]>
+            </code>
+            </param>
+            <typeparam name="TSemantic">The semantic to read, <see cref="T:Stride.Graphics.Semantics.PositionSemantic"/> for example</typeparam>
+            <typeparam name="TDest">The value type to read, depends on the <typeparamref name="TSemantic"/> used, <see cref="T:Stride.Core.Mathematics.Vector3"/> when your <typeparamref name="TSemantic"/> <see cref="T:Stride.Graphics.Semantics.PositionSemantic"/> for example</typeparam>
+            <typeparam name="TReader">The type of the reader you're providing</typeparam>
+            <returns>True when this semantic exists in the vertex buffer, false otherwise</returns>
+            <exception cref="T:System.NotImplementedException">
+            When the data format for this semantic is too arcane - no conversion logic is implemented for that type
+            </exception>
+            <inheritdoc cref="T:Stride.Graphics.VertexBufferHelper.IReader`1"/>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.Write``3(``2,System.Int32)">
+            <summary>
+            Lower level access to write directly to the vertex buffer
+            </summary>
+            <param name="writer">
+            An implementation of <see cref="T:Stride.Graphics.VertexBufferHelper.IWriter`1"/>, implement this interface to write directly into the vertex buffer
+            while making use of the auto-conversion of the <typeparamref name="TSemantic"/> provided <br/>
+            Preferably as a struct to ensure it is inlined by the JIT
+            </param>
+            <param name="semanticIndex">
+            The semantic to read with that index, starts at zero.<br/>
+            For example, to sample the second TextureCoordinate, you would use
+            <code>
+            <![CDATA[
+            helper.Write<TextureCoordinateSemantic, Vector2, YourWriter>(yourWriter, 1);
+            ]]>
+            </code>
+            </param>
+            <typeparam name="TSemantic">The semantic to read, <see cref="T:Stride.Graphics.Semantics.PositionSemantic"/> for example</typeparam>
+            <typeparam name="TDest"> The concrete type this writer will work with </typeparam>
+            <typeparam name="TWriter">
+            A struct implementing <see cref="T:Stride.Graphics.VertexBufferHelper.IWriter`1"/> which will be called in turn to write
+            into this buffer when this method is called.
+            </typeparam>
+            <returns>True when this semantic exists in the vertex buffer, false otherwise</returns>
+            <exception cref="T:System.NotImplementedException">
+            When the data format for this semantic is too arcane - no conversion logic is implemented for that type
+            </exception>
+            <inheritdoc cref="T:Stride.Graphics.VertexBufferHelper.IWriter`1"/>
+        </member>
+        <member name="T:Stride.Graphics.VertexBufferHelper.IReader`1">
+            <example>
+            Implementing <see cref="M:Stride.Graphics.VertexBufferHelper.Copy``2(System.Span{``1},System.Int32)"/> manually:
+            <code>
+            <![CDATA[
+            Model.Meshes[0].Draw.VertexBuffers[0].AsReadable(Services, out VertexBufferHelper helper, out int count);
+            var vertexPositions = new Vector3[count];
+            var myReader = new CopyTo();
+            helper.Read<PositionSemantic, Vector3, CopyTo>(vertexPositions, myReader);
+            
+            struct CopyTo : IReader<Vector3>
+            {
+               public unsafe void Read<TConverter, TSource>(byte* sourcePointer, int elementCount, int stride, Span<T> destination) 
+                where TConverter : IConverter<TSource, T> where TSource : unmanaged
+               {
+                   if (destination.Length != elementCount)
+                       throw new ArgumentException($"{nameof(destination)} length does not match the amount of vertices contained within this vertex buffer ({destination.Length} / {elementCount})");
+                       
+                   fixed (T* ptrDest = destination)
+                   {
+                       byte* end = sourcePointer + elementCount * stride;
+                       T* dest = ptrDest;
+                       for (; sourcePointer < end; sourcePointer += stride, dest++)
+                           TConverter.Convert(*(TSource*)sourcePointer, out *dest);
+                   }
+               }
+            }
+            ]]>
+            </code>
+            </example>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.IReader`1.Read``2(System.Byte*,System.Int32,System.Int32,System.Span{`0})">
+            <param name="sourcePointer">Points to the first element in the vertex buffer, read it as a TSource* to retrieve its value</param>
+            <param name="elementCount">The amount of vertices. This is not equivalent to the size of the vertex buffer, or the size in bytes taken by individual vertices</param>
+            <param name="stride">The size in bytes taken by individual vertices, add it to <paramref name="sourcePointer"/> to point to the next element</param>
+            <param name="destination">The span passed into the <see cref="M:Stride.Graphics.VertexBufferHelper.IReader`1.Read``2(System.Byte*,System.Int32,System.Int32,System.Span{`0})"/> method call</param>
+            <typeparam name="TConverter">A helper to convert between <typeparamref name="TSource"/> and <typeparamref name="TDest"/> properly</typeparam>
+            <typeparam name="TSource">
+            The source type this vertex buffer was built with, for example <see cref="T:Stride.Core.Mathematics.Vector2"/> or <see cref="T:Stride.Graphics.Interop.Byte4"/>,
+            use <typeparamref name="TConverter"/> to convert it into a <typeparamref name="TDest"/>.
+            </typeparam>
+            <inheritdoc cref="T:Stride.Graphics.VertexBufferHelper.IReader`1"/>
+        </member>
+        <member name="T:Stride.Graphics.VertexBufferHelper.IWriter`1">
+             <example>
+             Writing directly to mesh color:
+             <code>
+             <![CDATA[
+             Model.Meshes[0].Draw.VertexBuffers[0].AsReadable(Services, out VertexBufferHelper helper, out int count);
+             // Write to colors if that semantic already exist in the buffer, otherwise returns false
+             helper.Write<ColorSemantic, Vector4, MultColor>(new MultColor(){ Color = Color.Gray });
+             // Upload changes to the GPU
+             Model.Meshes[0].Draw.VertexBuffers[0].Buffer.Recreate(helper.DataOuter);
+             
+             private struct MultColor : VertexBufferHelper.IWriter<Vector4>
+             {
+                public Color Color;
+            
+                public unsafe void Write<TConverter, TSource>(byte* sourcePointer, int elementCount, int stride)
+                    where TConverter : IConverter<TSource, Vector4>, IConverter<Vector4, TSource>
+                    where TSource : unmanaged
+                {
+                    for (byte* end = sourcePointer + elementCount * stride; sourcePointer < end; sourcePointer += stride)
+                    {
+                        TConverter.Convert(*(TSource*)sourcePointer, out var val);
+                        val *= (Vector4)Color;
+                        TConverter.Convert(val, out *(TSource*)sourcePointer);
+                    }
+                }
+             }
+             ]]>
+             </code>
+             </example>
+        </member>
+        <member name="M:Stride.Graphics.VertexBufferHelper.IWriter`1.Write``2(System.Byte*,System.Int32,System.Int32)">
+            <param name="sourcePointer">Points to the first element in the vertex buffer, read it as a TSource* to retrieve its value</param>
+            <param name="elementCount">The amount of vertices. This is not equivalent to the size of the vertex buffer, or the size in bytes taken by individual vertices</param>
+            <param name="stride">The size in bytes taken by individual vertices, add it to <paramref name="sourcePointer"/> to point to the next element</param>
+            <typeparam name="TConverter">A helper to convert between <typeparamref name="TSource"/> and <typeparamref name="TDest"/> properly</typeparam>
+            <typeparam name="TSource">
+            The source type this vertex buffer was built with, for example <see cref="T:Stride.Core.Mathematics.Vector2"/> or <see cref="T:Stride.Graphics.Interop.Byte4"/>,
+            use <typeparamref name="TConverter"/> to convert it into a <typeparamref name="TDest"/>.
+            </typeparam>
+            <inheritdoc cref="T:Stride.Graphics.VertexBufferHelper.IWriter`1"/>
         </member>
         <member name="T:Stride.Graphics.VertexDeclaration">
             <summary>
@@ -9547,24 +9915,6 @@
             <summary>
             Default textures size used by this class (<see cref="F:Stride.Rendering.TexturingKeys.Texture0TexelSize"/>, <see cref="F:Stride.Rendering.TexturingKeys.Texture1TexelSize"/>...etc.)
             </summary>
-        </member>
-        <member name="T:Stride.Internal.Refactor">
-            <summary>
-            Set of methods to help in refactoring that can be easily tracked by finding usages.
-            </summary>
-        </member>
-        <member name="M:Stride.Internal.Refactor.ThrowNotImplementedException(System.String)">
-            <summary>
-            Throw a not implemented exception. Useful to avoid warnings about non-reachable code.
-            </summary>
-            <param name="message">Reason for the exception.</param>
-        </member>
-        <member name="M:Stride.Internal.Refactor.NewNotImplementedException(System.String)">
-            <summary>
-            Create a new not implemented exception. Useful when we need to tell the C# compiler code
-            won't be reached after.
-            </summary>
-            <param name="message">Reason for the exception.</param>
         </member>
         <member name="T:Stride.StrideVersion">
             <summary>

@@ -105,6 +105,13 @@
             </summary>
             <userdoc>Image displayed when the mouse hovers over the button.</userdoc>
         </member>
+        <member name="P:Stride.UI.Controls.Button.Color">
+            <summary>
+            Gets or set the color used to tint the image. Default value is White.
+            </summary>
+            <remarks>The initial image color is multiplied by this color.</remarks>
+            <userdoc>The color used to tint the image. The default value is white.</userdoc>
+        </member>
         <member name="P:Stride.UI.Controls.Button.ImageStretchType">
             <summary>
             Gets or sets a value that describes how the button image should be stretched to fill the destination rectangle.
@@ -576,7 +583,7 @@
         </member>
         <member name="P:Stride.UI.Controls.ImageElement.Color">
             <summary>
-            Gets or set the color used to tint the image. Default value is White/>.
+            Gets or set the color used to tint the image. Default value is White.
             </summary>
             <remarks>The initial image color is multiplied by this color.</remarks>
             <userdoc>The color used to tint the image. The default value is white.</userdoc>
@@ -1183,6 +1190,41 @@
             Gets or sets the image displayed when the button state is undeterminate.
             </summary>
             <userdoc>The image displayed when the button state is undeterminate.</userdoc>
+        </member>
+        <member name="P:Stride.UI.Controls.ToggleButton.CheckedMouseOverImage">
+            <summary>
+            Gets or sets the image displayed when the mouse hovers over the button and it is checked.
+            </summary>
+            <userdoc>The image displayed when the mouse hovers over the button and it is checked.</userdoc>
+        </member>
+        <member name="P:Stride.UI.Controls.ToggleButton.UncheckedMouseOverImage">
+            <summary>
+            Gets or sets the image displayed when the mouse hovers over the button and it is unchecked.
+            </summary>
+            <userdoc>The image displayed when the mouse hovers over the button and it is unchecked.</userdoc>
+        </member>
+        <member name="P:Stride.UI.Controls.ToggleButton.IndeterminateMouseOverImage">
+            <summary>
+            Gets or sets the image displayed when the mouse hovers over the button and its state is indeterminate.
+            </summary>
+            <userdoc>The image displayed when the mouse hovers over the button and its state is indeterminate.</userdoc>
+        </member>
+        <member name="P:Stride.UI.Controls.ToggleButton.ToggleButtonImageProvider">
+            <summary>
+            Gets the sprite provider for the current toggle state, taking into account mouse over state.
+            </summary>
+        </member>
+        <member name="P:Stride.UI.Controls.ToggleButton.ToggleButtonImage">
+            <summary>
+            Gets the sprite for the current toggle state, taking into account mouse over state.
+            </summary>
+        </member>
+        <member name="P:Stride.UI.Controls.ToggleButton.Color">
+            <summary>
+            Gets or set the color used to tint the image. Default value is White.
+            </summary>
+            <remarks>The initial image color is multiplied by this color.</remarks>
+            <userdoc>The color used to tint the image. The default value is white.</userdoc>
         </member>
         <member name="P:Stride.UI.Controls.ToggleButton.IsThreeState">
             <summary>
@@ -1955,6 +1997,14 @@
             </summary>
             <param name="definitions">The strip definitions</param>
         </member>
+        <member name="M:Stride.UI.Panels.Grid.SumStripCurrentSizeWithGaps(System.Collections.Generic.List{Stride.UI.StripDefinition},System.Int32)">
+            <summary>
+            Calculates the total size for spanned elements including gaps.
+            </summary>
+            <param name="elementStripDefinitions">The strip definitions the element spans</param>
+            <param name="dimension">The dimension (0=Column, 1=Row, 2=Layer)</param>
+            <returns>The total size including gaps</returns>
+        </member>
         <member name="T:Stride.UI.Panels.Grid.GridDimensionData">
             <summary>
             Helper container that stores all the strip data for a given dimension.
@@ -2028,6 +2078,46 @@
             The key to the LayerSpan attached dependency property. This defines the number of layers an item takes.
             </summary>
             <remarks>The value is coerced in the range [1, <see cref="F:System.Int32.MaxValue"/>].</remarks>
+        </member>
+        <member name="P:Stride.UI.Panels.GridBase.ColumnGap">
+            <summary>
+            Gets or sets the gap between columns in virtual pixels.
+            </summary>
+            <userdoc>The gap between columns in virtual pixels.</userdoc>
+        </member>
+        <member name="P:Stride.UI.Panels.GridBase.RowGap">
+            <summary>
+            Gets or sets the gap between rows in virtual pixels.
+            </summary>
+            <userdoc>The gap between rows in virtual pixels.</userdoc>
+        </member>
+        <member name="P:Stride.UI.Panels.GridBase.LayerGap">
+            <summary>
+            Gets or sets the gap between layers in virtual pixels.
+            </summary>
+            <userdoc>The gap between layers in virtual pixels.</userdoc>
+        </member>
+        <member name="M:Stride.UI.Panels.GridBase.CalculateTotalGapSize(System.Int32,System.Int32)">
+            <summary>
+            Calculates the total gap size for a dimension based on the number of cells.
+            </summary>
+            <param name="dimension">The dimension (0=Column, 1=Row, 2=Layer)</param>
+            <param name="cellCount">The number of cells in this dimension</param>
+            <returns>The total gap size</returns>
+        </member>
+        <member name="M:Stride.UI.Panels.GridBase.GetGapForDimension(System.Int32)">
+            <summary>
+            Gets the gap value for the specified dimension.
+            </summary>
+            <param name="dimension">The dimension (0=Column, 1=Row, 2=Layer)</param>
+            <returns>The gap value</returns>
+        </member>
+        <member name="M:Stride.UI.Panels.GridBase.GetGaps">
+            <summary>
+            Calculates and returns the spacing gaps between columns, rows, and layers.
+            </summary>
+            <returns>A <see cref="T:Stride.Core.Mathematics.Vector3"/> where the X, Y, and Z components represent the column gap, row gap, and layer gap,
+            respectively.</returns>
         </member>
         <member name="M:Stride.UI.Panels.GridBase.CoerceGridPositionsValue(System.Int32@)">
             <summary>
@@ -2185,6 +2275,19 @@
             </summary>
             <userdoc>The orientation by which children are stacked.</userdoc>
         </member>
+        <member name="P:Stride.UI.Panels.StackPanel.Gap">
+            <summary>
+            Gets or sets the gap between child elements in virtual pixels along the stacking orientation.
+            </summary>
+            <userdoc>The gap between child elements in virtual pixels along the stacking orientation.</userdoc>
+        </member>
+        <member name="M:Stride.UI.Panels.StackPanel.CalculateTotalGapSize(System.Int32)">
+            <summary>
+            Calculates the total gap size based on the number of children.
+            </summary>
+            <param name="childCount">The number of children</param>
+            <returns>The total gap size</returns>
+        </member>
         <member name="M:Stride.UI.Panels.StackPanel.EstimateExtentLength">
             <summary>
             Estimate the length of the extent from the visible elements.
@@ -2275,6 +2378,14 @@
             </summary>
             <remarks>The value is coerced in the range [1, <see cref="F:System.Int32.MaxValue"/>].</remarks>
             <userdoc>The number of layers.</userdoc>
+        </member>
+        <member name="M:Stride.UI.Panels.UniformGrid.CalculateSpannedSize(Stride.Core.Mathematics.Vector3,Stride.Core.Mathematics.Vector3)">
+            <summary>
+            Calculates the total size for spanned cells including gaps.
+            </summary>
+            <param name="cellSize">The size of one cell</param>
+            <param name="span">The number of cells spanned</param>
+            <returns>The total size including gaps</returns>
         </member>
         <member name="M:Stride.UI.Panels.UniformGrid.GetElementSpanValuesAsFloat(Stride.UI.UIElement)">
             <summary>
@@ -3306,6 +3417,13 @@
             </summary>
             <param name="availableSizeWithMargins">The available space that a parent element can allocate a child element with its margins.
             A child element can request a larger space than what is available;  the provided size might be accommodated if scrolling is possible in the content model for the current element.</param>
+        </member>
+        <member name="M:Stride.UI.UIElement.InfinityToParentRenderSize(Stride.Core.Mathematics.Vector3)">
+            <summary>
+            Recursively checks parents for infinity values, replacing infinity with the Parent's <see cref="P:Stride.UI.UIElement.RenderSize"/>.
+            </summary>
+            <param name="size">The size vector with possible infinity values to replace.</param>
+            <returns>The input <paramref name="size"/> value with the infinities replaced with the Parent's <see cref="P:Stride.UI.UIElement.RenderSize"/>.</returns>
         </member>
         <member name="M:Stride.UI.UIElement.MeasureOverride(Stride.Core.Mathematics.Vector3)">
             <summary>

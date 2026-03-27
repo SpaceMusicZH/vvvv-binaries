@@ -10,7 +10,7 @@
             For now, all AnimationClip must target the same skeleton.
             </summary>
         </member>
-        <member name="M:Stride.Animations.AnimationBlender.Compute(Stride.Core.Collections.FastList{Stride.Animations.AnimationOperation},Stride.Animations.AnimationClipResult@)">
+        <member name="M:Stride.Animations.AnimationBlender.Compute(System.Collections.Generic.List{Stride.Animations.AnimationOperation},Stride.Animations.AnimationClipResult@)">
             <summary>
             Computes the specified animation operations.
             </summary>
@@ -169,7 +169,7 @@
             The size of keyframe values.
             </value>
         </member>
-        <member name="M:Stride.Animations.AnimationCurve.AddValue(Stride.Animations.CompressedTimeSpan,System.IntPtr)">
+        <member name="M:Stride.Animations.AnimationCurve.AddValue(Stride.Animations.CompressedTimeSpan,System.Byte*)">
             <summary>
             Writes a new value at the end of the curve (used for building curves).
             It should be done in increasing order as it will simply add a new key at the end of <see cref="P:Stride.Animations.AnimationCurve`1.KeyFrames"/>.
@@ -219,7 +219,7 @@
             <param name="time"></param>
             <returns></returns>
         </member>
-        <member name="M:Stride.Animations.AnimationCurve`1.AddValue(Stride.Animations.CompressedTimeSpan,System.IntPtr)">
+        <member name="M:Stride.Animations.AnimationCurve`1.AddValue(Stride.Animations.CompressedTimeSpan,System.Byte*)">
             <inheritdoc/>
         </member>
         <member name="M:Stride.Animations.AnimationCurve`1.CreateOptimizedData(System.Collections.Generic.IEnumerable{System.Collections.Generic.KeyValuePair{System.String,Stride.Animations.AnimationCurve}})">
@@ -1555,14 +1555,14 @@
             Provides method for deep cloning of en <see cref="T:Stride.Engine.Entity"/>.
             </summary>
         </member>
-        <member name="M:Stride.Engine.Design.EntityCloner.Clone(Stride.Engine.Prefab)">
+        <member name="M:Stride.Engine.Design.EntityCloner.Instantiate(Stride.Engine.Prefab)">
             <summary>
-            Clones the specified prefab.
-            <see cref="T:Stride.Engine.Entity"/>, children <see cref="T:Stride.Engine.Entity"/> and their <see cref="T:Stride.Engine.EntityComponent"/> will be cloned.
+            Instantiates the content of the prefab provided.
+            <see cref="P:Stride.Engine.Prefab.Entities"/>, children <see cref="T:Stride.Engine.Entity"/> and their <see cref="T:Stride.Engine.EntityComponent"/> will be cloned.
             Other assets will be shared.
             </summary>
-            <param name="prefab">The prefab to clone.</param>
-            <returns>A cloned prefab</returns>
+            <param name="prefab">The prefab to instantiate.</param>
+            <returns>A clone of this prefab's <see cref="P:Stride.Engine.Prefab.Entities"/></returns>
         </member>
         <member name="M:Stride.Engine.Design.EntityCloner.Clone(Stride.Engine.Entity)">
             <summary>
@@ -5189,24 +5189,6 @@
             <summary>
             Set an object using AnimOperation.Object at the current offset.
             </summary>
-        </member>
-        <member name="T:Stride.Internal.Refactor">
-            <summary>
-            Set of methods to help in refactoring that can be easily tracked by finding usages.
-            </summary>
-        </member>
-        <member name="M:Stride.Internal.Refactor.ThrowNotImplementedException(System.String)">
-            <summary>
-            Throw a not implemented exception. Useful to avoid warnings about non-reachable code.
-            </summary>
-            <param name="message">Reason for the exception.</param>
-        </member>
-        <member name="M:Stride.Internal.Refactor.NewNotImplementedException(System.String)">
-            <summary>
-            Create a new not implemented exception. Useful when we need to tell the C# compiler code
-            won't be reached after.
-            </summary>
-            <param name="message">Reason for the exception.</param>
         </member>
         <member name="T:Stride.StrideVersion">
             <summary>

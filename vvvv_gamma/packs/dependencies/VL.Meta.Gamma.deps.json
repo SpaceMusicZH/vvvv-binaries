@@ -1,21 +1,20 @@
 {
   "runtimeTarget": {
-    "name": ".NETCoreApp,Version=v8.0/win-x64",
+    "name": ".NETCoreApp,Version=v8.0",
     "signature": ""
   },
   "compilationOptions": {},
   "targets": {
-    ".NETCoreApp,Version=v8.0": {},
-    ".NETCoreApp,Version=v8.0/win-x64": {
-      "VL.Meta.Gamma/2025.7.1-0013-g8fcece0df9": {
+    ".NETCoreApp,Version=v8.0": {
+      "VL.Meta.Gamma/2025.7.1": {
         "dependencies": {
           "Microsoft.Windows.CsWinRT": "2.2.0",
-          "Nerdbank.GitVersioning": "3.6.133",
+          "Nerdbank.GitVersioning": "3.8.118",
           "VL.App.Console": "2024.6.4",
           "VL.App.WindowsForms": "2024.6.4",
           "VL.AppServices": "2024.6.4",
-          "VL.Audio": "1.9.14",
-          "VL.Audio.UI": "1.9.14",
+          "VL.Audio": "1.9.17",
+          "VL.Audio.UI": "1.9.17",
           "VL.Core": "2024.6.4",
           "VL.Core.Commands": "2024.6.4",
           "VL.Core.Skia": "2024.6.4",
@@ -28,8 +27,8 @@
           "VL.HDE": "2024.6.4",
           "VL.IO.ArtNet": "2.1.2",
           "VL.IO.Firmata": "1.0.6",
-          "VL.IO.Midi": "2.0.5",
-          "VL.IO.OSC": "2.0.4",
+          "VL.IO.Midi": "2.1.1",
+          "VL.IO.OSC": "2.0.8",
           "VL.IO.OSCQuery": "2024.6.4",
           "VL.IO.Pipes": "2024.6.4",
           "VL.IO.Redis": "2024.6.4",
@@ -144,12 +143,54 @@
       "HarfBuzzSharp.NativeAssets.Linux/2.8.2.3": {
         "dependencies": {
           "HarfBuzzSharp": "7.3.0.1"
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libHarfBuzzSharp.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libHarfBuzzSharp.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/libHarfBuzzSharp.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libHarfBuzzSharp.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
-      "HarfBuzzSharp.NativeAssets.macOS/7.3.0.1": {},
+      "HarfBuzzSharp.NativeAssets.macOS/7.3.0.1": {
+        "runtimeTargets": {
+          "runtimes/osx/native/libHarfBuzzSharp.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "HarfBuzzSharp.NativeAssets.Win32/7.3.0.1": {
-        "native": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/libHarfBuzzSharp.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/libHarfBuzzSharp.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libHarfBuzzSharp.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
@@ -178,6 +219,37 @@
           "lib/netstandard2.0/Irony.Interpreter.dll": {
             "assemblyVersion": "1.1.0.0",
             "fileVersion": "1.1.0.0"
+          }
+        }
+      },
+      "JetBrains.Lifetimes/2024.3.0": {
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Lifetimes.dll": {
+            "assemblyVersion": "777.0.0.0",
+            "fileVersion": "777.0.0.0"
+          }
+        }
+      },
+      "JetBrains.RdFramework/2024.3.0": {
+        "dependencies": {
+          "JetBrains.Lifetimes": "2024.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.RdFramework.dll": {
+            "assemblyVersion": "777.0.0.0",
+            "fileVersion": "777.0.0.0"
+          }
+        }
+      },
+      "JetBrains.Rider.PathLocator/1.0.12": {
+        "dependencies": {
+          "JetBrains.RdFramework": "2024.3.0",
+          "Microsoft.Win32.Registry": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/JetBrains.Rider.PathLocator.dll": {
+            "assemblyVersion": "1.0.12.0",
+            "fileVersion": "1.0.12.0"
           }
         }
       },
@@ -638,20 +710,67 @@
           "Microsoft.Management.Infrastructure.Runtime.Win": "3.0.0-preview.4"
         }
       },
-      "Microsoft.Management.Infrastructure.Runtime.Unix/3.0.0-preview.4": {},
+      "Microsoft.Management.Infrastructure.Runtime.Unix/3.0.0-preview.4": {
+        "runtimeTargets": {
+          "runtimes/unix/lib/netstandard1.6/Microsoft.Management.Infrastructure.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "2.0.0.0",
+            "fileVersion": "2.0.0.0"
+          }
+        }
+      },
       "Microsoft.Management.Infrastructure.Runtime.Win/3.0.0-preview.4": {
-        "runtime": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/lib/netstandard1.6/microsoft.management.infrastructure.dll": {
+            "rid": "win-arm64",
+            "assetType": "runtime",
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "10.0.17763.30000"
+          },
+          "runtimes/win-arm64/lib/netstandard1.6/microsoft.management.infrastructure.native.dll": {
+            "rid": "win-arm64",
+            "assetType": "runtime",
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "10.0.17763.30000"
+          },
           "runtimes/win-x64/lib/netstandard1.6/microsoft.management.infrastructure.dll": {
+            "rid": "win-x64",
+            "assetType": "runtime",
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "10.0.17763.30000"
           },
           "runtimes/win-x64/lib/netstandard1.6/microsoft.management.infrastructure.native.dll": {
+            "rid": "win-x64",
+            "assetType": "runtime",
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "10.0.17763.30000"
-          }
-        },
-        "native": {
+          },
+          "runtimes/win-x86/lib/netstandard1.6/microsoft.management.infrastructure.dll": {
+            "rid": "win-x86",
+            "assetType": "runtime",
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "10.0.17763.30000"
+          },
+          "runtimes/win-x86/lib/netstandard1.6/microsoft.management.infrastructure.native.dll": {
+            "rid": "win-x86",
+            "assetType": "runtime",
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "10.0.17763.30000"
+          },
+          "runtimes/win-arm64/native/microsoft.management.infrastructure.native.unmanaged.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "10.0.17763.30000"
+          },
           "runtimes/win-x64/native/microsoft.management.infrastructure.native.unmanaged.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "6.3.9600.18144"
+          },
+          "runtimes/win-x86/native/microsoft.management.infrastructure.native.unmanaged.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "6.3.9600.18144"
           }
         }
@@ -710,8 +829,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.win.Microsoft.Win32.Primitives": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "Microsoft.Win32.Registry/5.0.0": {
@@ -812,7 +930,7 @@
           }
         }
       },
-      "Nerdbank.GitVersioning/3.6.133": {},
+      "Nerdbank.GitVersioning/3.8.118": {},
       "NETStandard.Library/1.6.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
@@ -1043,37 +1161,36 @@
           }
         }
       },
-      "runtime.any.System.Collections/4.3.0": {
-        "dependencies": {
-          "System.Runtime": "4.3.1"
-        }
-      },
-      "runtime.any.System.Diagnostics.Tools/4.3.0": {},
-      "runtime.any.System.Diagnostics.Tracing/4.3.0": {},
-      "runtime.any.System.Globalization/4.3.0": {},
-      "runtime.any.System.Globalization.Calendars/4.3.0": {},
-      "runtime.any.System.IO/4.3.0": {},
-      "runtime.any.System.Reflection/4.3.0": {},
-      "runtime.any.System.Reflection.Extensions/4.3.0": {},
-      "runtime.any.System.Reflection.Primitives/4.3.0": {},
-      "runtime.any.System.Resources.ResourceManager/4.3.0": {},
-      "runtime.any.System.Runtime/4.3.0": {
-        "dependencies": {
-          "System.Private.Uri": "4.3.0"
-        }
-      },
-      "runtime.any.System.Runtime.Handles/4.3.0": {},
-      "runtime.any.System.Runtime.InteropServices/4.3.0": {},
-      "runtime.any.System.Text.Encoding/4.3.0": {},
-      "runtime.any.System.Text.Encoding.Extensions/4.3.0": {},
-      "runtime.any.System.Threading.Tasks/4.3.0": {},
-      "runtime.any.System.Threading.Timer/4.3.0": {},
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.23-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.fedora.24-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.linux-arm.runtime.native.System.IO.Ports/8.0.0": {},
-      "runtime.linux-arm64.runtime.native.System.IO.Ports/8.0.0": {},
-      "runtime.linux-x64.runtime.native.System.IO.Ports/8.0.0": {},
+      "runtime.linux-arm.runtime.native.System.IO.Ports/8.0.0": {
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libSystem.IO.Ports.Native.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "runtime.linux-arm64.runtime.native.System.IO.Ports/8.0.0": {
+        "runtimeTargets": {
+          "runtimes/linux-arm64/native/libSystem.IO.Ports.Native.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "runtime.linux-x64.runtime.native.System.IO.Ports/8.0.0": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/libSystem.IO.Ports.Native.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "runtime.native.System/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
@@ -1122,99 +1239,35 @@
       },
       "runtime.opensuse.13.2-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.opensuse.42.1-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.osx-arm64.runtime.native.System.IO.Ports/8.0.0": {},
-      "runtime.osx-x64.runtime.native.System.IO.Ports/8.0.0": {},
+      "runtime.osx-arm64.runtime.native.System.IO.Ports/8.0.0": {
+        "runtimeTargets": {
+          "runtimes/osx-arm64/native/libSystem.IO.Ports.Native.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
+      "runtime.osx-x64.runtime.native.System.IO.Ports/8.0.0": {
+        "runtimeTargets": {
+          "runtimes/osx-x64/native/libSystem.IO.Ports.Native.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.Apple/4.3.1": {},
       "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
       "runtime.ubuntu.16.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {},
-      "runtime.win.Microsoft.Win32.Primitives/4.3.0": {
-        "dependencies": {
-          "System.Runtime": "4.3.1",
-          "System.Runtime.InteropServices": "4.3.0"
-        }
-      },
-      "runtime.win.System.Console/4.3.1": {
-        "dependencies": {
-          "System.IO": "4.3.0",
-          "System.IO.FileSystem.Primitives": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Text.Encoding.Extensions": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        }
-      },
-      "runtime.win.System.Diagnostics.Debug/4.3.0": {},
-      "runtime.win.System.IO.FileSystem/4.3.0": {
-        "dependencies": {
-          "System.Buffers": "4.3.0",
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.IO.FileSystem.Primitives": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Text.Encoding": "4.3.0",
-          "System.Text.Encoding.Extensions": "4.3.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Overlapped": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        }
-      },
-      "runtime.win.System.Net.Primitives/4.3.0": {
-        "dependencies": {
-          "Microsoft.Win32.Primitives": "4.3.0",
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Threading": "4.3.0"
-        }
-      },
-      "runtime.win.System.Net.Sockets/4.3.0": {
-        "dependencies": {
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Debug": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.IO": "4.3.0",
-          "System.IO.FileSystem": "4.3.0",
-          "System.IO.FileSystem.Primitives": "4.3.0",
-          "System.Net.NameResolution": "4.3.0",
-          "System.Net.Primitives": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Security.Principal.Windows": "5.0.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Overlapped": "4.3.0",
-          "System.Threading.Tasks": "4.3.0"
-        }
-      },
-      "runtime.win.System.Runtime.Extensions/4.3.0": {
-        "dependencies": {
-          "System.Private.Uri": "4.3.0"
-        }
-      },
-      "Sanford.Multimedia.Midi/6.6.2": {
+      "Sanford.Multimedia.Midi/6.7.3": {
         "runtime": {
-          "lib/net20/Sanford.Multimedia.Midi.dll": {
-            "assemblyVersion": "6.6.2.0",
-            "fileVersion": "6.6.2.0"
+          "lib/net8.0-windows7.0/Sanford.Multimedia.Midi.dll": {
+            "assemblyVersion": "6.7.2.0",
+            "fileVersion": "6.7.2.0"
           }
         }
       },
@@ -1496,12 +1549,54 @@
       "SkiaSharp.NativeAssets.Linux/2.88.7": {
         "dependencies": {
           "SkiaSharp": "2.88.8"
+        },
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libSkiaSharp.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libSkiaSharp.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-musl-x64/native/libSkiaSharp.so": {
+            "rid": "linux-musl-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libSkiaSharp.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
         }
       },
-      "SkiaSharp.NativeAssets.macOS/2.88.8": {},
+      "SkiaSharp.NativeAssets.macOS/2.88.8": {
+        "runtimeTargets": {
+          "runtimes/osx/native/libSkiaSharp.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          }
+        }
+      },
       "SkiaSharp.NativeAssets.Win32/2.88.8": {
-        "native": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/libSkiaSharp.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/libSkiaSharp.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libSkiaSharp.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
@@ -1551,32 +1646,32 @@
           }
         }
       },
-      "StackExchange.Redis/2.7.4": {
+      "StackExchange.Redis/2.8.31": {
         "dependencies": {
           "Microsoft.Extensions.Logging.Abstractions": "8.0.3",
           "Pipelines.Sockets.Unofficial": "2.2.8"
         },
         "runtime": {
-          "lib/net6.0/StackExchange.Redis.dll": {
+          "lib/net8.0/StackExchange.Redis.dll": {
             "assemblyVersion": "2.0.0.0",
-            "fileVersion": "2.7.4.20928"
+            "fileVersion": "2.8.31.52602"
           }
         }
       },
-      "Stride/4.2.0.2293": {
+      "Stride/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core.Mathematics": "4.2.0.2293",
-          "Stride.Core.Serialization": "4.2.0.2293",
+          "Stride.Core.Mathematics": "4.2.1.2487",
+          "Stride.Core.Serialization": "4.2.1.2487",
           "System.Drawing.Common": "8.0.1"
         },
         "runtime": {
           "lib/net8.0/Stride.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Assets/4.2.0.2293": {
+      "Stride.Assets/4.2.1.2487": {
         "dependencies": {
           "Microsoft.Build": "17.7.2",
           "Microsoft.Build.Utilities.Core": "17.7.2",
@@ -1584,15 +1679,15 @@
           "Microsoft.CodeAnalysis.Workspaces.MSBuild": "4.11.0",
           "SSH.NET": "2023.0.1",
           "SharpDX.Direct2D1": "4.2.0",
-          "Stride": "4.2.0.2293",
-          "Stride.Core.Assets": "4.2.0.2293",
-          "Stride.Core.ProjectTemplating": "4.2.0.2293",
-          "Stride.Engine": "4.2.0.2293",
-          "Stride.Navigation": "4.2.0.2293",
-          "Stride.Physics": "4.2.0.2293",
-          "Stride.TextureConverter": "4.2.0.2293",
-          "Stride.UI": "4.2.0.2293",
-          "Stride.Video": "4.2.0.2293",
+          "Stride": "4.2.1.2487",
+          "Stride.Core.Assets": "4.2.1.2487",
+          "Stride.Core.ProjectTemplating": "4.2.1.2487",
+          "Stride.Engine": "4.2.1.2487",
+          "Stride.Navigation": "4.2.1.2487",
+          "Stride.Physics": "4.2.1.2487",
+          "Stride.TextureConverter": "4.2.1.2487",
+          "Stride.UI": "4.2.1.2487",
+          "Stride.Video": "4.2.1.2487",
           "System.AppContext": "4.3.0",
           "System.Collections.Immutable": "8.0.0",
           "System.Console": "4.3.1",
@@ -1621,55 +1716,129 @@
         },
         "runtime": {
           "lib/net8.0/Stride.Assets.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           },
           "lib/net8.0/VHACDSharp.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/VHACD.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/VHACD.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/VHACD.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/VHACD.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "Stride.Assets.Models/4.2.0.2293": {
+      "Stride.Assets.Models/4.2.1.2487": {
         "dependencies": {
-          "Stride.Assets": "4.2.0.2293",
-          "Stride.Importer.3D": "4.2.0.2293",
-          "Stride.Importer.Common": "4.2.0.2293"
+          "Stride.Assets": "4.2.1.2487",
+          "Stride.Importer.3D": "4.2.1.2487",
+          "Stride.Importer.Common": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Assets.Models.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           },
           "lib/net8.0/Stride.Importer.Common.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Audio/4.2.0.2293": {
+      "Stride.Audio/4.2.1.2487": {
         "dependencies": {
-          "Stride": "4.2.0.2293",
-          "Stride.Native": "4.2.0.2293"
+          "Stride": "4.2.1.2487",
+          "Stride.Native": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Audio.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/android-arm/native/libstrideaudio.so": {
+            "rid": "android-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-arm64/native/libstrideaudio.so": {
+            "rid": "android-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x64/native/libstrideaudio.so": {
+            "rid": "android-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x86/native/libstrideaudio.so": {
+            "rid": "android-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libCelt.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libNativePath.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libstrideaudio.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libstrideaudio.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libstrideaudio.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/libstrideaudio.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/libstrideaudio.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libstrideaudio.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "Stride.Core/4.2.0.2293": {
+      "Stride.Core/4.2.1.2487": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "ServiceWire": "5.5.4",
@@ -1677,121 +1846,122 @@
         },
         "runtime": {
           "lib/net8.0/Stride.Core.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Assets/4.2.0.2293": {
+      "Stride.Core.Assets/4.2.1.2487": {
         "dependencies": {
           "Microsoft.Build": "17.7.2",
           "Microsoft.Build.Locator": "1.6.10",
           "Microsoft.Build.Utilities.Core": "17.7.2",
-          "Stride.Core.BuildEngine.Common": "4.2.0.2293",
-          "Stride.Core.Packages": "4.2.0.2293",
+          "Stride.Core.BuildEngine.Common": "4.2.1.2487",
+          "Stride.Core.Packages": "4.2.1.2487",
           "System.Reflection.Emit": "4.7.0",
           "System.Threading.Tasks.Dataflow": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Assets.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Core.Assets.CompilerApp/4.2.0.2293": {
+      "Stride.Core.Assets.CompilerApp/4.2.1.2487": {
         "dependencies": {
           "Mono.Options": "6.12.0.148",
-          "Stride.Assets.Models": "4.2.0.2293",
-          "Stride.Particles": "4.2.0.2293",
-          "Stride.Physics": "4.2.0.2293",
-          "Stride.SpriteStudio.Offline": "4.2.0.2293",
-          "Stride.UI": "4.2.0.2293"
+          "Stride.Assets.Models": "4.2.1.2487",
+          "Stride.Particles": "4.2.1.2487",
+          "Stride.Physics": "4.2.1.2487",
+          "Stride.SpriteStudio.Offline": "4.2.1.2487",
+          "Stride.UI": "4.2.1.2487"
         }
       },
-      "Stride.Core.BuildEngine.Common/4.2.0.2293": {
+      "Stride.Core.BuildEngine.Common/4.2.1.2487": {
         "dependencies": {
           "ServiceWire": "5.5.4",
-          "Stride.Core.Design": "4.2.0.2293"
+          "Stride.Core.Design": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.BuildEngine.Common.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Design/4.2.0.2293": {
+      "Stride.Core.Design/4.2.1.2487": {
         "dependencies": {
+          "JetBrains.Rider.PathLocator": "1.0.12",
           "Microsoft.CSharp": "4.7.0",
           "Microsoft.Extensions.DependencyModel": "8.0.0",
           "Microsoft.VisualStudio.Setup.Configuration.Interop": "3.8.2112",
           "NuGet.Configuration": "6.12.1",
           "SharpDX": "4.2.0",
-          "Stride.Core.Mathematics": "4.2.0.2293",
-          "Stride.Core.Serialization": "4.2.0.2293",
-          "Stride.Core.Yaml": "4.2.0.2293",
+          "Stride.Core.Mathematics": "4.2.1.2487",
+          "Stride.Core.Serialization": "4.2.1.2487",
+          "Stride.Core.Yaml": "4.2.1.2487",
           "System.Management": "8.0.0"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Design.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.IO/4.2.0.2293": {
+      "Stride.Core.IO/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core": "4.2.0.2293"
+          "Stride.Core": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.IO.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Mathematics/4.2.0.2293": {
+      "Stride.Core.Mathematics/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core": "4.2.0.2293"
+          "Stride.Core": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Mathematics.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.MicroThreading/4.2.0.2293": {
+      "Stride.Core.MicroThreading/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core": "4.2.0.2293"
+          "Stride.Core": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.MicroThreading.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Packages/4.2.0.2293": {
+      "Stride.Core.Packages/4.2.1.2487": {
         "dependencies": {
           "NuGet.Commands": "6.12.1",
           "NuGet.PackageManagement": "6.12.1",
           "NuGet.Protocol": "6.12.1",
           "NuGet.Resolver": "6.12.1",
-          "Stride.Core.Design": "4.2.0.2293",
+          "Stride.Core.Design": "4.2.1.2487",
           "System.IO.Compression": "4.3.0"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Packages.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Core.ProjectTemplating/4.2.0.2293": {
+      "Stride.Core.ProjectTemplating/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core.Design": "4.2.0.2293",
+          "Stride.Core.Design": "4.2.1.2487",
           "Stride.Mono.TextTemplating": "2.1.0-preview-0009-g0d0b6db3ca"
         },
         "runtime": {
@@ -1801,34 +1971,34 @@
           }
         }
       },
-      "Stride.Core.Reflection/4.2.0.2293": {
+      "Stride.Core.Reflection/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core.Serialization": "4.2.0.2293"
+          "Stride.Core.Serialization": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Reflection.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Serialization/4.2.0.2293": {
+      "Stride.Core.Serialization/4.2.1.2487": {
         "dependencies": {
           "K4os.Compression.LZ4.Legacy": "1.3.6",
-          "Stride.Core.IO": "4.2.0.2293",
-          "Stride.Core.MicroThreading": "4.2.0.2293"
+          "Stride.Core.IO": "4.2.1.2487",
+          "Stride.Core.MicroThreading": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Serialization.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Shaders/4.2.0.2293": {
+      "Stride.Core.Shaders/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core": "4.2.0.2293",
-          "Stride.Irony": "4.2.0.2293"
+          "Stride.Core": "4.2.1.2487",
+          "Stride.Irony": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/CppNet.dll": {
@@ -1836,50 +2006,50 @@
             "fileVersion": "1.0.0.0"
           },
           "lib/net8.0/Stride.Core.Shaders.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Core.Yaml/4.2.0.2293": {
+      "Stride.Core.Yaml/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core.Reflection": "4.2.0.2293"
+          "Stride.Core.Reflection": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Core.Yaml.dll": {
-            "assemblyVersion": "4.2.0.1",
-            "fileVersion": "4.2.0.1"
+            "assemblyVersion": "4.2.1.1",
+            "fileVersion": "4.2.1.1"
           }
         }
       },
-      "Stride.Engine/4.2.0.2293": {
+      "Stride.Engine/4.2.1.2487": {
         "dependencies": {
-          "Stride.Audio": "4.2.0.2293",
-          "Stride.Rendering": "4.2.0.2293",
-          "Stride.Shaders.Compiler": "4.2.0.2293",
-          "Stride.VirtualReality": "4.2.0.2293",
+          "Stride.Audio": "4.2.1.2487",
+          "Stride.Rendering": "4.2.1.2487",
+          "Stride.Shaders.Compiler": "4.2.1.2487",
+          "Stride.VirtualReality": "4.2.1.2487",
           "System.Threading.Tasks.Dataflow": "8.0.0",
           "System.ValueTuple": "4.5.0"
         },
         "runtime": {
           "lib/net8.0/Stride.Engine.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Games/4.2.0.2293": {
+      "Stride.Games/4.2.1.2487": {
         "dependencies": {
-          "Stride.Graphics": "4.2.0.2293"
+          "Stride.Graphics": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Direct3D11/Stride.Games.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Graphics/4.2.0.2293": {
+      "Stride.Graphics/4.2.1.2487": {
         "dependencies": {
           "SharpDX.D3DCompiler": "4.2.0",
           "SharpDX.Direct3D11": "4.2.0",
@@ -1888,29 +2058,71 @@
           "Silk.NET.OpenGLES": "2.22.0",
           "Silk.NET.OpenGLES.Extensions.EXT": "2.22.0",
           "Silk.NET.SDL": "2.22.0",
-          "Stride": "4.2.0.2293",
-          "Stride.Shaders": "4.2.0.2293",
+          "Stride": "4.2.1.2487",
+          "Stride.Shaders": "4.2.1.2487",
           "Stride.SharpFont": "1.0.1",
           "System.Memory": "4.5.5",
-          "Vortice.Vulkan": "1.2.167"
+          "Vortice.Vulkan": "2.1.2"
         },
         "runtime": {
           "lib/net8.0/Direct3D11/Stride.Graphics.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/android-arm/native/libfreetype.so": {
+            "rid": "android-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-arm64/native/libfreetype.so": {
+            "rid": "android-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x64/native/libfreetype.so": {
+            "rid": "android-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x86/native/libfreetype.so": {
+            "rid": "android-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libfreetype.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libvulkan.1.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/freetype.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/freetype.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/freetype.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "Stride.Graphics.RenderDocPlugin/4.2.0.2293": {
+      "Stride.Graphics.RenderDocPlugin/4.2.1.2487": {
         "dependencies": {
           "Microsoft.Win32.Registry": "5.0.0",
           "SharpDX.Direct3D11": "4.2.0",
-          "Stride.Graphics": "4.2.0.2293"
+          "Stride.Graphics": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Direct3D11/Stride.Graphics.RenderDocPlugin.dll": {
@@ -1919,39 +2131,39 @@
           }
         }
       },
-      "Stride.Importer.3D/4.2.0.2293": {
+      "Stride.Importer.3D/4.2.1.2487": {
         "dependencies": {
           "Silk.NET.Assimp": "2.22.0",
-          "Stride.Importer.Common": "4.2.0.2293"
+          "Stride.Importer.Common": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Importer.3D.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Importer.Common/4.2.0.2293": {
+      "Stride.Importer.Common/4.2.1.2487": {
         "dependencies": {
-          "Stride.Assets": "4.2.0.2293",
-          "Stride.Engine": "4.2.0.2293"
+          "Stride.Assets": "4.2.1.2487",
+          "Stride.Engine": "4.2.1.2487"
         }
       },
-      "Stride.Input/4.2.0.2293": {
+      "Stride.Input/4.2.1.2487": {
         "dependencies": {
           "Microsoft.Management.Infrastructure": "3.0.0-preview.4",
           "SharpDX.DirectInput": "4.2.0",
           "SharpDX.XInput": "4.2.0",
-          "Stride.Games": "4.2.0.2293"
+          "Stride.Games": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0-windows7.0/Direct3D11/Stride.Input.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Irony/4.2.0.2293": {
+      "Stride.Irony/4.2.1.2487": {
         "runtime": {
           "lib/net8.0/Stride.Irony.dll": {
             "assemblyVersion": "0.0.0.0",
@@ -1970,47 +2182,104 @@
           }
         }
       },
-      "Stride.Native/4.2.0.2293": {
+      "Stride.Native/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core.Mathematics": "4.2.0.2293"
+          "Stride.Core.Mathematics": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Native.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Navigation/4.2.0.2293": {
+      "Stride.Navigation/4.2.1.2487": {
         "dependencies": {
-          "Stride.Physics": "4.2.0.2293"
+          "Stride.Physics": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Navigation.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/android-arm/native/libstridenavigation.so": {
+            "rid": "android-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-arm64/native/libstridenavigation.so": {
+            "rid": "android-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x64/native/libstridenavigation.so": {
+            "rid": "android-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x86/native/libstridenavigation.so": {
+            "rid": "android-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libDetour.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libRecast.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libstridenavigation.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libstridenavigation.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libstridenavigation.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/libstridenavigation.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/libstridenavigation.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libstridenavigation.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "Stride.Particles/4.2.0.2293": {
+      "Stride.Particles/4.2.1.2487": {
         "dependencies": {
-          "Stride.Engine": "4.2.0.2293"
+          "Stride.Engine": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Particles.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Physics/4.2.0.2293": {
+      "Stride.Physics/4.2.1.2487": {
         "dependencies": {
-          "Stride.Engine": "4.2.0.2293"
+          "Stride.Engine": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/BulletSharp.NetStandard.dll": {
@@ -2018,64 +2287,118 @@
             "fileVersion": "1.0.0.0"
           },
           "lib/net8.0/Stride.Physics.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/android-arm/native/libbulletc.so": {
+            "rid": "android-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-arm64/native/libbulletc.so": {
+            "rid": "android-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x64/native/libbulletc.so": {
+            "rid": "android-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x86/native/libbulletc.so": {
+            "rid": "android-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libbulletc.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libbulletc.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/libbulletc.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/libbulletc.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/libbulletc.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "Stride.Rendering/4.2.0.2293": {
+      "Stride.Rendering/4.2.1.2487": {
         "dependencies": {
-          "Stride.Games": "4.2.0.2293"
+          "Stride.Games": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Rendering.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Shaders/4.2.0.2293": {
+      "Stride.Shaders/4.2.1.2487": {
         "dependencies": {
-          "Stride": "4.2.0.2293"
+          "Stride": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Shaders.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Shaders.Compiler/4.2.0.2293": {
+      "Stride.Shaders.Compiler/4.2.1.2487": {
         "dependencies": {
           "SharpDX.D3DCompiler": "4.2.0",
-          "Stride.Shaders.Parser": "4.2.0.2293"
+          "Stride.Shaders.Parser": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Shaders.Compiler.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/d3dcompiler_47.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "10.0.26100.6901"
+          },
           "runtimes/win-x64/native/d3dcompiler_47.dll": {
-            "fileVersion": "10.0.22621.3233"
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "10.0.26100.6901"
+          },
+          "runtimes/win-x86/native/d3dcompiler_47.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "10.0.26100.6901"
           }
         }
       },
-      "Stride.Shaders.Parser/4.2.0.2293": {
+      "Stride.Shaders.Parser/4.2.1.2487": {
         "dependencies": {
-          "Stride.Core.Shaders": "4.2.0.2293",
-          "Stride.Shaders": "4.2.0.2293"
+          "Stride.Core.Shaders": "4.2.1.2487",
+          "Stride.Shaders": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.Shaders.Parser.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
@@ -2090,20 +2413,20 @@
           }
         }
       },
-      "Stride.SpriteStudio.Offline/4.2.0.2293": {
+      "Stride.SpriteStudio.Offline/4.2.1.2487": {
         "dependencies": {
-          "Stride.Assets": "4.2.0.2293",
-          "Stride.SpriteStudio.Runtime": "4.2.0.2293"
+          "Stride.Assets": "4.2.1.2487",
+          "Stride.SpriteStudio.Runtime": "4.2.1.2487"
         }
       },
-      "Stride.SpriteStudio.Runtime/4.2.0.2293": {
+      "Stride.SpriteStudio.Runtime/4.2.1.2487": {
         "dependencies": {
-          "Stride.Engine": "4.2.0.2293"
+          "Stride.Engine": "4.2.1.2487"
         }
       },
-      "Stride.TextureConverter/4.2.0.2293": {
+      "Stride.TextureConverter/4.2.1.2487": {
         "dependencies": {
-          "Stride.Graphics": "4.2.0.2293"
+          "Stride.Graphics": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.TextureConverter.dll": {
@@ -2111,94 +2434,278 @@
             "fileVersion": "0.0.0.0"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/linux-x64/native/DxtWrapper.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/PVRTexLib.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/DxtWrapper.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/FreeImage.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/DxtWrapper.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/FreeImageNET.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.0.0"
           },
           "runtimes/win-x64/native/PVRTexLib.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "5.6.0.0"
           },
           "runtimes/win-x64/native/freeimage.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "3.16.0.0"
+          },
+          "runtimes/win-x86/native/DxtWrapper.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/FreeImageNET.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          },
+          "runtimes/win-x86/native/PVRTexLib.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "5.6.0.0"
+          },
+          "runtimes/win-x86/native/freeimage.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "3.16.0.0"
           }
         }
       },
-      "Stride.UI/4.2.0.2293": {
+      "Stride.UI/4.2.1.2487": {
         "dependencies": {
-          "Stride.Engine": "4.2.0.2293"
+          "Stride.Engine": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Stride.UI.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         }
       },
-      "Stride.Video/4.2.0.2293": {
+      "Stride.Video/4.2.1.2487": {
         "dependencies": {
           "FFmpeg.AutoGen": "3.4.0.2",
           "SharpDX.Direct3D11": "4.2.0",
           "SharpDX.Direct3D12": "4.2.0",
           "SharpDX.MediaFoundation": "4.2.0",
-          "Stride.Engine": "4.2.0.2293"
+          "Stride.Engine": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Direct3D11/Stride.Video.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/win-arm64/native/avcodec-57.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/avdevice-57.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/avfilter-6.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/avformat-57.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/avutil-55.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/swresample-2.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/swscale-4.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/avcodec-57.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/avdevice-57.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/avfilter-6.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/avformat-57.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/avutil-55.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/swresample-2.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/swscale-4.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/avcodec-57.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/avdevice-57.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/avfilter-6.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/avformat-57.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/avutil-55.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/swresample-2.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/swscale-4.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "Stride.VirtualReality/4.2.0.2293": {
+      "Stride.VirtualReality/4.2.1.2487": {
         "dependencies": {
           "Silk.NET.OpenXR": "2.22.0",
           "Silk.NET.OpenXR.Extensions.FB": "2.22.0",
-          "Stride.Games": "4.2.0.2293",
-          "Stride.Graphics": "4.2.0.2293",
-          "Stride.Input": "4.2.0.2293"
+          "Stride.Games": "4.2.1.2487",
+          "Stride.Graphics": "4.2.1.2487",
+          "Stride.Input": "4.2.1.2487"
         },
         "runtime": {
           "lib/net8.0/Direct3D11/Stride.VirtualReality.dll": {
-            "assemblyVersion": "4.2.0.2293",
-            "fileVersion": "4.2.0.2293"
+            "assemblyVersion": "4.2.1.2487",
+            "fileVersion": "4.2.1.2487"
           }
         },
-        "native": {
+        "runtimeTargets": {
+          "runtimes/android-arm/native/libstridevr.so": {
+            "rid": "android-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-arm64/native/libstridevr.so": {
+            "rid": "android-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x64/native/libstridevr.so": {
+            "rid": "android-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/android-x86/native/libstridevr.so": {
+            "rid": "android-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/ios/native/libstridevr.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libstridevr.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libstridevr.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
           "runtimes/win-x64/native/libstridevr.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           },
           "runtimes/win-x64/native/openvr_api.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "1.14.15.0"
           },
           "runtimes/win-x64/native/openxr_loader.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "1.0.10.0"
+          },
+          "runtimes/win-x86/native/libstridevr.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-x86/native/openvr_api.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
+            "fileVersion": "1.14.15.0"
           }
         }
       },
@@ -2221,8 +2728,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Collections": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Collections.Concurrent/4.3.0": {
@@ -2323,16 +2829,14 @@
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.IO": "4.3.0",
           "System.Runtime": "4.3.1",
-          "System.Text.Encoding": "4.3.0",
-          "runtime.win.System.Console": "4.3.1"
+          "System.Text.Encoding": "4.3.0"
         }
       },
       "System.Diagnostics.Debug/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.win.System.Diagnostics.Debug": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Diagnostics.DiagnosticSource/4.3.0": {
@@ -2370,16 +2874,14 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Diagnostics.Tools": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Diagnostics.Tracing/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Diagnostics.Tracing": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Drawing.Common/8.0.1": {
@@ -2398,8 +2900,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Globalization": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Globalization.Calendars/4.3.0": {
@@ -2407,8 +2908,7 @@
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Globalization": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Globalization.Calendars": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Globalization.Extensions/4.3.0": {
@@ -2435,8 +2935,7 @@
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1",
           "System.Text.Encoding": "4.3.0",
-          "System.Threading.Tasks": "4.3.0",
-          "runtime.any.System.IO": "4.3.0"
+          "System.Threading.Tasks": "4.3.0"
         }
       },
       "System.IO.Compression/4.3.0": {
@@ -2480,8 +2979,7 @@
           "System.Runtime": "4.3.1",
           "System.Runtime.Handles": "4.3.0",
           "System.Text.Encoding": "4.3.0",
-          "System.Threading.Tasks": "4.3.0",
-          "runtime.win.System.IO.FileSystem": "4.3.0"
+          "System.Threading.Tasks": "4.3.0"
         }
       },
       "System.IO.FileSystem.Primitives/4.3.0": {
@@ -2525,7 +3023,21 @@
           "runtime.native.System.IO.Ports": "8.0.0"
         },
         "runtime": {
+          "lib/net8.0/System.IO.Ports.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/unix/lib/net8.0/System.IO.Ports.dll": {
+            "rid": "unix",
+            "assetType": "runtime",
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          },
           "runtimes/win/lib/net8.0/System.IO.Ports.dll": {
+            "rid": "win",
+            "assetType": "runtime",
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.23.53103"
           }
@@ -2566,7 +3078,15 @@
           "System.CodeDom": "8.0.0"
         },
         "runtime": {
+          "lib/net8.0/System.Management.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.23.53103"
+          }
+        },
+        "runtimeTargets": {
           "runtimes/win/lib/net8.0/System.Management.dll": {
+            "rid": "win",
+            "assetType": "runtime",
             "assemblyVersion": "8.0.0.0",
             "fileVersion": "8.0.23.53103"
           }
@@ -2603,31 +3123,12 @@
           "runtime.native.System.Security.Cryptography.OpenSsl": "4.3.2"
         }
       },
-      "System.Net.NameResolution/4.3.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "7.0.4",
-          "System.Collections": "4.3.0",
-          "System.Diagnostics.Tracing": "4.3.0",
-          "System.Globalization": "4.3.0",
-          "System.Net.Primitives": "4.3.0",
-          "System.Resources.ResourceManager": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "System.Runtime.Extensions": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "System.Runtime.InteropServices": "4.3.0",
-          "System.Security.Principal.Windows": "5.0.0",
-          "System.Threading": "4.3.0",
-          "System.Threading.Tasks": "4.3.0",
-          "runtime.native.System": "4.3.0"
-        }
-      },
       "System.Net.Primitives/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "runtime.win.System.Net.Primitives": "4.3.0"
+          "System.Runtime.Handles": "4.3.0"
         }
       },
       "System.Net.Sockets/4.3.0": {
@@ -2637,8 +3138,7 @@
           "System.IO": "4.3.0",
           "System.Net.Primitives": "4.3.0",
           "System.Runtime": "4.3.1",
-          "System.Threading.Tasks": "4.3.0",
-          "runtime.win.System.Net.Sockets": "4.3.0"
+          "System.Threading.Tasks": "4.3.0"
         }
       },
       "System.Numerics.Vectors/4.5.0": {},
@@ -2649,12 +3149,6 @@
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.1",
           "System.Threading": "4.3.0"
-        }
-      },
-      "System.Private.Uri/4.3.0": {
-        "dependencies": {
-          "Microsoft.NETCore.Platforms": "7.0.4",
-          "Microsoft.NETCore.Targets": "1.1.3"
         }
       },
       "System.Reactive/6.0.0": {
@@ -2671,8 +3165,7 @@
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.IO": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Reflection": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Emit/4.7.0": {},
@@ -2696,8 +3189,7 @@
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Reflection": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Reflection.Extensions": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.Metadata/8.0.0": {
@@ -2721,8 +3213,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Reflection.Primitives": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Reflection.TypeExtensions/4.3.0": {
@@ -2738,15 +3229,13 @@
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Globalization": "4.3.0",
           "System.Reflection": "4.3.0",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Resources.ResourceManager": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Runtime/4.3.1": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
-          "Microsoft.NETCore.Targets": "1.1.3",
-          "runtime.any.System.Runtime": "4.3.0"
+          "Microsoft.NETCore.Targets": "1.1.3"
         }
       },
       "System.Runtime.CompilerServices.Unsafe/6.0.0": {},
@@ -2754,16 +3243,14 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.win.System.Runtime.Extensions": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Runtime.Handles/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Runtime.Handles": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Runtime.InteropServices/4.3.0": {
@@ -2773,8 +3260,7 @@
           "System.Reflection": "4.3.0",
           "System.Reflection.Primitives": "4.3.0",
           "System.Runtime": "4.3.1",
-          "System.Runtime.Handles": "4.3.0",
-          "runtime.any.System.Runtime.InteropServices": "4.3.0"
+          "System.Runtime.Handles": "4.3.0"
         }
       },
       "System.Runtime.InteropServices.RuntimeInformation/4.3.0": {
@@ -2951,8 +3437,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Text.Encoding": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Text.Encoding.CodePages/8.0.0": {},
@@ -2961,8 +3446,7 @@
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.1",
-          "System.Text.Encoding": "4.3.0",
-          "runtime.any.System.Text.Encoding.Extensions": "4.3.0"
+          "System.Text.Encoding": "4.3.0"
         }
       },
       "System.Text.Encodings.Web/8.0.0": {},
@@ -2991,8 +3475,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Threading.Tasks": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.Threading.Tasks.Dataflow/8.0.0": {},
@@ -3006,8 +3489,7 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "7.0.4",
           "Microsoft.NETCore.Targets": "1.1.3",
-          "System.Runtime": "4.3.1",
-          "runtime.any.System.Threading.Timer": "4.3.0"
+          "System.Runtime": "4.3.1"
         }
       },
       "System.ValueTuple/4.5.0": {},
@@ -3103,20 +3585,109 @@
         }
       },
       "Ultz.Native.Assimp/5.4.1": {
-        "native": {
+        "runtimeTargets": {
+          "runtimes/linux-arm/native/libassimp.so.5": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libassimp.so.5": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libassimp.so.5": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-arm64/native/libassimp.5.dylib": {
+            "rid": "osx-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx-x64/native/libassimp.5.dylib": {
+            "rid": "osx-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/Assimp64.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "5.4.1.0"
+          },
           "runtimes/win-x64/native/Assimp64.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "5.4.1.0"
+          },
+          "runtimes/win-x86/native/Assimp32.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "5.4.1.0"
           }
         }
       },
       "Ultz.Native.SDL/2.30.8": {
-        "native": {
+        "runtimeTargets": {
+          "runtimes/ios/native/libSDL2.a": {
+            "rid": "ios",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/iossimulator/native/libSDL2.a": {
+            "rid": "iossimulator",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm/native/libSDL2-2.0.so": {
+            "rid": "linux-arm",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-arm64/native/libSDL2-2.0.so": {
+            "rid": "linux-arm64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/linux-x64/native/libSDL2-2.0.so": {
+            "rid": "linux-x64",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/osx/native/libSDL2-2.0.dylib": {
+            "rid": "osx",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/tvos/native/libSDL2.a": {
+            "rid": "tvos",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/tvossimulator/native/libSDL2.a": {
+            "rid": "tvossimulator",
+            "assetType": "native",
+            "fileVersion": "0.0.0.0"
+          },
+          "runtimes/win-arm64/native/SDL2.dll": {
+            "rid": "win-arm64",
+            "assetType": "native",
+            "fileVersion": "2.30.8.0"
+          },
           "runtimes/win-x64/native/SDL2.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
+            "fileVersion": "2.30.8.0"
+          },
+          "runtimes/win-x86/native/SDL2.dll": {
+            "rid": "win-x86",
+            "assetType": "native",
             "fileVersion": "2.30.8.0"
           }
         }
       },
-      "VL.Audio/1.9.14": {
+      "VL.Audio/1.9.17": {
         "dependencies": {
           "FftSharp": "1.1.4",
           "NAudio": "2.2.1"
@@ -3127,23 +3698,25 @@
             "fileVersion": "1.0.0.0"
           }
         },
-        "native": {
+        "runtimeTargets": {
           "runtimes/win-x64/native/r8bsrc.dll": {
+            "rid": "win-x64",
+            "assetType": "native",
             "fileVersion": "0.0.0.0"
           }
         }
       },
-      "VL.Audio.UI/1.9.14": {
+      "VL.Audio.UI/1.9.17": {
         "dependencies": {
-          "VL.Audio": "1.9.14",
+          "VL.Audio": "1.9.17",
           "VL.ImGui.Skia": "2024.6.4"
         }
       },
       "VL.IO.ArtNet/2.1.2": {},
       "VL.IO.Firmata/1.0.6": {},
-      "VL.IO.Midi/2.0.5": {
+      "VL.IO.Midi/2.1.1": {
         "dependencies": {
-          "Sanford.Multimedia.Midi": "6.6.2",
+          "Sanford.Multimedia.Midi": "6.7.3",
           "managed-midi": "1.10.1"
         },
         "runtime": {
@@ -3153,7 +3726,7 @@
           }
         }
       },
-      "VL.IO.OSC/2.0.4": {
+      "VL.IO.OSC/2.0.8": {
         "runtime": {
           "lib/netstandard2.0/VL.IO.OSC.dll": {
             "assemblyVersion": "1.0.0.0",
@@ -3163,7 +3736,7 @@
       },
       "VL.IO.TUIO/1.1.0": {
         "dependencies": {
-          "VL.IO.OSC": "2.0.4"
+          "VL.IO.OSC": "2.0.8"
         }
       },
       "VL.IO.WebSocket/1.1.0": {
@@ -3171,22 +3744,11 @@
           "WatsonWebsocket": "4.1.2"
         }
       },
-      "Vortice.Mathematics/1.3.3": {
+      "Vortice.Vulkan/2.1.2": {
         "runtime": {
-          "lib/net5.0/Vortice.Mathematics.dll": {
-            "assemblyVersion": "1.3.0.0",
-            "fileVersion": "1.3.3.61031"
-          }
-        }
-      },
-      "Vortice.Vulkan/1.2.167": {
-        "dependencies": {
-          "Vortice.Mathematics": "1.3.3"
-        },
-        "runtime": {
-          "lib/net5.0/Vortice.Vulkan.dll": {
-            "assemblyVersion": "1.2.167.0",
-            "fileVersion": "1.2.167.0"
+          "lib/net8.0/Vortice.Vulkan.dll": {
+            "assemblyVersion": "2.1.2.0",
+            "fileVersion": "2.1.2.0"
           }
         }
       },
@@ -3204,8 +3766,8 @@
         },
         "runtime": {
           "VL.App.Console.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3215,8 +3777,8 @@
         },
         "runtime": {
           "VL.App.WindowsForms.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3231,8 +3793,8 @@
         },
         "runtime": {
           "VL.AppServices.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3244,7 +3806,7 @@
           "Microsoft.Extensions.Logging.Abstractions": "8.0.3",
           "Microsoft.Extensions.ObjectPool": "8.0.0",
           "NuGet.Versioning": "6.12.1",
-          "Stride.Core.Mathematics": "4.2.0.2293",
+          "Stride.Core.Mathematics": "4.2.1.2487",
           "System.Collections.Immutable": "8.0.0",
           "System.Drawing.Common": "8.0.1",
           "System.Interactive": "6.0.1",
@@ -3253,8 +3815,8 @@
         },
         "runtime": {
           "VL.Core.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3264,8 +3826,8 @@
         },
         "runtime": {
           "VL.Core.Commands.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3279,8 +3841,8 @@
         },
         "runtime": {
           "VL.Core.Skia.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3290,8 +3852,8 @@
         },
         "runtime": {
           "VL.Core.Skia.Windows.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3306,8 +3868,8 @@
         },
         "runtime": {
           "VL.CoreLib.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3320,16 +3882,16 @@
         },
         "runtime": {
           "VL.CoreLib.Windows.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.EditingFramework/2024.6.4": {
         "runtime": {
           "VL.EditingFramework.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3339,16 +3901,16 @@
         },
         "runtime": {
           "VL.EditingFramework.Skia.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.Fundamentals/2024.6.4": {
         "runtime": {
           "VL.Fundamentals.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3359,8 +3921,8 @@
         },
         "runtime": {
           "VL.FuzzySearch.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3375,8 +3937,8 @@
         },
         "runtime": {
           "VL.HDE.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3386,8 +3948,8 @@
         },
         "runtime": {
           "VL.ImGui.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3398,22 +3960,22 @@
         },
         "runtime": {
           "VL.ImGui.Skia.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.ImGui.Stride/2024.6.4": {
         "dependencies": {
-          "Stride.Engine": "4.2.0.2293",
+          "Stride.Engine": "4.2.1.2487",
           "VL.ImGui": "2024.6.4",
           "VL.ImGui.Skia": "2024.6.4",
           "VL.Stride.Runtime": "2024.6.4"
         },
         "runtime": {
           "VL.ImGui.Stride.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3427,8 +3989,8 @@
         },
         "runtime": {
           "VL.IO.OSCQuery.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3438,14 +4000,14 @@
         },
         "runtime": {
           "VL.IO.Pipes.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.IO.Redis/2024.6.4": {
         "dependencies": {
-          "StackExchange.Redis": "2.7.4",
+          "StackExchange.Redis": "2.8.31",
           "System.Reactive": "6.0.0",
           "VL.Core": "2024.6.4",
           "VL.CoreLib": "2024.6.4",
@@ -3454,8 +4016,8 @@
         },
         "runtime": {
           "VL.IO.Redis.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3465,8 +4027,8 @@
         },
         "runtime": {
           "VL.LogView.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3479,8 +4041,8 @@
         },
         "runtime": {
           "VL.Serialization.FSPickler.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3490,8 +4052,8 @@
         },
         "runtime": {
           "VL.Serialization.FSPickler.FSharp.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3502,8 +4064,8 @@
         },
         "runtime": {
           "VL.Serialization.MessagePack.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3513,8 +4075,8 @@
         },
         "runtime": {
           "VL.Serialization.Raw.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3529,38 +4091,39 @@
         },
         "runtime": {
           "VL.Skia.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.Stride/2024.6.4": {
         "dependencies": {
+          "VL.Core.Skia.Windows": "2024.6.4",
           "VL.Stride.DefaultAssets": "2024.6.4",
           "VL.Stride.Runtime": "2024.6.4",
           "VL.Stride.Windows": "2024.6.4"
         },
         "runtime": {
           "VL.Stride.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.Stride.DefaultAssets/2024.6.4": {
         "dependencies": {
-          "Stride.Core.Assets.CompilerApp": "4.2.0.2293",
-          "Stride.Engine": "4.2.0.2293",
-          "Stride.Navigation": "4.2.0.2293",
-          "Stride.Particles": "4.2.0.2293",
-          "Stride.Physics": "4.2.0.2293",
-          "Stride.UI": "4.2.0.2293",
-          "Stride.Video": "4.2.0.2293"
+          "Stride.Core.Assets.CompilerApp": "4.2.1.2487",
+          "Stride.Engine": "4.2.1.2487",
+          "Stride.Navigation": "4.2.1.2487",
+          "Stride.Particles": "4.2.1.2487",
+          "Stride.Physics": "4.2.1.2487",
+          "Stride.UI": "4.2.1.2487",
+          "Stride.Video": "4.2.1.2487"
         },
         "runtime": {
           "VL.Stride.DefaultAssets.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3570,24 +4133,25 @@
         },
         "runtime": {
           "VL.Stride.HDE.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
       "VL.Stride.Runtime/2024.6.4": {
         "dependencies": {
-          "Stride.Core": "4.2.0.2293",
-          "Stride.Core.Assets.CompilerApp": "4.2.0.2293",
-          "Stride.Core.Yaml": "4.2.0.2293",
-          "Stride.Engine": "4.2.0.2293",
-          "Stride.Graphics.RenderDocPlugin": "4.2.0.2293",
-          "Stride.Navigation": "4.2.0.2293",
-          "Stride.Particles": "4.2.0.2293",
-          "Stride.Physics": "4.2.0.2293",
-          "Stride.UI": "4.2.0.2293",
-          "Stride.Video": "4.2.0.2293",
-          "Stride.VirtualReality": "4.2.0.2293",
+          "Stride.Assets.Models": "4.2.1.2487",
+          "Stride.Core": "4.2.1.2487",
+          "Stride.Core.Assets.CompilerApp": "4.2.1.2487",
+          "Stride.Core.Yaml": "4.2.1.2487",
+          "Stride.Engine": "4.2.1.2487",
+          "Stride.Graphics.RenderDocPlugin": "4.2.1.2487",
+          "Stride.Navigation": "4.2.1.2487",
+          "Stride.Particles": "4.2.1.2487",
+          "Stride.Physics": "4.2.1.2487",
+          "Stride.UI": "4.2.1.2487",
+          "Stride.Video": "4.2.1.2487",
+          "Stride.VirtualReality": "4.2.1.2487",
           "VL.Core": "2024.6.4",
           "VL.Core.Commands": "2024.6.4",
           "VL.Core.Skia": "2024.6.4",
@@ -3595,8 +4159,8 @@
         },
         "runtime": {
           "VL.Stride.Runtime.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3606,8 +4170,8 @@
         },
         "runtime": {
           "VL.Stride.TextureFX.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3621,16 +4185,16 @@
           "NuGet.PackageManagement": "6.12.1",
           "NuGet.Protocol": "6.12.1",
           "NuGet.Resolver": "6.12.1",
-          "Stride.Assets": "4.2.0.2293",
-          "Stride.Assets.Models": "4.2.0.2293",
-          "Stride.TextureConverter": "4.2.0.2293",
+          "Stride.Assets": "4.2.1.2487",
+          "Stride.Assets.Models": "4.2.1.2487",
+          "Stride.TextureConverter": "4.2.1.2487",
           "VL.Core.Skia": "2024.6.4",
           "VL.Stride.Runtime": "2024.6.4"
         },
         "runtime": {
           "VL.Stride.Windows.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3640,8 +4204,8 @@
         },
         "runtime": {
           "VL.TPL.Dataflow.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "2024.6.4",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3651,8 +4215,8 @@
         },
         "runtime": {
           "VL.Video.dll": {
-            "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "assemblyVersion": "1.1.0-preview",
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3668,7 +4232,7 @@
         "runtime": {
           "VL.Lang.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3676,7 +4240,7 @@
         "runtime": {
           "VL.UI.Core.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3684,7 +4248,7 @@
         "runtime": {
           "VL.UI.Forms.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3692,7 +4256,7 @@
         "runtime": {
           "VL.UI.PatchEditor.Utils.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3716,7 +4280,7 @@
         "runtime": {
           "VL.UI.GraphicalEditor.Skia.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3724,7 +4288,7 @@
         "runtime": {
           "VL.ExplorerTree.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3732,7 +4296,7 @@
         "runtime": {
           "TreeViewEx.dll": {
             "assemblyVersion": "2025.7.0.0",
-            "fileVersion": "2025.7.1.0"
+            "fileVersion": "2025.7.1.2"
           }
         }
       },
@@ -3747,7 +4311,7 @@
     }
   },
   "libraries": {
-    "VL.Meta.Gamma/2025.7.1-0013-g8fcece0df9": {
+    "VL.Meta.Gamma/2025.7.1": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -3856,6 +4420,27 @@
       "sha512": "sha512-0q5wrCI0p+sv2tAGuax3cyX14G29rOVEKKVNGHqL074sR6tmCBsI5ndAB7RUjKOWvnutjjDrk3UFkXGGWk7tWw==",
       "path": "irony.interpreter/1.1.0",
       "hashPath": "irony.interpreter.1.1.0.nupkg.sha512"
+    },
+    "JetBrains.Lifetimes/2024.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-4k66dCqaYTGX+uvtI8AFas2HWLlxIGNOD8aoXypPgH/zjucV4PkfS+hY+1uKaE2QbwZLlgaG85VPmk3s5ps86Q==",
+      "path": "jetbrains.lifetimes/2024.3.0",
+      "hashPath": "jetbrains.lifetimes.2024.3.0.nupkg.sha512"
+    },
+    "JetBrains.RdFramework/2024.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-w4qDOYhdquo0NofaHIUHxzC4fWG9V/tetHrnnQbLsyTJQh4/AoMgYtA5ckz2CrKD9mH2tEtjq9+KnM/Wb+GAIw==",
+      "path": "jetbrains.rdframework/2024.3.0",
+      "hashPath": "jetbrains.rdframework.2024.3.0.nupkg.sha512"
+    },
+    "JetBrains.Rider.PathLocator/1.0.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-o9UBRvL8UD7uVi1j8csWPzb1P+3VpCuBVswRKGrzHPT3SBQnXKMTHhsRxqGlfO0ECfVyRyBdiueI6IxGsz6oSg==",
+      "path": "jetbrains.rider.pathlocator/1.0.12",
+      "hashPath": "jetbrains.rider.pathlocator.1.0.12.nupkg.sha512"
     },
     "K4os.Compression.LZ4/1.3.6": {
       "type": "package",
@@ -4284,12 +4869,12 @@
       "path": "naudio.winmm/2.2.1",
       "hashPath": "naudio.winmm.2.2.1.nupkg.sha512"
     },
-    "Nerdbank.GitVersioning/3.6.133": {
+    "Nerdbank.GitVersioning/3.8.118": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VZWMd5YAeDxpjWjAP/X6bAxnRMiEf6tES/ITN0X5CHJgkWLLeHGmEALivmTAfYM6P+P/3Szy6VCITUAkqjcHVw==",
-      "path": "nerdbank.gitversioning/3.6.133",
-      "hashPath": "nerdbank.gitversioning.3.6.133.nupkg.sha512"
+      "sha512": "sha512-cRaG+ICcECG+CzbtQyUV2WftH7yl2B02AjYGGNScXx8TwYavZYwhCewBTiC0qTcsac7m6AzBUYna5xzBWmTGYw==",
+      "path": "nerdbank.gitversioning/3.8.118",
+      "hashPath": "nerdbank.gitversioning.3.8.118.nupkg.sha512"
     },
     "NETStandard.Library/1.6.1": {
       "type": "package",
@@ -4409,125 +4994,6 @@
       "sha512": "sha512-zG2FApP5zxSx6OcdJQLbZDk2AVlN2BNQD6MorwIfV6gVj0RRxWPEp2LXAxqDGZqeNV1Zp0BNPcNaey/GXmTdvQ==",
       "path": "pipelines.sockets.unofficial/2.2.8",
       "hashPath": "pipelines.sockets.unofficial.2.2.8.nupkg.sha512"
-    },
-    "runtime.any.System.Collections/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-23g6rqftKmovn2cLeGsuHUYm0FD7pdutb0uQMJpZ3qTvq+zHkgmt6J65VtRry4WDGYlmkMa4xDACtaQ94alNag==",
-      "path": "runtime.any.system.collections/4.3.0",
-      "hashPath": "runtime.any.system.collections.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Diagnostics.Tools/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-S/GPBmfPBB48ZghLxdDR7kDAJVAqgAuThyDJho3OLP5OS4tWD2ydyL8LKm8lhiBxce10OKe9X2zZ6DUjAqEbPg==",
-      "path": "runtime.any.system.diagnostics.tools/4.3.0",
-      "hashPath": "runtime.any.system.diagnostics.tools.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Diagnostics.Tracing/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-1lpifymjGDzoYIaam6/Hyqf8GhBI3xXYLK2TgEvTtuZMorG3Kb9QnMTIKhLjJYXIiu1JvxjngHvtVFQQlpQ3HQ==",
-      "path": "runtime.any.system.diagnostics.tracing/4.3.0",
-      "hashPath": "runtime.any.system.diagnostics.tracing.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Globalization/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-sMDBnad4rp4t7GY442Jux0MCUuKL4otn5BK6Ni0ARTXTSpRNBzZ7hpMfKSvnVSED5kYJm96YOWsqV0JH0d2uuw==",
-      "path": "runtime.any.system.globalization/4.3.0",
-      "hashPath": "runtime.any.system.globalization.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Globalization.Calendars/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-M1r+760j1CNA6M/ZaW6KX8gOS8nxPRqloqDcJYVidRG566Ykwcs29AweZs2JF+nMOCgWDiMfPSTMfvwOI9F77w==",
-      "path": "runtime.any.system.globalization.calendars/4.3.0",
-      "hashPath": "runtime.any.system.globalization.calendars.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.IO/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-SDZ5AD1DtyRoxYtEcqQ3HDlcrorMYXZeCt7ZhG9US9I5Vva+gpIWDGMkcwa5XiKL0ceQKRZIX2x0XEjLX7PDzQ==",
-      "path": "runtime.any.system.io/4.3.0",
-      "hashPath": "runtime.any.system.io.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Reflection/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-hLC3A3rI8jipR5d9k7+f0MgRCW6texsAp0MWkN/ci18FMtQ9KH7E2vDn/DH2LkxsszlpJpOn9qy6Z6/69rH6eQ==",
-      "path": "runtime.any.system.reflection/4.3.0",
-      "hashPath": "runtime.any.system.reflection.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Reflection.Extensions/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-cPhT+Vqu52+cQQrDai/V91gubXUnDKNRvlBnH+hOgtGyHdC17aQIU64EaehwAQymd7kJA5rSrVRNfDYrbhnzyA==",
-      "path": "runtime.any.system.reflection.extensions/4.3.0",
-      "hashPath": "runtime.any.system.reflection.extensions.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Reflection.Primitives/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Nrm1p3armp6TTf2xuvaa+jGTTmncALWFq22CpmwRvhDf6dE9ZmH40EbOswD4GnFLrMRS0Ki6Kx5aUPmKK/hZBg==",
-      "path": "runtime.any.system.reflection.primitives/4.3.0",
-      "hashPath": "runtime.any.system.reflection.primitives.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Resources.ResourceManager/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Lxb89SMvf8w9p9+keBLyL6H6x/TEmc6QVsIIA0T36IuyOY3kNvIdyGddA2qt35cRamzxF8K5p0Opq4G4HjNbhQ==",
-      "path": "runtime.any.system.resources.resourcemanager/4.3.0",
-      "hashPath": "runtime.any.system.resources.resourcemanager.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Runtime/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-fRS7zJgaG9NkifaAxGGclDDoRn9HC7hXACl52Or06a/fxdzDajWb5wov3c6a+gVSlekRoexfjwQSK9sh5um5LQ==",
-      "path": "runtime.any.system.runtime/4.3.0",
-      "hashPath": "runtime.any.system.runtime.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Runtime.Handles/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-GG84X6vufoEzqx8PbeBKheE4srOhimv+yLtGb/JkR3Y2FmoqmueLNFU4Xx8Y67plFpltQSdK74x0qlEhIpv/CQ==",
-      "path": "runtime.any.system.runtime.handles/4.3.0",
-      "hashPath": "runtime.any.system.runtime.handles.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Runtime.InteropServices/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-lBoFeQfxe/4eqjPi46E0LU/YaCMdNkQ8B4MZu/mkzdIAZh8RQ1NYZSj0egrQKdgdvlPFtP4STtob40r4o2DBAw==",
-      "path": "runtime.any.system.runtime.interopservices/4.3.0",
-      "hashPath": "runtime.any.system.runtime.interopservices.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Text.Encoding/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-+ihI5VaXFCMVPJNstG4O4eo1CfbrByLxRrQQTqOTp1ttK0kUKDqOdBSTaCB2IBk/QtjDrs6+x4xuezyMXdm0HQ==",
-      "path": "runtime.any.system.text.encoding/4.3.0",
-      "hashPath": "runtime.any.system.text.encoding.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Text.Encoding.Extensions/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-NLrxmLsfRrOuVqPWG+2lrQZnE53MLVeo+w9c54EV+TUo4c8rILpsDXfY8pPiOy9kHpUHHP07ugKmtsU3vVW5Jg==",
-      "path": "runtime.any.system.text.encoding.extensions/4.3.0",
-      "hashPath": "runtime.any.system.text.encoding.extensions.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Threading.Tasks/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-OhBAVBQG5kFj1S+hCEQ3TUHBAEtZ3fbEMgZMRNdN8A0Pj4x+5nTELEqL59DU0TjKVE6II3dqKw4Dklb3szT65w==",
-      "path": "runtime.any.system.threading.tasks/4.3.0",
-      "hashPath": "runtime.any.system.threading.tasks.4.3.0.nupkg.sha512"
-    },
-    "runtime.any.System.Threading.Timer/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-w4ehZJ+AwXYmGwYu+rMvym6RvMaRiUEQR1u6dwcyuKHxz8Heu/mO9AG1MquEgTyucnhv3M43X0iKpDOoN17C0w==",
-      "path": "runtime.any.system.threading.timer/4.3.0",
-      "hashPath": "runtime.any.system.threading.timer.4.3.0.nupkg.sha512"
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.2": {
       "type": "package",
@@ -4683,61 +5149,12 @@
       "path": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl/4.3.2",
       "hashPath": "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512"
     },
-    "runtime.win.Microsoft.Win32.Primitives/4.3.0": {
+    "Sanford.Multimedia.Midi/6.7.3": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-NU51SEt/ZaD2MF48sJ17BIqx7rjeNNLXUevfMOjqQIetdndXwYjZfZsT6jD+rSWp/FYxjesdK4xUSl4OTEI0jw==",
-      "path": "runtime.win.microsoft.win32.primitives/4.3.0",
-      "hashPath": "runtime.win.microsoft.win32.primitives.4.3.0.nupkg.sha512"
-    },
-    "runtime.win.System.Console/4.3.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-vHPXC3B18dxhyipVce8xQT1MQv1o5srYZqBlCNu9p9MNjhgGOntdQh/Xh2X4o7M2F839YUcQiGwu8Q498FyDjg==",
-      "path": "runtime.win.system.console/4.3.1",
-      "hashPath": "runtime.win.system.console.4.3.1.nupkg.sha512"
-    },
-    "runtime.win.System.Diagnostics.Debug/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-hHHP0WCStene2jjeYcuDkETozUYF/3sHVRHAEOgS3L15hlip24ssqCTnJC28Z03Wpo078oMcJd0H4egD2aJI8g==",
-      "path": "runtime.win.system.diagnostics.debug/4.3.0",
-      "hashPath": "runtime.win.system.diagnostics.debug.4.3.0.nupkg.sha512"
-    },
-    "runtime.win.System.IO.FileSystem/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-Z37zcSCpXuGCYtFbqYO0TwOVXxS2d+BXgSoDFZmRg8BC4Cuy54edjyIvhhcfCrDQA9nl+EPFTgHN54dRAK7mNA==",
-      "path": "runtime.win.system.io.filesystem/4.3.0",
-      "hashPath": "runtime.win.system.io.filesystem.4.3.0.nupkg.sha512"
-    },
-    "runtime.win.System.Net.Primitives/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-lkXXykakvXUU+Zq2j0pC6EO20lEhijjqMc01XXpp1CJN+DeCwl3nsj4t5Xbpz3kA7yQyTqw6d9SyIzsyLsV3zA==",
-      "path": "runtime.win.system.net.primitives/4.3.0",
-      "hashPath": "runtime.win.system.net.primitives.4.3.0.nupkg.sha512"
-    },
-    "runtime.win.System.Net.Sockets/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-FK/2gX6MmuLIKNCGsV59Fe4IYrLrI5n9pQ1jh477wiivEM/NCXDT2dRetH5FSfY0bQ+VgTLcS3zcmjQ8my3nxQ==",
-      "path": "runtime.win.system.net.sockets/4.3.0",
-      "hashPath": "runtime.win.system.net.sockets.4.3.0.nupkg.sha512"
-    },
-    "runtime.win.System.Runtime.Extensions/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-RkgHVhUPvzZxuUubiZe8yr/6CypRVXj0VBzaR8hsqQ8f+rUo7e4PWrHTLOCjd8fBMGWCrY//fi7Ku3qXD7oHRw==",
-      "path": "runtime.win.system.runtime.extensions/4.3.0",
-      "hashPath": "runtime.win.system.runtime.extensions.4.3.0.nupkg.sha512"
-    },
-    "Sanford.Multimedia.Midi/6.6.2": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-SZ2SFJbig5i7SB8Li7z9ZAwceVym9U7Gj1aQy1sRXuwmyL4XqwfJ68dCpix2XFhmsyfZPhtEG1xZYnlad8D9lA==",
-      "path": "sanford.multimedia.midi/6.6.2",
-      "hashPath": "sanford.multimedia.midi.6.6.2.nupkg.sha512"
+      "sha512": "sha512-3SIEhAkY7fwPKgtE/2xnOWiMlqB/f/7A7lPcmJvclx3H6GAi2CHhpgiUL9f29r4u3499Xz9J61ity9x2Mq6kiw==",
+      "path": "sanford.multimedia.midi/6.7.3",
+      "hashPath": "sanford.multimedia.midi.6.7.3.nupkg.sha512"
     },
     "ServiceWire/5.5.4": {
       "type": "package",
@@ -4949,194 +5366,194 @@
       "path": "sshnet.security.cryptography/1.3.0",
       "hashPath": "sshnet.security.cryptography.1.3.0.nupkg.sha512"
     },
-    "StackExchange.Redis/2.7.4": {
+    "StackExchange.Redis/2.8.31": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lD6a0lGOCyV9iuvObnzStL74EDWAyK31w6lS+Md9gIz1eP4U6KChDIflzTdtrktxlvVkeOvPtkaYOcm4qjbHSw==",
-      "path": "stackexchange.redis/2.7.4",
-      "hashPath": "stackexchange.redis.2.7.4.nupkg.sha512"
+      "sha512": "sha512-RCHVQa9Zke8k0oBgJn1Yl6BuYy8i6kv+sdMObiH60nOwD6QvWAjxdDwOm+LO78E8WsGiPqgOuItkz98fPS6haQ==",
+      "path": "stackexchange.redis/2.8.31",
+      "hashPath": "stackexchange.redis.2.8.31.nupkg.sha512"
     },
-    "Stride/4.2.0.2293": {
+    "Stride/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hbhO/HuO9Ei/tP1kvuq+yguLtj22vSpYWx8UiMQ874/Ywduf4YRcZ+wXz4QUXtNKldWpE9WQM8/QTndk9aPMwQ==",
-      "path": "stride/4.2.0.2293",
-      "hashPath": "stride.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-TNG7ya+VZND6L3+T5Hrl++faTb0nOLNCm9ZTWruFcMQN5vSnqYiClUl50Eb5nZWXG9pNC5/b9ov5Q1nt4OU1Vw==",
+      "path": "stride/4.2.1.2487",
+      "hashPath": "stride.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Assets/4.2.0.2293": {
+    "Stride.Assets/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-dwfTFVFul/I0VwJz24ryzZls329sVyFZkbGMHa2rUPn4ohiGxznyBpX8W657S6tTk4I+eFngrLMthco9kwhvcA==",
-      "path": "stride.assets/4.2.0.2293",
-      "hashPath": "stride.assets.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-KcSR3rDPzYa8A7szvim8hxlQwX/jsgbnw8V0r5Y4/1UaccJVNcneziW4e9ykZuWMrm+grlToTXTWyzdcEUoUUw==",
+      "path": "stride.assets/4.2.1.2487",
+      "hashPath": "stride.assets.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Assets.Models/4.2.0.2293": {
+    "Stride.Assets.Models/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iKDfmPnzYJY0rbDj4HQz2Ka+i7wPII/z7/ylYz38jq8AlQ5ilDoUd4P4AeIc/dsEMNg84XejBBdx8UNpp01jzg==",
-      "path": "stride.assets.models/4.2.0.2293",
-      "hashPath": "stride.assets.models.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-8gmDTxJIKxzbfHuWBVBCgnoyWTfltsLdgzmw+rr8BNT5LJYj/2lGL2Y1fV0wUJ2qwwqdaiRoFMDXLT+Let8VZw==",
+      "path": "stride.assets.models/4.2.1.2487",
+      "hashPath": "stride.assets.models.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Audio/4.2.0.2293": {
+    "Stride.Audio/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-h8ze1H2w8+bz8bE1lMc/yCu+lRlmU7Fit5vULFrKzdYK3GKYK5/+9fj8cDH83LwmvAZom/96AqOclx3JHfltwA==",
-      "path": "stride.audio/4.2.0.2293",
-      "hashPath": "stride.audio.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-He7nXl/MUD83VeEIlqhm49My+ZNfNJjEoB2EBDNl1NtAAi71q4CLE8U8yMDwJrIuT2d/yqF89f4hJpGsAyGJFg==",
+      "path": "stride.audio/4.2.1.2487",
+      "hashPath": "stride.audio.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core/4.2.0.2293": {
+    "Stride.Core/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-TnDIkZm7LQe6cWUgyUM+uewt8PdyHO0N+v/sZpbGDgtQaW+sbCkalogqUc9TCKrg4/XuZBn8aq3sCU7aLGII/Q==",
-      "path": "stride.core/4.2.0.2293",
-      "hashPath": "stride.core.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-PWg6Uld75/n77IGkbJ74hJ+BJNuVpchXltbTdXcFz9+7DVFPAm0W9h1VXqc2PuS/D2WCsR0hg/XyoV0Iu/egLA==",
+      "path": "stride.core/4.2.1.2487",
+      "hashPath": "stride.core.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Assets/4.2.0.2293": {
+    "Stride.Core.Assets/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-iMWl6CH7Zu8nJ8lMe+VhHy+G3bw87Ei8nrtFs8xGdfGyXZN3PQeCJCOFtNRqyJaGFTaa9skwdmQAYFNCEH/9Eg==",
-      "path": "stride.core.assets/4.2.0.2293",
-      "hashPath": "stride.core.assets.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-L9N6pjFxm9xsuKQJdJklXrSR/llyyK8g8lFB3qNEPu6n4sslE3HonOdN8U7WDDHxYFciGi5BtLUY7RMlrL/7Sw==",
+      "path": "stride.core.assets/4.2.1.2487",
+      "hashPath": "stride.core.assets.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Assets.CompilerApp/4.2.0.2293": {
+    "Stride.Core.Assets.CompilerApp/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-408TVM6o1gwtV9EbWb0RKvN7+b2v7no0qCmIXBBFZqD6AU7r86OZVTJr4nPCtbob3ADgadMSAzecYsB3lVEJMA==",
-      "path": "stride.core.assets.compilerapp/4.2.0.2293",
-      "hashPath": "stride.core.assets.compilerapp.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-bqm97M8Ydyxm/VBvHYg3N7qEM+iqHMVzGGwjRuZvwxOqg0oAdgO3Hd54JupuAbDiQidn1mDniIMadQ7G+mp2ow==",
+      "path": "stride.core.assets.compilerapp/4.2.1.2487",
+      "hashPath": "stride.core.assets.compilerapp.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.BuildEngine.Common/4.2.0.2293": {
+    "Stride.Core.BuildEngine.Common/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-I4LhBZ+M/VSZDTu2btOVfhbSuz4B28Cgtox8ZpJTrkN+a1Sr0H401z6s946lO0zhKlGVJZpzL28wqrSmG2Bk8w==",
-      "path": "stride.core.buildengine.common/4.2.0.2293",
-      "hashPath": "stride.core.buildengine.common.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-lLPfmKaqMNLz1qSAEMLU66JNRwQJ8ZCkeeZ7kgUGmwuXcTXUFP5PwS8B6zWW04hPeb+Ak+rAO6EnWOpTy19CxA==",
+      "path": "stride.core.buildengine.common/4.2.1.2487",
+      "hashPath": "stride.core.buildengine.common.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Design/4.2.0.2293": {
+    "Stride.Core.Design/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+EeuxjJQnVYvDy50QEWA/XqaB/dHimQ4rt+evw3Ck3mMA6RpWvG050rb+yDGfRNdCW+GNTdHMfG2NhgX8paMKw==",
-      "path": "stride.core.design/4.2.0.2293",
-      "hashPath": "stride.core.design.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-bQ6GxCJWXWgchnxDKn9AW92thnaqaJ0uwDzku1MoFzF5TM4O8CBzA6PjIOXZNjht38q20LkevXKqX8WipNHQUw==",
+      "path": "stride.core.design/4.2.1.2487",
+      "hashPath": "stride.core.design.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.IO/4.2.0.2293": {
+    "Stride.Core.IO/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LDgaIr9dwTYVM0snJTyriZI4u1vqhok/les2WEDFG0oA9tHNb0dNEwX+Vctui9wXQFVcP44OKPL7ke/osc5Zxg==",
-      "path": "stride.core.io/4.2.0.2293",
-      "hashPath": "stride.core.io.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-dP1iF7bkcdsn0Y1d//6/jcE0j2Me0rcpJX+WYY1cPayQUohAiuXqzhf/YI6qvEwTzDTShHhHotX0xTFasXAMSg==",
+      "path": "stride.core.io/4.2.1.2487",
+      "hashPath": "stride.core.io.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Mathematics/4.2.0.2293": {
+    "Stride.Core.Mathematics/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EuWIGMi2FDBiwSzXbRqvS0OpHZdEkzldmHK+m/SLN4W3kLoATxxlDj2gCFxx7M6+8pHDzPGi/+unMioC8TOh+w==",
-      "path": "stride.core.mathematics/4.2.0.2293",
-      "hashPath": "stride.core.mathematics.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-yNpyXchT4tAAP9sgk1v1t1+fEo4+K4OtwY23klwXPZt+iMyfGwrQ1gJNTHHUqVcgnTF6zY0XfhBCK3g4cuam7w==",
+      "path": "stride.core.mathematics/4.2.1.2487",
+      "hashPath": "stride.core.mathematics.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.MicroThreading/4.2.0.2293": {
+    "Stride.Core.MicroThreading/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4jdBpDfHiN6LUh4yfENVp8RKiko16nIWBl27tj+ond1lfEt6mD/NmTypui/KCZc6CVKTAkTLl8FIKWJO2a1zYQ==",
-      "path": "stride.core.microthreading/4.2.0.2293",
-      "hashPath": "stride.core.microthreading.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-s1CNMvQgm4tW3YxmU2exbm9GiXHFkA/ut1yQQLjYlVuvsaTMbae5rMGVbyRnrXYpKNstC1IfV32jAMDZjt/0LA==",
+      "path": "stride.core.microthreading/4.2.1.2487",
+      "hashPath": "stride.core.microthreading.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Packages/4.2.0.2293": {
+    "Stride.Core.Packages/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-x8Uzrnxsatzc6dxSxz9xtmdd8sp5Z3lLjzvsMt1ZCimFo9DAhbwURZFBZ2hU42BaCyr83w0zzvelLVFID+FjEA==",
-      "path": "stride.core.packages/4.2.0.2293",
-      "hashPath": "stride.core.packages.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-ulV4abP+PwLLGPgZKQhPozZxkBC5A6iMK0J/Wi7GTxLbt4W44r1rMuZIWTgCILcstSLBYiisCWBevfC0vml0fA==",
+      "path": "stride.core.packages/4.2.1.2487",
+      "hashPath": "stride.core.packages.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.ProjectTemplating/4.2.0.2293": {
+    "Stride.Core.ProjectTemplating/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-86Ug0EjNnj9ETrdg1NG8InK3whwT5RtFN+8GUnvMxM1n6Qj+v57lWtNvV6lCHBAzDnaLge8HkOljjkz4HZEF1A==",
-      "path": "stride.core.projecttemplating/4.2.0.2293",
-      "hashPath": "stride.core.projecttemplating.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-gY432itcxADS69iGc3yQGdAKTLh/dA5Z7zQkOg2s0gSttQofEM3j3+x2JtW3fSXxrJh3nmO1GrDDMMzKTnbnMQ==",
+      "path": "stride.core.projecttemplating/4.2.1.2487",
+      "hashPath": "stride.core.projecttemplating.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Reflection/4.2.0.2293": {
+    "Stride.Core.Reflection/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-lF8kNQayAMrS352f8NYzQjG3ktPYksaN7DLVF7DzgSLmrI4FVfQLcNZp3HsvoYBBXZEoiUczOLn8XMyLPzpMjQ==",
-      "path": "stride.core.reflection/4.2.0.2293",
-      "hashPath": "stride.core.reflection.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-azTjKu6i2COcCTGUaLesTlF5/1Ay93PPkYZ4DneqeSj72uGrwBPEUBgU3c4otHOjeyqSYMuUY9y48nQZLUeU9g==",
+      "path": "stride.core.reflection/4.2.1.2487",
+      "hashPath": "stride.core.reflection.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Serialization/4.2.0.2293": {
+    "Stride.Core.Serialization/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-65SdlbeWIlTF9S/Z80yqCBJok+RXBY0sWZdxB6e5PkpnvnBVhwcelEVn8vhfiVL6LYK7QkRAqpSN+brLdJJwUQ==",
-      "path": "stride.core.serialization/4.2.0.2293",
-      "hashPath": "stride.core.serialization.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-iiDOGKOWdbLiaFL8bMREQLXwUvpH78qAIpdooRGByoGvxXzs9sKRdrNouCOuYXbnxPPy6ktZCJF9TU6W/1XuPw==",
+      "path": "stride.core.serialization/4.2.1.2487",
+      "hashPath": "stride.core.serialization.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Shaders/4.2.0.2293": {
+    "Stride.Core.Shaders/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rQL0YDqIl7+k5bhbwIL5yQukayDBJntIFFUp7jxUpeVdHrmEz20j8nBQF5D+tegpMY8CmHUReJ6/LlZJjF2hWw==",
-      "path": "stride.core.shaders/4.2.0.2293",
-      "hashPath": "stride.core.shaders.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-fn/GC0OR6E9N3Kn0unrMAJHobBiezDWCsxjtqBCgycywGXI+9JES1i546CDEgLTR8Fq/rFp8ItEUv/hzqsUozQ==",
+      "path": "stride.core.shaders/4.2.1.2487",
+      "hashPath": "stride.core.shaders.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Core.Yaml/4.2.0.2293": {
+    "Stride.Core.Yaml/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QA9JF5zMSzcnwJPHX4qmao0zibLyiUMOilHYtvVKF81w4JZMce4+AuaIamdvUlopdE6uXunNCezGuoJ3u2nwCw==",
-      "path": "stride.core.yaml/4.2.0.2293",
-      "hashPath": "stride.core.yaml.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-xpW2f7s91v9/qewP2nrkDEsh1YPMWtK+C/0tAwRGnFtmJfrTjDqXfh3HWpwnzY6uVMAn6zakVqeqMFGMXaWNKg==",
+      "path": "stride.core.yaml/4.2.1.2487",
+      "hashPath": "stride.core.yaml.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Engine/4.2.0.2293": {
+    "Stride.Engine/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-qbQMw0Cl+up0Vs0kbq6Dp2tuns39iH3pnj5p5mosnm/lNj1SRtezsTu25lRNmgx5dWhFjL3Jn5SLd/ye9d2fKA==",
-      "path": "stride.engine/4.2.0.2293",
-      "hashPath": "stride.engine.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-FaL6JtBPCiscLfhic7d0y3gUgEVVRzwmvnviA1bDJrkHSu7BJ14VSDsnqVQa3duJn5DxYn6Lf+ipaHywf0Ikuw==",
+      "path": "stride.engine/4.2.1.2487",
+      "hashPath": "stride.engine.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Games/4.2.0.2293": {
+    "Stride.Games/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-gtV07/Z6nGIZP0CVLCQrqiL+gOrW4cmOaqdOOzu7Zz364CJVQ5Za1tbeV8t+A4M6/D4jTgg3OmHeAhP4m5K7pw==",
-      "path": "stride.games/4.2.0.2293",
-      "hashPath": "stride.games.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-bbQHrKj4odnvHNjX0A+nq+HPDJ8ePNu6ISr+5P3Te4AAKxcD3aygLgoUvWMygRuZDn5YFt+/tXQ1PL7lmgSazA==",
+      "path": "stride.games/4.2.1.2487",
+      "hashPath": "stride.games.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Graphics/4.2.0.2293": {
+    "Stride.Graphics/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HyyyjH+UOwYMoSRB2FOoELlZu0drV/zDwpWUARhZQ+gSIlPlttCLF+2j/dZoO0mNuk15R7HGLAEHTYWVN5q/Yw==",
-      "path": "stride.graphics/4.2.0.2293",
-      "hashPath": "stride.graphics.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-UWCXxz5+kSsrHrPZqo/VC8llhPtbhrqTmUbj+UdTzHNjy8+MyQMRTe1nFfhYtL9eDwnUHs/5LZV39ZI6j3hTmw==",
+      "path": "stride.graphics/4.2.1.2487",
+      "hashPath": "stride.graphics.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Graphics.RenderDocPlugin/4.2.0.2293": {
+    "Stride.Graphics.RenderDocPlugin/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-Vg/CrdegYS91AbzbvjNL50W0/lDK0DZXM5uBiZ8uXKfKD1Mu9OeIRARq37r9X9ZVHot8/7m3o2Nid+MpkQHQaA==",
-      "path": "stride.graphics.renderdocplugin/4.2.0.2293",
-      "hashPath": "stride.graphics.renderdocplugin.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-x5qKKiPnGYD5cJ1RjHnyna3hbwpqdEXSfu8wMT2HGJWdgIzvqJNgl/Eag+em3xVHrL/WLW7zSlcT1+7d64v2hQ==",
+      "path": "stride.graphics.renderdocplugin/4.2.1.2487",
+      "hashPath": "stride.graphics.renderdocplugin.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Importer.3D/4.2.0.2293": {
+    "Stride.Importer.3D/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wZQSEons9EiQQ5M+a8z02om4UiiElyIv1c46BCnNWKuMjdQa7KDydj0aI7OR1cWAm97eUCDR+gdT7mdhh1pACQ==",
-      "path": "stride.importer.3d/4.2.0.2293",
-      "hashPath": "stride.importer.3d.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-wNQhvA9jJdRD/RHRyd7fUHoF5a5/ft2XzpefzuXxQPFbJdhPhH58zHNjb3kgIxoaOkMzQT4NtwOSSl7qWeRskA==",
+      "path": "stride.importer.3d/4.2.1.2487",
+      "hashPath": "stride.importer.3d.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Importer.Common/4.2.0.2293": {
+    "Stride.Importer.Common/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-U3o/uWMTF/ogzykvUL+qSweVzW78fi/kGyCv8tNQWxT0/kvmwQ8PSjnRGYIFoi0pT8GvDMttjNCwm+InCcdaIw==",
-      "path": "stride.importer.common/4.2.0.2293",
-      "hashPath": "stride.importer.common.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-RPtedBF3BZjkFnG2Stdj9PWJS44PV8Q+ewqmEt63UP6ER36p937jJS4zvIFQG//1g/7WUgePQWTSQ9VvZ+YTdw==",
+      "path": "stride.importer.common/4.2.1.2487",
+      "hashPath": "stride.importer.common.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Input/4.2.0.2293": {
+    "Stride.Input/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-md71UKbujdPoDtwQkV+x7frndSaUWpPUZxzChAKhaqFdJ5P3E6btM4IgsUHSfqwGnCfuqiMDq7ZkwOdNn+4JHw==",
-      "path": "stride.input/4.2.0.2293",
-      "hashPath": "stride.input.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-Niowtrfhc93r1ANTGrpvM25GUttahgtxdvt8hBUwuw0gf1oAPjH6nRLoJwkxlEMdfoQkk3KRxeFYvdKBSLj6qw==",
+      "path": "stride.input/4.2.1.2487",
+      "hashPath": "stride.input.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Irony/4.2.0.2293": {
+    "Stride.Irony/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-MgSHsYFBirPM6bMLEhWQzQxmRkWD3dcCumFQR6cRwd6nw71YbgasHBDQVZjmH6hGU9b2McgW8VSqSX/OtaC4wQ==",
-      "path": "stride.irony/4.2.0.2293",
-      "hashPath": "stride.irony.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-aBYclGRs4qsBkRAcL96rRoVBXk2ixMKABfws/uaXsQHeBEnh8arJPb9iL2d6DprECqYhbdMJ/Q+7LTvYr4C8oA==",
+      "path": "stride.irony/4.2.1.2487",
+      "hashPath": "stride.irony.4.2.1.2487.nupkg.sha512"
     },
     "Stride.Mono.TextTemplating/2.1.0-preview-0009-g0d0b6db3ca": {
       "type": "package",
@@ -5145,61 +5562,61 @@
       "path": "stride.mono.texttemplating/2.1.0-preview-0009-g0d0b6db3ca",
       "hashPath": "stride.mono.texttemplating.2.1.0-preview-0009-g0d0b6db3ca.nupkg.sha512"
     },
-    "Stride.Native/4.2.0.2293": {
+    "Stride.Native/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-60kh4lytqi8ZSIcdKyS+rm+q2JmUQG+yX9wn5KwrCD9PZ5JtTzJ1I0xoZgG9nUcEkj+AMhKEe5CTM775HM779g==",
-      "path": "stride.native/4.2.0.2293",
-      "hashPath": "stride.native.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-AcfSX5g2IWOLr8jXXA7Oe/mJZAvme0lDR79Lyy/Cb3RlPHFSuz0+G8iljPZh3DSJYYx9nhpq909Y4bQEYdzF4A==",
+      "path": "stride.native/4.2.1.2487",
+      "hashPath": "stride.native.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Navigation/4.2.0.2293": {
+    "Stride.Navigation/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-sgjwYGcmWWGo6AZwpFz3u6eJLImrs9qgLV3Qmg8oalYtn69vcEMctadb5Clmo994016f5go4kF7kzQO5Gv6eTA==",
-      "path": "stride.navigation/4.2.0.2293",
-      "hashPath": "stride.navigation.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-om2R1UiIu+HVVR+LCdKtev7p91ikUrVlQ2sfgoYdJlCSfkX7AFHydHPK6iAjueXSz5ucM6Sir4514gPVmCCxcg==",
+      "path": "stride.navigation/4.2.1.2487",
+      "hashPath": "stride.navigation.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Particles/4.2.0.2293": {
+    "Stride.Particles/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-4n+a+iDSH2EzypwyyndfMdWr7xgAC3S4ESY1Zeo54PrpS9w9qYBxHohgU1hUXlPnZ2HPqRvwKxJpLTuxzT8OFw==",
-      "path": "stride.particles/4.2.0.2293",
-      "hashPath": "stride.particles.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-WFO4GAVGgsrRNqUT0UocFwcvXVJa4bzhV4KKpVTKw5Bbsfh6pWOod69pjVPAEqIBa0LdruMOGk7wwnAiBqbHXg==",
+      "path": "stride.particles/4.2.1.2487",
+      "hashPath": "stride.particles.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Physics/4.2.0.2293": {
+    "Stride.Physics/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-OfCtGIvjdB6JV1kvi5Jm6h1ERH6K6vPnNbek0ej+6ychM4AXpLTQrHnA014HVSNIylZyfZaJTWnJ0ErrncIdxQ==",
-      "path": "stride.physics/4.2.0.2293",
-      "hashPath": "stride.physics.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-evkRNyLkf1mTiivTMUvwbImAEHwqcqop2KjrrtRiirFxHwVbn//klMnan8TgNfxpGtx+XBKDfeooaJt11IF/0Q==",
+      "path": "stride.physics/4.2.1.2487",
+      "hashPath": "stride.physics.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Rendering/4.2.0.2293": {
+    "Stride.Rendering/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hIHr0g76wnBC9hIvxoSfyknho/qLGLa4mf3cn0Trq5iFLVfm4eHC3l82EbrHWloB/fNIKm96LEBHSMZM9VJcuA==",
-      "path": "stride.rendering/4.2.0.2293",
-      "hashPath": "stride.rendering.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-kG+54bZt7NrbZRbjFaD60yqUgwfXGdIT2xusz4z235rm3r8BZ6Iux4n1HhinZBRBQ0C89NzMz3iTWPoCC7icMw==",
+      "path": "stride.rendering/4.2.1.2487",
+      "hashPath": "stride.rendering.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Shaders/4.2.0.2293": {
+    "Stride.Shaders/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-bMEmXw5/uKegxnNAqKpxDGhD7Pu7QjAwpm8PqdplbFWclK/Og/BVbMSTrjiCCXAxHEH/cNBHXFFoGy+U3QEUwA==",
-      "path": "stride.shaders/4.2.0.2293",
-      "hashPath": "stride.shaders.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-3ABqpLChZjCrLCmZXyWvxPDiAHt51UcMq9GQlvon/6No6lfONkoJFSyfbPpeKmCQ3TC3DT+T4nAbA+ZhUAu06w==",
+      "path": "stride.shaders/4.2.1.2487",
+      "hashPath": "stride.shaders.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Shaders.Compiler/4.2.0.2293": {
+    "Stride.Shaders.Compiler/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-rcbj206qWxIhRjJod1cqUaKzAIkw9tsovWf+k7e4/zndJeniZsdCuhdMzxxQ+IkaCncCSX1WtkZwYsSZqsqr5g==",
-      "path": "stride.shaders.compiler/4.2.0.2293",
-      "hashPath": "stride.shaders.compiler.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-O8eBq6EVc9bSpsd5YUvlkiq1xXwDTUnKbnR/9c6yPydqbJ0iirMYqZymibvaVzkREuuL/03eo0HO6CTgXGSf8w==",
+      "path": "stride.shaders.compiler/4.2.1.2487",
+      "hashPath": "stride.shaders.compiler.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Shaders.Parser/4.2.0.2293": {
+    "Stride.Shaders.Parser/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hAV6YemyCHq5sczPPq8G81O8nrno4xwCNlq03QJCu5EtRF75ucYw+dzxYepYnudl0D8zmstiza8eihZQz141rw==",
-      "path": "stride.shaders.parser/4.2.0.2293",
-      "hashPath": "stride.shaders.parser.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-5/JDKwsPcYtnu+zsU97VFetISFOGc3PBjIzb46bOaSS3vP4CDJcJFICIW10rgk6AqhQlWme6Q9qVqFnybOhb6w==",
+      "path": "stride.shaders.parser/4.2.1.2487",
+      "hashPath": "stride.shaders.parser.4.2.1.2487.nupkg.sha512"
     },
     "Stride.SharpFont/1.0.1": {
       "type": "package",
@@ -5208,47 +5625,47 @@
       "path": "stride.sharpfont/1.0.1",
       "hashPath": "stride.sharpfont.1.0.1.nupkg.sha512"
     },
-    "Stride.SpriteStudio.Offline/4.2.0.2293": {
+    "Stride.SpriteStudio.Offline/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ThsA9Kyzn83ao7jsRsb1fW4QJ5y83fWUi6ou71UQME42znAHNdA/8nmJ9/Elg5y/D8N5XqIbP2WKEZ4A4olVSg==",
-      "path": "stride.spritestudio.offline/4.2.0.2293",
-      "hashPath": "stride.spritestudio.offline.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-bSjPYaHCF2LeVXh8Pb+i03oY+Pa0hhD2XK56vdwQ2UEso1w/BkEn9k06NFJ5i2+3F4w13swJOuP+qMwAb2PJJA==",
+      "path": "stride.spritestudio.offline/4.2.1.2487",
+      "hashPath": "stride.spritestudio.offline.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.SpriteStudio.Runtime/4.2.0.2293": {
+    "Stride.SpriteStudio.Runtime/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-wg1zEQIPUzLLmHfOQ246llSWV0m/vehl2GcTZ2DCQk/8MTd8OCu/REBdGydYCKNAPXjaBbYE8RfyiOhwn8vgDw==",
-      "path": "stride.spritestudio.runtime/4.2.0.2293",
-      "hashPath": "stride.spritestudio.runtime.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-2CUO8JS74T5+C1s61BFjs5MjI2nT0Pk1v2rpHLcXwx8w1DErglHrf48tvRldR/5VfcWSMhRsJMr+7EKsLsiBeA==",
+      "path": "stride.spritestudio.runtime/4.2.1.2487",
+      "hashPath": "stride.spritestudio.runtime.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.TextureConverter/4.2.0.2293": {
+    "Stride.TextureConverter/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-z1Id2e7I4lCG4GLjgpSH6LpBhGuO8nB8DordA84tmhhfDmhis9RazkUIlQYgNP2ze8uOAu54pqtXaQNVatTwwg==",
-      "path": "stride.textureconverter/4.2.0.2293",
-      "hashPath": "stride.textureconverter.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-uSs3nGpwDJEX0Yo9mqnPUKUU8g26rYHWVNnU40GVuKX/fmKp9PXLk5UR4vl5mJ3fW1h6DZXTWvSnV9KNeT8WnA==",
+      "path": "stride.textureconverter/4.2.1.2487",
+      "hashPath": "stride.textureconverter.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.UI/4.2.0.2293": {
+    "Stride.UI/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-jxb7CbN8/sIQC7vmVy85bGwAbw/mV+qEVOLkUliLZQookvJ2KCRbKuXgxzGOGzfWkn9bUVSiIeICem0UyIYbWQ==",
-      "path": "stride.ui/4.2.0.2293",
-      "hashPath": "stride.ui.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-+rT/mnXpAoLbKdfGMLNlFfGWvN+jgLLCgrXImyLi3M8SHFiWuQnVEJF7ckRZORm8uFPWXEQHdUYxe6pXIpgXag==",
+      "path": "stride.ui/4.2.1.2487",
+      "hashPath": "stride.ui.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.Video/4.2.0.2293": {
+    "Stride.Video/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-d8Dj59W09TXPrd9qHNZfZkejrrIwLYzjKKWsq9EQnmWn/voCBgzBiCsIOC9exUBDwOJpkhv7bEwgSp2PAD22Dw==",
-      "path": "stride.video/4.2.0.2293",
-      "hashPath": "stride.video.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-58Ug4AKB4+TDZ6vb1AK7jOheGshLhtyV4J4iUFcVwfWnCIOqbFIVpOLVpBfrh4V1pB704LZmgN5snsy6Q83lmw==",
+      "path": "stride.video/4.2.1.2487",
+      "hashPath": "stride.video.4.2.1.2487.nupkg.sha512"
     },
-    "Stride.VirtualReality/4.2.0.2293": {
+    "Stride.VirtualReality/4.2.1.2487": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-6HvlDuofNKaeOXZO4OcHyU8PiPdpsrDqggMagLLjnn6DuOqOY6DZOr4zLpiAySPpf0aka2x637I6OQmhFvLN9A==",
-      "path": "stride.virtualreality/4.2.0.2293",
-      "hashPath": "stride.virtualreality.4.2.0.2293.nupkg.sha512"
+      "sha512": "sha512-XV16rNVrrj+vsiKIkjWk6vwC5RPVe+a+2TRAOMRi3b0mXpLLYOGmeXOv86O3Fo4xtIG1v3+uWb7y77qHKnGSFA==",
+      "path": "stride.virtualreality/4.2.1.2487",
+      "hashPath": "stride.virtualreality.4.2.1.2487.nupkg.sha512"
     },
     "System.AppContext/4.3.0": {
       "type": "package",
@@ -5537,13 +5954,6 @@
       "path": "system.net.http/4.3.0",
       "hashPath": "system.net.http.4.3.0.nupkg.sha512"
     },
-    "System.Net.NameResolution/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-AFYl08R7MrsrEjqpQWTZWBadqXyTzNDaWpMqyxhb0d6sGhV6xMDKueuBXlLL30gz+DIRY6MpdgnHWlCh5wmq9w==",
-      "path": "system.net.nameresolution/4.3.0",
-      "hashPath": "system.net.nameresolution.4.3.0.nupkg.sha512"
-    },
     "System.Net.Primitives/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -5571,13 +5981,6 @@
       "sha512": "sha512-bdX+80eKv9bN6K4N+d77OankKHGn6CH711a6fcOpMQu2Fckp/Ft4L/kW9WznHpyR0NRAvJutzOMHNNlBGvxQzQ==",
       "path": "system.objectmodel/4.3.0",
       "hashPath": "system.objectmodel.4.3.0.nupkg.sha512"
-    },
-    "System.Private.Uri/4.3.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-I4SwANiUGho1esj4V4oSlPllXjzCZDE+5XXso2P03LW2vOda2Enzh8DWOxwN6hnrJyp314c7KuVu31QYhRzOGg==",
-      "path": "system.private.uri/4.3.0",
-      "hashPath": "system.private.uri.4.3.0.nupkg.sha512"
     },
     "System.Reactive/6.0.0": {
       "type": "package",
@@ -5978,19 +6381,19 @@
       "path": "ultz.native.sdl/2.30.8",
       "hashPath": "ultz.native.sdl.2.30.8.nupkg.sha512"
     },
-    "VL.Audio/1.9.14": {
+    "VL.Audio/1.9.17": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-XcyB09YxJeXNhjyqzEsejrr5u5cq5fxNuz92kHsh/DkpnRV2oKHWXDnkrpRmXgPYasSzHtUlmLnl3I/2eSngCA==",
-      "path": "vl.audio/1.9.14",
-      "hashPath": "vl.audio.1.9.14.nupkg.sha512"
+      "sha512": "sha512-ZQGvLPt/gRYpFicodYb1UqilZLmNw7WcuyhhFM8zWfgO56QOmM9ppZ32Nc65ZAo08vdDGTVyER+3+srFQcz1oA==",
+      "path": "vl.audio/1.9.17",
+      "hashPath": "vl.audio.1.9.17.nupkg.sha512"
     },
-    "VL.Audio.UI/1.9.14": {
+    "VL.Audio.UI/1.9.17": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-LRh9AWXrP2XlSA1vvyS5khHGVRhqK4ro0gu31E4PN9MxhBuPXan6gGlpuBDp8d3oi+QQWR1lvmODNs7eny+ppw==",
-      "path": "vl.audio.ui/1.9.14",
-      "hashPath": "vl.audio.ui.1.9.14.nupkg.sha512"
+      "sha512": "sha512-Wz+bN8qlgoDl5G4wNNwieIIv57BW7FjBUmsYM0gQ9PFxtUgktgpcVMQhfvlbNW6HJRpoHunpPxcaI+GyO7ZHqw==",
+      "path": "vl.audio.ui/1.9.17",
+      "hashPath": "vl.audio.ui.1.9.17.nupkg.sha512"
     },
     "VL.IO.ArtNet/2.1.2": {
       "type": "package",
@@ -6006,19 +6409,19 @@
       "path": "vl.io.firmata/1.0.6",
       "hashPath": "vl.io.firmata.1.0.6.nupkg.sha512"
     },
-    "VL.IO.Midi/2.0.5": {
+    "VL.IO.Midi/2.1.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-EVN9iyIGzIz1/aaxzC0mEn7KTbQxXtmTQ65B81OrYWhXQ+tMdnnoU1mBhRsVobIotvpKK443yp174DC5secaDw==",
-      "path": "vl.io.midi/2.0.5",
-      "hashPath": "vl.io.midi.2.0.5.nupkg.sha512"
+      "sha512": "sha512-UlVVKnvkeuDJRUh8h1OYti9yRZWm2p5nlMJ6k/PUUxuhxreYLZN4YzucqE4s7HbW6KK1iLjDc77yRcvDqESG3Q==",
+      "path": "vl.io.midi/2.1.1",
+      "hashPath": "vl.io.midi.2.1.1.nupkg.sha512"
     },
-    "VL.IO.OSC/2.0.4": {
+    "VL.IO.OSC/2.0.8": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-ryx5xvIZCQl/9E+aJNi0Gz1cBOAQbdzqT1tX9U28MS8mMz+WCj6PV4e+R2LGKnw8M9VQZjfa0KWynkaFiH37Fg==",
-      "path": "vl.io.osc/2.0.4",
-      "hashPath": "vl.io.osc.2.0.4.nupkg.sha512"
+      "sha512": "sha512-52NBmPfgHo/tomRe4LpCGueLjDBMcrZD78raDwCbf8UDdI/1fTvaN2CHfoiSmlDMpa0S2VfBJci9tgtNr0bbnw==",
+      "path": "vl.io.osc/2.0.8",
+      "hashPath": "vl.io.osc.2.0.8.nupkg.sha512"
     },
     "VL.IO.TUIO/1.1.0": {
       "type": "package",
@@ -6034,19 +6437,12 @@
       "path": "vl.io.websocket/1.1.0",
       "hashPath": "vl.io.websocket.1.1.0.nupkg.sha512"
     },
-    "Vortice.Mathematics/1.3.3": {
+    "Vortice.Vulkan/2.1.2": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-+tOhwb2ASvCq+UzMDoXWeGySEkYHrRiTPvu6vP4IIEE4scFZatR4vc0f+vrBy175QIwsWZa1lyDPBFWAk6VSWA==",
-      "path": "vortice.mathematics/1.3.3",
-      "hashPath": "vortice.mathematics.1.3.3.nupkg.sha512"
-    },
-    "Vortice.Vulkan/1.2.167": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-xeria2eH1Vg4YY+c8D4ui+rqV3bc0c5qmcLf3Hqw5OWweP8p9y4xl64S+hN1SpnwFtsGCqtxIZtrCL3RzyUviQ==",
-      "path": "vortice.vulkan/1.2.167",
-      "hashPath": "vortice.vulkan.1.2.167.nupkg.sha512"
+      "sha512": "sha512-+FQellDgWFtw2sHE9IkO6PusEjTilk48VtyWyDM6iHnCZJDlYMgxvCeenUlu15KK1xWIeGRaDF2GMKOFc2mS8g==",
+      "path": "vortice.vulkan/2.1.2",
+      "hashPath": "vortice.vulkan.2.1.2.nupkg.sha512"
     },
     "WatsonWebsocket/4.1.2": {
       "type": "package",

@@ -1002,6 +1002,12 @@
             <param name="vertexNormals">The vertex normals.</param>
             <param name="isLefthanded"></param>
         </member>
+        <member name="T:VL.Stride.Rendering.ModelReader">
+            <summary>
+            Loads a 3D model directly and in a blocking fashion from disk without caching in the Stride asset database.
+            Should do the same as the FileModel node but not tested properly yet.
+            </summary>
+        </member>
         <member name="T:VL.Stride.Rendering.PostFX.ApplyImageEffect">
             <summary>
             Applies an image effect on the given input texture. Some effects also need the depth buffer on the second input.
@@ -1472,12 +1478,13 @@
             A GameSystem that allows to draw to another window or control. Currently only valid on desktop with Windows.Forms.
             </summary>
         </member>
-        <member name="M:VL.Stride.Games.GameWindowRenderer.#ctor(Stride.Core.IServiceRegistry,Stride.Games.GameContext)">
+        <member name="M:VL.Stride.Games.GameWindowRenderer.#ctor(Stride.Core.IServiceRegistry,Stride.Games.GameContext,System.Int32)">
             <summary>
             Initializes a new instance of the <see cref="T:VL.Stride.Games.GameWindowRenderer" /> class.
             </summary>
             <param name="registry">The registry.</param>
             <param name="gameContext">The window context.</param>
+            <param name="inputPriority">The priority of the input devices. Larger means higher priority when selecting the first device of some type.</param>
         </member>
         <member name="P:VL.Stride.Games.GameWindowRenderer.GameContext">
             <summary>
@@ -1595,6 +1602,13 @@
             </summary>
             <value>The preferred back buffer format.</value>
         </member>
+        <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredOutputColorSpace">
+            <summary>
+            Gets or sets the preferred presenter output color space. Can be used to render to HDR monitors.
+            See: https://learn.microsoft.com/en-us/windows/win32/direct3darticles/high-dynamic-range
+            </summary>
+            <value>The preferred presenter output color space.</value>
+        </member>
         <member name="P:VL.Stride.Games.GameWindowRendererManager.PreferredBackBufferHeight">
             <summary>
             Gets or sets the height of the preferred back buffer.
@@ -1665,6 +1679,11 @@
             <summary>
             As per https://github.com/stride3d/stride/pull/497 this is the entry point to modify the update logic.
             This is the same code as in the base class except that the elapsed time is given by our clock.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Games.WindowExtensions.GetWindowPositionInScreenCoordinates(Stride.Games.GameWindow)">
+            <summary>
+            The WinForms based implementation differs from the SDL based one.
             </summary>
         </member>
         <member name="T:VL.Stride.Graphics.BlendStateDescriptions">
@@ -2040,6 +2059,33 @@
             <param name="object">The object.</param>
             <returns>The size of the object in bytes.</returns>
         </member>
+        <member name="T:VL.Stride.PixelFormatHelper">
+            <summary>
+            Helper class for converting between Stride PixelFormat, SKColorType, and DXGI_FORMAT.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.PixelFormatHelper.ToSKColorType(Stride.Graphics.PixelFormat)">
+            <summary>
+            Converts a Stride PixelFormat to the equivalent SKColorType.
+            </summary>
+            <param name="format">The Stride pixel format.</param>
+            <returns>The equivalent SKColorType, or SKColorType.Unknown if no mapping exists.</returns>
+        </member>
+        <member name="M:VL.Stride.PixelFormatHelper.ToDXGIFormat(Stride.Graphics.PixelFormat)">
+            <summary>
+            Converts a Stride PixelFormat to the equivalent DXGI_FORMAT.
+            </summary>
+            <param name="format">The Stride pixel format.</param>
+            <returns>The equivalent DXGI_FORMAT.</returns>
+            <exception cref="T:System.NotSupportedException">Thrown when the format is not supported.</exception>
+        </member>
+        <member name="M:VL.Stride.PixelFormatHelper.IsSupported(Stride.Graphics.PixelFormat)">
+            <summary>
+            Checks if the given pixel format is supported for Skia rendering.
+            </summary>
+            <param name="format">The Stride pixel format.</param>
+            <returns>True if the format is supported, false otherwise.</returns>
+        </member>
         <member name="P:VL.Stride.ProfilerInteraction.RefreshTime">
             <summary>
             The time between two refreshes of the profiling information in milliseconds.
@@ -2408,6 +2454,42 @@
             Renders the Skia layer into the Stride provided surface.
             </summary>
         </member>
+        <member name="T:VL.Stride.SkiaTexture">
+            <summary>
+            Renders Skia content into Stride textures.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.SkiaTexture.Update(VL.Skia.ILayer,Stride.Core.Mathematics.Int2,VL.Skia.CommonSpace,System.Boolean,Stride.Core.Mathematics.Color4,Stride.Graphics.PixelFormat,System.Boolean)">
+            <summary>
+            Renders a Skia layer to a Stride texture.
+            </summary>
+            <param name="input">The Skia layer to render.</param>
+            <param name="size">The size of the output texture.</param>
+            <param name="space">The coordinate space to use.</param>
+            <param name="clear">Whether to clear the texture before rendering.</param>
+            <param name="clearColor">The color to use when clearing.</param>
+            <param name="format">The pixel format of the output texture.</param>
+            <param name="useDedicatedDevice">Whether to use a dedicated D3D11 device for rendering. Slightly reduced performance but might help stability on some hardware.</param>
+            <returns>The rendered Stride texture.</returns>
+        </member>
+        <member name="T:VL.Stride.SkiaTexture.DedicatedRenderer">
+            <summary>
+            Per-app-host service that renders Skia textures in batch during Stride's draw call.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.SkiaTexture.DefaultRenderer">
+            <summary>
+            Per-app-host service that renders Skia textures in batch during Stride's draw call.
+            </summary>
+        </member>
+        <member name="T:VL.Stride.Textures.TextureToSkImage">
+            <summary>
+            Creates an image from the given texture. Note that the tooltip does not update correctly in case the texture mutates.
+            </summary>
+            <remarks>
+            In case the texture is in sRGB format and the current color space is linear, a non-sRGB copy of the texture will be created internally.
+            </remarks>
+        </member>
         <member name="M:VL.Stride.Utils.ImageUtils.ToTexture(VL.Lib.Basics.Imaging.IImage,Stride.Graphics.GraphicsDevice,Stride.Graphics.TextureFlags,Stride.Graphics.GraphicsResourceUsage)">
             <summary>
             Copies the image into a new texture of same size and format.
@@ -2476,6 +2558,16 @@
             <param name="can32BitIndex">A flag stating if 32 bit index buffers are allowed</param>
             <param name="commandList"></param>
             <returns>The list of merged meshes.</returns>
+        </member>
+        <member name="M:VL.Stride.Utils.UPathUtils.CreateUFile(System.String)">
+            <summary>
+            Creates a new <see cref="T:Stride.Core.IO.UFile"/> from the specified string value. Takes care of network paths.
+            </summary>
+        </member>
+        <member name="M:VL.Stride.Utils.UPathUtils.CreateUDirectory(System.String)">
+            <summary>
+            Creates a <see cref="T:Stride.Core.IO.UDirectory"/> instance from the specified string value. Takes care of network paths.
+            </summary>
         </member>
         <member name="M:VL.Stride.Video.TextureToVideoStream.DrawCore(Stride.Rendering.RenderDrawContext)">
             <inheritdoc />

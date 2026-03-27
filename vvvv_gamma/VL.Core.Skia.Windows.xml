@@ -18,6 +18,72 @@
             Shared helper that processes pointer/touch messages and generates TouchNotifications.
             </summary>
         </member>
+        <member name="T:VL.Core.Windows.Win32CustomTitleBar">
+            <summary>
+            Provides Win32 custom title bar functionality for Windows Forms controls.
+            This class handles the non-client area extension into the title bar and button hit testing,
+            but delegates the actual drawing to a separate renderer interface.
+            Port of https://github.com/grassator/win32-window-custom-titlebar
+            </summary>
+        </member>
+        <member name="F:VL.Core.Windows.Win32CustomTitleBar.extendIntoTitleBar">
+            <summary>
+            Whether we want to extend the client area into the title bar. Can be changed at runtime.
+            </summary>
+        </member>
+        <member name="F:VL.Core.Windows.Win32CustomTitleBar.interactionWidth">
+            <summary>
+            Width in pixels from the left edge of the title bar where clicks are treated as client area clicks
+            instead of dragging the window. Default is 0 (no interaction area).
+            </summary>
+        </member>
+        <member name="P:VL.Core.Windows.Win32CustomTitleBar.ExtendIntoTitleBar">
+            <summary>
+            Enables custom drawing and handling of the title bar (extending the client area into the standard non-client area).
+            Automatically ignored while the form is in fullscreen (borderless) mode.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Windows.Win32CustomTitleBar.IsFullScreen">
+            <summary>
+            Gets whether the form is currently in fullscreen mode.
+            This should be provided by the form implementation.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Windows.Win32CustomTitleBar.InteractionWidth">
+            <summary>
+            Gets or sets the width in device-independent pixels (DIP) from the left edge of the title bar where clicks are treated 
+            as normal client area clicks instead of dragging the window. When set to a value greater than 0,
+            this area allows normal mouse interaction with controls/content rendered in that region of the title bar.
+            </summary>
+            <remarks>
+            This is useful when you want to place interactive elements (like buttons, tabs, or menus) in the left 
+            portion of the custom title bar while still allowing the rest of the title bar to be draggable.
+            The value is automatically scaled based on the current DPI of the monitor the window is on.
+            A minimal draggable space is always preserved beside the window control buttons to ensure the window can be moved.
+            </remarks>
+        </member>
+        <member name="M:VL.Core.Windows.Win32CustomTitleBar.ProcessMessage(System.Windows.Forms.Message@)">
+            <summary>
+            Process Windows messages. Call this from the form's WndProc override.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Windows.Win32CustomTitleBar.InitializeCustomMenu">
+            <summary>
+            Call this when the form handle is created to insert custom menu items.
+            </summary>
+        </member>
+        <member name="M:VL.Core.Windows.Win32CustomTitleBar.UpdateTitleBarButtonRects">
+            <summary>
+            Update the title bar button rectangles. Call this on form resize.
+            </summary>
+        </member>
+        <member name="P:VL.Core.Windows.Win32CustomTitleBar.ShouldDrawTitleBarButtons">
+            <summary>
+            Gets a value indicating whether title bar buttons should be drawn.
+            </summary>
+            <remarks>Title bar buttons are drawn when the application extends into the title bar and any
+            of the title bar buttons (close, maximize, or minimize) are hovered.</remarks>
+        </member>
         <member name="T:Windows.Win32.Foundation.HRESULT">
             <remarks>
             <para>The **HRESULT** data type is the same as the [SCODE](scode.md) data type. An **HRESULT** value consists of the following fields: - A 1-bit code indicating severity, where zero represents success and 1 represents failure. - A 4-bit reserved value. - An 11-bit code indicating responsibility for the error or warning, also known as a facility code. - A 16-bit code describing the error or warning. Most MAPI interface methods and functions return **HRESULT** values to provide detailed cause formation. **HRESULT** values are also used widely in OLE interface methods. OLE provides several macros for converting between **HRESULT** values and **SCODE** values, another common data type for error handling. > [!NOTE] > In 64-bit MAPI, **HRESULT** is still a 32-bit value. For information about the OLE use of **HRESULT** values, see the  *OLE Programmer's Reference*. For more information about the use of these values in MAPI, see [Error Handling](error-handling-in-mapi.md) and any of the following interface methods: [IABLogon::GetLastError](iablogon-getlasterror.md) [IMAPISupport::GetLastError](imapisupport-getlasterror.md) [IMAPIControl::GetLastError](imapicontrol-getlasterror.md) [IMAPITable::GetLastError](imapitable-getlasterror.md) [IMAPIProp::GetLastError](imapiprop-getlasterror.md) [IMAPIViewAdviseSink::OnPrint](imapiviewadvisesink-onprint.md)</para>
